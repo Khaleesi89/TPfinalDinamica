@@ -1,5 +1,5 @@
-CREATE DATABASE tp4dinamica;
-use tp4dinamica;
+CREATE DATABASE tpFinal;
+use tpFinal;
 
 /* CREATE TABLE profesor (
     usuario varchar(20) NOT NULL,
