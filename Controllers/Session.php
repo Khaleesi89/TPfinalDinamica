@@ -64,6 +64,17 @@ class Session {
         $validado = false;
         $usuario = $this->getUsuNombre();
         $pass = $this->getUsuPass();
+
+        $filtroNombre = ['usuNombre' => $usuario];
+        $filtroPass = ['usuPass' => $pass];
+        $query = [
+            'usuNombre' => $usuario,
+            'usuPass' => $pass
+        ];
+
+        $controlUsuario = new ControlUsuario();
+        $lista = $controlUsuario->buscar( $query );
+
     }
 
     /**
