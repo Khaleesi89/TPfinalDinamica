@@ -64,4 +64,228 @@ class Usuario extends db{
     public static function setMensajeStatic($mensajeStatic){
         Usuario::$mensajeStatic = $mensajeStatic;
     }
+
+    public function cargar($idusuario, $usnombre, $uspass, $usmail, $deshabilitado){
+        $this->setIdusuario($idusuario);
+        $this->setUsnombre($usnombre);
+        $this->setUspass($uspass);
+        $this->setUsmail($usmail);
+        $this->setUsdeshabilitado($deshabilitado);
+    }
+
+    public function buscar($arrayBusqueda){
+        $stringBusqueda = $this->setearBusquedaUsuario($arrayBusqueda);
+        //seteo de respuesta
+        $respuesta['respuesta'] = false;
+        $respuesta['errorInfo'] = '';
+        $respuesta['codigoError'] = null;
+        //busqueda en si
+        $sql = "SELECT * FROM usuario";
+        if($stringBusqueda != ''){
+            $sql.= ' WHERE ';
+            $sql.= $stringBusqueda;
+        }
+        $base = new db();
+        try {
+            if($base->Iniciar()){
+                if($base->Ejecutar($sql)){
+                    if($row2 = $base->Registro()){
+                        $this->setIdusuario($row2['idusuario']);
+                        $this->setUsnombre($row2['usunombre']);
+                        $this->setUspass($row2['usupass']);
+                        $this->setUsmail($row2['usmail']);
+                        $this->setUsdeshabilitado($row2['usdeshabilitado']);
+                        $respuesta['respuesta'] = true;
+                    }
+                }else{
+                    $this->setMensajeOp($base->getError());
+                    $respuesta['respuesta'] = false;
+                    $respuesta['errorInfo'] = 'Hubo un error con la consulta';
+                    $respuesta['codigoError'] = 1;
+                }
+            }else{
+                $this->setMensajeOp($base->getError());
+                $respuesta['respuesta'] = false;
+                $respuesta['errorInfo'] = 'Hubo un error con la conexión de la base de datos';
+                $respuesta['codigoError'] = 0;
+            }
+        } catch (\Throwable $th) {
+            $respuesta['respuesta'] = false;
+            $respuesta['errorInfo'] = $th;
+            $respuesta['codigoError'] = 3;
+        }
+        $base = null;
+        return $respuesta;
+    }
+
+    public function insertar(){
+        $respuesta['respuesta'] = false;
+        $respuesta['errorInfo'] = '';
+        $respuesta['codigoError'] = null;
+        $base = new db();
+        $sql = "INSERT INTO usuario VALUES(DEFAULT, {$this->getUsnombre()}', {$this->getUspass()}', {$this->getUsmail()}', NULL)";
+        try {
+            if($base->Iniciar()){
+                if($base->Ejecutar($sql)){
+                    $respuesta['respuesta'] = true;
+                }else{
+                    $this->setMensajeOp($base->getError());
+                    $respuesta['respuesta'] = false;
+                    $respuesta['errorInfo'] = 'Hubo un error con la consulta';
+                    $respuesta['codigoError'] = 1; 
+                }
+            }else{
+                $this->setMensajeOp($base->getError());
+                $respuesta['respuesta'] = false;
+                $respuesta['errorInfo'] = 'Hubo un error con la conexión de la base de datos';
+                $respuesta['codigoError'] = 0; 
+            }
+        } catch (\Throwable $th) {
+            $respuesta['respuesta'] = false;
+            $respuesta['errorInfo'] = $th;
+            $respuesta['codigoError'] = 3;
+        }
+        $base = null;
+        return $respuesta;
+    }
+
+    //Antes de usar el modificar se debe utilizar el buscar.
+    //En el controlador fijarse si no hay un usuario con el mismo nombre
+    //En el controlador fijarse si hay un id de rol 
+    public function modificar(){
+        //seteo de respuesta
+        $respuesta['respuesta'] = false;
+        $respuesta['errorInfo'] = '';
+        $respuesta['codigoError'] = null;
+        $base = new db();
+        $sql = "UPDATE usuario SET usnombre = '{$this->getUsnombre()}', uspass = '{$this->getUspass()}', usmail = '{$this->getUsmail()}' WHERE idusuario = {$this->getIdusuario()}";
+        try {
+            if( $base->Iniciar() ){
+                if( $base->Ejecutar($sql) ){
+                    $respuesta['respuesta'] = true;
+                } else {
+                    $this->setMensajeOp( $base->getError() );
+                    $respuesta['respuesta'] = false;
+                    $respuesta['errorInfo'] = 'Hubo un error con la consulta';
+                    $respuesta['codigoError'] = 1;
+                }
+            } else {
+                $this->setMensajeOp( $base->getError() );
+                $respuesta['respuesta'] = false;
+                $respuesta['errorInfo'] = 'Hubo un error con la conexión de la base de datos';
+                $respuesta['codigoError'] = 0;
+            }
+        } catch( \Throwable $th ){
+            $respuesta['respuesta'] = false;
+            $respuesta['errorInfo'] = $th;
+            $respuesta['codigoError'] = 3;
+        }
+        $base = null;
+        return $respuesta;
+    }
+
+    //Usar el buscar antes del eliminar
+    public function eliminar(){
+        //seteo de respuesta
+        $respuesta['respuesta'] = false;
+        $respuesta['errorInfo'] = '';
+        $respuesta['codigoError'] = null;
+        $base = new db();
+        //obtener fecha actual
+        //$fecha = getdate();
+        //$fechaPosta = $fecha['mday'].':'.$fecha['mon'].':'.$fecha['year'];
+        $sql = "UPDATE usuario SET usdeshabilitado = CURRENT_TIMESTAMP WHERE idusuario = {$this->getIdusuario()}";
+        try {
+            if($base->Iniciar()){
+                if($base->Ejecutar($sql)){
+                    $respuesta['respuesta'] = true;
+                }else{
+                    $this->setMensajeOp($base->getError());
+                    $respuesta['respuesta'] = false;
+                    $respuesta['errorInfo'] = 'Hubo un error con la consulta';
+                    $respuesta['codigoError'] = 1;
+                }
+            }else{
+                $this->setMensajeOp($base->getError());
+                $respuesta['respuesta'] = false;
+                $respuesta['errorInfo'] = 'Hubo un error con la conexión de la base de datos';
+                $respuesta['codigoError'] = 0;
+            }
+        } catch (\Throwable $th) {
+            $respuesta['respuesta'] = false;
+            $respuesta['errorInfo'] = $th;
+            $respuesta['codigoError'] = 3;
+        }
+        $base = null;
+        return $respuesta;
+    }
+
+    /*Se pasara un array asociativo que contenga
+    $arrayBusqueda['idusuario'] = valor/null,
+    $arrayBusqueda['usnombre'] = valor/null,
+    $arrayBusqueda['uspass'] = valor/null,
+    $arrayBusqueda['usmail'] = valor/null,
+    $arrayBusqueda['usdeshabilitado'] = valor/null
+    */
+    public static function listar($arrayBusqueda){
+        //seteo de respuesta
+        $respuesta['respuesta'] = false;
+        $respuesta['errorInfo'] = '';
+        $respuesta['codigoError'] = null;
+        $arregloUsuario = null;
+        $base = new db();
+        //seteo de busqueda
+        $stringBusqueda = Usuario::setearBusquedaStaticUsuario($arrayBusqueda);
+        $sql = "SELECT * FROM usuario";
+        if($stringBusqueda != ''){
+            $sql.= ' WHERE ';
+            $sql.= $stringBusqueda;
+        }
+        try {
+            if($base->Iniciar()){
+                if($base->Ejecutar($sql)){
+                    $arregloUsuario = array();
+                    while($row2 = $base->Registro()){
+                        $objUsuario = new Usuario();
+                        $objUsuario->setIdusuario($row2['idusuario']);
+                        $objUsuario->setUsnombre($row2['usunombre']);
+                        $objUsuario->setUspass($row2['usupass']);
+                        $objUsuario->setUsmail($row2['usmail']);
+                        $objUsuario->setUsdeshabilitado($row2['usdeshabilitado']);
+                        array_push($arregloUsuario, $objUsuario);
+                    }
+                    $respuesta['respuesta'] = true;
+                }else{
+                    Usuario::setMensajeStatic($base->getError());
+                    $respuesta['respuesta'] = false;
+                    $respuesta['errorInfo'] = 'Hubo un error con la consulta';
+                    $respuesta['codigoError'] = 1;
+                }
+            }else{
+                Usuario::setMensajeStatic($base->getError());
+                $respuesta['respuesta'] = false;
+                $respuesta['errorInfo'] = 'Hubo un error con la conexión de la base de datos';
+                $respuesta['codigoError'] = 0;
+            }
+        } catch (\Throwable $th) {
+            $respuesta['respuesta'] = false;
+            $respuesta['errorInfo'] = $th;
+            $respuesta['codigoError'] = 3;
+        }
+        $base = null;
+        if($respuesta['respuesta']){
+            $respuesta['array'] = $arregloUsuario;
+        }
+        return $respuesta;
+    }
+
+    public function dameDatos(){
+        $data = [];
+        $data['idusuario'] = $this->getIdusuario();
+        $data['usnombre'] = $this->getUsnombre();
+        $data['uspass'] = $this->getUspass();
+        $data['usmail'] = $this->getUsmail();
+        $data['usdeshabilitado'] = $this->getUsdeshabilitado();
+        return $data;
+    }
 }

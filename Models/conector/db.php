@@ -15,7 +15,7 @@ class db extends PDO {
     public function __construct() {
         $this->engine = 'mysql';
         $this->host = 'localhost';
-        $this->database = 'tp4dinamica';
+        $this->database = 'bdcarritocompras';
         $this->user = 'root';
         $this->pass = '';
         $this->debug = true;
