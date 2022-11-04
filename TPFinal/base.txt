@@ -1,0 +1,13 @@
+Tablas sin fk:
+compraestadotipo
+producto
+rol
+usuario
+
+Tablas con fk:
+compra
+compraestado
+compraitem
+menu(propia)
+menurol
+usuariorol
