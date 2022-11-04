@@ -2,31 +2,32 @@
 require_once('../config.php');
 class Rol extends db {
     use Condicion;
+
     //Atributos
-    private $idrol;
-    private $rodescripcion;
+    private $idRol;
+    private $nombreRol;
     private $mensajeOp;
     static $mensajeStatic;
 
-    //Constructor
-    public function __construct(){
-        $this->idrol = '';
-        $this->rodescripcion = '';
+    // Constructor
+    public function __construct() {
+        $this->idRol = '';
+        $this->nombreRol = '';
         $this->mensajeOp = '';
     }
 
-    //Getters y setters
-    public function getIdrol(){
-        return $this->idrol;
+    // Getters & Setters
+    public function getIdRol(){
+        return $this->idRol;
     }
-    public function setIdrol($idrol){
-        $this->idrol = $idrol;
+    public function setIdRol($idRol){
+        $this->idRol = $idRol;
     }
-    public function getRodescripcion(){
-        return $this->rodescripcion;
+    public function getNombreRol(){
+        return $this->nombreRol;
     }
-    public function setRodescripcion($rodescripcion){
-        $this->rodescripcion = $rodescripcion;
+    public function setNombreRol($nombreRol){
+        $this->nombreRol = $nombreRol;
     }
     public function getMensajeOp(){
         return $this->mensajeOp;
@@ -41,23 +42,24 @@ class Rol extends db {
         Rol::$mensajeStatic = $mensajeStatic;
     }
 
-    public function cargar($idrol, $rodescripcion){
-        $this->setIdrol($idrol);
-        $this->setRodescripcion($rodescripcion);
+    // Cargar
+    public function cargar( $idRol, $nombreRol){
+        $this->setIdRol($idRol);
+        $this->setNombreRol($nombreRol);
     }
 
     public function buscar($id){
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
-        $sql = "SELECT * FROM rol WHERE idrol=$id";
+        $sql = "SELECT * FROM rol WHERE idRol=$id";
         $base = new db();
         try {
             if($base->Iniciar()){
                 if($base->Ejecutar($sql)){
                     if($row2 = $base->Registro()){
-                        $this->setIdrol($row2['idrol']);
-                        $this->setRodescripcion($row2['rodescripcion']);                       
+                        $this->setIdRol($row2['idRol']);
+                        $this->setNombreRol($row2['nombreRol']);                       
                         $respuesta['respuesta'] = true;
                     }
                 }else{
@@ -86,7 +88,8 @@ class Rol extends db {
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
         $base = new db();
-        $sql = "INSERT INTO rol VALUES(DEFAULT, '{$this->getRodescripcion()}')";
+        $sql = "INSERT INTO rol VALUES(DEFAULT, '{$this->getNombreRol()}')";
+        //var_dump($sql);
         try {
             if($base->Iniciar()){
                 if($base->Ejecutar($sql)){
@@ -119,7 +122,7 @@ class Rol extends db {
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
         $base = new db();
-        $sql = "UPDATE rol SET rodescripcion = '{$this->getRodescripcion()}' WHERE idrol = {$this->getIdrol()}";
+        $sql = "UPDATE rol SET nombreRol = '{$this->getNombreRol()}' WHERE idRol = {$this->getIdRol()}";
         try {
             if( $base->Iniciar() ){
                 if( $base->Ejecutar($sql) ){
@@ -152,7 +155,7 @@ class Rol extends db {
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
         $base = new db();
-        $sql = "DELETE FROM rol WHERE idrol = {$this->getIdrol()}";
+        $sql = "DELETE FROM rol WHERE idRol = {$this->getIdRol()}";
         try {
             if($base->Iniciar()){
                 if($base->Ejecutar($sql)){
@@ -185,14 +188,14 @@ class Rol extends db {
         $respuesta['codigoError'] = null;
         $arregloRoles = null;
         $base = new db();
-        $sql = "SELECT * FROM rol";
+        $sql = "SELECT * FROM notas";
         try {
             if($base->Iniciar()){
                 if($base->Ejecutar($sql)){
                     $arregloRoles = array();
                     while($row2 = $base->Registro()){
-                        $idRol = $row2['idrol'];
-                        $nombreRol = $row2['rodescripcion'];
+                        $idRol = $row2['idRol'];
+                        $nombreRol = $row2['nombreRol'];
                         $rol = new Rol();
                         $rol->cargar($idRol, $nombreRol);
                         array_push($arregloRoles, $rol);
@@ -222,10 +225,14 @@ class Rol extends db {
         return $respuesta;
     }
 
+    
     public function dameDatos(){
         $data = [];
-        $data['idrol'] = $this->getIdrol();
-        $data['rodescripcion'] = $this->getRodescripcion();
+        $data['idRol'] = $this->getIdRol();
+        $data['nombreRol'] = $this->getNombreRol();
         return $data;
     }
+
+
+    
 }
