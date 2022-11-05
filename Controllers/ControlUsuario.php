@@ -13,7 +13,7 @@ class ControlUsuario extends MasterController {
         return $data;
     }
 
-    public function buscar() {
+    public function buscarId() {
         $idBusqueda = $this->buscarKey( 'id' );
         if( $idBusqueda == false ){
             // error
@@ -35,4 +35,33 @@ class ControlUsuario extends MasterController {
     public function insertar( $data ){
         
     }
+
+    public function modificacionChetita() {
+        $rta = $this->buscarId();
+        $usuario = $rta['array'];
+
+        $usNombre = $this->buscarKey( 'usnombre' );
+        $usPass = $this->buscarKey( 'uspass' );
+        $usMail = $this->buscarKey( 'usmail' );
+        $usDeshabilitado = $this->buscarKey( 'usdeshabilitado' );
+
+        $usuario->setUsnombre( $usNombre );
+        $usuario->setUspass( $usPass );
+        $usuario->setUsmail( $usMail );
+        $usuario->setUsdeshabilitado( $usDeshabilitado );
+
+        $respuesta = $usuario->modificar();
+        return $respuesta;
+    }
+
+    public function baja( $param ){
+        $bandera = false;
+        if( $param->getId() !== null ){
+            if( $param->eliminar() ){
+                $bandera = true;
+            }
+        }
+        return $bandera;
+    }
+
 }
