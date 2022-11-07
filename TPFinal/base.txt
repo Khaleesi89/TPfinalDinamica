@@ -11,3 +11,18 @@ compraitem CREADA
 menu(propia) CREADA
 menurol CREADA
 usuariorol CREADA
+
+MODELOS:
+compraestadotipo FIN sin test
+producto
+rol FIN sin test
+usuario FIN sin test
+menu FIN sin test
+
+compra 
+compraestado
+compraitem
+menurol FIN sin test
+usuariorol 
+
+CONTROLADORES:

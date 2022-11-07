@@ -1,56 +1,40 @@
 <?php
 require_once('../config.php');
-class Usuario extends db{
+class Compraestadotipo extends db{
     use Condicion;
     //Atributos
-    private $idusuario;
-    private $usnombre;
-    private $uspass;
-    private $usmail;//revisar en la db el tipo de dato
-    private $usdeshabilitado;
+    private $idcompraestadotipo;
+    private $cetdescripcion;
+    private $cetdetalle;
     private $mensajeOp;
     static $mensajeStatic;
 
     //Constructor
     public function __construct(){
-        $this->idusuario = '';
-        $this->usnombre = '';
-        $this->uspass = '';
-        $this->usmail = '';
-        $this->usdeshabilitado = '';
+        $this->idcompraestadotipo = '';
+        $this->cetdescripcion = '';
+        $this->cetdetalle = '';
         $this->mensajeOp = '';
     }
 
     //Getters y setters
-    public function getIdusuario(){
-        return $this->idusuario;
+    public function getIdcompraestadotipo(){
+        return $this->idcompraestadotipo;
     }
-    public function setIdusuario($idusuario){
-        $this->idusuario = $idusuario;
+    public function setIdcompraestadotipo($idcompraestadotipo){
+        $this->idcompraestadotipo = $idcompraestadotipo;
     }
-    public function getUsnombre(){
-        return $this->usnombre;
+    public function getCetdescripcion(){
+        return $this->cetdescripcion;
     }
-    public function setUsnombre($usnombre){
-        $this->usnombre = $usnombre;
+    public function setCetdescripcion($cetdescripcion){
+        $this->cetdescripcion = $cetdescripcion;
     }
-    public function getUspass(){
-        return $this->uspass;
+    public function getCetdetalle(){
+        return $this->cetdetalle;
     }
-    public function setUspass($uspass){
-        $this->uspass = $uspass;
-    }
-    public function getUsmail(){
-        return $this->usmail;
-    }
-    public function setUsmail($usmail){
-        $this->usmail = $usmail;
-    }
-    public function getUsdeshabilitado(){
-        return $this->usdeshabilitado;
-    }
-    public function setUsdeshabilitado($usdeshabilitado){
-        $this->usdeshabilitado = $usdeshabilitado;
+    public function setCetdetalle($cetdetalle){
+        $this->cetdetalle = $cetdetalle;
     }
     public function getMensajeOp(){
         return $this->mensajeOp;
@@ -59,18 +43,16 @@ class Usuario extends db{
         $this->mensajeOp = $mensajeOp;
     }
     public static function getMensajeStatic(){
-        return Usuario::$mensajeStatic;
+        return Compraestadotipo::$mensajeStatic;
     }
     public static function setMensajeStatic($mensajeStatic){
-        Usuario::$mensajeStatic = $mensajeStatic;
+        Compraestadotipo::$mensajeStatic = $mensajeStatic;
     }
 
-    public function cargar($idusuario, $usnombre, $uspass, $usmail, $deshabilitado){
-        $this->setIdusuario($idusuario);
-        $this->setUsnombre($usnombre);
-        $this->setUspass($uspass);
-        $this->setUsmail($usmail);
-        $this->setUsdeshabilitado($deshabilitado);
+    public function cargar($idcompraestadotipo, $cetdescripcion, $cetdetalle){
+        $this->setIdcompraestadotipo($idcompraestadotipo);
+        $this->setCetdescripcion($cetdescripcion);
+        $this->setCetdetalle($cetdetalle);
     }
 
     public function buscar($arrayBusqueda){
@@ -80,7 +62,7 @@ class Usuario extends db{
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
         //busqueda en si
-        $sql = "SELECT * FROM usuario";
+        $sql = "SELECT * FROM compraestadotipo";
         if($stringBusqueda != ''){
             $sql.= ' WHERE ';
             $sql.= $stringBusqueda;
@@ -90,11 +72,9 @@ class Usuario extends db{
             if($base->Iniciar()){
                 if($base->Ejecutar($sql)){
                     if($row2 = $base->Registro()){
-                        $this->setIdusuario($row2['idusuario']);
-                        $this->setUsnombre($row2['usunombre']);
-                        $this->setUspass($row2['usupass']);
-                        $this->setUsmail($row2['usmail']);
-                        $this->setUsdeshabilitado($row2['usdeshabilitado']);
+                        $this->setIdcompraestadotipo($row2['idcompraestadotipo']);
+                        $this->setCetdescripcion($row2['cetdescripcion']);
+                        $this->setCetdetalle($row2['cetdetalle']);
                         $respuesta['respuesta'] = true;
                     }
                 }else{
@@ -123,7 +103,7 @@ class Usuario extends db{
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
         $base = new db();
-        $sql = "INSERT INTO usuario VALUES(DEFAULT, '{$this->getUsnombre()}', '{$this->getUspass()}', '{$this->getUsmail()}', NULL)";
+        $sql = "INSERT INTO compraestadotipo VALUES(DEFAULT, '{$this->getCetdescripcion()}', '{$this->getCetdetalle()}')";
         try {
             if($base->Iniciar()){
                 if($base->Ejecutar($sql)){
@@ -150,15 +130,15 @@ class Usuario extends db{
     }
 
     //Antes de usar el modificar se debe utilizar el buscar.
-    //En el controlador fijarse si no hay un usuario con el mismo nombre
-    //En el controlador fijarse si hay un id de rol 
+    //En el controlador fijarse si no hay otra tupla con el mismo descripcion
+    //En el controlador fijarse si hay un id de compraestadotipo 
     public function modificar(){
         //seteo de respuesta
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
         $base = new db();
-        $sql = "UPDATE usuario SET usnombre = '{$this->getUsnombre()}', uspass = '{$this->getUspass()}', usmail = '{$this->getUsmail()}' WHERE idusuario = {$this->getIdusuario()}";
+        $sql = "UPDATE compraestadotipo SET cetdescripcion = '{$this->getCetdescripcion()}', cetdetalle = '{$this->getCetdetalle()}' WHERE idcompraestadotipo = {$this->getIdcompraestadotipo()}";
         try {
             if( $base->Iniciar() ){
                 if( $base->Ejecutar($sql) ){
@@ -191,10 +171,7 @@ class Usuario extends db{
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
         $base = new db();
-        //obtener fecha actual
-        //$fecha = getdate();
-        //$fechaPosta = $fecha['mday'].':'.$fecha['mon'].':'.$fecha['year'];
-        $sql = "UPDATE usuario SET usdeshabilitado = CURRENT_TIMESTAMP WHERE idusuario = {$this->getIdusuario()}";
+        $sql = "DELETE FROM compraestadotipo WHERE idcompraestadotipo = {$this->getIdcompraestadotipo()}";
         try {
             if($base->Iniciar()){
                 if($base->Ejecutar($sql)){
@@ -220,23 +197,16 @@ class Usuario extends db{
         return $respuesta;
     }
 
-    /*Se pasara un array asociativo que contenga
-    $arrayBusqueda['idusuario'] = valor/null,
-    $arrayBusqueda['usnombre'] = valor/null,
-    $arrayBusqueda['uspass'] = valor/null,
-    $arrayBusqueda['usmail'] = valor/null,
-    $arrayBusqueda['usdeshabilitado'] = valor/null
-    */
     public static function listar($arrayBusqueda){
         //seteo de respuesta
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
-        $arregloUsuario = null;
+        $arregloCompraestadotipo = null;
         $base = new db();
-        //seteo de busqueda
-        $stringBusqueda = Usuario::setearBusquedaStaticUsuario($arrayBusqueda);
-        $sql = "SELECT * FROM usuario";
+        //seteo de busqueda//ARREGLAR EL CONDICION
+        $stringBusqueda = Compraestadotipo::setearBusquedaStaticUsuario($arrayBusqueda);
+        $sql = "SELECT * FROM compraestadotipo";
         if($stringBusqueda != ''){
             $sql.= ' WHERE ';
             $sql.= $stringBusqueda;
@@ -244,15 +214,13 @@ class Usuario extends db{
         try {
             if($base->Iniciar()){
                 if($base->Ejecutar($sql)){
-                    $arregloUsuario = array();
+                    $arregloCompraestadotipo = array();
                     while($row2 = $base->Registro()){
-                        $objUsuario = new Usuario();
-                        $objUsuario->setIdusuario($row2['idusuario']);
-                        $objUsuario->setUsnombre($row2['usunombre']);
-                        $objUsuario->setUspass($row2['usupass']);
-                        $objUsuario->setUsmail($row2['usmail']);
-                        $objUsuario->setUsdeshabilitado($row2['usdeshabilitado']);
-                        array_push($arregloUsuario, $objUsuario);
+                        $objCompraestadotipo = new Compraestadotipo();
+                        $objCompraestadotipo->setIdcompraestadotipo($row2['idcompraestadotipo']);
+                        $objCompraestadotipo->setCetdescripcion($row2['cetdescripcion']);
+                        $objCompraestadotipo->setCetdetalle($row2['cetdetalle']);
+                        array_push($arregloCompraestadotipo, $objCompraestadotipo);
                     }
                     $respuesta['respuesta'] = true;
                 }else{
@@ -274,18 +242,16 @@ class Usuario extends db{
         }
         $base = null;
         if($respuesta['respuesta']){
-            $respuesta['array'] = $arregloUsuario;
+            $respuesta['array'] = $arregloCompraestadotipo;
         }
         return $respuesta;
     }
 
     public function dameDatos(){
         $data = [];
-        $data['idusuario'] = $this->getIdusuario();
-        $data['usnombre'] = $this->getUsnombre();
-        $data['uspass'] = $this->getUspass();
-        $data['usmail'] = $this->getUsmail();
-        $data['usdeshabilitado'] = $this->getUsdeshabilitado();
+        $data['idcompraestadotipo'] = $this->getIdcompraestadotipo();
+        $data['cetdescripcion'] = $this->getCetdescripcion();
+        $data['cetdetalle'] = $this->getCetdetalle();
         return $data;
     }
 }
