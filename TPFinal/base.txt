@@ -1,13 +1,13 @@
 Tablas sin fk:
-compraestadotipo
-producto
-rol
-usuario
+compraestadotipo CREADA
+producto CREADA
+rol CREADA
+usuario CREADA
 
 Tablas con fk:
-compra
-compraestado
-compraitem
-menu(propia)
-menurol
-usuariorol
+compra CREADA
+compraestado CREADA
+compraitem CREADA
+menu(propia) CREADA
+menurol CREADA
+usuariorol CREADA
