@@ -56,7 +56,7 @@ class Compraestadotipo extends db{
     }
 
     public function buscar($arrayBusqueda){
-        $stringBusqueda = $this->setearBusquedaUsuario($arrayBusqueda);
+        $stringBusqueda = $this->SB($arrayBusqueda);
         //seteo de respuesta
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
@@ -205,7 +205,7 @@ class Compraestadotipo extends db{
         $arregloCompraestadotipo = null;
         $base = new db();
         //seteo de busqueda//ARREGLAR EL CONDICION
-        $stringBusqueda = Compraestadotipo::setearBusquedaStaticUsuario($arrayBusqueda);
+        $stringBusqueda = Compraestadotipo::SBS($arrayBusqueda);
         $sql = "SELECT * FROM compraestadotipo";
         if($stringBusqueda != ''){
             $sql.= ' WHERE ';

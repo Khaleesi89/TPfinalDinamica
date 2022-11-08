@@ -50,7 +50,7 @@ class Rol extends db {
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
-        $stringBusqueda = $this->setearBusquedaUsuario($arrayBusqueda);
+        $stringBusqueda = $this->SB($arrayBusqueda);
         $sql = "SELECT * FROM rol";
         if($stringBusqueda != ''){
             $sql.= ' WHERE ';
@@ -190,7 +190,7 @@ class Rol extends db {
         $respuesta['codigoError'] = null;
         $arregloRoles = null;
         $base = new db();
-        $stringBusqueda = Rol::setearBusquedaUsuario($arrayBusqueda);
+        $stringBusqueda = Rol::SBS($arrayBusqueda);
         $sql = "SELECT * FROM rol";
         if($stringBusqueda != ''){
             $sql.= ' WHERE ';

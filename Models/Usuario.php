@@ -74,7 +74,7 @@ class Usuario extends db{
     }
 
     public function buscar($arrayBusqueda){
-        $stringBusqueda = $this->setearBusquedaUsuario($arrayBusqueda);
+        $stringBusqueda = $this->SB($arrayBusqueda);
         //seteo de respuesta
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
@@ -235,7 +235,7 @@ class Usuario extends db{
         $arregloUsuario = null;
         $base = new db();
         //seteo de busqueda
-        $stringBusqueda = Usuario::setearBusquedaStaticUsuario($arrayBusqueda);
+        $stringBusqueda = Usuario::SBS($arrayBusqueda);
         $sql = "SELECT * FROM usuario";
         if($stringBusqueda != ''){
             $sql.= ' WHERE ';

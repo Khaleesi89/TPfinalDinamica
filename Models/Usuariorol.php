@@ -57,7 +57,7 @@ class Usuariorol extends db {
 
     //MODIFICAR EL SETEARBUSQUEDATATATATA PA QUE BUSQUE POR ID DE USUARIO O ID DE ROL
     public function buscar($arrayBusqueda){
-        $stringBusqueda = $this->setearBusquedaUsuario($arrayBusqueda);
+        $stringBusqueda = $this->SB($arrayBusqueda);
         //seteo de respuesta
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
@@ -235,7 +235,7 @@ class Usuariorol extends db {
         $arregloUsuariorol = null;
         $base = new db();
         //seteo de busqueda
-        $stringBusqueda = Usuario::setearBusquedaStaticUsuario($arrayBusqueda);
+        $stringBusqueda = Usuario::SBS($arrayBusqueda);
         $sql = "SELECT * FROM usuariorol";
         if($stringBusqueda != ''){
             $sql.= ' WHERE ';

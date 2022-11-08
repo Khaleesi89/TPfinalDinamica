@@ -1,123 +1,279 @@
 <?php
 //HAY QUE CAMBIARLO
 trait Condicion{
+
+    //Metodo publico general
+    public function SB($arrayBusqueda){
+        $stringBusqueda = '';
+        if(count($arrayBusqueda) > 0){
+            foreach ($arrayBusqueda as $key => $value) {
+                if($value != null || $key == 'usdeshabilitado'){
+                    $string = " $key = '$value' ";
+                    if($stringBusqueda == ''){
+                        $stringBusqueda.=$string;
+                    }else{
+                        $stringBusqueda.= ' and ';
+                        $stringBusqueda.= $string;
+                    }
+                }
+            }
+        }        
+        return $stringBusqueda;
+    }
+
+    //Metodo static general
+    public static function SBS($arrayBusqueda){
+        $stringBusqueda = '';
+        if(count($arrayBusqueda) > 0){
+            foreach ($arrayBusqueda as $key => $value) {
+                if($value != null || $key == 'usdeshabilitado'){
+                    $string = " $key = '$value' ";
+                    if($stringBusqueda == ''){
+                        $stringBusqueda.=$string;
+                    }else{
+                        $stringBusqueda.= ' and ';
+                        $stringBusqueda.= $string;
+                    }
+                }  
+            }
+        }        
+        return $stringBusqueda;
+    }
     
-    public function setearBusquedaUsuario($arrayBusqueda){
+    /* //Metodo publico de busqueda de compraestadotipo
+    public function SBcompraestadotipo($arrayBusqueda){
         $stringBusqueda = '';
-        if(array_key_exists('id', $arrayBusqueda) && $arrayBusqueda['id'] != null){
-            //hay que buscar con el dni
-            $id = $arrayBusqueda['id'];
-            $stringId = " id = $id ";
-            $stringBusqueda.=$stringId;
+        if(array_key_exists('idcompraestadotipo', $arrayBusqueda) && $arrayBusqueda['idcompraestadotipo'] != null){
+            //buscamos con idcompraestadotipo
+            $idcompraestadotipo = $arrayBusqueda['idcompraestadotipo'];
+            $string = " idcompraestadotipo = $idcompraestadotipo ";
+            $stringBusqueda.=$string;
         }
-        if(array_key_exists('dni', $arrayBusqueda) && $arrayBusqueda['dni'] != null){
-            //hay que buscar con el dni
-            $dni = $arrayBusqueda['dni'];
-            $stringDni = " dni = $dni ";
+        if(array_key_exists('cetdescripcion', $arrayBusqueda) && $arrayBusqueda['cetdescripcion'] != null){
+            //buscamos con cetdescripcion
+            $cetdescripcion = $arrayBusqueda['cetdescripcion'];
+            $string = " cetdescripcion = '$cetdescripcion' ";
             if($stringBusqueda == ''){
-                $stringBusqueda.=$stringDni;
+                $stringBusqueda.=$string;
             }else{
                 $stringBusqueda.= ' and ';
-                $stringBusqueda.= $stringDni;
-            }
-           
-        }
-        if(array_key_exists('legajo', $arrayBusqueda) && $arrayBusqueda['legajo'] != null){
-            //hay que buscar con legajo
-            $legajo = $arrayBusqueda['legajo'];
-            $stringLegajo = " legajo = '$legajo' ";
-            if($stringBusqueda == ''){
-                //no dni
-                $stringBusqueda.=$stringLegajo;
-            }else{
-                $stringBusqueda.= ' and ';
-                $stringBusqueda.= $stringLegajo;
+                $stringBusqueda.= $string;
             }
         }
-        if(array_key_exists('materia', $arrayBusqueda) && $arrayBusqueda['materia'] != null){
-            //hay que buscar por materia
-            $materia = $arrayBusqueda['materia'];
-            $stringMateria = " materia = '$materia' ";
+        if(array_key_exists('cetdetalle', $arrayBusqueda) && $arrayBusqueda['cetdetalle'] != null){
+            //buscamos con cetdetalle
+            $cetdetalle = $arrayBusqueda['cetdetalle'];
+            $string = " cetdetalle = '$cetdetalle' ";
             if($stringBusqueda == ''){
-                //no dni ni legajo
-                $stringBusqueda.=$stringMateria;
+                $stringBusqueda.=$string;
             }else{
                 $stringBusqueda.= ' and ';
-                $stringBusqueda.= $stringMateria;
-            }
-        }
-        if(array_key_exists('carrera', $arrayBusqueda) && $arrayBusqueda['carrera'] != null){
-            //hay que buscar por carrera
-            $carrera = $arrayBusqueda['carrera'];
-            $stringCarrera = " carrera = '$carrera' ";
-            if($stringBusqueda == ''){
-                //no dni ni legajo
-                $stringBusqueda.=$stringCarrera;
-            }else{
-                $stringBusqueda.= ' and ';
-                $stringBusqueda.= $stringCarrera;
+                $stringBusqueda.= $string;
             }
         }
         return $stringBusqueda;
     }
 
-    public static function setearBusquedaStaticUsuario($arrayBusqueda){
+    //Metodo statico de busqueda de compraestadotipo
+    public static function SBScompraestadotipo($arrayBusqueda){
         $stringBusqueda = '';
-        if(array_key_exists('id', $arrayBusqueda) && $arrayBusqueda['id'] != null){
-            //hay que buscar con el dni
-            $id = $arrayBusqueda['id'];
-            $stringId = " id = $id ";
-            $stringBusqueda.=$stringId;
+        if(array_key_exists('idcompraestadotipo', $arrayBusqueda) && $arrayBusqueda['idcompraestadotipo'] != null){
+            //buscamos con idcompraestadotipo
+            $idcompraestadotipo = $arrayBusqueda['idcompraestadotipo'];
+            $string = " idcompraestadotipo = $idcompraestadotipo ";
+            $stringBusqueda.=$string;
         }
-        if(array_key_exists('dni', $arrayBusqueda) && $arrayBusqueda['dni'] != null){
-            //hay que buscar con el dni
-            $dni = $arrayBusqueda['dni'];
-            $stringDni = " dni = $dni ";
+        if(array_key_exists('cetdescripcion', $arrayBusqueda) && $arrayBusqueda['cetdescripcion'] != null){
+            //buscamos con cetdescripcion
+            $cetdescripcion = $arrayBusqueda['cetdescripcion'];
+            $string = " cetdescripcion = '$cetdescripcion' ";
             if($stringBusqueda == ''){
-                $stringBusqueda.=$stringDni;
+                $stringBusqueda.=$string;
             }else{
                 $stringBusqueda.= ' and ';
-                $stringBusqueda.= $stringDni;
-            }
-           
-        }
-        if(array_key_exists('legajo', $arrayBusqueda) && $arrayBusqueda['legajo'] != null){
-            //hay que buscar con legajo
-            $legajo = $arrayBusqueda['legajo'];
-            $stringLegajo = " legajo = '$legajo' ";
-            if($stringBusqueda == ''){
-                //no dni
-                $stringBusqueda.=$stringLegajo;
-            }else{
-                $stringBusqueda.= ' and ';
-                $stringBusqueda.= $stringLegajo;
+                $stringBusqueda.= $string;
             }
         }
-        if(array_key_exists('materia', $arrayBusqueda) && $arrayBusqueda['materia'] != null){
-            //hay que buscar por materia
-            $materia = $arrayBusqueda['materia'];
-            $stringMateria = " materia = '$materia' ";
+        if(array_key_exists('cetdetalle', $arrayBusqueda) && $arrayBusqueda['cetdetalle'] != null){
+            //buscamos con cetdetalle
+            $cetdetalle = $arrayBusqueda['cetdetalle'];
+            $string = " cetdetalle = '$cetdetalle' ";
             if($stringBusqueda == ''){
-                //no dni ni legajo
-                $stringBusqueda.=$stringMateria;
+                $stringBusqueda.=$string;
             }else{
                 $stringBusqueda.= ' and ';
-                $stringBusqueda.= $stringMateria;
-            }
-        }
-        if(array_key_exists('carrera', $arrayBusqueda) && $arrayBusqueda['carrera'] != null){
-            //hay que buscar por carrera
-            $carrera = $arrayBusqueda['carrera'];
-            $stringCarrera = " carrera = '$carrera' ";
-            if($stringBusqueda == ''){
-                //no dni ni legajo
-                $stringBusqueda.=$stringCarrera;
-            }else{
-                $stringBusqueda.= ' and ';
-                $stringBusqueda.= $stringCarrera;
+                $stringBusqueda.= $string;
             }
         }
         return $stringBusqueda;
     }
 
+    //Metodo publico de busqueda de rol
+    public function SBrol($arrayBusqueda){
+        $stringBusqueda = '';
+        if(array_key_exists('idrol', $arrayBusqueda) && $arrayBusqueda['idrol'] != null){
+            //Busqueda por idrol
+            $idRol = $arrayBusqueda['idrol'];
+            $string = " idrol = $idRol ";
+            $stringBusqueda.=$string;
+        }
+        if(array_key_exists('rodescripcion', $arrayBusqueda) && $arrayBusqueda['rodescripcion'] != null){
+            //Busqueda por rodescripcion
+            $rodescripcion = $arrayBusqueda['rodescripcion'];
+            $string = " rodescripcion = '$rodescripcion' ";
+            if($stringBusqueda == ''){
+                $stringBusqueda.=$string;
+            }else{
+                $stringBusqueda.= ' and ';
+                $stringBusqueda.= $string;
+            }
+        }
+        return $stringBusqueda;
+    }
+
+    //Metodo static de busqueda de rol
+    public static function SBSrol($arrayBusqueda){
+        $stringBusqueda = '';
+        if(array_key_exists('idrol', $arrayBusqueda) && $arrayBusqueda['idrol'] != null){
+            //Busqueda por idrol
+            $idRol = $arrayBusqueda['idrol'];
+            $string = " idrol = $idRol ";
+            $stringBusqueda.=$string;
+        }
+        if(array_key_exists('rodescripcion', $arrayBusqueda) && $arrayBusqueda['rodescripcion'] != null){
+            //Busqueda por rodescripcion
+            $rodescripcion = $arrayBusqueda['rodescripcion'];
+            $string = " rodescripcion = '$rodescripcion' ";
+            if($stringBusqueda == ''){
+                $stringBusqueda.=$string;
+            }else{
+                $stringBusqueda.= ' and ';
+                $stringBusqueda.= $string;
+            }
+        }
+        return $stringBusqueda;
+    }
+
+    //Metodo publico de busqueda de usuario
+    public function SBusuario($arrayBusqueda){
+        $stringBusqueda = '';
+        if(array_key_exists('idusuario', $arrayBusqueda) && $arrayBusqueda['idusuario'] != null){
+            //Buscamos por idusuario
+            $idusuario = $arrayBusqueda['idusuario'];
+            $string = " idusuario = $idusuario ";
+            $stringBusqueda.=$string;
+        }
+        if(array_key_exists('usnombre', $arrayBusqueda) && $arrayBusqueda['usnombre'] != null){
+            //Buscamos por usnombre
+            $usnombre = $arrayBusqueda['usnombre'];
+            $string = " usnombre = '$usnombre' ";
+            if($stringBusqueda == ''){
+                $stringBusqueda.=$string;
+            }else{
+                $stringBusqueda.= ' and ';
+                $stringBusqueda.= $string;
+            }
+        }
+        if(array_key_exists('uspass', $arrayBusqueda) && $arrayBusqueda['uspass'] != null){
+            //Buscamos por uspass
+            $uspass = $arrayBusqueda['uspass'];
+            $string = " uspass = '$uspass' ";
+            if($stringBusqueda == ''){
+                $stringBusqueda.=$string;
+            }else{
+                $stringBusqueda.= ' and ';
+                $stringBusqueda.= $string;
+            }
+        }
+        if(array_key_exists('usmail', $arrayBusqueda) && $arrayBusqueda['usmail'] != null){
+            //Buscamos por usmail
+            $usmail = $arrayBusqueda['usmail'];
+            $string = " usmail = '$usmail' ";
+            if($stringBusqueda == ''){
+                $stringBusqueda.=$string;
+            }else{
+                $stringBusqueda.= ' and ';
+                $stringBusqueda.= $string;
+            }
+        }
+        if(array_key_exists('usdeshabilitado', $arrayBusqueda)){
+            //Buscamos por usdeshabilitado
+            $usdeshabilitado = $arrayBusqueda['usdeshabilitado'];
+            if($usdeshabilitado == NULL){
+                //Buscamos usuarios con null
+                $string = " usdeshabilitado = NULL ";
+            }else{
+                $string = " usdeshabilitado != NULL ";
+            }
+            if($stringBusqueda == ''){
+                $stringBusqueda.=$string;
+            }else{
+                $stringBusqueda.= ' and ';
+                $stringBusqueda.= $string;
+            }
+        }
+        return $stringBusqueda;
+    }
+
+    //Metodo static de busqueda de usuario
+    public static function SBSusuario($arrayBusqueda){
+        $stringBusqueda = '';
+        if(array_key_exists('idusuario', $arrayBusqueda) && $arrayBusqueda['idusuario'] != null){
+            //Buscamos por idusuario
+            $idusuario = $arrayBusqueda['idusuario'];
+            $string = " idusuario = $idusuario ";
+            $stringBusqueda.=$string;
+        }
+        if(array_key_exists('usnombre', $arrayBusqueda) && $arrayBusqueda['usnombre'] != null){
+            //Buscamos por usnombre
+            $usnombre = $arrayBusqueda['usnombre'];
+            $string = " usnombre = '$usnombre' ";
+            if($stringBusqueda == ''){
+                $stringBusqueda.=$string;
+            }else{
+                $stringBusqueda.= ' and ';
+                $stringBusqueda.= $string;
+            }
+        }
+        if(array_key_exists('uspass', $arrayBusqueda) && $arrayBusqueda['uspass'] != null){
+            //Buscamos por uspass
+            $uspass = $arrayBusqueda['uspass'];
+            $string = " uspass = '$uspass' ";
+            if($stringBusqueda == ''){
+                $stringBusqueda.=$string;
+            }else{
+                $stringBusqueda.= ' and ';
+                $stringBusqueda.= $string;
+            }
+        }
+        if(array_key_exists('usmail', $arrayBusqueda) && $arrayBusqueda['usmail'] != null){
+            //Buscamos por usmail
+            $usmail = $arrayBusqueda['usmail'];
+            $string = " usmail = '$usmail' ";
+            if($stringBusqueda == ''){
+                $stringBusqueda.=$string;
+            }else{
+                $stringBusqueda.= ' and ';
+                $stringBusqueda.= $string;
+            }
+        }
+        if(array_key_exists('usdeshabilitado', $arrayBusqueda)){
+            //Buscamos por usdeshabilitado
+            $usdeshabilitado = $arrayBusqueda['usdeshabilitado'];
+            if($usdeshabilitado == NULL){
+                //Buscamos usuarios con null
+                $string = " usdeshabilitado = NULL ";
+            }else{
+                $string = " usdeshabilitado != NULL ";
+            }
+            if($stringBusqueda == ''){
+                $stringBusqueda.=$string;
+            }else{
+                $stringBusqueda.= ' and ';
+                $stringBusqueda.= $string;
+            }
+        }
+        return $stringBusqueda;
+    }
+ */
 }

@@ -74,7 +74,7 @@ class Menu extends db{
     }
 
     public function buscar($arrayBusqueda){
-        $stringBusqueda = $this->setearBusquedaUsuario($arrayBusqueda);
+        $stringBusqueda = $this->SB($arrayBusqueda);
         //seteo de respuesta
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
@@ -249,7 +249,7 @@ class Menu extends db{
         $arregloMenu = null;
         $base = new db();
         //seteo de busqueda//ARREGLAR EL CONDICION
-        $stringBusqueda = Compraestadotipo::setearBusquedaStaticUsuario($arrayBusqueda);
+        $stringBusqueda = Compraestadotipo::SBS($arrayBusqueda);
         $sql = "SELECT * FROM menu";
         if($stringBusqueda != ''){
             $sql.= ' WHERE ';

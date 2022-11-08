@@ -56,7 +56,7 @@ class Menurol extends db{
     }
 
     public function buscar($arrayBusqueda){
-        $stringBusqueda = $this->setearBusquedaUsuario($arrayBusqueda);
+        $stringBusqueda = $this->SB($arrayBusqueda);
         //seteo de respuesta
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
@@ -233,7 +233,7 @@ class Menurol extends db{
         $arregloMenuRol = null;
         $base = new db();
         //seteo de busqueda//ARREGLAR EL CONDICION
-        $stringBusqueda = Menurol::setearBusquedaStaticUsuario($arrayBusqueda);
+        $stringBusqueda = Menurol::SBS($arrayBusqueda);
         $sql = "SELECT * FROM menurol";
         if($stringBusqueda != ''){
             $sql.= ' WHERE ';

@@ -13,16 +13,16 @@ menurol CREADA
 usuariorol CREADA
 
 MODELOS:
-compraestadotipo FIN sin test
+compraestadotipo FIN, Condicion arreglao, TEST aprobao
 producto
-rol FIN sin test
-usuario FIN sin test
-menu FIN sin test
+rol FIN, Condicion arreglao, TEST aprobao
+usuario FIN sin test Condicion arreglao
+menu FIN sin test Condicion arreglao
 
 compra 
 compraestado
 compraitem
-menurol FIN sin test
-usuariorol FIN sin test
+menurol FIN sin test Condicion arreglao
+usuariorol FIN sin test Condicion arreglao
 
 CONTROLADORES:
