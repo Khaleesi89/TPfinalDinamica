@@ -1,56 +1,40 @@
 <?php
 require_once('../config.php');
-class Menu extends db{
+class Usuariorol extends db {
     use Condicion;
     //Atributos
-    private $idmenu;
-    private $menombre;
-    private $medescripcion;
-    private $objPadre;
-    private $medeshabilitado;
+    private $idur;
+    private $objUsuario;
+    private $objRol;
     private $mensajeOp;
     static $mensajeStatic;
 
     //Constructor
     public function __construct(){
-        $this->idmenu = '';
-        $this->menombre = '';
-        $this->medescripcion = '';
-        $this->objPadre = null;
-        $this->medeshabilitado = '';
+        $this->idur = '';
+        $this->objUsuario = null;
+        $this->objRol = null;
         $this->mensajeOp = '';
     }
 
     //Getters y setters
-    public function getIdmenu(){
-        return $this->idmenu;
+    public function getIdur(){
+        return $this->idur;
     }
-    public function setIdmenu($idmenu){
-        $this->idmenu = $idmenu;
+    public function setIdur($idur){
+        $this->idur = $idur;
     }
-    public function getMenombre(){
-        return $this->menombre;
+    public function getObjUsuario(){
+        return $this->objUsuario;
     }
-    public function setMenombre($menombre){
-        $this->menombre = $menombre;
+    public function setObjUsuario($objUsuario){
+        $this->objUsuario = $objUsuario;
     }
-    public function getMedescripcion(){
-        return $this->medescripcion;
+    public function getObjRol(){
+        return $this->objRol;
     }
-    public function setMedescripcion($medescripcion){
-        $this->medescripcion = $medescripcion;
-    }
-    public function getObjPadre(){
-        return $this->objPadre;
-    }
-    public function setObjPadre($objPadre){
-        $this->objPadre = $objPadre;
-    }
-    public function getMedeshabilitado(){
-        return $this->medeshabilitado;
-    }
-    public function setMedeshabilitado($medeshabilitado){
-        $this->medeshabilitado = $medeshabilitado;
+    public function setObjRol($objRol){
+        $this->objRol = $objRol;
     }
     public function getMensajeOp(){
         return $this->mensajeOp;
@@ -59,20 +43,19 @@ class Menu extends db{
         $this->mensajeOp = $mensajeOp;
     }
     public static function getMensajeStatic(){
-        return Menu::$mensajeStatic;
+        return Usuariorol::$mensajeStatic;
     }
     public static function setMensajeStatic($mensajeStatic){
-        Menu::$mensajeStatic = $mensajeStatic;
+        Usuariorol::$mensajeStatic = $mensajeStatic;
     }
 
-    public function cargar($idmenu, $menombre, $medescripcion, $objPadre, $medeshabilitado){
-        $this->setIdmenu($idmenu);
-        $this->setMenombre($menombre);
-        $this->setMedescripcion($medescripcion);
-        $this->setObjPadre($objPadre);
-        $this->setMedeshabilitado($medeshabilitado);
+    public function cargar($idur, $objUsuario, $objRol){
+        $this->setIdur($idur);
+        $this->setObjUsuario($objUsuario);
+        $this->setObjRol($objRol);
     }
 
+    //MODIFICAR EL SETEARBUSQUEDATATATATA PA QUE BUSQUE POR ID DE USUARIO O ID DE ROL
     public function buscar($arrayBusqueda){
         $stringBusqueda = $this->setearBusquedaUsuario($arrayBusqueda);
         //seteo de respuesta
@@ -80,7 +63,7 @@ class Menu extends db{
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
         //busqueda en si
-        $sql = "SELECT * FROM menu";
+        $sql = "SELECT * FROM usuariorol";
         if($stringBusqueda != ''){
             $sql.= ' WHERE ';
             $sql.= $stringBusqueda;
@@ -90,19 +73,21 @@ class Menu extends db{
             if($base->Iniciar()){
                 if($base->Ejecutar($sql)){
                     if($row2 = $base->Registro()){
-                        $this->setIdmenu($row2['idmenu']);
-                        $this->setMenombre($row2['menombre']);
-                        $this->setMedescripcion($row2['medescripcion']);
-                        $this->setMedeshabilitado($row2['medeshabilitado']);
-                        $idPadre = $row2['idpadre'];
-                        $objMenu = new Menu();
-                        if($idPadre == 0 || $idPadre == null){
-                            $objMenu = null;
-                        }else{
-                            $arrayId['idpadre'] = $idPadre;
-                            $objMenu->buscar($arrayId);
-                        }
-                        $this->setObjPadre($objMenu);
+                        $this->setIdur($row2['idur']);
+                        //generar objeto de usuario
+                        $objUsuario = new Usuario();
+                        $idUsuario = $row2['idusuario'];
+                        $arrayUsuario['idusuario'] = $idUsuario;
+                        $objUsuario->buscar($arrayUsuario);
+                        $this->setObjUsuario($objUsuario);
+                        $objUsuario = null;
+                        //generar objeto de rol
+                        $objRol = new Rol();
+                        $idRol = $row2['idrol'];
+                        $arrayRol['idrol'] = $idRol;
+                        $objRol->buscar($arrayRol);
+                        $this->setObjRol($objRol);
+                        $objRol = null;
                         $respuesta['respuesta'] = true;
                     }
                 }else{
@@ -130,15 +115,16 @@ class Menu extends db{
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
-        $objPadre = $this->getObjPadre();
-        try {
-            $idPadre = $objPadre->getIdmenu();
-        } catch (\Throwable $th) {
-            $idPadre = 0;
-        }
-        $objPadre = null;
         $base = new db();
-        $sql = "INSERT INTO menu VALUES(DEFAULT, '{$this->getMenombre()}', '{$this->getMedescripcion()}', $idPadre, '{$this->getMedeshabilitado()}')";
+        //obtencion de id de usuario
+        $objUsuario = $this->getObjUsuario();
+        $idUsuario = $objUsuario->getIdusuario();
+        $objUsuario = null;
+        //obtencion de id de rol
+        $objRol = $this->getObjRol();
+        $idRol = $objRol->getIdrol();
+        $objRol = null;
+        $sql = "INSERT INTO usuariorol VALUES(DEFAULT, $idUsuario, $idRol)";
         try {
             if($base->Iniciar()){
                 if($base->Ejecutar($sql)){
@@ -165,22 +151,23 @@ class Menu extends db{
     }
 
     //Antes de usar el modificar se debe utilizar el buscar.
-    //En el controlador fijarse si no hay otra tupla con el mismo descripcion
-    //En el controlador fijarse si hay un id de compraestadotipo 
+    //En el controlador fijarse si no hay un usuario con el mismo nombre
+    //En el controlador fijarse si hay un id de rol 
     public function modificar(){
         //seteo de respuesta
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
-        $objPadre = $this->getObjPadre();
-        try {
-            $idPadre = $objPadre->getIdmenu();
-        } catch (\Throwable $th) {
-            $idPadre = 0;
-        }
-        $objPadre = null;
-        $sql = "UPDATE menu SET menombre = '{$this->getMenombre()}', medescripcion = '{$this->getMedescripcion()}', idpadre = $idPadre, medeshabilitado = '{$this->getMedeshabilitado()}'  WHERE idmenu = {$this->getIdmenu()}";
         $base = new db();
+        //obtencion de id de usuario
+        $objUsuario = $this->getObjUsuario();
+        $idUsuario = $objUsuario->getIdusuario();
+        $objUsuario = null;
+        //obtencion de id de rol
+        $objRol = $this->getObjRol();
+        $idRol = $objRol->getIdrol();
+        $objRol = null;
+        $sql = "UPDATE usuariorol SET idusuario = $idUsuario, idrol = $idRol WHERE idur = {$this->getIdur()}";
         try {
             if( $base->Iniciar() ){
                 if( $base->Ejecutar($sql) ){
@@ -207,15 +194,14 @@ class Menu extends db{
     }
 
     //Usar el buscar antes del eliminar
-    //Eliminado logico
+    //borrado de tupla fisico
     public function eliminar(){
         //seteo de respuesta
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
-        //obtener fecha
-        $sql = "UPDATE menu SET medeshabilitado = CURRENT_TIMESTAMP WHERE idmenu = {$this->getIdmenu()}";
         $base = new db();
+        $sql = "DELETE FROM usuariorol WHERE idur = {$this->getIdur()}";
         try {
             if($base->Iniciar()){
                 if($base->Ejecutar($sql)){
@@ -246,11 +232,11 @@ class Menu extends db{
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
-        $arregloMenu = null;
+        $arregloUsuariorol = null;
         $base = new db();
-        //seteo de busqueda//ARREGLAR EL CONDICION
-        $stringBusqueda = Compraestadotipo::setearBusquedaStaticUsuario($arrayBusqueda);
-        $sql = "SELECT * FROM menu";
+        //seteo de busqueda
+        $stringBusqueda = Usuario::setearBusquedaStaticUsuario($arrayBusqueda);
+        $sql = "SELECT * FROM usuariorol";
         if($stringBusqueda != ''){
             $sql.= ' WHERE ';
             $sql.= $stringBusqueda;
@@ -258,23 +244,23 @@ class Menu extends db{
         try {
             if($base->Iniciar()){
                 if($base->Ejecutar($sql)){
-                    $arregloMenu = array();
+                    $arregloUsuariorol = array();
                     while($row2 = $base->Registro()){
-                        $objMenu = new Menu();
-                        $objMenu->setIdmenu($row2['idmenu']);
-                        $objMenu->setMenombre($row2['menombre']);
-                        $objMenu->setMedescripcion($row2['medescripcion']);
-                        $objMenuPadre = new Menu();
-                        $idPadre = $row2['idpadre'];
-                        if($idPadre == 0 || $idPadre == null){
-                            $objMenuPadre = null;
-                        }else{
-                            $arrayPadre['idpadre'] = $idPadre;
-                            $objMenuPadre->buscar($arrayPadre);
-                        }
-                        $objMenu->setObjPadre($objMenuPadre);
-                        $objMenu->setMedeshabilitado($row2['medeshabilitado']);
-                        array_push($arregloMenu, $objMenu);
+                        $objUsuariorol = new Usuariorol();
+                        $objUsuariorol->setIdur($row2['idur']);
+                        //generacion de objeto de usuario
+                        $arrayUsuario['idusuario'] = $row2['idusuario'];
+                        $objUsuario = new Usuario();
+                        $objUsuario->buscar($arrayUsuario);
+                        $objUsuariorol->setObjUsuario($objUsuario);
+                        $objUsuario = null;
+                        //generacion de objeto de rol
+                        $arrayRol['idrol'] = $row2['idrol'];
+                        $objRol = new Rol();
+                        $objRol->buscar($arrayRol);
+                        $objUsuariorol->setObjRol($objRol);
+                        $objRol = null;
+                        array_push($arregloUsuariorol, $objUsuariorol);
                     }
                     $respuesta['respuesta'] = true;
                 }else{
@@ -296,40 +282,20 @@ class Menu extends db{
         }
         $base = null;
         if($respuesta['respuesta']){
-            $respuesta['array'] = $arregloMenu;
+            $respuesta['array'] = $arregloUsuariorol;
         }
         return $respuesta;
     }
 
-    public function dameDatosRecursivo(){
-        $data = [];
-        $data['idmenu'] = $this->getIdmenu();
-        $data['menombre'] = $this->getMenombre();
-        $data['medescripcion'] = $this->getMedescripcion();
-        $objPadre = $this->getObjPadre();
-        try {
-            $datosPadre = $objPadre->dameDatosRecursivo();
-        } catch (\Throwable $th) {
-            $datosPadre = '0';
-        }
-        $data['idpadre'] = $datosPadre;
-        $data['medeshabilitado'] = $this->getMedeshabilitado();
-        return $data;
-    }
-
     public function dameDatos(){
         $data = [];
-        $data['idmenu'] = $this->getIdmenu();
-        $data['menombre'] = $this->getMenombre();
-        $data['medescripcion'] = $this->getMedescripcion();
-        $objPadre = $this->getObjPadre();
-        try {
-            $datosPadre = $objPadre->dameDatos();
-        } catch (\Throwable $th) {
-            $datosPadre = 0;
-        }
-        $data['idpadre'] = $datosPadre;
-        $data['medeshabilitado'] = $this->getMedeshabilitado();
+        $data['idur'] = $this->getIdur();
+        $objUsuario = $this->getObjUsuario();
+        $data['idusuario'] = $objUsuario->getIdusuario();
+        $objUsuario = null;
+        $objRol = $this->getObjRol();
+        $data['idrol'] = $objRol->getIdrol();
+        $objRol = null;
         return $data;
     }
 }

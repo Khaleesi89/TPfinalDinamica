@@ -46,11 +46,16 @@ class Rol extends db {
         $this->setRodescripcion($rodescripcion);
     }
 
-    public function buscar($id){
+    public function buscar($arrayBusqueda){
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
-        $sql = "SELECT * FROM rol WHERE idrol=$id";
+        $stringBusqueda = $this->setearBusquedaUsuario($arrayBusqueda);
+        $sql = "SELECT * FROM rol";
+        if($stringBusqueda != ''){
+            $sql.= ' WHERE ';
+            $sql.= $stringBusqueda;
+        }
         $base = new db();
         try {
             if($base->Iniciar()){
@@ -178,13 +183,19 @@ class Rol extends db {
         return $respuesta;
     }
 
-    public static function listar(){
+    public static function listar($arrayBusqueda){
         //seteo de respuesta
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
         $arregloRoles = null;
         $base = new db();
+        $stringBusqueda = Rol::setearBusquedaUsuario($arrayBusqueda);
+        $sql = "SELECT * FROM rol";
+        if($stringBusqueda != ''){
+            $sql.= ' WHERE ';
+            $sql.= $stringBusqueda;
+        }
         $sql = "SELECT * FROM rol";
         try {
             if($base->Iniciar()){

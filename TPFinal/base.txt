@@ -23,6 +23,6 @@ compra
 compraestado
 compraitem
 menurol FIN sin test
-usuariorol 
+usuariorol FIN sin test
 
 CONTROLADORES:
