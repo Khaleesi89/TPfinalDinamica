@@ -186,8 +186,9 @@ CREATE TABLE `menurol` (
 CREATE TABLE `producto` (
   `idproducto` bigint(20) NOT NULL AUTO_INCREMENT, 
   `pronombre` int(11) NOT NULL,
-  `prodetalle` varchar(512) NOT NULL,
+  `prodetalle` varchar(512) NOT NULL, /* cambiar nombre de campo a 'sinopsis' */
   `procantstock` int(11) NOT NULL,
+  /* agregar campos 'autor', 'precio', 'isbn', 'categoria' */
   PRIMARY KEY (`idproducto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
