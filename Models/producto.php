@@ -7,16 +7,22 @@ class Producto extends db
     use Condicion;
     private $idProducto;
     private $proNombre;
-    private $proDetalle;
+    private $sinopsis;
     private $proCantStock;
+    private $autor;
+    private $precio;
+    private $isbn;
     private $mensajeOp;
 
     public function __construct()
     {
         $this->idProducto = '';
         $this->proNombre = '';
-        $this->proDetalle = '';
+        $this->sinopsis = '';
         $this->proCantStock = '';
+        $this->autor = '';
+        $this->precio = '';
+        $this->isbn = '';
         $this->mensajeOp = '';
     }
 
@@ -40,14 +46,14 @@ class Producto extends db
         $this->proNombre = $proNombre;
     }
 
-    public function getProDetalle()
+    public function getSinopsis()
     {
-        return $this->proDetalle;
+        return $this->sinopsis;
     }
 
-    public function setProDetalle($proDetalle)
+    public function setSinopsis($sinopsis)
     {
-        $this->proDetalle = $proDetalle;
+        $this->sinopsis = $sinopsis;
     }
 
     public function getProCantStock()
@@ -58,6 +64,30 @@ class Producto extends db
     public function setProCantStock($proCantStock)
     {
         $this->proCantStock = $proCantStock;
+    }
+
+    public function getAutor(){
+        return $this->autor;
+    }
+
+    public function setAutor($autor){
+        $this->autor = $autor;
+    }
+
+    public function getPrecio(){
+        return $this->precio;
+    }
+
+    public function setPrecio($precio){
+        $this->precio = $precio;
+    }
+
+    public function getIsbn(){
+        return $this->isbn;
+    }
+
+    public function setIsbn($isbn){
+        $this->isbn = $isbn;
     }
 
     public function getMensajeOp()
@@ -71,12 +101,15 @@ class Producto extends db
     }
 
     // Cargar
-    public function cargar($idProducto, $proDetalle, $proNombre, $proCantStock)
+    public function cargar($idProducto, $sinopsis, $proNombre, $proCantStock, $autor, $precio, $isbn)
     {
         $this->setIdProducto($idProducto);
-        $this->setProDetalle($proDetalle);
+        $this->setSinopsis($sinopsis);
         $this->setProNombre($proNombre);
         $this->setProCantStock($proCantStock);
+        $this->setAutor($autor);
+        $this->setPrecio($precio);
+        $this->setIsbn($isbn);
     }
 
     //En el busqueda agregar de buscar siempre con deleted en null
@@ -100,8 +133,11 @@ class Producto extends db
                     if ($row2 = $base->Registro()) {
                         $this->setIdProducto($row2['idproducto']);
                         $this->setProNombre($row2['pronombre']);
-                        $this->setProDetalle($row2['prodetalle']);
+                        $this->setSinopsis($row2['sinopsis']);
                         $this->setProCantStock($row2['procantstock']);
+                        $this->setAutor($row2['autor']);
+                        $this->setPrecio($row2['precio']);
+                        $this->setIsbn($row2['isbn']);
                         $respuesta['respuesta'] = true;
                     }
                 } else {
@@ -131,7 +167,7 @@ class Producto extends db
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
         $base = new db();
-        $sql = "INSERT INTO producto VALUES(DEFAULT, {$this->getProNombre()}', {$this->getProDetalle()}', {$this->getProCantStock()}')";
+        $sql = "INSERT INTO producto VALUES(DEFAULT, {$this->getProNombre()}', {$this->getSinopsis()}', {$this->getProCantStock()},{$this->getAutor()}, {$this->getPrecio()},{$this->getIsbn()}')";
         try {
             if ($base->Iniciar()) {
                 if ($base->Ejecutar($sql)) {
@@ -167,7 +203,7 @@ class Producto extends db
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
         $base = new db();
-        $sql = "UPDATE producto SET pronombre = '{$this->getProNombre()}', prodetalle = '{$this->getProDetalle()}', procantStock = '{$this->getProCantStock()}'} WHERE idproducto = {$this->getIdProducto()}";
+        $sql = "UPDATE producto SET pronombre = '{$this->getProNombre()}', sinopsis = '{$this->getSinopsis()}', procantStock = '{$this->getProCantStock()}', autor = '{$this->getAutor()}', precio = '{$this->getPrecio()}', isbn = '{$this->getIsbn()}'} WHERE idproducto = {$this->getIdProducto()}";
         try {
             if ($base->Iniciar()) {
                 if ($base->Ejecutar($sql)) {
@@ -251,11 +287,14 @@ class Producto extends db
                     $arregloProducto = array();
                     while ($row2 = $base->Registro()) {
                         $idProducto = $row2['idproducto'];
-                        $proDetalle = $row2['prodetalle'];
+                        $sinopsis = $row2['sinopsis'];
                         $proNombre = $row2['pronombre'];
                         $proCantStock = $row2['procantstock'];
+                        $autor = $row2['autor'];
+                        $precio = $row2['precio'];
+                        $isbn = $row2['isbn'];
                         $producto = new Producto();
-                        $producto->cargar($idProducto, $proDetalle, $proNombre, $proCantStock);
+                        $producto->cargar($idProducto, $sinopsis, $proNombre, $proCantStock, $autor, $precio, $isbn);
                         array_push($arregloProducto, $producto);
                     }
                     $respuesta['respuesta'] = true;
@@ -288,8 +327,12 @@ class Producto extends db
         $data = [];
         $data['idproducto'] = $this->getIdProducto();
         $data['pronombre'] = $this->getProNombre();
-        $data['prodetalle'] = $this->getProDetalle();
+        $data['sinopsis'] = $this->getSinopsis();
         $data['procantstock'] = $this->getProCantStock();
+        $data['autor'] = $this->getAutor();
+        $data['precio'] = $this->getPrecio();
+        $data['isbn'] = $this->getIsbn();
         return $data;
     }
+
 }
