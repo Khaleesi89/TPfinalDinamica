@@ -14,7 +14,7 @@ class UsuarioController extends MasterController {
     }
 
     public function buscarId() {
-        $idBusqueda = $this->buscarKey( 'idUsuario' );
+        $idBusqueda = $this->buscarKey( 'idusuario' );
         if( $idBusqueda == false ){
             // error
             $data['error'] = $this->warning( 'No se ha encontrado dicho registro' );
@@ -33,7 +33,20 @@ class UsuarioController extends MasterController {
     }
 
     public function insertar( $data ){
-        
+        $newUsuario = new Usuario();
+        $newUsuario->setIdusuario( $data['idusuario'] );
+        $newUsuario->setUsnombre( $data['usnombre'] );
+        $newUsuario->setUspass( $data['uspass'] );
+        $newUsuario->setUsmail( $data['usmail'] );
+        $newUsuario->setUsdeshabilitado( $data['usdeshabilitado'] );
+
+        $operacion = $newUsuario->insertar();
+        if( $operacion['respuesta'] == false ){
+            $rta = $operacion['errorInfo'];
+        } else {
+            $rta = $operacion['respuesta'];
+        }
+        return $rta;
     }
 
     public function modificacionChetita() {
