@@ -41,8 +41,8 @@ class Rol extends db {
         Rol::$mensajeStatic = $mensajeStatic;
     }
 
-    public function cargar($idrol, $rodescripcion){
-        $this->setIdrol($idrol);
+    public function cargar( $rodescripcion){
+        //$this->setIdrol($idrol);
         $this->setRodescripcion($rodescripcion);
     }
 

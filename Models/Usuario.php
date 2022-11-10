@@ -65,8 +65,8 @@ class Usuario extends db{
         Usuario::$mensajeStatic = $mensajeStatic;
     }
 
-    public function cargar($idusuario, $usnombre, $uspass, $usmail, $deshabilitado){
-        $this->setIdusuario($idusuario);
+    public function cargar( $usnombre, $uspass, $usmail, $deshabilitado){
+        //$this->setIdusuario($idusuario);
         $this->setUsnombre($usnombre);
         $this->setUspass($uspass);
         $this->setUsmail($usmail);

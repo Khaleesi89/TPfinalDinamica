@@ -101,9 +101,9 @@ class Producto extends db
     }
 
     // Cargar
-    public function cargar($idProducto, $sinopsis, $proNombre, $proCantStock, $autor, $precio, $isbn)
+    public function cargar( $sinopsis, $proNombre, $proCantStock, $autor, $precio, $isbn)
     {
-        $this->setIdProducto($idProducto);
+        //$this->setIdProducto($idProducto);
         $this->setSinopsis($sinopsis);
         $this->setProNombre($proNombre);
         $this->setProCantStock($proCantStock);

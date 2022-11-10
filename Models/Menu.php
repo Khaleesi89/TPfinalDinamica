@@ -65,8 +65,8 @@ class Menu extends db{
         Menu::$mensajeStatic = $mensajeStatic;
     }
 
-    public function cargar($idmenu, $menombre, $medescripcion, $objPadre, $medeshabilitado){
-        $this->setIdmenu($idmenu);
+    public function cargar($menombre, $medescripcion, $objPadre, $medeshabilitado){
+        //$this->setIdmenu($idmenu);
         $this->setMenombre($menombre);
         $this->setMedescripcion($medescripcion);
         $this->setObjPadre($objPadre);

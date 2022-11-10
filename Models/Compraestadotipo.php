@@ -49,8 +49,8 @@ class Compraestadotipo extends db{
         Compraestadotipo::$mensajeStatic = $mensajeStatic;
     }
 
-    public function cargar($idcompraestadotipo, $cetdescripcion, $cetdetalle){
-        $this->setIdcompraestadotipo($idcompraestadotipo);
+    public function cargar( $cetdescripcion, $cetdetalle){
+        //$this->setIdcompraestadotipo($idcompraestadotipo);
         $this->setCetdescripcion($cetdescripcion);
         $this->setCetdetalle($cetdetalle);
     }

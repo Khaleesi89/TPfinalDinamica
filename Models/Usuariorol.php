@@ -49,8 +49,8 @@ class Usuariorol extends db {
         Usuariorol::$mensajeStatic = $mensajeStatic;
     }
 
-    public function cargar($idur, $objUsuario, $objRol){
-        $this->setIdur($idur);
+    public function cargar( $objUsuario, $objRol){
+        //$this->setIdur($idur);
         $this->setObjUsuario($objUsuario);
         $this->setObjRol($objRol);
     }
