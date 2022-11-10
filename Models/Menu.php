@@ -99,7 +99,7 @@ class Menu extends db{
                         if($idPadre == 0 || $idPadre == null){
                             $objMenu = null;
                         }else{
-                            $arrayId['idpadre'] = $idPadre;
+                            $arrayId['idmenu'] = $idPadre;
                             $objMenu->buscar($arrayId);
                         }
                         $this->setObjPadre($objMenu);
@@ -269,7 +269,7 @@ class Menu extends db{
                         if($idPadre == 0 || $idPadre == null){
                             $objMenuPadre = null;
                         }else{
-                            $arrayPadre['idpadre'] = $idPadre;
+                            $arrayPadre['idmenu'] = $idPadre;
                             $objMenuPadre->buscar($arrayPadre);
                         }
                         $objMenu->setObjPadre($objMenuPadre);
