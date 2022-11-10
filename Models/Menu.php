@@ -138,7 +138,7 @@ class Menu extends db{
         }
         $objPadre = null;
         $base = new db();
-        $sql = "INSERT INTO menu VALUES(DEFAULT, '{$this->getMenombre()}', '{$this->getMedescripcion()}', $idPadre, '{$this->getMedeshabilitado()}')";
+        $sql = "INSERT INTO menu VALUES(DEFAULT, '{$this->getMenombre()}', '{$this->getMedescripcion()}', $idPadre, DEFAULT)";
         try {
             if($base->Iniciar()){
                 if($base->Ejecutar($sql)){
