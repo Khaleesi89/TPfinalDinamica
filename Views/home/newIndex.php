@@ -11,6 +11,14 @@
             introMessage: 'Bienvenido',
             frameEndpoint: '../../Vendor/botman/chat.php',
             chatServer: '../../Vendor/botman/botman.php',
+            introMessage: 'Bienvenid@ soy <b>Yonny</b><br>En que puedo servirle?', //saludo inicial
+            title: 'Asistente Yonny', //titulo del chat
+            dateTimeFormat: 'Y-m-d H:i:s', //formato con el cual trabajaremos
+            placeholderText: 'Enviar mensaje...',
+            mainColor: '#27ae60', //encabezado
+            bubbleBackground: '#219150', //burbuja//el sobre es el icono predeterminado
+            // bubbleAvatarUrl: '../Archivos/icono.png',
+            aboutText: 'Producido por Jero y Mar',
         }
     </script>
     <!-- CSS -->
