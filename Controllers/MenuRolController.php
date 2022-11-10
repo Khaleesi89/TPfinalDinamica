@@ -20,13 +20,13 @@ class MenuRolController extends MasterController {
             $data['error'] = $this->warning( 'No se ha encontrado dicho registro' );
         } else {
             // encontrado!
-            $array['id'] = $idBusqueda;
-            $usuario = new Usuario();
-            $rta = $usuario->buscar( $array );
+            $array['idmr'] = $idBusqueda;
+            $MenuRol = new Menurol();
+            $rta = $MenuRol->buscar( $array );
             if( $rta['respuesta'] == false ){
                 $data['error'] = $this->manejarError( $rta );
             } else {
-                $data['array'] = $usuario;
+                $data['array'] = $MenuRol;
             }
             return $data;
         }

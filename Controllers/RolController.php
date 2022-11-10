@@ -14,19 +14,19 @@ class RolController extends MasterController {
     }
 
     public function buscarId() {
-        $idBusqueda = $this->buscarKey( 'idRol' );
+        $idBusqueda = $this->buscarKey( 'idrol' );
         if( $idBusqueda == false ){
             // Error
             $data['error'] = $this->warning( 'No se ha encontrado dicho registro' );
         } else {
             // Encontrado!
-            $array['id'] = $idBusqueda;
-            $usuario = new Usuario();
+            $array['idrol'] = $idBusqueda;
+            $rol = new Rol();
             $rta = $usuario->buscar( $array );
             if( $rta['respuesta'] == false ){
                 $data['error'] = $this->manejarError( $rta );
             } else {
-                $data['array'] = $usuario;
+                $data['array'] = $rol;
             }
             return $data;
         }
