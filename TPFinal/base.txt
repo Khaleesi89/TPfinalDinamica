@@ -14,7 +14,7 @@ usuariorol CREADA
 
 MODELOS:
 compraestadotipo FIN, Condicion arreglao, TEST aprobao
-producto
+producto FIN, sin test
 rol FIN, Condicion arreglao, TEST aprobao
 usuario FIN sin test Condicion arreglao
 menu FIN sin test Condicion arreglao

@@ -1,10 +1,10 @@
 <?php
 
-class ControlUsuario extends MasterController {
+class RolController extends MasterController {
     use Errores;
 
     public function listarTodo( $arrayBusqueda ){
-        $rta = Usuario::listar( $arrayBusqueda );
+        $rta = Rol::listar( $arrayBusqueda );
         if( $rta['respuesta'] == true ){
             $data['array'] = $rta['array'];
         } else {
@@ -14,49 +14,38 @@ class ControlUsuario extends MasterController {
     }
 
     public function buscarId() {
-        $idBusqueda = $this->buscarKey( 'id' );
+        $idBusqueda = $this->buscarKey( 'idrol' );
         if( $idBusqueda == false ){
-            // error
+            // Error
             $data['error'] = $this->warning( 'No se ha encontrado dicho registro' );
         } else {
-            // encontrado!
-            $array['id'] = $idBusqueda;
-            $usuario = new Usuario();
+            // Encontrado!
+            $array['idrol'] = $idBusqueda;
+            $rol = new Rol();
             $rta = $usuario->buscar( $array );
             if( $rta['respuesta'] == false ){
                 $data['error'] = $this->manejarError( $rta );
             } else {
-                $data['array'] = $usuario;
+                $data['array'] = $rol;
             }
             return $data;
         }
     }
 
-    public function insertar( $data ){
-        
-    }
-
     public function modificacionChetita() {
         $rta = $this->buscarId();
-        $usuario = $rta['array'];
+        $rol = $rta['array'];
 
-        $usNombre = $this->buscarKey( 'usnombre' );
-        $usPass = $this->buscarKey( 'uspass' );
-        $usMail = $this->buscarKey( 'usmail' );
-        $usDeshabilitado = $this->buscarKey( 'usdeshabilitado' );
+        $roDescripcion = $this->buscarKey( 'rodescripcion' );
+        $rol->setRodescripcion( $roDescripcion );
 
-        $usuario->setUsnombre( $usNombre );
-        $usuario->setUspass( $usPass );
-        $usuario->setUsmail( $usMail );
-        $usuario->setUsdeshabilitado( $usDeshabilitado );
-
-        $respuesta = $usuario->modificar();
+        $respuesta = $rol->modificar();
         return $respuesta;
     }
 
     public function baja( $param ){
         $bandera = false;
-        if( $param->getId() !== null ){
+        if( $param->getIdrol() !== null ){
             if( $param->eliminar() ){
                 $bandera = true;
             }
