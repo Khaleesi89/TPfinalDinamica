@@ -5,7 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yonny ameo</title>
-
+    <script src="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js"></script>
+    <script>
+        var botmanWidget = {
+            introMessage: 'Bienvenido',
+            frameEndpoint: '../../Vendor/botman/chat.php',
+            chatServer: '../../Vendor/botman/botman.php',
+        }
+    </script>
     <!-- CSS -->
     <link rel="stylesheet" href="../../Public/cssPuro/newStyle.css">
     <!-- Fontawesome -->
@@ -370,7 +377,6 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 <!-- JS -->
 <script src="../../Public/jsPuro/script.js"></script>
-
 
 </body>
 </html>
