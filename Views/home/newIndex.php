@@ -5,7 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yonny ameo</title>
-
+    <script src="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js"></script>
+    <script>
+        var botmanWidget = {
+            introMessage: 'Bienvenido',
+            frameEndpoint: '../../Vendor/botman/chat.php',
+            chatServer: '../../Vendor/botman/botman.php',
+            introMessage: 'Bienvenid@ soy <b>Yonny</b><br>En que puedo servirle?', //saludo inicial
+            title: 'Asistente Yonny', //titulo del chat
+            dateTimeFormat: 'Y-m-d H:i:s', //formato con el cual trabajaremos
+            placeholderText: 'Enviar mensaje...',
+            mainColor: '#27ae60', //encabezado
+            bubbleBackground: '#219150', //burbuja//el sobre es el icono predeterminado
+            // bubbleAvatarUrl: '../Archivos/icono.png',
+            aboutText: 'Producido por Jero y Mar',
+        }
+    </script>
     <!-- CSS -->
     <link rel="stylesheet" href="../../Public/cssPuro/newStyle.css">
     <!-- Fontawesome -->
@@ -370,7 +385,6 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 <!-- JS -->
 <script src="../../Public/jsPuro/script.js"></script>
-
 
 </body>
 </html>
