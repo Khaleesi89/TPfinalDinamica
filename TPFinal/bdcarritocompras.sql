@@ -134,8 +134,11 @@ CREATE TABLE `menu` (
   `menombre` varchar(50) NOT NULL,
   `medescripcion` varchar(124) NOT NULL,
   `idpadre` bigint(20) DEFAULT NULL,
-  `medeshabilitado` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+  `medeshabilitado` timestamp DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE menu
+  CHANGE `medeshabilitado` `medeshabilitado` TIMESTAMP NULL DEFAULT NULL;
 
 ALTER TABLE `menu`
   ADD PRIMARY KEY (`idmenu`),
@@ -192,6 +195,12 @@ CREATE TABLE `producto` (
   PRIMARY KEY (`idproducto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+ALTER TABLE `producto`
+  ADD `autor` varchar(100) NOT NULL,
+  ADD `precio` int(10) NOT NULL,
+  ADD `isbn` int(15) NOT NULL,
+  ADD `categoria` varchar(30) NOT NULL,
+  CHANGE `prodetalle` `sinopsis` varchar(512) NOT NULL;
 -- --------------------------------------------------------
 
 --SE PUDO CREAR
