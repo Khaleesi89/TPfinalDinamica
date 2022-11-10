@@ -22,6 +22,7 @@ class UsuarioRolController extends MasterController {
             // Se encontró
             $array['id'] = $idBusqueda;
             $usuarioRol = new Usuariorol();
+            $rta = $usuarioRol->buscar( $array );
             if( $rta['respuesta'] == false ){
                 $data['error'] = $this->manejarError( $rta );
             } else {
