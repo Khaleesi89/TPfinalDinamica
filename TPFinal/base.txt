@@ -17,9 +17,10 @@ compraestadotipo FIN, Condicion arreglao, TEST aprobao
 producto FIN, sin test
 rol FIN, Condicion arreglao, TEST aprobao
 usuario FIN sin test Condicion arreglao
-menu FIN sin test Condicion arreglao, funco la recursividad
+menu FIN FUNCA TODO Condicion arreglao, funco la recursividad
+compra FIN FUNCA TODO
 
-compra FIN sin test
+PENDIENTES
 compraestado FIN sin test
 compraitem FIN sin test
 menurol FIN sin test Condicion arreglao
