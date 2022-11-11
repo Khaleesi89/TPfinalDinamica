@@ -304,6 +304,7 @@ class Menu extends db{
         return $respuesta;
     }
 
+        //hacen lo mismo el dameDatos y el dameDatosRecursivo
     public function dameDatosRecursivo(){
         $data = [];
         $data['idmenu'] = $this->getIdmenu();
@@ -320,12 +321,18 @@ class Menu extends db{
         return $data;
     }
 
+    //hacen lo mismo el dameDatos y el dameDatosRecursivo
     public function dameDatos(){
         $data = [];
         $data['idmenu'] = $this->getIdmenu();
+        
         $data['menombre'] = $this->getMenombre();
+        
         $data['medescripcion'] = $this->getMedescripcion();
+        
+        
         $objPadre = $this->getObjPadre();
+        
         try {
             $datosPadre = $objPadre->dameDatos();
         } catch (\Throwable $th) {

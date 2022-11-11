@@ -74,7 +74,25 @@ if($rta['respuesta']){
     var_dump($rta['array']);
 }else{
     var_dump ($rta['errorInfo']);
+}*/
+
+
+//DAME DATOS RECURSIVO-----FUNCA
+
+$menu = new Menu();
+$buscado ['idmenu'] = 9;
+$menurecargado = $menu->buscar($buscado);
+//print_r($menu);
+//die();
+if($menurecargado['respuesta']){
+    echo "funco";
+}else{
+    echo "segui participando";
 }
-*/
+//die();
+//$datos = $menu->dameDatosRecursivo();
+$datos = $menu->dameDatos();
+var_dump($datos);
+//echo $datos['menombre'];
 
 
