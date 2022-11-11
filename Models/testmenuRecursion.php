@@ -36,14 +36,16 @@ var_dump($menuConPadre);
 
 $menuNieto = new Menu();
 $menuNieto->cargar('', 'Nieto', 'El hijo del hijo del padre', $menuConPadre, NULL);
+//$arrayBus['idmenu'] = 14;
+//$menuNieto->buscar($arrayBus);
 $menuNieto->insertar();
 echo "\nMENU NIETO\n";
 var_dump($menuNieto);
 
-$arrayBus = [];
+/* $arrayBus = [];
 $rta = Menu::listar($arrayBus);
 if($rta['respuesta']){
     var_dump($rta['array'][8]);
 }else{
     var_dump($rta['errorInfo']);
-}
+} */

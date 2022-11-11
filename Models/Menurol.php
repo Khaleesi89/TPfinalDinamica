@@ -49,8 +49,8 @@ class Menurol extends db{
         Menurol::$mensajeStatic = $mensajeStatic;
     }
 
-    public function cargar($idmr, $objMenu, $objRol){
-        $this->setIdmr($idmr);
+    public function cargar( $objMenu, $objRol){
+        //$this->setIdmr($idmr);
         $this->setObjMenu($objMenu);
         $this->setObjRol($objRol);
     }
