@@ -167,7 +167,7 @@ class Producto extends db
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
         $base = new db();
-        $sql = "INSERT INTO producto VALUES(DEFAULT, {$this->getProNombre()}', {$this->getSinopsis()}', {$this->getProCantStock()},{$this->getAutor()}, {$this->getPrecio()},{$this->getIsbn()}')";
+        $sql = "INSERT INTO producto VALUES(DEFAULT, '{$this->getProNombre()}', '{$this->getSinopsis()}', '{$this->getProCantStock()},'{$this->getAutor()}', '{$this->getPrecio()}','{$this->getIsbn()}')";
         try {
             if ($base->Iniciar()) {
                 if ($base->Ejecutar($sql)) {
