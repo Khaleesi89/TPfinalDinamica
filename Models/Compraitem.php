@@ -295,4 +295,21 @@ class Compraitem extends db{
         }
         return $respuesta;
     }
+
+	public function dameDatos(){
+		$data = [];
+		$data['idcompraitem'] = $this->getIdcompraitem();
+		//obtener el idproducto
+		$objProducto = $this->getObjProducto();
+		$idproducto = $objProducto->getIdproducto();
+		$objProducto = null;
+		$data['idproducto'] = $idproducto;
+		//obtener el idcompra
+		$objCompra = $this->getObjCompra();
+		$idcompra = $objCompra->getIdcompra();
+		$objCompra = null;
+		$data['idcompra'] = $idcompra;
+		$data['cicantidad'] = $this->getCicantidad();
+		return $data;
+	}
 }

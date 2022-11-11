@@ -91,8 +91,8 @@ class Usuario extends db{
                 if($base->Ejecutar($sql)){
                     if($row2 = $base->Registro()){
                         $this->setIdusuario($row2['idusuario']);
-                        $this->setUsnombre($row2['usunombre']);
-                        $this->setUspass($row2['usupass']);
+                        $this->setUsnombre($row2['usnombre']);
+                        $this->setUspass($row2['uspass']);
                         $this->setUsmail($row2['usmail']);
                         $this->setUsdeshabilitado($row2['usdeshabilitado']);
                         $respuesta['respuesta'] = true;
@@ -248,8 +248,8 @@ class Usuario extends db{
                     while($row2 = $base->Registro()){
                         $objUsuario = new Usuario();
                         $objUsuario->setIdusuario($row2['idusuario']);
-                        $objUsuario->setUsnombre($row2['usunombre']);
-                        $objUsuario->setUspass($row2['usupass']);
+                        $objUsuario->setUsnombre($row2['usnombre']);
+                        $objUsuario->setUspass($row2['uspass']);
                         $objUsuario->setUsmail($row2['usmail']);
                         $objUsuario->setUsdeshabilitado($row2['usdeshabilitado']);
                         array_push($arregloUsuario, $objUsuario);

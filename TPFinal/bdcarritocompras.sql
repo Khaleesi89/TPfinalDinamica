@@ -188,7 +188,7 @@ CREATE TABLE `menurol` (
 
 CREATE TABLE `producto` (
   `idproducto` bigint(20) NOT NULL AUTO_INCREMENT, 
-  `pronombre` int(11) NOT NULL,
+  `pronombre` varchar(50) NOT NULL,
   `prodetalle` varchar(512) NOT NULL, /* cambiar nombre de campo a 'sinopsis' */
   `procantstock` int(11) NOT NULL,
   /* agregar campos 'autor', 'precio', 'isbn', 'categoria' */
@@ -201,7 +201,10 @@ ALTER TABLE `producto`
   ADD `isbn` int(15) NOT NULL,
   ADD `categoria` varchar(30) NOT NULL,
   CHANGE `prodetalle` `sinopsis` varchar(512) NOT NULL,
-  ADD `prdeshabilitado` TIMESTAMP NULL DEFAULT NULL; 
+  ADD `prdeshabilitado` TIMESTAMP NULL DEFAULT NULL;
+
+ALTER TABLE `producto`
+  CHANGE `pronombre` `pronombre` varchar(50) NOT NULL;
 -- --------------------------------------------------------
 
 --SE PUDO CREAR
@@ -228,12 +231,15 @@ CREATE TABLE `rol` (
 
 CREATE TABLE `usuario` (
   `idusuario` bigint(20) NOT NULL AUTO_INCREMENT,
-  `usnombre` varchar(50) NOT NULL,
+  `usnombre` varchar(50) NOT NULL UNIQUE,
   `uspass` varchar(255) NOT NULL,
   `usmail` varchar(50) NOT NULL,
   `usdeshabilitado` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`idusuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE usuario
+  CHANGE 'usnombre' 'usenombre' varchar(50) NOT NULL UNIQUE;
 
 /* ALTER TABLE `usuario`
   MODIFY `uspass` varchar(255) NOT NULL; */

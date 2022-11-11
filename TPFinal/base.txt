@@ -21,7 +21,7 @@ menu FIN sin test Condicion arreglao, funco la recursividad
 
 compra FIN sin test
 compraestado FIN sin test
-compraitem 
+compraitem FIN sin test
 menurol FIN sin test Condicion arreglao
 usuariorol FIN sin test Condicion arreglao
 
