@@ -12,6 +12,8 @@ class Producto extends db
     private $autor;
     private $precio;
     private $isbn;
+    private $categoria;
+    private $prdeshabilitado;
     private $mensajeOp;
 
     public function __construct()
@@ -23,6 +25,8 @@ class Producto extends db
         $this->autor = '';
         $this->precio = '';
         $this->isbn = '';
+        $this->categoria = '';
+        $this->prdeshabilitado = NULL;
         $this->mensajeOp = '';
     }
 
@@ -100,8 +104,24 @@ class Producto extends db
         $this->mensajeOp = $mensajeOp;
     }
 
+    public function getCategoria(){
+        return $this->categoria;
+    }
+
+    public function setCategoria($categoria){
+        $this->categoria = $categoria;
+    }
+
+    public function getPrdeshabilitado(){
+        return $this->prdeshabilitado;
+    }
+
+    public function setPrdeshabilitado($prdeshabilitado){
+        $this->prdeshabilitado = $prdeshabilitado;
+    }
+
     // Cargar
-    public function cargar( $sinopsis, $proNombre, $proCantStock, $autor, $precio, $isbn)
+    public function cargar($sinopsis, $proNombre, $proCantStock, $autor, $precio, $isbn, $categoria)
     {
         //$this->setIdProducto($idProducto);
         $this->setSinopsis($sinopsis);
@@ -110,6 +130,7 @@ class Producto extends db
         $this->setAutor($autor);
         $this->setPrecio($precio);
         $this->setIsbn($isbn);
+        $this->setCategoria($categoria);
     }
 
     //En el busqueda agregar de buscar siempre con deleted en null
@@ -138,6 +159,8 @@ class Producto extends db
                         $this->setAutor($row2['autor']);
                         $this->setPrecio($row2['precio']);
                         $this->setIsbn($row2['isbn']);
+                        $this->setCategoria($row2['categoria']);
+                        $this->setPrdeshabilitado($row2['prdeshabilitado']);
                         $respuesta['respuesta'] = true;
                     }
                 } else {
@@ -167,7 +190,7 @@ class Producto extends db
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
         $base = new db();
-        $sql = "INSERT INTO producto VALUES(DEFAULT, '{$this->getProNombre()}', '{$this->getSinopsis()}', '{$this->getProCantStock()},'{$this->getAutor()}', '{$this->getPrecio()}','{$this->getIsbn()}')";
+        $sql = "INSERT INTO producto VALUES(DEFAULT, '{$this->getProNombre()}', '{$this->getSinopsis()}',{$this->getProCantStock()},'{$this->getAutor()}', {$this->getPrecio()},{$this->getIsbn()},'{$this->getCategoria()}', DEFAULT)";
         try {
             if ($base->Iniciar()) {
                 if ($base->Ejecutar($sql)) {
@@ -203,7 +226,7 @@ class Producto extends db
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
         $base = new db();
-        $sql = "UPDATE producto SET pronombre = '{$this->getProNombre()}', sinopsis = '{$this->getSinopsis()}', procantStock = '{$this->getProCantStock()}', autor = '{$this->getAutor()}', precio = '{$this->getPrecio()}', isbn = '{$this->getIsbn()}'} WHERE idproducto = {$this->getIdProducto()}";
+        $sql = "UPDATE producto SET pronombre = '{$this->getProNombre()}', sinopsis = '{$this->getSinopsis()}', procantstock = {$this->getProCantStock()}, autor = '{$this->getAutor()}', precio = {$this->getPrecio()}, isbn = {$this->getIsbn()}, categoria = '{$this->getCategoria()}' WHERE idproducto = {$this->getIdProducto()}";
         try {
             if ($base->Iniciar()) {
                 if ($base->Ejecutar($sql)) {
@@ -240,7 +263,7 @@ class Producto extends db
         //obtener fecha actual
         $fecha = getdate();
         $fechaPosta = $fecha['mday'] . ':' . $fecha['mon'] . ':' . $fecha['year'];
-        $sql = "UPDATE producto SET procantstock = '0' WHERE id = {$this->getIdProducto()}";
+    $sql = "UPDATE producto SET prdeshabilitado = CURRENT_TIMESTAMP WHERE idproducto = {$this->getIdProducto()}";
         try {
             if ($base->Iniciar()) {
                 if ($base->Ejecutar($sql)) {
@@ -293,8 +316,9 @@ class Producto extends db
                         $autor = $row2['autor'];
                         $precio = $row2['precio'];
                         $isbn = $row2['isbn'];
+                        $categoria = $row2['categoria'];
                         $producto = new Producto();
-                        $producto->cargar($idProducto, $sinopsis, $proNombre, $proCantStock, $autor, $precio, $isbn);
+                        $producto->cargar($idProducto, $sinopsis, $proNombre, $proCantStock, $autor, $precio, $isbn, $categoria);
                         array_push($arregloProducto, $producto);
                     }
                     $respuesta['respuesta'] = true;
@@ -332,6 +356,7 @@ class Producto extends db
         $data['autor'] = $this->getAutor();
         $data['precio'] = $this->getPrecio();
         $data['isbn'] = $this->getIsbn();
+        $data['categoria'] = $this->getCategoria();
         return $data;
     }
 
