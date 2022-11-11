@@ -28,9 +28,13 @@ usuariorol FIN sin test Condicion arreglao
 
 CONTROLADORES:
 usuariorol
-usuario
-rol
-menurol
+usuario FIN sin test
+rol FIN sin test
+menurol FIN sin test
+producto
+compra
+compraestado
+compraitem
 
 
 se modificaron las clases que tenian deshabilitado para que 
