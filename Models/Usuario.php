@@ -248,8 +248,8 @@ class Usuario extends db{
                     while($row2 = $base->Registro()){
                         $objUsuario = new Usuario();
                         $objUsuario->setIdusuario($row2['idusuario']);
-                        $objUsuario->setUsnombre($row2['usunombre']);
-                        $objUsuario->setUspass($row2['usupass']);
+                        $objUsuario->setUsnombre($row2['usnombre']);
+                        $objUsuario->setUspass($row2['uspass']);
                         $objUsuario->setUsmail($row2['usmail']);
                         $objUsuario->setUsdeshabilitado($row2['usdeshabilitado']);
                         array_push($arregloUsuario, $objUsuario);
