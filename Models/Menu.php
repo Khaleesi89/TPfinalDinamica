@@ -180,6 +180,8 @@ class Menu extends db{
         }
         $objPadre = null;
         $sql = "UPDATE menu SET menombre = '{$this->getMenombre()}', medescripcion = '{$this->getMedescripcion()}', idpadre = $idPadre, medeshabilitado = '{$this->getMedeshabilitado()}'  WHERE idmenu = {$this->getIdmenu()}";
+        //echo $sql;
+        //die();
         $base = new db();
         try {
             if( $base->Iniciar() ){
@@ -215,6 +217,7 @@ class Menu extends db{
         $respuesta['codigoError'] = null;
         //obtener fecha
         $sql = "UPDATE menu SET medeshabilitado = CURRENT_TIMESTAMP WHERE idmenu = {$this->getIdmenu()}";
+        
         $base = new db();
         try {
             if($base->Iniciar()){
@@ -249,7 +252,7 @@ class Menu extends db{
         $arregloMenu = null;
         $base = new db();
         //seteo de busqueda//ARREGLAR EL CONDICION
-        $stringBusqueda = Compraestadotipo::SBS($arrayBusqueda);
+        $stringBusqueda = Menu::SBS($arrayBusqueda);
         $sql = "SELECT * FROM menu";
         if($stringBusqueda != ''){
             $sql.= ' WHERE ';
