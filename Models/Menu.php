@@ -17,7 +17,7 @@ class Menu extends db{
         $this->menombre = '';
         $this->medescripcion = '';
         $this->objPadre = null;
-        $this->medeshabilitado = '';
+        $this->medeshabilitado = null;
         $this->mensajeOp = '';
     }
 
@@ -65,12 +65,12 @@ class Menu extends db{
         Menu::$mensajeStatic = $mensajeStatic;
     }
 
-    public function cargar($menombre, $medescripcion, $objPadre, $medeshabilitado){
+    public function cargar($menombre, $medescripcion, $objPadre){
         //$this->setIdmenu($idmenu);
         $this->setMenombre($menombre);
         $this->setMedescripcion($medescripcion);
         $this->setObjPadre($objPadre);
-        $this->setMedeshabilitado($medeshabilitado);
+        
     }
 
     public function buscar($arrayBusqueda){
