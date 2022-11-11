@@ -17,10 +17,11 @@ class Compra extends db{
 	}
 
 	//Metodo cargar
-	public function cargar( $cofecha, $objUsuario){
+	public function cargar($objUsuario){
 		//$this->idcompra = $idcompra;
-		$this->cofecha = $cofecha;
+		//$this->cofecha = $cofecha;
 		$this->objUsuario = $objUsuario;
+        
 	}
 
 	//Getters y setters
@@ -109,7 +110,13 @@ class Compra extends db{
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
         $base = new db();
-        $sql = "INSERT INTO compra VALUES(DEFAULT, '{$this->getIdcompra()}', '{$this->getCofecha()}', '{$this->getObjUsuario()}')";
+        $objusuario = $this->getObjUsuario();
+        $idusuario = $objusuario->getIdusuario();
+        //echo $id;
+        //die();
+        $sql = "INSERT INTO compra VALUES(DEFAULT, DEFAULT, $idusuario)";
+        //echo $sql;
+        //die();
         try {
             if ($base->Iniciar()) {
                 if ($base->Ejecutar($sql)) {
@@ -145,7 +152,12 @@ class Compra extends db{
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
         $base = new db();
-        $sql = "UPDATE compra SET cofecha = '{$this->getCofecha()}', objusuario = '{$this->getObjUsuario()}' WHERE idcompra = {$this->getIdcompra()}";
+        $objusuario = $this->getObjUsuario();
+        //var_dump($objusuario);
+        //die();
+        $idusuario = $objusuario->getIdusuario();
+
+        $sql = "UPDATE compra SET cofecha = DEFAULT, idusuario = $idusuario WHERE idcompra = {$this->getIdcompra()}";
         try {
             if ($base->Iniciar()) {
                 if ($base->Ejecutar($sql)) {

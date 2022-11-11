@@ -5,10 +5,10 @@ class UsuarioController extends MasterController {
 
     public function listarTodo( $arrayBusqueda ){
         $rta = Usuario::listar( $arrayBusqueda );
-        if( $rta['respuesta'] == true ){
+        if( $rta['respuesta'] ){
             $data['array'] = $rta['array'];
         } else {
-            $data['error'] = $this->manejarError( $rta );
+            $data['error'] = $this->manejarError( $rta['error'] );
         }
         return $data;
     }

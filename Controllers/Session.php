@@ -16,26 +16,26 @@ class Session {
      * Getters & Setters
      * Obtiene y setea los índices de la variable $_SESSION
      */
-    public function getIdUsuario() {
-        return $_SESSION['idUsuario'];
+    public function getIdusuario() {
+        return $_SESSION['idusuario'];
     }
     public function setIdusuario( $idusuario ){
-        $_SESSION['idUsuario'] = $idusuario;
+        $_SESSION['idusuario'] = $idusuario;
     }
 
-    public function getUsuNombre() {
-        return $_SESSION['usuNombre'];
+    public function getUsnombre() {
+        return $_SESSION['usnombre'];
     }
-    public function setUsuNombre( $usuNombre ){
-        $_SESSION['usuNombre'] = $usuNombre;
-    }
-
-    public function getUsuPass() {
-        return $_SESSION['usuPass'];
+    public function setUsnombre( $usnombre ){
+        $_SESSION['usnombre'] = $usnombre;
     }
 
-    public function setUsuPass( $usuPass ){
-        $_SESSION['usuPass'] = $usuPass;
+    public function getUspass() {
+        return $_SESSION['uspass'];
+    }
+
+    public function setUspass( $uspass ){
+        $_SESSION['uspass'] = $uspass;
     }
 
     public function getUsuRol() {
@@ -51,9 +51,9 @@ class Session {
      * @param $usuNombre
      * @param $usuPass
      */
-    public function iniciar( $usuNombre, $usuPass ){
-        $this->setUsuNombre( $usuNombre );
-        $this->setUsuPass( $usuPass );
+    public function iniciar( $usnombre, $uspass ){
+        $this->setUsnombre( $usnombre );
+        $this->setUspass( $uspass );
     }
 
     /**
@@ -62,18 +62,27 @@ class Session {
      */
     public function validar(){
         $validado = false;
-        $usuario = $this->getUsuNombre();
-        $pass = $this->getUsuPass();
+        $usuario = $this->getUsnombre();
+        $pass = $this->getUspass();
 
-        $filtroNombre = ['usuNombre' => $usuario];
-        $filtroPass = ['usuPass' => $pass];
-        $query = [
-            'usuNombre' => $usuario,
-            'usuPass' => $pass
-        ];
+        $filtroNombre = ['usnombre' => $usuario];
+        $filtroPass = ['uspass' => $pass];
+        /* $query = [
+            'usnombre' => $usuario,
+            'uspass' => $pass
+        ]; */
 
-        $controlUsuario = new ControlUsuario();
-        $lista = $controlUsuario->buscar( $query );
+        $controlUsuario = new UsuarioController();
+        $lista = $controlUsuario->buscarId();
+
+        $str = '';
+        if( $lista['array']->getUsnombre == $usuario
+            && $lista['array']->getUspass == $pass ){
+            $validado = true;
+        } else {
+            $str = 'Credenciales incorrectas';
+        }
+        return $validado;
 
     }
 
