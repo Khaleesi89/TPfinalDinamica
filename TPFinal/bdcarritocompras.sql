@@ -200,7 +200,8 @@ ALTER TABLE `producto`
   ADD `precio` int(10) NOT NULL,
   ADD `isbn` int(15) NOT NULL,
   ADD `categoria` varchar(30) NOT NULL,
-  CHANGE `prodetalle` `sinopsis` varchar(512) NOT NULL;
+  CHANGE `prodetalle` `sinopsis` varchar(512) NOT NULL,
+  ADD `prdeshabilitado` TIMESTAMP NULL DEFAULT NULL; 
 -- --------------------------------------------------------
 
 --SE PUDO CREAR
