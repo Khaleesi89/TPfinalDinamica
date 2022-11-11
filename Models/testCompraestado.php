@@ -10,14 +10,14 @@ $compraestado = new Compraestado();
 $found = [];
 $found['idusuario'] = 2;
 $founds = [];
-$founds['idcompra'] = 8;
+$founds['idcompra'] = 1;
 $camp = $objUsuario->buscar($found);
 //var_dump($objUsuario);
 $camps = $objCompra->buscar($founds);
 //var_dump($objCompra);
 //die();
 $foundSS = [];
-$foundSS['idcompraestadotipo'] = 2;
+$foundSS['idcompraestadotipo'] = 4;
 $objCompraEstadoTipo->buscar($foundSS);
 //var_dump($objCompraEstadoTipo);
 //die();
@@ -40,15 +40,29 @@ if($sepudo){
 }*/
 
 
-//modificar
+//modificar FUNCA
 
 
+$busq = [];
+$busq['idcompraestado'] = 5;
+$info = $compraestado->buscar($busq);
+$compraestado->cargar($objCompra,$objCompraEstadoTipo);
+$compraestado->modificar();
+/*
+die();
+if($info){
+    echo "se encontro";
+    var_dump($compraestado);
+}else{
+    echo "perdido";
+}*/
 
-//eliminar
+
+//eliminar FUNCIONA
+//$compraestado->eliminar();
 
 
-
-//buscar
+/*//buscar FUNCO
 
 $busq = [];
 $busq['idcompraestado'] = 4;
@@ -58,9 +72,23 @@ if($info){
     var_dump($compraestado);
 }else{
     echo "perdido";
-}
+}*/
 
-//listar
+/*//listar FUNCA
 
+$listar = [];
+$rta = Compraestado::listar($listar);
+if($rta['respuesta']){
+    echo "funco";
+    var_dump($rta['array']);
+}else{
+    var_dump ($rta['errorInfo']);
+}*/
 
-//dameDatos
+//dameDatos FUNCA
+
+$found = [];
+$found['idcompraestado'] = 4;
+$rta = $compraestado->buscar($found);
+$datos = $compraestado->dameDatos();
+var_dump($datos);

@@ -19,22 +19,19 @@ rol FIN, Condicion arreglao, TEST aprobao
 usuario FIN sin test Condicion arreglao
 menu FIN FUNCA TODO Condicion arreglao, funco la recursividad
 compra FIN FUNCA TODO
+compraestado FIN PROBADO CON TEST
 
-PENDIENTES
-compraestado FIN sin test
-compraitem FIN sin test
+PENDIENTES:
+
+compraitem FIN sin test(lo estoy haciendo MARCIA)
 menurol FIN sin test Condicion arreglao
 usuariorol FIN sin test Condicion arreglao
 
 CONTROLADORES:
 usuariorol
-usuario FIN sin test
-rol FIN sin test
-menurol FIN sin test
-producto
-compra
-compraestado
-compraitem
+usuario
+rol
+menurol
 
 
 se modificaron las clases que tenian deshabilitado para que 
@@ -42,4 +39,3 @@ en el constructor no se solicite el valor y pasamos por defecto el nullo
 
 
 se hizo el test de Menu y funca todo...
-ahora estoy con testCompra(Marcia)
