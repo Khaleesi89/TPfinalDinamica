@@ -17,7 +17,7 @@ class Menu extends db{
         $this->menombre = '';
         $this->medescripcion = '';
         $this->objPadre = null;
-        $this->medeshabilitado = '';
+        $this->medeshabilitado = null;
         $this->mensajeOp = '';
     }
 
@@ -65,12 +65,12 @@ class Menu extends db{
         Menu::$mensajeStatic = $mensajeStatic;
     }
 
-    public function cargar($menombre, $medescripcion, $objPadre, $medeshabilitado){
+    public function cargar($menombre, $medescripcion, $objPadre){
         //$this->setIdmenu($idmenu);
         $this->setMenombre($menombre);
         $this->setMedescripcion($medescripcion);
         $this->setObjPadre($objPadre);
-        $this->setMedeshabilitado($medeshabilitado);
+        
     }
 
     public function buscar($arrayBusqueda){
@@ -180,6 +180,8 @@ class Menu extends db{
         }
         $objPadre = null;
         $sql = "UPDATE menu SET menombre = '{$this->getMenombre()}', medescripcion = '{$this->getMedescripcion()}', idpadre = $idPadre, medeshabilitado = '{$this->getMedeshabilitado()}'  WHERE idmenu = {$this->getIdmenu()}";
+        //echo $sql;
+        //die();
         $base = new db();
         try {
             if( $base->Iniciar() ){
@@ -215,6 +217,7 @@ class Menu extends db{
         $respuesta['codigoError'] = null;
         //obtener fecha
         $sql = "UPDATE menu SET medeshabilitado = CURRENT_TIMESTAMP WHERE idmenu = {$this->getIdmenu()}";
+        
         $base = new db();
         try {
             if($base->Iniciar()){
@@ -249,7 +252,7 @@ class Menu extends db{
         $arregloMenu = null;
         $base = new db();
         //seteo de busqueda//ARREGLAR EL CONDICION
-        $stringBusqueda = Compraestadotipo::SBS($arrayBusqueda);
+        $stringBusqueda = Menu::SBS($arrayBusqueda);
         $sql = "SELECT * FROM menu";
         if($stringBusqueda != ''){
             $sql.= ' WHERE ';
@@ -301,6 +304,7 @@ class Menu extends db{
         return $respuesta;
     }
 
+        //hacen lo mismo el dameDatos y el dameDatosRecursivo
     public function dameDatosRecursivo(){
         $data = [];
         $data['idmenu'] = $this->getIdmenu();
@@ -317,12 +321,18 @@ class Menu extends db{
         return $data;
     }
 
+    //hacen lo mismo el dameDatos y el dameDatosRecursivo
     public function dameDatos(){
         $data = [];
         $data['idmenu'] = $this->getIdmenu();
+        
         $data['menombre'] = $this->getMenombre();
+        
         $data['medescripcion'] = $this->getMedescripcion();
+        
+        
         $objPadre = $this->getObjPadre();
+        
         try {
             $datosPadre = $objPadre->dameDatos();
         } catch (\Throwable $th) {

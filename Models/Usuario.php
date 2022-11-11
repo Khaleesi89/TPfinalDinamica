@@ -17,7 +17,7 @@ class Usuario extends db{
         $this->usnombre = '';
         $this->uspass = '';
         $this->usmail = '';
-        $this->usdeshabilitado = '';
+        $this->usdeshabilitado = null;
         $this->mensajeOp = '';
     }
 
@@ -65,12 +65,12 @@ class Usuario extends db{
         Usuario::$mensajeStatic = $mensajeStatic;
     }
 
-    public function cargar( $usnombre, $uspass, $usmail, $deshabilitado){
+    public function cargar( $usnombre, $uspass, $usmail){
         //$this->setIdusuario($idusuario);
         $this->setUsnombre($usnombre);
         $this->setUspass($uspass);
         $this->setUsmail($usmail);
-        $this->setUsdeshabilitado($deshabilitado);
+        
     }
 
     public function buscar($arrayBusqueda){

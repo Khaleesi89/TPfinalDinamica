@@ -30,3 +30,11 @@ usuariorol
 usuario
 rol
 menurol
+
+
+se modificaron las clases que tenian deshabilitado para que 
+en el constructor no se solicite el valor y pasamos por defecto el nullo
+
+
+se hizo el test de Menu y funca todo...
+ahora estoy con testCompra(Marcia)
