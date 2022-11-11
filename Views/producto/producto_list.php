@@ -18,7 +18,7 @@ $lista = $objConPro->listarTodo();
     <title>Prueba isiUI</title>
 </head>
 <body>
-    <table id="dg" title="Administrador de pruductus" class="easyui-datagrid" style="width:700px;height:250px" url="accion/listar_producto.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
+    <table id="dg" title="Administrador de pruductus" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_producto.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>
                 <th field="idproducto" width="50">Id</th>
@@ -61,11 +61,70 @@ $lista = $objConPro->listarTodo();
     <div style="margin-bottom:10px;">
         <input name="categoria" id="categoria" class="easyui-textbox" required="true" label="Categoria" style="width:100%;">
     </div>
-    <div style="margin-bottom:10px;">
-        <input name="prdesahabilitad" id="prdesahabilitad" class="easyui-checkbox" required="true" label="Nombre" style="width:100%;">
-    </div>
+    
         
     </form>
+    <div id="dlg-buttons">
+        <a href="javascript:void(0)" class="easyui-button c6" iconCls="icon-ok" onclick="guardarProducto()" style="width:90px">Aceptar</a>
+        <a href="javascript:void(0)" class="easyui-button" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
+    </div>
+    <script>
+        var url;
+        function newProducto(){
+            $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo producto');
+            $('#fm').form('clear');
+            url='accion/insertar_producto.php';
+        }
+        function editProducto(){
+            var row = $('#dg').datagrid('getSelected');
+            if(row){
+                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar producto');
+                $('#fm').form('load', row);
+                url='accion/edit_producto.php?idproducto='+row.idproducto;
+            }
+        }
+        function guardarProducto(){
+            $('#fm').form('submit', {
+                url:url,
+                onSubmit:function(){
+                    return $(this).form('validate');
+                },
+                success:function(result){
+                    var result=eval('('+result+')');
+                    //alert('Volvio servidor');
+                    if(!result.respuesta){
+                        $.messager.show({
+                            title:'Error',
+                            msg:result.errorMsg
+                        });
+                    }else{
+                        $('#dlg').dialog('close');
+                        $('#dg').datagrid('reload');
+                    }
+                }
+            })
+        }
+        function destroyProducto(){
+            var row=$('#dg').datagrid('getSelected');
+            if(row){
+                $.messeger.confirm('Confirm', 'Seguro desea eliminar el producto?', function(r){
+                    if(r){
+                        $.post('accion/eliminar_producto.php?idproducto='+row.idproducto,{idproducto:row.id}, function(result){
+                            alert('Volvio servidor');
+                            if(result.respuesta){
+                                $('#dg').datagrid('reload');
+                            }else{
+                                $.messager.show({
+                                    title:'Error',
+                                    msg:result.errorMsg
+                                });
+                            }
+                        }, 'json');
+                    }
+                })
+            }
+        }
+    </script>
         
     </div>
 </body>

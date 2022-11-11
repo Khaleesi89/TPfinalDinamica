@@ -26,9 +26,12 @@ class ProductoController extends MasterController{
     }
 
     public function listarTodo(){
-        $arrayBusqueda = $this->busqueda();
+        //$arrayBusqueda = $this->busqueda();
+        $arrayBusqueda = [];
         $arrayTotal = Producto::listar($arrayBusqueda);
-        return $arrayTotal;        
+        $array = $arrayTotal['array'];
+        //var_dump($array);
+        return $array;        
     }
 
     public function buscarId(){
@@ -48,20 +51,39 @@ class ProductoController extends MasterController{
         return $respuesta;        
     }
 
+    public function insertar(){
+        $data = $this->busqueda();
+        $objProducto = new Producto();
+        $objProducto->setIdProducto($data['idproducto']);
+        $objProducto->setProNombre($data['pronombre']);
+        $objProducto->setSinopsis($data['sinopsis']);
+        $objProducto->setProCantStock($data['procantstock']);
+        $objProducto->setAutor($data['autor']);
+        $objProducto->setPrecio($data['precio']);
+        $objProducto->setIsbn($data['isbn']);
+        $objProducto->setCategoria($data['categoria']);
+        $rta = $objProducto->insertar();
+        return $rta;
+    }
+
     public function modificar(){
         $rta = $this->buscarId();
+        //var_dump($rta);
+        $response = false;
         if($rta['respuesta']){
             //puedo modificar con los valores
             $valores = $this->busqueda();
             $objProducto = $rta['obj'];
-            $objProducto->cargar($valores['sinopsis'], $valores['pronombre'], $valores['procantstock'], $valores['autor'], $valores['precio'], $valores['isbn']);
+            $objProducto->cargar($valores['sinopsis'], $valores['pronombre'], $valores['procantstock'], $valores['autor'], $valores['precio'], $valores['isbn'], $valores['categoria']);
             $rsta = $objProducto->modificar();
             if($rsta['respuesta']){
                 //todo gut
+                $response = true;
             }
         }else{
             //no encontro el obj
-
+            $response = false;
         }
+        return $response;
     }
 }
