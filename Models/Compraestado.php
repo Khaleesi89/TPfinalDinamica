@@ -91,7 +91,6 @@ class Compraestado extends db{
 			if($base->Iniciar()){
 				if($base->Ejecutar($sql)){
 					if($row2 = $base->Registro()){
-						//MODIFICARRRRRRRRR
 						$this->setIdcompraestado($row2['idcompraestado']);
 						$id = $row2['idcompra'];
 						$objCompra = new Compra();
@@ -208,14 +207,14 @@ class Compraestado extends db{
     }
 
 	//Usar el buscar antes del eliminar
-    //Eliminado fisico
+    //Eliminado logico
     public function eliminar(){
         //seteo de respuesta
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
         //obtener fecha
-        $sql = "DELETE FROM compraestrado WHERE idcompraestado = {$this->getIdcompraestado()}";
+        $sql = "UPDATE compraestado SET  cefechafin = CURRENT_TIMESTAMP WHERE idcompraestado = {$this->getIdcompraestado()}";
         $base = new db();
         try {
             if($base->Iniciar()){
@@ -261,21 +260,27 @@ class Compraestado extends db{
                 if($base->Ejecutar($sql)){
                     $arregloCompraestado = array();
                     while($row2 = $base->Registro()){
-                        $objMenu = new Menu();
-                        $objMenu->setIdmenu($row2['idmenu']);
-                        $objMenu->setMenombre($row2['menombre']);
-                        $objMenu->setMedescripcion($row2['medescripcion']);
-                        $objMenuPadre = new Menu();
-                        $idPadre = $row2['idpadre'];
-                        if($idPadre == 0 || $idPadre == null){
-                            $objMenuPadre = null;
-                        }else{
-                            $arrayPadre['idmenu'] = $idPadre;
-                            $objMenuPadre->buscar($arrayPadre);
-                        }
-                        $objMenu->setObjPadre($objMenuPadre);
-                        $objMenu->setMedeshabilitado($row2['medeshabilitado']);
-                        array_push($arregloCompraestado, $objMenu);
+                        //Modificar
+                        $objCompraestado = new Compraestado();
+                        $objCompraestado->setIdcompraestado($row2['idcompraestado']);
+                        //Generar objeto compra
+                        $idcompra = $row2['idcompra'];
+                        $objCompra = new Compra();
+                        $arrayBus['idcompra'] = $idcompra;
+                        $objCompra->buscar($arrayBus);
+                        $objCompraestado->setObjCompra($objCompra);
+                        $objCompra = null;
+                        //Generar objeto compraestadotipo
+                        $idcompraestadotipo = $row2['idcompraestadotipo'];
+                        $objCompraestadotipo = new Compraestadotipo();
+                        $arrayBus['idcompraestadotipo'] = $idcompraestadotipo;
+                        $objCompraestadotipo->buscar($arrayBus);
+                        $objCompraestado->setObjCompraestadotipo($objCompraestadotipo);
+                        $objCompraestadotipo = null;
+                        $objCompraestado->setCefechaini($row2['cefechaini']);
+                        $objCompraestado->setCefechafin($row2['cefechafin']);
+
+                        array_push($arregloCompraestado, $objCompraestado);
                     }
                     $respuesta['respuesta'] = true;
                 }else{
@@ -300,5 +305,23 @@ class Compraestado extends db{
             $respuesta['array'] = $arregloCompraestado;
         }
         return $respuesta;
+    }
+
+    public function dameDatos(){
+        $data = [];
+        $data['idcompraestado'] = $this->getIdcompraestado();
+        //obtencion de idcompra
+        $objCompra = $this->getObjCompra();
+        $idcompra = $objCompra->getIdcompra();
+        $objCompra = null;
+        $data['idcompra'] = $idcompra;
+        //obtencion de idcompraestadotipo
+        $objCompraestadotipo = $this->getObjCompraestadotipo();
+        $idcompraestadotipo = $objCompraestadotipo->getIdcompraestadotipo();
+        $objCompraestadotipo = null;
+        $data['idcompraestadotipo'] = $idcompraestadotipo;
+        $data['cefechaini'] = $this->getCefechaini();
+        $data['cefechafin'] = $this->getCefechafin();
+        return $data;
     }
 }

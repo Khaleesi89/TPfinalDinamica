@@ -172,6 +172,7 @@ class Compra extends db{
     }
 
     //Usar el buscar antes del eliminar
+    //Eliminacion fisica
     public function eliminar()
     {
         //seteo de respuesta
@@ -179,9 +180,6 @@ class Compra extends db{
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
         $base = new db();
-        //obtener fecha actual
-        $fecha = getdate();
-        $fechaPosta = $fecha['mday'] . ':' . $fecha['mon'] . ':' . $fecha['year'];
         $sql = "DELETE FROM compra WHERE idcompra = '{$this->getIdcompra()}'";
         try {
             if ($base->Iniciar()) {
@@ -214,10 +212,10 @@ class Compra extends db{
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
-        $arregloUsuario = null;
+        $arregloCompra = null;
         $base = new db();
         //seteo de busqueda
-        $stringBusqueda = Producto::SBS($arrayBusqueda);
+        $stringBusqueda = Compra::SBS($arrayBusqueda);
         $sql = "SELECT * FROM compra";
         if ($stringBusqueda != '') {
             $sql .= ' WHERE ';
@@ -226,14 +224,19 @@ class Compra extends db{
         try {
             if ($base->Iniciar()) {
                 if ($base->Ejecutar($sql)) {
-                    $arregloProducto = array();
+                    $arregloCompra = array();
                     while ($row2 = $base->Registro()) {
                         $idcompra = $row2['idcompra'];
                         $cofecha = $row2['cofecha'];
-                        $objusuario = $row2['objusuario'];
-                        $compra = new Compra();
-                        $compra->cargar($idcompra, $cofecha, $objusuario);
-                        array_push($arreglocompra, $compra);
+                        //generacion de objeto usuario
+                        $idusuario = $row2['idusuario'];
+                        $objUsuario = new Usuario();
+                        $arrayBus['idusuario'] = $idusuario;
+                        $objUsuario->buscar($arrayBus);
+                        $objCompra = new Compra();
+                        $objCompra->cargar($idcompra, $cofecha, $objUsuario);
+                        $objUsuario = null;
+                        array_push($arregloCompra, $objCompra);
                     }
                     $respuesta['respuesta'] = true;
                 } else {
@@ -255,7 +258,7 @@ class Compra extends db{
         }
         $base = null;
         if ($respuesta['respuesta']) {
-            $respuesta['array'] = $arreglocompra;
+            $respuesta['array'] = $arregloCompra;
         }
         return $respuesta;
     }
@@ -265,7 +268,11 @@ class Compra extends db{
         $data = [];
         $data['idcompra'] = $this->getIdcompra();
         $data['cofecha'] = $this->getCofecha();
-        $data['objusuario'] = $this->getObjUsuario();
+        //obtencion de idusuario
+        $objUsuario = $this->getObjUsuario();
+        $idusuario = $objUsuario->getIdusuario();
+        $objUsuario = null;
+        $data['idusuario'] = $idusuario;
         return $data;
     }
 }

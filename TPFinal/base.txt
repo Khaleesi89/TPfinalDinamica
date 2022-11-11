@@ -19,9 +19,9 @@ rol FIN, Condicion arreglao, TEST aprobao
 usuario FIN sin test Condicion arreglao
 menu FIN sin test Condicion arreglao, funco la recursividad
 
-compra 
-compraestado
-compraitem
+compra FIN sin test
+compraestado FIN sin test
+compraitem 
 menurol FIN sin test Condicion arreglao
 usuariorol FIN sin test Condicion arreglao
 
