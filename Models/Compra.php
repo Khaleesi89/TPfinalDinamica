@@ -17,8 +17,8 @@ class Compra extends db{
 	}
 
 	//Metodo cargar
-	public function cargar( $idcompra, $cofecha, $objUsuario){
-		$this->idcompra = $idcompra;
+	public function cargar( $cofecha, $objUsuario){
+		//$this->idcompra = $idcompra;
 		$this->cofecha = $cofecha;
 		$this->objUsuario = $objUsuario;
 	}
@@ -231,6 +231,7 @@ class Compra extends db{
                         //generacion de objeto usuario
                         $idusuario = $row2['idusuario'];
                         $objUsuario = new Usuario();
+                        $arrayBus = [];
                         $arrayBus['idusuario'] = $idusuario;
                         $objUsuario->buscar($arrayBus);
                         $objCompra = new Compra();

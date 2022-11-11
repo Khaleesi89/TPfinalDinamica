@@ -1,41 +1,44 @@
 <?php
-class Compraestado extends db{	 
+class Compraitem extends db{	 
 	use Condicion;
 	//Atributos
-	private $idcompraestado;
+	private $idcompraitem;
+	private $objProducto;
 	private $objCompra;
-	private $objCompraestadotipo;
-	private $cefechaini;
-	private $cefechafin;
+	private $cicantidad;
 	private $mensajeOp;
 	static $mensajeStatic;
 
 	//Constructor
 	public function __construct(){
-		$this->idcompraestado = '';
+		$this->idcompraitem = '';
+		$this->objProducto = NULL;
 		$this->objCompra = NULL;
-		$this->objCompraestadotipo = NULL;
-		$this->cefechaini = '';
-		$this->cefechafin = '';
+		$this->cicantidad = '';
 		$this->mensajeOp = '';
 	}
 
 	//Metodo cargar
-	public function cargar( $objCompra, $objCompraestadotipo, $cefechaini, $cefechafin, $mensajeOp){
-		//$this->idcompraestado = $idcompraestado;
+	public function cargar( $objProducto, $objCompra, $cicantidad, $mensajeOp){
+		//$this->idcompraitem = $idcompraitem;
+		$this->objProducto = $objProducto;
 		$this->objCompra = $objCompra;
-		$this->objCompraestadotipo = $objCompraestadotipo;
-		$this->cefechaini = $cefechaini;
-		$this->cefechafin = $cefechafin;
+		$this->cicantidad = $cicantidad;
 		$this->mensajeOp = $mensajeOp;
 	}
 
 	//Getters y setters
-	public function getIdcompraestado(){
-		return $this->idcompraestado;
+	public function getIdcompraitem(){
+		return $this->idcompraitem;
 	}
-	public function setIdcompraestado($idcompraestado){
-		$this->idcompraestado = $idcompraestado;
+	public function setIdcompraitem($idcompraitem){
+		$this->idcompraitem = $idcompraitem;
+	}
+	public function getObjProducto(){
+		return $this->objProducto;
+	}
+	public function setObjProducto($objProducto){
+		$this->objProducto = $objProducto;
 	}
 	public function getObjCompra(){
 		return $this->objCompra;
@@ -43,23 +46,11 @@ class Compraestado extends db{
 	public function setObjCompra($objCompra){
 		$this->objCompra = $objCompra;
 	}
-	public function getObjCompraestadotipo(){
-		return $this->objCompraestadotipo;
+	public function getCicantidad(){
+		return $this->cicantidad;
 	}
-	public function setObjCompraestadotipo($objCompraestadotipo){
-		$this->objCompraestadotipo = $objCompraestadotipo;
-	}
-	public function getCefechaini(){
-		return $this->cefechaini;
-	}
-	public function setCefechaini($cefechaini){
-		$this->cefechaini = $cefechaini;
-	}
-	public function getCefechafin(){
-		return $this->cefechafin;
-	}
-	public function setCefechafin($cefechafin){
-		$this->cefechafin = $cefechafin;
+	public function setCicantidad($cicantidad){
+		$this->cicantidad = $cicantidad;
 	}
 	public function getMensajeOp(){
 		return $this->mensajeOp;
@@ -68,10 +59,10 @@ class Compraestado extends db{
 		$this->mensajeOp = $mensajeOp;
 	}
 	public static function getMensajeStatic(){
-		return Compraestado::$mensajeStatic;
+		return Compraitem::$mensajeStatic;
 	}
 	public static function setMensajeStatic($mensajeStatic){
-		Compraestado::$mensajeStatic = $mensajeStatic;
+		Compraitem::$mensajeStatic = $mensajeStatic;
 	}
 
 	public function buscar($arrayBusqueda){
@@ -82,7 +73,7 @@ class Compraestado extends db{
 		$respuesta['errorInfo'] = '';
 		$respuesta['codigoError'] = null;
 		//Sql
-		$sql = "SELECT * FROM compraestado";
+		$sql = "SELECT * FROM compraitem";
 		if($stringBusqueda != ''){
 			$sql.= " WHERE $stringBusqueda";
 		}
@@ -91,19 +82,19 @@ class Compraestado extends db{
 			if($base->Iniciar()){
 				if($base->Ejecutar($sql)){
 					if($row2 = $base->Registro()){
-						$this->setIdcompraestado($row2['idcompraestado']);
+						
+						$this->setIdcompraitem($row2['idcompraitem']);
+						$id = $row2['idproducto'];
+						$objProducto = new Producto();
+						$arrayDeBusqueda['idproducto'] = $id;
+						$objProducto->buscar($arrayDeBusqueda);
+						$this->setObjProducto($objProducto);
 						$id = $row2['idcompra'];
 						$objCompra = new Compra();
 						$arrayDeBusqueda['idcompra'] = $id;
 						$objCompra->buscar($arrayDeBusqueda);
 						$this->setObjCompra($objCompra);
-						$id = $row2['idcompraestadotipo'];
-						$objCompraestadotipo = new Compraestadotipo();
-						$arrayDeBusqueda['idcompraestadotipo'] = $id;
-						$objCompraestadotipo->buscar($arrayDeBusqueda);
-						$this->setObjCompraestadotipo($objCompraestadotipo);
-						$this->setCefechaini($row2['cefechaini']);
-						$this->setCefechafin($row2['cefechafin']);
+						$this->setCicantidad($row2['cicantidad']);
 						$respuesta['respuesta'] = true;
 					}
 				}else{
@@ -132,15 +123,15 @@ class Compraestado extends db{
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
         $base = new db();
+		//obtencion de idproducto
+		$objProducto = $this->getObjProducto();
+		$idproducto = $objProducto->getIdproducto();
+		$objProducto = null;
 		//obtención de idcompra
 		$objCompra = $this->getObjCompra();
 		$idcompra = $objCompra->getIdcompra();
 		$objCompra = null;
-		//obtencion de idcompraestadotipo
-		$objCompraestadotipo = $this->getObjCompraestadotipo();
-		$idcompraestadotipo = $objCompraestadotipo->getIdcompraestadotipo();
-		$objCompraestadotipo = null;
-        $sql = "INSERT INTO compraestado VALUES(DEFAULT, $idcompra, $idcompraestadotipo, '{$this->getCefechaini()}', '{$this->getCefechafin()}')";
+        $sql = "INSERT INTO compraestado VALUES(DEFAULT, $idproducto, $idcompra, {$this->getCicantidad()})";
         try {
             if($base->Iniciar()){
                 if($base->Ejecutar($sql)){
@@ -171,15 +162,15 @@ class Compraestado extends db{
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
+		//obtención de idproducto
+		$objProducto = $this->getObjProducto();
+		$idproducto = $objProducto->getIdproducto();
+		$objProducto = null;
 		//obtención de idcompra
 		$objCompra = $this->getObjCompra();
 		$idcompra = $objCompra->getIdcompra();
 		$objCompra = null;
-		//obtencion de idcompraestadotipo
-		$objCompraestadotipo = $this->getObjCompraestadotipo();
-		$idcompraestadotipo = $objCompraestadotipo->getIdcompraestadotipo();
-		$objCompraestadotipo = null;
-        $sql = "UPDATE compraestado SET idcompra = $idcompra, idcompraestadotipo = $idcompraestadotipo, cefechaini = '{$this->getCefechaini()}', cefechafin = '{$this->getCefechafin()}' WHERE idcompraestado = {$this->getIdcompraestado()}";
+        $sql = "UPDATE compraestado SET idproducto = $idproducto, idcompra = $idcompra, cicantidad = {$this->getCicantidad()} WHERE idcompraitem = {$this->getIdcompraitem()}";
         $base = new db();
         try {
             if( $base->Iniciar() ){
@@ -207,14 +198,14 @@ class Compraestado extends db{
     }
 
 	//Usar el buscar antes del eliminar
-    //Eliminado logico
+    //Eliminado fisico
     public function eliminar(){
         //seteo de respuesta
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
         //obtener fecha
-        $sql = "UPDATE compraestado SET cefechafin = CURRENT_TIMESTAMP WHERE idcompraestado = {$this->getIdcompraestado()}";
+        $sql = "DELETE FROM compraitem WHERE idcompraitem = {$this->getIdcompraitem()}";
         $base = new db();
         try {
             if($base->Iniciar()){
@@ -246,7 +237,7 @@ class Compraestado extends db{
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
-        $arregloCompraestado = null;
+        $arregloCompraitem = null;
         $base = new db();
         //seteo de busqueda//ARREGLAR EL CONDICION
         $stringBusqueda = Compraestado::SBS($arrayBusqueda);
@@ -258,31 +249,27 @@ class Compraestado extends db{
         try {
             if($base->Iniciar()){
                 if($base->Ejecutar($sql)){
-                    $arregloCompraestado = array();
+                    $arregloCompraitem = array();
                     while($row2 = $base->Registro()){
-                        //Modificar
-                        $objCompraestado = new Compraestado();
-                        $objCompraestado->setIdcompraestado($row2['idcompraestado']);
-                        //Generar objeto compra
-                        $idcompra = $row2['idcompra'];
-                        $objCompra = new Compra();
-                        $arrayBus = [];
-                        $arrayBus['idcompra'] = $idcompra;
-                        $objCompra->buscar($arrayBus);
-                        $objCompraestado->setObjCompra($objCompra);
-                        $objCompra = null;
-                        //Generar objeto compraestadotipo
-                        $idcompraestadotipo = $row2['idcompraestadotipo'];
-                        $objCompraestadotipo = new Compraestadotipo();
-                        $arrayBus = [];
-                        $arrayBus['idcompraestadotipo'] = $idcompraestadotipo;
-                        $objCompraestadotipo->buscar($arrayBus);
-                        $objCompraestado->setObjCompraestadotipo($objCompraestadotipo);
-                        $objCompraestadotipo = null;
-                        $objCompraestado->setCefechaini($row2['cefechaini']);
-                        $objCompraestado->setCefechafin($row2['cefechafin']);
+                        $objCompraitem = new Compraitem();
+						$objCompraitem->setIdcompraitem($row2['idcompraitem']);
+						//generar objeto producto
+						$objProducto = new Producto();
+						$arrayBus = [];
+						$arrayBus['idproducto'] = $row2['idproducto'];
+						$objProducto->buscar($arrayBus);
+						$objCompraitem->setObjProducto($objProducto);
+						$objProducto = null;
+						//generar objeto compra
+						$objCompra = new Compra();
+						$arrayBus = [];
+						$arrayBus['idcompra'] = $row2['idcompra'];
+						$objCompra->buscar($arrayBus);
+						$objCompraitem->setObjCompra($objCompra);
+						$objCompra = null;
+						$objCompraitem->setCicantidad($row2['cicantidad']);
 
-                        array_push($arregloCompraestado, $objCompraestado);
+                        array_push($arregloCompraitem, $objCompraitem);
                     }
                     $respuesta['respuesta'] = true;
                 }else{
@@ -304,26 +291,8 @@ class Compraestado extends db{
         }
         $base = null;
         if($respuesta['respuesta']){
-            $respuesta['array'] = $arregloCompraestado;
+            $respuesta['array'] = $arregloCompraitem;
         }
         return $respuesta;
-    }
-
-    public function dameDatos(){
-        $data = [];
-        $data['idcompraestado'] = $this->getIdcompraestado();
-        //obtencion de idcompra
-        $objCompra = $this->getObjCompra();
-        $idcompra = $objCompra->getIdcompra();
-        $objCompra = null;
-        $data['idcompra'] = $idcompra;
-        //obtencion de idcompraestadotipo
-        $objCompraestadotipo = $this->getObjCompraestadotipo();
-        $idcompraestadotipo = $objCompraestadotipo->getIdcompraestadotipo();
-        $objCompraestadotipo = null;
-        $data['idcompraestadotipo'] = $idcompraestadotipo;
-        $data['cefechaini'] = $this->getCefechaini();
-        $data['cefechafin'] = $this->getCefechafin();
-        return $data;
     }
 }
