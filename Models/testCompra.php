@@ -30,7 +30,7 @@ print_r($usuarios);
 
 
 //BUSCAR funca
-/*
+
 $found = [];
 $found['idcompra'] = 8;
 
@@ -39,12 +39,15 @@ $rta = $compra->buscar($found);
 
 if($rta){
     echo "funco";
-    var_dump($compra);
+    echo "<pre>";
+	var_dump($compra);
+	echo "</pre>";
+	die();
 }else{
     echo "segui participando";
     $rta['errorInfo'];
 }
-*/
+
 //var_dump($compra);
 
 //MODIFICAR funciona

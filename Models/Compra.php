@@ -57,6 +57,7 @@ class Compra extends db{
 	}
 
 	public function buscar($arrayBusqueda){
+        
 		//Seteo del array de busqueda, se deberan pasar como claves los campos de la db y como argumentos los parametros a buscar
 		$stringBusqueda = $this->SB($arrayBusqueda);
 		//Seteo de respuesta
@@ -78,8 +79,8 @@ class Compra extends db{
 						$this->setCofecha($row2['cofecha']);
 						$id = $row2['idusuario'];
 						$objUsuario = new Usuario();
-						$arrayDeBusqueda['idusuario'] = $id;
-						$objUsuario->buscar($arrayDeBusqueda);
+						$arrayBusqueda['idusuario'] = $id;
+						$objUsuario->buscar($arrayBusqueda);
 						$this->setObjUsuario($objUsuario);
 						$respuesta['respuesta'] = true;
 					}

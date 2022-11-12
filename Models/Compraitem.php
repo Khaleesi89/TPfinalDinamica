@@ -19,12 +19,12 @@ class Compraitem extends db{
 	}
 
 	//Metodo cargar
-	public function cargar( $objProducto, $objCompra, $cicantidad, $mensajeOp){
+	public function cargar( $objProducto, $objCompra, $cicantidad){
 		//$this->idcompraitem = $idcompraitem;
 		$this->objProducto = $objProducto;
 		$this->objCompra = $objCompra;
 		$this->cicantidad = $cicantidad;
-		$this->mensajeOp = $mensajeOp;
+		
 	}
 
 	//Getters y setters
@@ -65,9 +65,9 @@ class Compraitem extends db{
 		Compraitem::$mensajeStatic = $mensajeStatic;
 	}
 
-	public function buscar($arrayBusqueda){
+	public function buscar($arraydeBusqueda){
 		//Seteo del array de busqueda, se deberan pasar como claves los campos de la db y como argumentos los parametros a buscar
-		$stringBusqueda = $this->SB($arrayBusqueda);
+		$stringBusqueda = $this->SB($arraydeBusqueda);
 		//Seteo de respuesta
 		$respuesta['respuesta'] = false;
 		$respuesta['errorInfo'] = '';
@@ -82,18 +82,33 @@ class Compraitem extends db{
 			if($base->Iniciar()){
 				if($base->Ejecutar($sql)){
 					if($row2 = $base->Registro()){
-						
+										
 						$this->setIdcompraitem($row2['idcompraitem']);
 						$id = $row2['idproducto'];
 						$objProducto = new Producto();
 						$arrayDeBusqueda['idproducto'] = $id;
 						$objProducto->buscar($arrayDeBusqueda);
+						$arrayDeBusqueda = null;
+						/*
+						echo "<pre>";//el producto me lo trae
+						var_dump($objProducto);
+						echo "</pre>";
+						die();
+						*/
 						$this->setObjProducto($objProducto);
 						$id = $row2['idcompra'];
-						$objCompra = new Compra();
 						$arrayDeBusqueda['idcompra'] = $id;
+						$objCompra = new Compra();
 						$objCompra->buscar($arrayDeBusqueda);
+						//print_r($arrayDeBusqueda);
+						//die();
+						echo "<pre>";
+						var_dump($objCompra);
+						echo "</pre>";
+						echo"entre aca";
+						die();
 						$this->setObjCompra($objCompra);
+						
 						$this->setCicantidad($row2['cicantidad']);
 						$respuesta['respuesta'] = true;
 					}
@@ -126,13 +141,19 @@ class Compraitem extends db{
 		//obtencion de idproducto
 		$objProducto = $this->getObjProducto();
 		$idproducto = $objProducto->getIdproducto();
-		$objProducto = null;
+		//echo $idproducto;
+		//die();
+		//$objProducto = null;
 		//obtención de idcompra
 		$objCompra = $this->getObjCompra();
 		$idcompra = $objCompra->getIdcompra();
-		$objCompra = null;
-        $sql = "INSERT INTO compraestado VALUES(DEFAULT, $idproducto, $idcompra, {$this->getCicantidad()})";
-        try {
+		//echo $idcompra;
+		//die();
+		//$objCompra = null;
+        $sql = "INSERT INTO compraitem VALUES(DEFAULT, $idproducto, $idcompra, {$this->getCicantidad()})";
+        //echo $sql;
+		//die();
+		try {
             if($base->Iniciar()){
                 if($base->Ejecutar($sql)){
                     $respuesta['respuesta'] = true;
