@@ -26,7 +26,7 @@ trait Condicion{
         $stringBusqueda = '';
         if(count($arrayBusqueda) > 0){
             foreach ($arrayBusqueda as $key => $value) {
-                if($value != null || $key == 'usdeshabilitado'){
+                if(($value != null && $value != '') || $key == 'usdeshabilitado' ){
                     $string = " $key = '$value' ";
                     if($stringBusqueda == ''){
                         $stringBusqueda.=$string;
