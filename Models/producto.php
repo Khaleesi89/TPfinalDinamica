@@ -261,8 +261,8 @@ class Producto extends db
         $respuesta['codigoError'] = null;
         $base = new db();
         //obtener fecha actual
-        $fecha = getdate();
-        $fechaPosta = $fecha['mday'] . ':' . $fecha['mon'] . ':' . $fecha['year'];
+        /* $fecha = getdate();
+        $fechaPosta = $fecha['mday'] . ':' . $fecha['mon'] . ':' . $fecha['year']; */
     $sql = "UPDATE producto SET prdeshabilitado = CURRENT_TIMESTAMP WHERE idproducto = {$this->getIdProducto()}";
         try {
             if ($base->Iniciar()) {
@@ -295,7 +295,7 @@ class Producto extends db
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
-        $arregloUsuario = null;
+        $arregloProducto = null;
         $base = new db();
         //seteo de busqueda
         $stringBusqueda = Producto::SBS($arrayBusqueda);

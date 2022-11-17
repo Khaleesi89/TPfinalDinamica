@@ -107,9 +107,9 @@ $lista = $objConPro->listarTodo();
         function destroyProducto(){
             var row=$('#dg').datagrid('getSelected');
             if(row){
-                $.messeger.confirm('Confirm', 'Seguro desea eliminar el producto?', function(r){
+                $.messager.confirm('confirm', 'Seguro desea eliminar el producto?', function(r){
                     if(r){
-                        $.post('accion/eliminar_producto.php?idproducto='+row.idproducto,{idproducto:row.id}, function(result){
+                        $.post('accion/destroy_producto.php?idproducto='+row.idproducto,{idproducto:row.id}, function(result){
                             alert('Volvio servidor');
                             if(result.respuesta){
                                 $('#dg').datagrid('reload');
