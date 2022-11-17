@@ -1,5 +1,4 @@
 <?php
-require_once('../config.php');
 class Rol extends db {
     use Condicion;
     //Atributos
@@ -191,12 +190,12 @@ class Rol extends db {
         $arregloRoles = null;
         $base = new db();
         $stringBusqueda = Rol::SBS($arrayBusqueda);
+        //var_dump($stringBusqueda);
         $sql = "SELECT * FROM rol";
         if($stringBusqueda != ''){
             $sql.= ' WHERE ';
             $sql.= $stringBusqueda;
         }
-        $sql = "SELECT * FROM rol";
         try {
             if($base->Iniciar()){
                 if($base->Ejecutar($sql)){
@@ -205,7 +204,8 @@ class Rol extends db {
                         $idRol = $row2['idrol'];
                         $nombreRol = $row2['rodescripcion'];
                         $rol = new Rol();
-                        $rol->cargar($idRol, $nombreRol);
+                        $rol->setIdrol( $idRol );
+                        $rol->setRodescripcion( $nombreRol );
                         array_push($arregloRoles, $rol);
                     }
                     $respuesta['respuesta'] = true;
