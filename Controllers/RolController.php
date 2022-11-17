@@ -46,7 +46,7 @@ class RolController extends MasterController {
             if( $rta['respuesta'] == false ){
                 $data['error'] = $this->manejarError( $rta );
             } else {
-                $data['array'] = $rol;
+                $data['obj'] = $rol;
             }
             return $data;
         }
@@ -75,12 +75,12 @@ class RolController extends MasterController {
     public function modificar(){
         $rta = $this->buscarId();
         $response = false;
-        if($rta['respuesta']){
+        if($rta['obj']){
             //puedo modificar con los valores
             $valores = $this->busqueda();
-            $objUsuario = $rta['obj'];
-            $objUsuario->cargar($valores['rodescripcion']);
-            $rsta = $objUsuario->modificar();
+            $objRol = $rta['obj'];
+            $objRol->cargar($valores['rodescripcion']);
+            $rsta = $objRol->modificar();
             if($rsta['respuesta']){
                 //todo gut
                 $response = true;
@@ -89,7 +89,7 @@ class RolController extends MasterController {
         return $response;
     }
 
-    public function baja( $param ){
+    /* public function baja( $param ){
         $bandera = false;
         if( $param->getIdrol() !== null ){
             if( $param->eliminar() ){
@@ -97,6 +97,19 @@ class RolController extends MasterController {
             }
         }
         return $bandera;
+    } */
+
+    public function eliminar() {
+        $rta = $this->buscarId();
+        $response = false;
+        if($rta['obj']){
+            $objRol = $rta['obj'];
+            $respEliminar = $objRol->eliminar();
+            if($respEliminar['respuesta']){
+                $response = true;
+            }
+        }
+        return $response;
     }
 
 }
