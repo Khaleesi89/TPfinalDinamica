@@ -7,12 +7,14 @@ $producto = new Producto();
 /* $producto->cargar('Mi rey', 'NombreDelRey', 2, 'Aurelio', 200, 2322, 'Comedia');
 $producto->insertar(); */
 
-$arrayBus['idproducto'] = 11;
+$arrayBus['idproducto'] = 1;
 
 $respuesta = $producto->buscar($arrayBus);
-
+print_r($producto);
+die();
 if($respuesta['respuesta']){
     echo 'si';
+    print_r($producto);
 }else{
     var_dump($respuesta['errorInfo']);
 }
@@ -25,7 +27,7 @@ if($modificar['respuesta']){
 }else{
     var_dump($modificar['errorInfo']);
 } */
-
+/*
 $respuesta = $producto->eliminar();
 
 if($respuesta['respuesta']){

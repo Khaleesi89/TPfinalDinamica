@@ -74,13 +74,16 @@ class Compra extends db{
 			if($base->Iniciar()){
 				if($base->Ejecutar($sql)){
 					if($row2 = $base->Registro()){
-						
+						//var_dump($row2);
 						$this->setIdcompra($row2['idcompra']);
 						$this->setCofecha($row2['cofecha']);
 						$id = $row2['idusuario'];
 						$objUsuario = new Usuario();
-						$arrayBusqueda['idusuario'] = $id;
-						$objUsuario->buscar($arrayBusqueda);
+						$arrayB['idusuario'] = $id;
+						$objUsuario->buscar($arrayB);
+                        //var_dump($objUsuario);
+                        //print_r($objUsuario);
+                        //die();
 						$this->setObjUsuario($objUsuario);
 						$respuesta['respuesta'] = true;
 					}

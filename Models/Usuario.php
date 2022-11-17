@@ -75,6 +75,7 @@ class Usuario extends db{
 
     public function buscar($arrayBusqueda){
         $stringBusqueda = $this->SB($arrayBusqueda);
+        
         //seteo de respuesta
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
@@ -85,9 +86,10 @@ class Usuario extends db{
             $sql.= ' WHERE ';
             $sql.= $stringBusqueda;
         }
+
         $base = new db();
         try {
-            if($base->Iniciar()){
+            if($base->Iniciar()){  
                 if($base->Ejecutar($sql)){
                     if($row2 = $base->Registro()){
                         $this->setIdusuario($row2['idusuario']);

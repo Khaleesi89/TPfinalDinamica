@@ -3,7 +3,16 @@
 class UsuarioController extends MasterController {
     use Errores;
 
-    public function listarTodo( $arrayBusqueda ){
+    public function listarTodo(){
+        //$arrayBusqueda = $this->busqueda();
+        $arrayBusqueda['usdeshabilitado'] = NULL;
+        $arrayTotal = Usuario::listar($arrayBusqueda);
+        $array = $arrayTotal['array'];
+        //var_dump($array);
+        return $array;        
+    }
+
+    /* public function listarTodo( $arrayBusqueda ){
         $rta = Usuario::listar( $arrayBusqueda );
         if( $rta['respuesta'] ){
             $data['array'] = $rta['array'];
@@ -11,9 +20,41 @@ class UsuarioController extends MasterController {
             $data['error'] = $this->manejarError( $rta['error'] );
         }
         return $data;
+    } */
+
+    public function busqueda(){
+        $arrayBusqueda = [];
+        $idusuario = $this->buscarKey('idusuario');
+        $usnombre = $this->buscarKey('usnombre');
+        $uspass = $this->buscarKey('uspass');
+        $usmail = $this->buscarKey('usmail');
+        $usdeshabilitado = $this->buscarKey('usdeshabilitado');
+        $arrayBusqueda = ['idusuario' => $idusuario,
+                          'usnombre' => $usnombre,
+                          'uspass' => $uspass,
+                          'usmail' => $usmail,
+                          'usdeshabilitado' => $usdeshabilitado];
+        return $arrayBusqueda;
     }
 
-    public function buscarId() {
+    public function buscarId(){
+        $respuesta['respuesta'] = false;
+        $respuesta['obj'] = null;
+        $respuesta['error'] = '';
+        $arrayBusqueda = [];
+        $arrayBusqueda['idusuario'] = $this->buscarKey('idusuario');
+        $objUsuario = new Usuario();
+        $rta = $objUsuario->buscar($arrayBusqueda);
+        if($rta['respuesta']){
+            $respuesta['respuesta'] = true;
+            $respuesta['obj'] = $objUsuario;
+        }else{
+            $respuesta['error'] = $rta;
+        }
+        return $respuesta;        
+    }
+
+    /* public function buscarId() {
         $idBusqueda = $this->buscarKey( 'idusuario' );
         if( $idBusqueda == false ){
             // error
@@ -30,9 +71,21 @@ class UsuarioController extends MasterController {
             }
             return $data;
         }
+    } */
+
+    public function insertar(){
+        $data = $this->busqueda();
+        $objUsuario = new Usuario();
+        $objUsuario->setIdusuario($data['idusuario']);
+        $objUsuario->setUsnombre($data['usnombre']);
+        $objUsuario->setUspass($data['uspass']);
+        $objUsuario->setUsmail($data['usmail']);
+        $objUsuario->setUsdeshabilitado($data['usdeshabilitado']);
+        $rta = $objUsuario->insertar();
+        return $rta;
     }
 
-    public function insertar( $data ){
+    /* public function insertar( $data ){
         $newUsuario = new Usuario();
         $newUsuario->setIdusuario( $data['idusuario'] );
         $newUsuario->setUsnombre( $data['usnombre'] );
@@ -47,6 +100,23 @@ class UsuarioController extends MasterController {
             $rta = $operacion['respuesta'];
         }
         return $rta;
+    } */
+
+    public function modificar(){
+        $rta = $this->buscarId();
+        $response = false;
+        if($rta['respuesta']){
+            //puedo modificar con los valores
+            $valores = $this->busqueda();
+            $objUsuario = $rta['obj'];
+            $objUsuario->cargar($valores['usnombre'], $valores['uspass'], $valores['usmail']);
+            $rsta = $objUsuario->modificar();
+            if($rsta['respuesta']){
+                //todo gut
+                $response = true;
+            }
+        }
+        return $response;
     }
 
     public function modificacionChetita() {
@@ -67,7 +137,7 @@ class UsuarioController extends MasterController {
         return $respuesta;
     }
 
-    public function baja( $param ){
+    /* public function baja( $param ){
         $bandera = false;
         if( $param->getIdusuario() !== null ){
             if( $param->eliminar() ){
@@ -75,6 +145,22 @@ class UsuarioController extends MasterController {
             }
         }
         return $bandera;
+    } */
+
+    public function eliminar(){
+        $rta = $this->buscarId();
+        $response = false;
+        if($rta['respuesta']){
+            $objUsuario = $rta['obj'];
+            $respEliminar = $objUsuario->eliminar();
+            if($respEliminar['respuesta']){
+                $response = true;
+            }
+        }else{
+            //no encontro el obj
+            $response = false;
+        }
+        return $response;
     }
 
 }
