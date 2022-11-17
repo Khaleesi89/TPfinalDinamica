@@ -37,28 +37,34 @@ var_dump($objCompraitem);
 echo "</pre>";
 */
 
-//modificar
+//modificar FUNCA
 $busc2 = [];
-$busc2['idcompra'] = 3;
-$comprBusc = $objCompra->buscar($busc2);
+$busc2['idcompraitem'] = 2;
+$comprBusc = $objCompraitem->buscar($busc2);
 //print_r($objCompra);
 //die();
-$busc10['idproducto'] = 2;
-$prodBusc = $objProducto->buscar($busc10);
+//$busc10['idproducto'] = 2;
+//$prodBusc = $objProducto->buscar($busc10);
 //print_r($objProducto);
 //die();
-$rtass= $objCompraitem->cargar($objProducto,$objCompra, 40);
-echo "<pre>";
+//$rtass= $objCompraitem->cargar($objProducto,$objCompra, 40);
+/*echo "<pre>";
 var_dump($objCompraitem);
 echo "</pre>";
 
-die();
-$chan = $objCompraitem->modificar();
+die();*/
+/*$chan = $objCompraitem->modificar();
 if($chan['respuesta']){
     echo "funco";
 }else{
     echo "segui participando";
 }
+*/
 
-
-//eliminar
+//eliminar FUNCA
+$borra=$objCompraitem->eliminar();
+if($borra){
+    echo "pudiste nava";
+}else{
+    echo "volate los sesos";
+}
