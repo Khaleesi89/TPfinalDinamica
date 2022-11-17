@@ -52,8 +52,20 @@ class Session {
      * @param $usuPass
      */
     public function iniciar( $usnombre, $uspass ){
-        $this->setUsnombre( $usnombre );
-        $this->setUspass( $uspass );
+        $bandera = false;
+        $objUsuario = new UsuarioController();
+        $array = [
+            'usnombre' => $usnombre, 
+            'uspass' => $uspass, 
+            'usdeshabilitado' => null
+        ];
+
+        $busqueda = $objUsuario->listarTodo( $array );
+        if( count($busqueda) > 0 ){
+            $usuarioLogueado = $busqueda[0];
+            $this->setIdusuario( $usuarioLogueado->getIdusuario() );
+        }
+        return $bandera;
     }
 
     /**

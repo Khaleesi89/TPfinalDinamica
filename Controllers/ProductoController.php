@@ -27,7 +27,7 @@ class ProductoController extends MasterController{
 
     public function listarTodo(){
         //$arrayBusqueda = $this->busqueda();
-        $arrayBusqueda = [];
+        $arrayBusqueda['prdeshabilitado'] = NULL;
         $arrayTotal = Producto::listar($arrayBusqueda);
         $array = $arrayTotal['array'];
         //var_dump($array);
@@ -78,6 +78,22 @@ class ProductoController extends MasterController{
             $rsta = $objProducto->modificar();
             if($rsta['respuesta']){
                 //todo gut
+                $response = true;
+            }
+        }else{
+            //no encontro el obj
+            $response = false;
+        }
+        return $response;
+    }
+
+    public function eliminar(){
+        $rta = $this->buscarId();
+        $response = false;
+        if($rta['respuesta']){
+            $objProducto = $rta['obj'];
+            $respEliminar = $objProducto->eliminar();
+            if($respEliminar['respuesta']){
                 $response = true;
             }
         }else{
