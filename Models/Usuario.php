@@ -92,7 +92,6 @@ class Usuario extends db{
             if($base->Iniciar()){  
                 if($base->Ejecutar($sql)){
                     if($row2 = $base->Registro()){
-                        var_dump($row2);
                         $this->setIdusuario($row2['idusuario']);
                         $this->setUsnombre($row2['usnombre']);
                         $this->setUspass($row2['uspass']);

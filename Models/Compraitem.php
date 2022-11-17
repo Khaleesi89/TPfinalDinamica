@@ -179,7 +179,7 @@ class Compraitem extends db{
 		$objCompra = $this->getObjCompra();
 		$idcompra = $objCompra->getIdcompra();
 		$objCompra = null;
-        $sql = "UPDATE compraestado SET idproducto = $idproducto, idcompra = $idcompra, cicantidad = {$this->getCicantidad()} WHERE idcompraitem = {$this->getIdcompraitem()}";
+        $sql = "UPDATE compraitem SET idproducto = $idproducto, idcompra = $idcompra, cicantidad = {$this->getCicantidad()} WHERE idcompraitem = {$this->getIdcompraitem()}";
         $base = new db();
         try {
             if( $base->Iniciar() ){

@@ -5,12 +5,12 @@ require_once('../config.php');
 $objCompraitem = new Compraitem();
 $objProducto = new Producto();
 $objCompra = new Compra();
-$busc1 = [];
+/*$busc1 = [];
 $busc1['idproducto'] = 1;
 $prodBusc = $objProducto->buscar($busc1);
 $busc2 = [];
 $busc2['idcompra'] = 6;
-$comprBusc = $objCompra->buscar($busc2);
+$comprBusc = $objCompra->buscar($busc2);*/
 
 
 /*//cargar FUNCIONA
@@ -26,18 +26,45 @@ if($rta){
     echo "jodete ";
 }
 */
-//buscar
+//buscar FUNCA
 
 $busc3 = [];
 $busc3['idcompraitem'] = 1;
 $buscado = $objCompraitem->buscar($busc3);
+/*
 echo "<pre>";
 var_dump($objCompraitem);
 echo "</pre>";
+*/
 
+//modificar FUNCA
+$busc2 = [];
+$busc2['idcompraitem'] = 2;
+$comprBusc = $objCompraitem->buscar($busc2);
+//print_r($objCompra);
+//die();
+//$busc10['idproducto'] = 2;
+//$prodBusc = $objProducto->buscar($busc10);
+//print_r($objProducto);
+//die();
+//$rtass= $objCompraitem->cargar($objProducto,$objCompra, 40);
+/*echo "<pre>";
+var_dump($objCompraitem);
+echo "</pre>";
 
-//modificar
+die();*/
+/*$chan = $objCompraitem->modificar();
+if($chan['respuesta']){
+    echo "funco";
+}else{
+    echo "segui participando";
+}
+*/
 
-
-
-//eliminar
+//eliminar FUNCA
+$borra=$objCompraitem->eliminar();
+if($borra){
+    echo "pudiste nava";
+}else{
+    echo "volate los sesos";
+}
