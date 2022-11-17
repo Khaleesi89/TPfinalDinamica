@@ -86,27 +86,15 @@ class Compraitem extends db{
 						$this->setIdcompraitem($row2['idcompraitem']);
 						$id = $row2['idproducto'];
 						$objProducto = new Producto();
-						$arrayDeBusqueda['idproducto'] = $id;
-						$objProducto->buscar($arrayDeBusqueda);
-						$arrayDeBusqueda = null;
-						/*
-						echo "<pre>";//el producto me lo trae
-						var_dump($objProducto);
-						echo "</pre>";
-						die();
-						*/
+						$arrayDeBusquedaProducto['idproducto'] = $id;
+						$objProducto->buscar($arrayDeBusquedaProducto);
+						
 						$this->setObjProducto($objProducto);
 						$id = $row2['idcompra'];
-						$arrayDeBusqueda['idcompra'] = $id;
+						$arrayDeBusquedaCompra['idcompra'] = $id;
 						$objCompra = new Compra();
-						$objCompra->buscar($arrayDeBusqueda);
-						//print_r($arrayDeBusqueda);
-						//die();
-						echo "<pre>";
-						var_dump($objCompra);
-						echo "</pre>";
-						echo"entre aca";
-						die();
+						$objCompra->buscar($arrayDeBusquedaCompra);
+				
 						$this->setObjCompra($objCompra);
 						
 						$this->setCicantidad($row2['cicantidad']);

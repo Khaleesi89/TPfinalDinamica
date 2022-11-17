@@ -4,6 +4,19 @@ require_once('../config.php');
 
 $compra = new Compra();
 $usuario = new Usuario();
+/* $busqueda['idusuario'] = 1;
+$rsta = $usuario->buscar($busqueda);
+if($rsta['respuesta']){
+    echo "funco usuario";
+    /* echo "<pre>";
+	var_dump($compra);
+	echo "</pre>";
+	die(); */
+/*}else{
+    echo "segui participando";
+    $rsta['errorInfo'];
+} */
+
 //$found = [];
 //$found['idusuario'] = 2;
 //print_r ($found);
@@ -33,21 +46,22 @@ print_r($usuarios);
 
 $found = [];
 $found['idcompra'] = 8;
+//$found['idusuario'] = 1;
 
 $rta = $compra->buscar($found);
 
 
-if($rta){
+if($rta['respuesta']){
     echo "funco";
-    echo "<pre>";
+    /* echo "<pre>";
 	var_dump($compra);
 	echo "</pre>";
-	die();
+	die(); */
 }else{
     echo "segui participando";
     $rta['errorInfo'];
 }
-
+die();
 //var_dump($compra);
 
 //MODIFICAR funciona
