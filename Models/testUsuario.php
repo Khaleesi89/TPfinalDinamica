@@ -14,29 +14,30 @@ if( $asd['respuesta'] ){
 } */
 
 // Buscar funca tuki
-/* $arrayBusqueda['idusuario'] = 1;
+/*$arrayBusqueda['idusuario'] = 1;
 $rta = $usuario->buscar( $arrayBusqueda );
 if( $rta['respuesta'] ){
     echo('gut');
 } else {
     var_dump( $rta['errorInfo'] );
-} */
+} 
 
 // Modificar funca tuki
-/* $usuario->cargar( 'mhitter', '1234', 'mhitter@gmail.com', null );
+ $usuario->cargar( 'mhitter', '1234', 'mhitter@gmail.com', null );
 $answ = $usuario->modificar();
 if( $answ['respuesta'] ){
     echo('gut');
+    print_r($usuario);
 } else {
     var_dump($answ['errorInfo']);
 } */
 
 // Listar funca
-/* $arrayBusqueda['idusuario'] = 1;
+$arrayBusqueda['idusuario'] = 1;
 $rta = Usuario::listar( $arrayBusqueda );
 if( $rta['respuesta'] ){
     echo('gut');
     var_dump( $rta['array'] );
 } else {
     var_dump($rta['errorInfo']);
-} */
+} 
