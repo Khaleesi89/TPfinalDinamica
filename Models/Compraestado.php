@@ -12,22 +12,22 @@ class Compraestado extends db{
 
 	//Constructor
 	public function __construct(){
-		$this->idcompraestado = '';
+		$this->idcompraestado = null;
 		$this->objCompra = NULL;
 		$this->objCompraestadotipo = NULL;
-		$this->cefechaini = '';
-		$this->cefechafin = '';
+		$this->cefechaini = null;
+		$this->cefechafin = null;
 		$this->mensajeOp = '';
 	}
 
 	//Metodo cargar
-	public function cargar( $objCompra, $objCompraestadotipo, $cefechaini, $cefechafin, $mensajeOp){
+	public function cargar($objCompra, $objCompraestadotipo){
 		//$this->idcompraestado = $idcompraestado;
 		$this->objCompra = $objCompra;
 		$this->objCompraestadotipo = $objCompraestadotipo;
-		$this->cefechaini = $cefechaini;
-		$this->cefechafin = $cefechafin;
-		$this->mensajeOp = $mensajeOp;
+		//$this->cefechaini = $cefechaini;
+		//$this->cefechafin = $cefechafin;
+		
 	}
 
 	//Getters y setters
@@ -135,12 +135,12 @@ class Compraestado extends db{
 		//obtención de idcompra
 		$objCompra = $this->getObjCompra();
 		$idcompra = $objCompra->getIdcompra();
-		$objCompra = null;
+		//$objCompra = null;
 		//obtencion de idcompraestadotipo
 		$objCompraestadotipo = $this->getObjCompraestadotipo();
 		$idcompraestadotipo = $objCompraestadotipo->getIdcompraestadotipo();
 		$objCompraestadotipo = null;
-        $sql = "INSERT INTO compraestado VALUES(DEFAULT, $idcompra, $idcompraestadotipo, '{$this->getCefechaini()}', '{$this->getCefechafin()}')";
+        $sql = "INSERT INTO compraestado VALUES(DEFAULT, $idcompra, $idcompraestadotipo, DEFAULT, DEFAULT)";
         try {
             if($base->Iniciar()){
                 if($base->Ejecutar($sql)){
@@ -174,12 +174,12 @@ class Compraestado extends db{
 		//obtención de idcompra
 		$objCompra = $this->getObjCompra();
 		$idcompra = $objCompra->getIdcompra();
-		$objCompra = null;
+		//$objCompra = null;
 		//obtencion de idcompraestadotipo
 		$objCompraestadotipo = $this->getObjCompraestadotipo();
 		$idcompraestadotipo = $objCompraestadotipo->getIdcompraestadotipo();
-		$objCompraestadotipo = null;
-        $sql = "UPDATE compraestado SET idcompra = $idcompra, idcompraestadotipo = $idcompraestadotipo, cefechaini = '{$this->getCefechaini()}', cefechafin = '{$this->getCefechafin()}' WHERE idcompraestado = {$this->getIdcompraestado()}";
+		//$objCompraestadotipo = null;
+        $sql = "UPDATE compraestado SET idcompra = $idcompra, idcompraestadotipo = $idcompraestadotipo, cefechaini = DEFAULT, cefechafin = DEFAULT WHERE idcompraestado = {$this->getIdcompraestado()}";
         $base = new db();
         try {
             if( $base->Iniciar() ){

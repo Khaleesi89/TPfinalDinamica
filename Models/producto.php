@@ -1,6 +1,6 @@
 <?php
 
-require_once('../config.php');
+//require_once('../config.php');
 
 class Producto extends db
 {
@@ -261,8 +261,8 @@ class Producto extends db
         $respuesta['codigoError'] = null;
         $base = new db();
         //obtener fecha actual
-        $fecha = getdate();
-        $fechaPosta = $fecha['mday'] . ':' . $fecha['mon'] . ':' . $fecha['year'];
+        /* $fecha = getdate();
+        $fechaPosta = $fecha['mday'] . ':' . $fecha['mon'] . ':' . $fecha['year']; */
     $sql = "UPDATE producto SET prdeshabilitado = CURRENT_TIMESTAMP WHERE idproducto = {$this->getIdProducto()}";
         try {
             if ($base->Iniciar()) {
@@ -295,7 +295,7 @@ class Producto extends db
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
-        $arregloUsuario = null;
+        $arregloProducto = null;
         $base = new db();
         //seteo de busqueda
         $stringBusqueda = Producto::SBS($arrayBusqueda);
@@ -309,17 +309,18 @@ class Producto extends db
                 if ($base->Ejecutar($sql)) {
                     $arregloProducto = array();
                     while ($row2 = $base->Registro()) {
-                        $idProducto = $row2['idproducto'];
-                        $sinopsis = $row2['sinopsis'];
-                        $proNombre = $row2['pronombre'];
-                        $proCantStock = $row2['procantstock'];
-                        $autor = $row2['autor'];
-                        $precio = $row2['precio'];
-                        $isbn = $row2['isbn'];
-                        $categoria = $row2['categoria'];
-                        $producto = new Producto();
-                        $producto->cargar($idProducto, $sinopsis, $proNombre, $proCantStock, $autor, $precio, $isbn, $categoria);
-                        array_push($arregloProducto, $producto);
+                        $objProducto = new Producto();
+                        $objProducto->setIdProducto($row2['idproducto']);
+                        $objProducto->setProNombre($row2['pronombre']);
+                        $objProducto->setSinopsis($row2['sinopsis']) ;
+                        $objProducto->setProCantStock($row2['procantstock']);
+                        $objProducto->setAutor($row2['autor']);
+                        $objProducto->setPrecio($row2['precio']);
+                        $objProducto->setIsbn($row2['isbn']) ;
+                        $objProducto->setCategoria($row2['categoria']) ;
+                        
+                        
+                        array_push($arregloProducto, $objProducto);
                     }
                     $respuesta['respuesta'] = true;
                 } else {
