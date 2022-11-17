@@ -53,10 +53,10 @@ $rta = $compra->buscar($found);
 
 if($rta['respuesta']){
     echo "funco";
-    /* echo "<pre>";
+    echo "<pre>";
 	var_dump($compra);
 	echo "</pre>";
-	die(); */
+	
 }else{
     echo "segui participando";
     $rta['errorInfo'];
@@ -67,11 +67,8 @@ die();
 //MODIFICAR funciona
 
 //1)BUSCAMOS EL OBJETO A MODIFICAR
-$found = [];
-$found['idcompra'] = 5;
-$foundcomp = [];
-$foundcomp['idusuario'] = 1;
-$usuario->buscar($foundcomp);
+
+
 //var_dump($usuario);
 
 //die();
