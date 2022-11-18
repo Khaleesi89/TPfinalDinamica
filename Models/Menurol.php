@@ -159,16 +159,16 @@ class Menurol extends db{
         //Obtención del idmenu
         $objMenu = $this->getObjMenu();
         $idMenu = $objMenu->getIdmenu();
-        $objMenu = null;
+        
         //Obtencion del idrol
         $objRol = $this->getObjRol();
         $idRol = $objRol->getIdrol();
-        $objRol = null;
+               
         $sql = "UPDATE menurol SET idmenu = $idMenu, idrol = $idRol WHERE idmr = {$this->getIdmr()}";
         $base = new db();
         try {
-            if( $base->Iniciar() ){
-                if( $base->Ejecutar($sql) ){
+            if($base->Iniciar()){
+                if($base->Ejecutar($sql)){
                     $respuesta['respuesta'] = true;
                 } else {
                     $this->setMensajeOp( $base->getError() );
@@ -177,7 +177,7 @@ class Menurol extends db{
                     $respuesta['codigoError'] = 1;
                 }
             } else {
-                $this->setMensajeOp( $base->getError() );
+                $this->setMensajeOp($base->getError());
                 $respuesta['respuesta'] = false;
                 $respuesta['errorInfo'] = 'Hubo un error con la conexión de la base de datos';
                 $respuesta['codigoError'] = 0;
@@ -187,7 +187,7 @@ class Menurol extends db{
             $respuesta['errorInfo'] = $th;
             $respuesta['codigoError'] = 3;
         }
-        $base = null;
+        
         return $respuesta;
     }
 

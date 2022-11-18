@@ -35,7 +35,7 @@ class CharlaAmistosa extends Conversation
         $this->ask('Cuál es tu nombre?', function (Answer $answer) {
             //save result
             $this->firstName = $answer->getText();
-            $this->say('Un gusto conocerte ' . $this->firstName);
+            $this->say('Un gusto conocerte ' . $this->firstName .", en que puedo ayudarte?");
             $this->preguntar();
         });
     }
