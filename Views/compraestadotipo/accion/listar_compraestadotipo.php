@@ -1,8 +1,7 @@
 <?php
 require_once('../../../config.php');
 $objConCompraestadotipo = new CompraestadotipoController();
-$arrayBusqueda = [];
-$lista = $objConCompraestadotipo->listarTodo($arrayBusqueda);
+$lista = $objConCompraestadotipo->listarTodo();
 $arreglo_salid = array();
 foreach ($lista as $key => $value) {
     $nuevoElemen = $value->dameDatos();
