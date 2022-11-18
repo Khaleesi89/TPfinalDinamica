@@ -18,7 +18,7 @@
             mainColor: '#27ae60', //encabezado
             bubbleBackground: '#219150', //burbuja//el sobre es el icono predeterminado
             // bubbleAvatarUrl: '../Archivos/icono.png',
-            aboutText: 'Producido por Jero y Mar',
+            aboutText: 'Producido por el grupo Copado',
         }
     </script>
     <!-- CSS -->
