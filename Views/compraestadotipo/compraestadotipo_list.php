@@ -18,7 +18,7 @@ $lista = $objConCompraestadotipo->listarTodo();
     <title>Prueba isiUI</title>
 </head>
 <body>
-    <table id="dg" title="Administrador de pruductus" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_producto.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
+    <table id="dg" title="Administrador de pruductus" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_compraestadotipo.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>
                 <th field="idcompraestadotipo" width="50">Id</th>
@@ -51,14 +51,14 @@ $lista = $objConCompraestadotipo->listarTodo();
         function newEstadoCompraTipo(){
             $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo estado compra');
             $('#fm').form('clear');
-            url='accion/insertar_estadocompratipo.php';
+            url='accion/insertar_compraestadotipo.php';
         }
         function editEstadoCompraTipo(){
             var row = $('#dg').datagrid('getSelected');
             if(row){
                 $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar estado de compra');
                 $('#fm').form('load', row);
-                url='accion/edit_estadocompratipo.php?idcompraestadotipo='+row.idcompraestadotipo;
+                url='accion/edit_compraestadotipo.php?idcompraestadotipo='+row.idcompraestadotipo;
             }
         }
         function guardarEstadoCompraTipo(){
@@ -87,7 +87,7 @@ $lista = $objConCompraestadotipo->listarTodo();
             if(row){
                 $.messager.confirm('confirm', 'Seguro desea eliminar el producto?', function(r){
                     if(r){
-                        $.post('accion/destroy_compraestadotipo.php?idcompraestadotipo='+row.compraestadotipo,{compraestadotipo:row.id}, function(result){
+                        $.post('accion/destroy_compraestadotipo.php?idcompraestadotipo='+row.idcompraestadotipo,{compraestadotipo:row.id}, function(result){
                             alert('Volvio servidor');
                             if(result.respuesta){
                                 $('#dg').datagrid('reload');
