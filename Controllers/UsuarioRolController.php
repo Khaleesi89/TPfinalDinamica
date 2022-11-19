@@ -33,6 +33,7 @@ class UsuarioRolController extends MasterController {
         $arrayBus = [];
         $arrayBus['idusuario'] = $idusuario;
         $rta = Usuariorol::listar($arrayBus);
+        $listaRoles = [];
         if($rta['respuesta']){
             $listaRoles = $rta['array'];
         }
@@ -139,6 +140,8 @@ class UsuarioRolController extends MasterController {
             array_push($arrayRta, $arr);
         }
     }
+
+    
 
     public function baja( $param ){
         $bandera = false;

@@ -43,6 +43,8 @@ if(count($rolesTexto) != 0){
 }
 $string = substr($string, 0, -1);
 $string .= "] ";
+$objNuevo = (object)array('data' => $arrayOtro);
+echo json_encode($objNuevo);
 /* $string = substr($string, 0, -1);
 $string.= '}'; */
 
@@ -55,5 +57,5 @@ foreach ($rolesSimple as $key => $value) {
     $contador++;
 } */
 //echo $string;
-echo json_encode($string);
+//echo json_encode($string);
 //echo json_encode($arrayOtro);

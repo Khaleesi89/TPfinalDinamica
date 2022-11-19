@@ -78,7 +78,7 @@ $lista = $objUsuCon->listarTodo();
                     $value = 'true';
                     echo "<div style=\"margin-bottom:20px\">
             <label for=\"$id\" class=\"textbox-label\">$rodescripcion:</label>
-            <input id=rol$id type=\"checkbox\" name=\"$id\">
+            <input id=rol$id type=\"checkbox\" name=\"rol$id\">
         </div>";
                     $stringArr.="'rol$id',";
                 }
@@ -97,8 +97,11 @@ $lista = $objUsuCon->listarTodo();
 
             <script>
                 var url;
+                var urlr;
                 var datos;
                 var arralgo;
+                var arrkeys;
+                var algo;
 
                 function newUsuario() {
                     $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo usuario');
@@ -106,14 +109,25 @@ $lista = $objUsuCon->listarTodo();
                     url = 'accion/insertar_usuario.php';
                 }
 
+                function cargarDatos(datos){
+                    arralgo = Object.values(datos.data);
+                    arrkeys = Object.keys(datos.data);
+                    for (key in arrkeys){
+                        algo = arrkeys[key];
+                        //console.log(arralgo[key]);
+                        if(arralgo[key] == 'true'){
+                            document.getElementById(algo).click();
+                        }
+                    }
+                }
+
                 function newRol() {
                     var row = $('#dg').datagrid('getSelected');
                     if (row) {
+                        urlr = row.idusuario;
                         $('#dlg1').dialog('open').dialog('center').dialog('setTitle', 'Roles');
                         $('#fm1').form('clear');
-                        //asd = new XMLHttpRequest('POST', 'accion/roles_usuario?idusuario='+row.idusuario);
                         $('#fm1').form('load', 'accion/roles_usuario?idusuario=' + row.idusuario);
-                        //data = {asd:'a'};
                         datos = fetch('accion/roles_usuario?idusuario=' + row.idusuario, {
                             method: "POST",
                             body: JSON.stringify(datos),
@@ -123,48 +137,16 @@ $lista = $objUsuCon->listarTodo();
                         }).then((e) => {
                             return e.json();
                         }).then(data => {
-                            datos = data;
+                            cargarDatos(data);
                         });
-                        //console.table(JSON.stringify(datos));
-                        for (const key in datos) {
-                            if (datos.hasOwnProperty.call(datos, key)) {
-                                const element = datos[key];
-                                console.log(element);
-                            }
-                        }
-                        let algo = arrayF.map(element => {
-                            result = datos.element;
-                            if(result){
-                                document.getElementById(`${element}`).click();
-                            }
-                        })
-                        /* for (const key in datos) {
-                            if (Object.hasOwnProperty.call(datos, key)) {
-                                const element = datos[`${key}`];
-                                if(element){
-                                    document.getElementById(`${element}`).click();
-                                }
-                            }
-                        } */
-                        /* datos = Array.from(datos)
-                        arrayF.forEach(element => {
-                            result = element in datos;
-                             if(result){
-                                document.getElementById(element).click();
-                            } 
-                            
-                        }); */
-                        
+                                                
                     }
 
                 }
 
-
-                
-
                 function guardarRoles() {
                     $('#fm1').form('submit', {
-                        url: 'accion/guardar_roles.php',
+                        url: 'accion/guardar_roles.php?idusuario='+urlr,
                         onSubmit: function() {
                             return $(this).form('validate');
                         },
@@ -178,7 +160,6 @@ $lista = $objUsuCon->listarTodo();
                                 });
                             } else {
                                 $('#dlg1').dialog('close');
-
                             }
                         }
                     })
