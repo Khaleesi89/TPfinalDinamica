@@ -29,7 +29,12 @@ class ProductoController extends MasterController{
         //$arrayBusqueda = $this->busqueda();
         $arrayBusqueda['prdeshabilitado'] = NULL;
         $arrayTotal = Producto::listar($arrayBusqueda);
-        $array = $arrayTotal['array'];
+        if(array_key_exists('array', $arrayTotal)){
+            $array = $arrayTotal['array'];
+        }else{
+            $array = [];
+        }
+        
         //var_dump($array);
         return $array;        
     }

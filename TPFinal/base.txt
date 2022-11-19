@@ -33,6 +33,11 @@ usuario
 rol
 menurol
 
+VISTAS:
+producto ABM FIN
+Usuario y ver roles ABM FIN
+rol ABM FIN
+
 
 se modificaron las clases que tenian deshabilitado para que 
 en el constructor no se solicite el valor y pasamos por defecto el nullo
@@ -40,5 +45,3 @@ en el constructor no se solicite el valor y pasamos por defecto el nullo
 
 se hizo el test de Menu y funca todo...
 
-ESTOY CON EL TEST DE COMPRAITEM Y NO FUNCA...NO ME TRAE EL OBJETO DE COMPRA. ESTOY VIENDO
-QUE ONDA...(MAR)
