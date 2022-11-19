@@ -1,6 +1,8 @@
 <?php
 require_once('../../config.php');
 $objUsuCon = new UsuarioController();
+$objUsuRolCon = new UsuarioRolController();
+$arrayRoles = $objUsuRolCon->getRoles();
 $lista = $objUsuCon->listarTodo();
 ?>
 <!DOCTYPE html>
@@ -31,7 +33,8 @@ $lista = $objUsuCon->listarTodo();
     <div id="toolbar">
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUsuario()">Nuevo Usuario</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUsuario()">Editar Usuario</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUsuario()">Deshabilitar Usuario</a>  
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUsuario()">Deshabilitar Usuario</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="newRol()">Ver Roles</a>  
     </div>
     <div id="dlg" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
     <form id="fm" method="POST" novalidate style="margin:0,padding:20px 50px;">
@@ -55,12 +58,73 @@ $lista = $objUsuCon->listarTodo();
         <a href="javascript:void(0)" class="easyui-button c6" iconCls="icon-ok" onclick="guardarUsuario()" style="width:90px">Aceptar</a>
         <a href="javascript:void(0)" class="easyui-button" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
     </div>
+    <!--MODAL FORMULARIO DE ROLES--> 
+    <div id="dlg1" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg1-buttons'">
+    <form id="fm1" method="POST" novalidate style="margin:0,padding:20px 50px;">
+    <h3>Información de Roles</h3>
+    <!-- <div style="margin-bottom:10px;">
+        <input name="idusuario" id="idusuario" class="easyui-textbox" required="true" label="Id usuario" style="width:100%;">
+    </div> 
+
+    ARMAR LA RESPUESTA DE LOS ROLES-->
+
+    <?php
+        foreach ($arrayRoles as $key => $value) {
+            $texto = $value->dameDatos();
+            $id = $texto['idrol'];
+            $rodescripcion = $texto['rodescripcion'];
+            echo "<div style=\"margin-bottom:10px;\">
+            <input name=\"$id\" id=\"$id\" class=\"easyui-checkbox\" required=\"false\" label=\"$rodescripcion\" style=\"width:2%;\">
+        </div>";
+        }
+    ?>
+        
+        
+    </form>
+    <div id="dlg1-buttons">
+        <a href="javascript:void(0)" class="easyui-button c6" iconCls="icon-ok" onclick="guardarRoles()" style="width:90px">Aceptar</a>
+        <a href="javascript:void(0)" class="easyui-button" iconCls="icon-cancel" onclick="javascript:$('#dlg1').dialog('close')" style="width:90px">Cancelar</a>
+    </div>
+
+
     <script>
         var url;
         function newUsuario(){
             $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo usuario');
             $('#fm').form('clear');
             url='accion/insertar_usuario.php';
+        }
+        function newRol(){
+            var row = $('#dg').datagrid('getSelected');
+            if(row){
+                $('#dlg1').dialog('open').dialog('center').dialog('setTitle', 'Roles');
+                $('#fm1').form('clear');
+                $('#fm1').form('load', 'accion/roles_usuario?idusuario='+row.idusuario);
+                
+            }
+            
+    
+        }
+        function guardarRoles(){
+            $('#fm1').form('submit', {
+                url:'accion/guardar_roles.php',
+                onSubmit:function(){
+                    return $(this).form('validate');
+                },
+                success:function(result){
+                    var result=eval('('+result+')');
+                    //alert('Volvio servidor');
+                    if(!result.respuesta){
+                        $.messager.show({
+                            title:'Error',
+                            msg:result.errorMsg
+                        });
+                    }else{
+                        $('#dlg1').dialog('close');
+                        
+                    }
+                }
+            })
         }
         function editUsuario(){
             var row = $('#dg').datagrid('getSelected');
