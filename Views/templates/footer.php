@@ -1,10 +1,41 @@
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<footer class="footer">
+        <div class="box-container">
+            <div class="box">
+                <h3>Nuestras sucursales</h3>
+                <a href="#"><i class="fas fa-map-marker-alt"></i>La FAI</a>
+                <a href="#"><i class="fas fa-map-marker-alt"></i>La casa del Masi</a>
+                <a href="#"><i class="fas fa-map-marker-alt"></i>La casa del Jero</a>
+                <a href="#"><i class="fas fa-map-marker-alt"></i>La casa de Mar</a>
+                <a href="#"><i class="fas fa-map-marker-alt"></i>La casa del Gonza</a>
+            </div>
+            <div class="box">
+                <h3>Quick links</h3>
+                <a href="#"><i class="fas fa-arrow-right"></i>Home</a>
+                <a href="#"><i class="fas fa-arrow-right"></i>Ingresos</a>
+                <a href="#"><i class="fas fa-arrow-right"></i>Reviews</a>
+                <a href="#"><i class="fas fa-arrow-right"></i>Contacto</a>
+            </div>
+            <div class="box">
+                <h3>Extra links</h3>
+                <a href="#"><i class="fas fa-arrow-right"></i>Información de la cuenta</a>
+                <a href="#"><i class="fas fa-arrow-right"></i>Productos comprados</a>
+            </div>
+        </div>
+        <div class="share">
+            <a href="#" class="fab fa-facebook-f"></a>
+            <a href="#" class="fab fa-twitter"></a>
+            <a href="#" class="fab fa-instagram"></a>
+        </div>
+        <div class="credit">
+            <p>© Developed by Gonzalo Parra, Jerónimo Rojo, Marcia Klimisch & Maximiliano Ariel Hitter | 2022</p>
+        </div>
+    </footer>
 
-<footer class="d-block bg-dark mt-auto footer">
-    <div class="text-center text-white py-2">
-        <p>© Developed by Gonzalo Marin Parra & Maximiliano Ariel Hitter | 2022</p>
-    </div>
-</footer>
+
+<!-- Swiper -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+<!-- JS -->
+<script src="../../Public/jsPuro/script.js"></script>
 
 </body>
 </html>
