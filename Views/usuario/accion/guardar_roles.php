@@ -27,32 +27,39 @@ if ($idusuario != null) {
         $arrayRoles = $objUsuarioRolCon->getRoles();
         $rolesNuevos = [];
         $rolesSimple = [];
-        foreach ($arrayRoles as $key => $value) {
-            $data = $value->dameDatos();
-            $idrol = $data['idrol'];
-            //$rolesSimple[$data['idrol']] = false;
-            $guardarDato = $objUsuarioRolCon->buscarKey(("rol$idrol"));
-            //var_dump($guardarDato);
-            if ($guardarDato != null && $guardarDato == 'on') {
-                $rolesNuevos[$idrol] = $guardarDato;
+        if(count($arrayRoles)>0){
+            foreach ($arrayRoles as $key => $value) {
+                $data = $value->dameDatos();
+                $idrol = $data['idrol'];
+                //$rolesSimple[$data['idrol']] = false;
+                $guardarDato = $objUsuarioRolCon->buscarKey(("rol$idrol"));
+                //var_dump($guardarDato);
+                if ($guardarDato != null && $guardarDato == 'on') {
+                    $rolesNuevos[$idrol] = $guardarDato;
+                }
             }
+            //var_dump($rolesNuevos);
+            //cargar los nuevos roles
+            foreach ($rolesNuevos as $key => $value) {
+                $aBus['idrol'] = $key;
+                if($value == 'on'){
+                    $objRol = new Rol();
+                    $objRol->buscar($aBus);
+                    $objUsuarioRol = new UsuarioRol();
+                    $objUsuarioRol->cargar($objUsuario, $objRol);
+                    $objUsuarioRol->insertar();
+                    $objRol = null;
+                    $objUsuarioRol = null;
+                }
+            }
+            $retorno['respuesta'] = true;
+        }else{
+            $mensaje = 'No hay roles cargados';
         }
-        //var_dump($rolesNuevos);
-        //cargar los nuevos roles
-        foreach ($rolesNuevos as $key => $value) {
-            $aBus['idrol'] = $key;
-            if($value == 'on'){
-                $objRol = new Rol();
-                $objRol->buscar($aBus);
-                $objUsuarioRol = new UsuarioRol();
-                $objUsuarioRol->cargar($objUsuario, $objRol);
-                $objUsuarioRol->insertar();
-                $objRol = null;
-                $objUsuarioRol = null;
-            }
+        
     
-        }
-        $retorno['respuesta'] = true;
+    
+        
     
     
    
