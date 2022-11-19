@@ -12,6 +12,17 @@ class Session {
         }
     }
 
+/*// LA PROFE MALAPI LA TIENE ASI
+
+public function __construct(){
+    if (!session_start()) {
+        return false;
+    } else {
+        return true;
+    }
+  }*/
+
+
     /**
      * Getters & Setters
      * Obtiene y setea los índices de la variable $_SESSION
