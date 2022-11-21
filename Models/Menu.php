@@ -1,5 +1,5 @@
 <?php
-require_once('../config.php');
+//require_once('../config.php');
 class Menu extends db{
     use Condicion;
     //Atributos
@@ -253,11 +253,16 @@ class Menu extends db{
         $base = new db();
         //seteo de busqueda//ARREGLAR EL CONDICION
         $stringBusqueda = Menu::SBS($arrayBusqueda);
-        $sql = "SELECT * FROM menu";
-        if($stringBusqueda != ''){
-            $sql.= ' WHERE ';
-            $sql.= $stringBusqueda;
+        if(array_key_exists('sql', $arrayBusqueda)){
+            $sql = $arrayBusqueda['sql'];
+        }else{
+            $sql = "SELECT * FROM menu";
+            if($stringBusqueda != ''){
+                $sql.= ' WHERE ';
+                $sql.= $stringBusqueda;
+            }
         }
+        
         try {
             if($base->Iniciar()){
                 if($base->Ejecutar($sql)){
@@ -325,14 +330,9 @@ class Menu extends db{
     public function dameDatos(){
         $data = [];
         $data['idmenu'] = $this->getIdmenu();
-        
         $data['menombre'] = $this->getMenombre();
-        
         $data['medescripcion'] = $this->getMedescripcion();
-        
-        
         $objPadre = $this->getObjPadre();
-        
         try {
             $datosPadre = $objPadre->dameDatos();
         } catch (\Throwable $th) {
@@ -341,5 +341,24 @@ class Menu extends db{
         $data['idpadre'] = $datosPadre;
         $data['medeshabilitado'] = $this->getMedeshabilitado();
         return $data;
+    }
+
+    public static function darMenuesSinMenu($idmenu = NULL){
+        $condicion = '';
+        $sql = "SELECT idmenu, menombre FROM menu ";
+        if($idmenu != NULL){
+            $condicion = " WHERE idmenu != $idmenu AND medeshabilitado IS NULL";
+        }
+        if($condicion != ''){
+            $sql .= $condicion;
+        }
+        $arrayBus['sql'] = $sql;
+        $arrayTotal = Menu::listar($arrayBus);
+        if(array_key_exists('array', $arrayTotal)){
+            $devuelve = $arrayTotal['array'];
+        }else{
+            $devuelve = [];
+        }
+        return $devuelve;
     }
 }
