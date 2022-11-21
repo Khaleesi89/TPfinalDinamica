@@ -74,7 +74,13 @@ public function __construct(){
         $busqueda = $objUsuario->listarTodo( $array );
         if( count($busqueda) > 0 ){
             $usuarioLogueado = $busqueda[0];
-            $this->setIdusuario( $usuarioLogueado->getIdusuario() );
+            var_dump( $usuarioLogueado );
+            $idusuario = $usuarioLogueado->getIdusuario();
+            $usnombre = $usuarioLogueado->getUsnombre();
+            $uspass = $usuarioLogueado->getUspass();
+            $this->setIdusuario( $idusuario );
+            $this->setUsnombre( $usnombre );
+            $this->setUspass( $uspass );
         }
         return $bandera;
     }
@@ -99,8 +105,9 @@ public function __construct(){
         $lista = $controlUsuario->buscarId();
 
         $str = '';
-        if( $lista['array']->getUsnombre == $usuario
-            && $lista['array']->getUspass == $pass ){
+        $usnombrelista = $lista['obj']->getUsnombre();
+        $uspasslista = $lista['obj']->getUspass();
+        if( $usnombrelista == $usuario && $uspasslista == $pass ){
             $validado = true;
         } else {
             $str = 'Credenciales incorrectas';

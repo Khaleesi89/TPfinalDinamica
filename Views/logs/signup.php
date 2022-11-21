@@ -2,11 +2,14 @@
     require_once('../templates/header.php');
     require_once('../../Models/conector/db.php');
 
-    if( isset($_SESSION['user_id']) ){
+    /* if( isset($_SESSION['user_id']) ){
         header('Location: ../home/index.php');
-    }
+    } */
+    /* if( $session->activa() ){
+        header( 'Location: ../home/newIndex.php' );
+    } */
 
-    $conn = new db();
+    /* $conn = new db();
     $profesor = new ProfesorController();
     $data = $profesor->getDatos();
     //var_dump($data);
@@ -27,7 +30,7 @@
                 $message = 'Error';
             }
         }
-    }
+    } */
 
     
 ?>
@@ -47,12 +50,12 @@
 
                             <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Registro</p>
                             
-                            <form class="mx-1 mx-md-4" action="signup.php" method="POST" id="form">
+                            <form class="mx-1 mx-md-4" action="../accion/accionSignup.php" method="POST" id="form">
                                 <div class="d-flex flex-row align-items-center mb-4">
                                     <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                     <div class="form-outline flex-fill mb-0">
-                                        <label class="form-label" for="usuario">Su usuario</label>
-                                        <input type="text" name="usuario" id="usuario" class="form-control"/>
+                                        <label class="form-label" for="usnombre">Su usuario</label>
+                                        <input type="text" name="usnombre" id="usnombre" class="form-control"/>
                                     </div>
                                 </div>
                                 
@@ -60,7 +63,7 @@
                                     <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                                     <div class="form-outline flex-fill mb-0">
                                         <label class="form-label" for="mail">Su mail institucional</label>
-                                        <input type="email" name="mail" id="mail" class="form-control"/>
+                                        <input type="email" name="usmail" id="mail" class="form-control"/>
                                     </div>
                                 </div>
                                 
@@ -68,15 +71,7 @@
                                     <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                                     <div class="form-outline flex-fill mb-0">
                                         <label class="form-label" for="contrasenia">Contraseña</label>
-                                        <input type="password" name="contrasenia" id="contrasenia" class="form-control"/>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex flex-row align-items-center mb-4">
-                                    <i class="fas fa-key fa-lg me-3 fa-fw"></i>
-                                    <div class="form-outline flex-fill mb-0">
-                                        <label class="form-label" for="materia">Materia a dar</label>
-                                        <input type="text" name="materia" id="materia" class="form-control"/>
+                                        <input type="password" name="uspass" id="uspass" class="form-control"/>
                                     </div>
                                 </div>
                                 
@@ -92,10 +87,6 @@
                                 </p>
                             </div>
 
-                        </div>
-                        
-                        <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-                            <img src="https://images.pexels.com/photos/4260482/pexels-photo-4260482.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="img-fluid rounded" alt="imagen piolona xd">
                         </div>
                     
                     </div>

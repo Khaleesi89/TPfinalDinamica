@@ -27,14 +27,20 @@
 
     $session = new Session();
     $menues = [];
-    $respuesta = $session->activa();
-    if( $respuesta ){
+    /* $respuesta = $session->activa(); */
+    /* if( $respuesta ){
         echo( 'logueado' );
         $objMenuRol = new MenuRolController();
-        $menues = $objMenuRol->buscarRolesMenu();
+        $objMenu = new Menu();
+        $menues = $objMenuRol->buscarRolesMenu( $objMenu );
     } else {
         echo( 'no logueado' );
-    }
+        $objMenuRol = new MenuRolController();
+        $objMenu = new Menu();
+        $objMenu->cargar( 'Home', 'Views/home/newIndex.php', 0 );
+        $menues = $objMenuRol->buscarRolesMenu( $objMenu );
+        var_dump($menues);
+    } */
 
     
 ?>
@@ -146,7 +152,7 @@
             </div>
             <input type="submit" value="Sign in" class="btn">
             <p>Te olvidaste la contraseña pa? <a href="#">Clickea aca ;)</a> </p>
-            <p>No tenes una cuenta? <a href="#">Create una papu</a> </p>
+            <p>No tenes una cuenta? <a href="../logs/signup.php">Create una papu</a> </p>
         </form>
     </div>
 
