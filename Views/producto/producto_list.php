@@ -15,10 +15,11 @@ $lista = $objConPro->listarTodo();
     <link rel="stylesheet" href="../../Vendor/demo/demo.css">
     <script src="../../Vendor/jquery.min.js"></script>
     <script src="../../Vendor/jquery.easyui.min.js"></script>
-    <title>Prueba isiUI</title>
+    <link rel="stylesheet" href="../../../Public/cssPuro/paracuadros.css">
+    <title>PRODUCTOS</title>
 </head>
 <body>
-    <table id="dg" title="Administrador de pruductus" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_producto.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
+    <table id="dg" title="Administrador de productos" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_producto.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>
                 <th field="idproducto" width="50">Id</th>
@@ -28,18 +29,18 @@ $lista = $objConPro->listarTodo();
                 <th field="autor" width="50">Autor</th>
                 <th field="precio" width="50">Precio</th>
                 <th field="isbn" width="50">ISBN</th>
-                <th field="categoria" width="50">Categoria</th>
+                <th field="categoria" width="50">Categoría</th>
             </tr>
         </thead>
     </table>
     <div id="toolbar">
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newProducto()">Nuevo producto</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editProducto()">Editar producto</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyProducto()">Destroy producto</a>  
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyProducto()">Eliminar producto</a>  
     </div>
     <div id="dlg" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
     <form id="fm" method="POST" novalidate style="margin:0,padding:20px 50px;">
-    <h3>Producto informacion</h3>
+    <h3>Producto información</h3>
     <div style="margin-bottom:10px;">
         <input name="pronombre" id="pronombre" class="easyui-textbox" required="true" label="Nombre" style="width:100%;">
     </div>
@@ -110,7 +111,7 @@ $lista = $objConPro->listarTodo();
                 $.messager.confirm('confirm', 'Seguro desea eliminar el producto?', function(r){
                     if(r){
                         $.post('accion/destroy_producto.php?idproducto='+row.idproducto,{idproducto:row.id}, function(result){
-                            alert('Volvio servidor');
+                            //alert('Volvio servidor');
                             if(result.respuesta){
                                 $('#dg').datagrid('reload');
                             }else{
