@@ -36,6 +36,7 @@ spl_autoload_register(function ($class_name){
         $GLOBALS['ROOT'].'Vendor/',
         $GLOBALS['ROOT'].'Views/',
         $GLOBALS['ROOT'].'Views/producto',
+        $GLOBALS['ROOT'].'Views/templates',
     );
     // print_r($directorys);
     foreach($directorys as $directory){

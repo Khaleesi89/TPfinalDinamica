@@ -124,6 +124,7 @@
                 <a href="#ingresos">Ingresos</a>
                 <a href="#reviews">Reviews</a>
                 <a href="#contacto">Contacto</a>
+
             </nav>
         </div>
     </header>
@@ -152,7 +153,11 @@
             </div>
             <input type="submit" value="Sign in" class="btn">
             <p>Te olvidaste la contraseña pa? <a href="#">Clickea aca ;)</a> </p>
+<<<<<<< HEAD
             <p>No tenes una cuenta? <a href="../logs/signup.php">Create una papu</a> </p>
+=======
+            <p>No tenes una cuenta? <a href="../registrarUsuario/registro.php">Create una papu</a> </p>
+>>>>>>> 6152a9549dc67077b7d791fc12f42f4e5ff427c1
         </form>
     </div>
 
