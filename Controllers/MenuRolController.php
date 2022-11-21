@@ -71,6 +71,18 @@ class MenuRolController extends MasterController {
         return $bandera;
     }
 
+    public function buscarRoles(){
+        $idmenu = $this->buscarKey('idmenu');
+        $arrayBus['idmenu'] = $idmenu;
+        $rta = Menurol::listar($arrayBus);
+        if($rta['respuesta']){
+            $arr = $rta['array'];
+        }else{
+            $arr = [];
+        }
+        return $arr;    
+    }
+
     /**
      * Busca todos los MenuRol correspondientes a un objeto Menú
      * Lista todos los roles que tiene el Menú
