@@ -75,27 +75,27 @@
     <!-- Header -->
     <header class="header">
 
-        <div class="menues">
-            <!-- <a href="../home/newIndex.php" class="navbar-brand text-white">Home</a>
+        <!-- <div class="menues">
+            <a href="../home/newIndex.php" class="navbar-brand text-white">Home</a>
             <button class="navbar-toggler" type="button" data-bs-toggle='collapse' aria-expanded="false" aria-label="Toggle">
                 <span class="navbar-toggle-icon"></span>
-            </button> -->
+            </button>
 
             <div class="collapse navbar-collapse">
                 <ul class='navbar-nav me-auto mb-2 m-2 mb-sm-0'>
                     <li> <a href="../home/newIndex.php" role="button" class='px-2 mx-1 btn btn-lg btn-outline-light'>Home:)</a> </li>
 
                     <?php
-                    foreach( $menues as $menu ){
+                    /* foreach( $menues as $menu ){
                     ?>
-                        <option value="<?php echo $menu ?>"></option>
+                        <option value="<?php echo $menu[0] ?>"></option>
                     <?php
-                    }
+                    } */
                     ?>
 
                 </ul>
             </div>
-        </div>
+        </div> -->
 
         <div class="header-1">
             <a href="#" class="logo"><i class="fas fa-book"></i> Yonny</a>
