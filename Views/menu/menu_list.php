@@ -3,10 +3,9 @@ require_once('../../config.php');
 //Hacer controlador de menu y traer todos los menues
 $objMenuCon = new MenuController();
 $arrayMenu = $objMenuCon->listarTodo();
-/* $objUsuCon = new UsuarioController();*/
 $objUsuRolCon = new UsuarioRolController();
 $arrayRoles = $objUsuRolCon->getRoles();
-//$lista = $objUsuCon->listarTodo(); 
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,9 +44,6 @@ $arrayRoles = $objUsuRolCon->getRoles();
     <div id="dlg" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
         <form id="fm" method="POST" novalidate style="margin:0,padding:20px 50px;">
             <h3>Menú Información</h3>
-            <!-- <div style="margin-bottom:10px;">
-        <input name="idusuario" id="idusuario" class="easyui-textbox" required="true" label="Id usuario" style="width:100%;">
-    </div> -->
             <div style="margin-bottom:10px;">
                 <input name="menombre" id="menombre" class="easyui-textbox" required="true" label="Nombre" style="width:100%;">
             </div>
@@ -55,12 +51,11 @@ $arrayRoles = $objUsuRolCon->getRoles();
                 <input name="medescripcion" id="medescripcion" class="easyui-textbox" required="true" label="Descripcion" style="width:100%;">
             </div>
             <!-- Hacer combobox de menues -->
-            <!-- <div style="margin-bottom:10px;">
-                <input name="usmail" id="usmail" class="easyui-textbox" required="true" label="Email" style="width:100%;">
-            </div> -->
-            <div style="margin-bottom:10px;">
-                <input name="medeshabilitado" id="medeshabilitado" class="easyui-textbox" required="true" label="Fecha Deshabilitado" style="width:100%;">
+            <div style="margin-bottom:10px">
+            <label for="idpadre">Menu Padre</label>
+                <select id="idpadre" name="idpadre" label="Menu padre" style="width:100%"></select>
             </div>
+            
 
 
         </form>
@@ -110,11 +105,14 @@ $arrayRoles = $objUsuRolCon->getRoles();
                 var arralgo;
                 var arrkeys;
                 var algo;
+                var idpadre;
+                var idmenu;
+                var menombre;
 
                 function newMenu() {
                     $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo Menu');
                     $('#fm').form('clear');
-                    datos = fetch('accion/listar_menu_padre.php', {
+                    datos = fetch('accion/listar_menu.php', {
                             method: "POST",
                             body: JSON.stringify(datos),
                             headers: {
@@ -128,8 +126,16 @@ $arrayRoles = $objUsuRolCon->getRoles();
                     url = 'accion/insertar_menu.php';
                 }
 
+                /* <option value="ar">Arabic</option> */
                 function cargarMenues(datos){
                     console.log(datos);
+                    idpadre = `<option value="0" name="idpadre" selected>Sin padre</option>`;
+                    for (key in datos){
+                        idmenu = datos[key].idmenu;
+                        menombre = datos[key].menombre;
+                        idpadre += `<option name="idpadre" value="${idmenu}">${menombre}</option>`;
+                    }
+                    document.getElementById('idpadre').innerHTML = idpadre;
                 }
 
                 function cargarDatos(datos){
@@ -151,7 +157,7 @@ $arrayRoles = $objUsuRolCon->getRoles();
                         $('#dlg1').dialog('open').dialog('center').dialog('setTitle', 'Roles');
                         $('#fm1').form('clear');
                         $('#fm1').form('load', 'accion/roles_menu?idmenu=' + row.idmenu);
-                        datos = fetch('accion/roles_menu?idmenuo=' + row.idmenu, {
+                        datos = fetch('accion/roles_menu?idmenu=' + row.idmenu, {
                             method: "POST",
                             body: JSON.stringify(datos),
                             headers: {
@@ -193,6 +199,17 @@ $arrayRoles = $objUsuRolCon->getRoles();
                     if (row) {
                         $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar Menu');
                         $('#fm').form('load', row);
+                        datos = fetch('accion/listar_menu.php', {
+                            method: "POST",
+                            body: JSON.stringify(datos),
+                            headers: {
+                                "Content-Type": "application/json"
+                            }
+                        }).then((e) => {
+                            return e.json();
+                        }).then(data => {
+                            cargarMenues(data);
+                        });
                         url = 'accion/edit_menu.php?idmenu=' + row.idmenu;
                     }
                 }

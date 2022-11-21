@@ -131,14 +131,19 @@ class Menu extends db{
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
         $objPadre = $this->getObjPadre();
-        try {
-            $idPadre = $objPadre->getIdmenu();
-        } catch (\Throwable $th) {
-            $idPadre = 0;
+        //var_dump($objPadre);
+        if($objPadre == null){
+            $idpadre = 0;
+        }else{
+            $idpadre = $objPadre->getIdmenu();
+        }
+        if($idpadre == null){
+            $idpadre = 0;
         }
         $objPadre = null;
         $base = new db();
-        $sql = "INSERT INTO menu VALUES(DEFAULT, '{$this->getMenombre()}', '{$this->getMedescripcion()}', $idPadre, DEFAULT)";
+        $sql = "INSERT INTO menu VALUES(DEFAULT, '{$this->getMenombre()}', '{$this->getMedescripcion()}', $idpadre, DEFAULT)";
+        //var_dump($sql);
         try {
             if($base->Iniciar()){
                 if($base->Ejecutar($sql)){
@@ -271,17 +276,24 @@ class Menu extends db{
                         $objMenu = new Menu();
                         $objMenu->setIdmenu($row2['idmenu']);
                         $objMenu->setMenombre($row2['menombre']);
-                        $objMenu->setMedescripcion($row2['medescripcion']);
-                        $objMenuPadre = new Menu();
-                        $idPadre = $row2['idpadre'];
-                        if($idPadre == 0 || $idPadre == null){
-                            $objMenuPadre = null;
-                        }else{
-                            $arrayPadre['idmenu'] = $idPadre;
-                            $objMenuPadre->buscar($arrayPadre);
+                        if(array_key_exists('medescripcion', $row2)){
+                            $objMenu->setMedescripcion($row2['medescripcion']);
                         }
-                        $objMenu->setObjPadre($objMenuPadre);
-                        $objMenu->setMedeshabilitado($row2['medeshabilitado']);
+                        
+                        $objMenuPadre = new Menu();
+                        if(array_key_exists('idpadre', $row2)){
+                            $idPadre = $row2['idpadre'];
+                            if($idPadre == 0 || $idPadre == null){
+                                $objMenuPadre = null;
+                            }else{
+                                $arrayPadre['idmenu'] = $idPadre;
+                                $objMenuPadre->buscar($arrayPadre);
+                            }
+                            $objMenu->setObjPadre($objMenuPadre);
+                        }
+                        if(array_key_exists('medeshabilitado', $row2)){
+                            $objMenu->setMedeshabilitado($row2['medeshabilitado']);
+                        }
                         array_push($arregloMenu, $objMenu);
                     }
                     $respuesta['respuesta'] = true;
@@ -333,19 +345,23 @@ class Menu extends db{
         $data['menombre'] = $this->getMenombre();
         $data['medescripcion'] = $this->getMedescripcion();
         $objPadre = $this->getObjPadre();
-        try {
-            $datosPadre = $objPadre->dameDatos();
-        } catch (\Throwable $th) {
-            $datosPadre = 0;
+        if($objPadre == null){
+            $idpadre = 0;
+        }else{
+            $idpadre = $objPadre->getIdmenu();
         }
-        $data['idpadre'] = $datosPadre;
+        
+        if($idpadre == null){
+            $idpadre = 0;
+        }
+        $data['idpadre'] = $idpadre;
         $data['medeshabilitado'] = $this->getMedeshabilitado();
         return $data;
     }
 
     public static function darMenuesSinMenu($idmenu = NULL){
         $condicion = '';
-        $sql = "SELECT idmenu, menombre FROM menu ";
+        $sql = "SELECT * FROM menu ";
         if($idmenu != NULL){
             $condicion = " WHERE idmenu != $idmenu AND medeshabilitado IS NULL";
         }
