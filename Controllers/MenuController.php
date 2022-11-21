@@ -5,7 +5,17 @@ class MenuController extends MasterController {
     public function listarTodo(){
         $arrayBus['medeshabilitado'] = NULL;
         $arrayTotal = Menu::listar($arrayBus);
-        $array = $arrayTotal['array'];
+        if(array_key_exists('array', $arrayTotal)){
+            $array = $arrayTotal['array'];
+        }else{
+            $array = [];
+        }
+        return $array;
+    }
+
+    public function listar_menu_padre(){
+        $idmenu = $this->buscarKey('idmenu');
+        $array = Menu::darMenuesSinMenu($idmenu);
         return $array;
     }
 }

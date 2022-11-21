@@ -1,10 +1,12 @@
 <?php
 require_once('../../config.php');
 //Hacer controlador de menu y traer todos los menues
-/* $objUsuCon = new UsuarioController();
+$objMenuCon = new MenuController();
+$arrayMenu = $objMenuCon->listarTodo();
+/* $objUsuCon = new UsuarioController();*/
 $objUsuRolCon = new UsuarioRolController();
 $arrayRoles = $objUsuRolCon->getRoles();
-$lista = $objUsuCon->listarTodo(); */
+//$lista = $objUsuCon->listarTodo(); 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,6 +58,9 @@ $lista = $objUsuCon->listarTodo(); */
             <!-- <div style="margin-bottom:10px;">
                 <input name="usmail" id="usmail" class="easyui-textbox" required="true" label="Email" style="width:100%;">
             </div> -->
+            <div style="margin-bottom:10px;">
+                <input name="medeshabilitado" id="medeshabilitado" class="easyui-textbox" required="true" label="Fecha Deshabilitado" style="width:100%;">
+            </div>
 
 
         </form>
@@ -73,7 +78,7 @@ $lista = $objUsuCon->listarTodo(); */
 
     ARMAR LA RESPUESTA DE LOS ROLES-->
                 <?php
-                $stringArr = "<script>let arrayF = [";
+                //$stringArr = "<script>let arrayF = [";
                 foreach ($arrayRoles as $key => $value) {
                     $texto = $value->dameDatos();
                     $id = $texto['idrol'];
@@ -83,11 +88,11 @@ $lista = $objUsuCon->listarTodo(); */
             <label for=\"$id\" class=\"textbox-label\">$rodescripcion:</label>
             <input id=rol$id type=\"checkbox\" name=\"rol$id\">
         </div>";
-                    $stringArr.="'rol$id',";
+                    //$stringArr.="'rol$id',";
                 }
-                $stringArr = substr($stringArr, 0, -1);
-                $stringArr .= '];</script>';
-                echo $stringArr;
+                //$stringArr = substr($stringArr, 0, -1);
+                //$stringArr .= '];</script>';
+                //echo $stringArr;
                 ?>
 
 
@@ -109,7 +114,22 @@ $lista = $objUsuCon->listarTodo(); */
                 function newMenu() {
                     $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo Menu');
                     $('#fm').form('clear');
+                    datos = fetch('accion/listar_menu_padre.php', {
+                            method: "POST",
+                            body: JSON.stringify(datos),
+                            headers: {
+                                "Content-Type": "application/json"
+                            }
+                        }).then((e) => {
+                            return e.json();
+                        }).then(data => {
+                            cargarMenues(data);
+                        });
                     url = 'accion/insertar_menu.php';
+                }
+
+                function cargarMenues(datos){
+                    console.log(datos);
                 }
 
                 function cargarDatos(datos){
