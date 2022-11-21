@@ -524,6 +524,7 @@ section {
     border-radius: 50%;
 }
 
+
 .footer .share a:hover {
     background: var(--black);
 }
@@ -539,10 +540,36 @@ section {
     text-align: center;
 }
 
+.registracion{
+    color: green;
+    font-size: 18px;
+    text-align: center;
+    padding: 50px;
+    margin: 50px;
+}
 
+.box1{
+    border-color: green;
+    border-style: solid;
+    border-width: 3px;
+}
 
+.yo{
+    border-color: #219150;
+    border-style: solid;
+    border-width: 3px;
+    width: 500px;
+    margin: auto;
+    background-color: white;
 
+}
 
+body{
+    background-color: #219150;
+}
+footer{
+    background-color: white;
+}
 
 
 /* Media queries */
