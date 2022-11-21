@@ -81,7 +81,7 @@ class MenuRolController extends MasterController {
     public function buscarRolesMenu( $objMenu ){
         $lista = $this->listarTodo( null );
         $roles = [];
-        if( $lista['array'] !== '' ){
+        if( array_key_exists('array', $lista) ){
             foreach( $lista as $menuRol ){
                 if( $menuRol->getObjMenu()->getIdmr() == $objMenu->getIdmr() ){
                     $rolDescripcion = $menuRol->getObjRol()->getRodescripcion();
