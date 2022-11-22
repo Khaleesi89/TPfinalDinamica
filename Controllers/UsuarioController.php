@@ -3,10 +3,15 @@
 class UsuarioController extends MasterController {
     use Errores;
 
-    public function listarTodo(){
+    public function listarTodo($arrAlgo = NULL){
         //$arrayBusqueda = $this->busqueda();
-        $arrayBusqueda['usdeshabilitado'] = NULL;
-        $arrayTotal = Usuario::listar($arrayBusqueda);
+        if($arrAlgo == NULL){
+            $arr = [];
+        }else{
+            $arr = $arrAlgo;
+        }
+        //$arrayBusqueda['usdeshabilitado'] = NULL;
+        $arrayTotal = Usuario::listar($arr);
         $array = $arrayTotal['array'];
         //var_dump($array);
         return $array;        
@@ -153,6 +158,22 @@ class UsuarioController extends MasterController {
         if($rta['respuesta']){
             $objUsuario = $rta['obj'];
             $respEliminar = $objUsuario->eliminar();
+            if($respEliminar['respuesta']){
+                $response = true;
+            }
+        }else{
+            //no encontro el obj
+            $response = false;
+        }
+        return $response;
+    }
+
+    public function Noeliminar(){
+        $rta = $this->buscarId();
+        $response = false;
+        if($rta['respuesta']){
+            $objUsuario = $rta['obj'];
+            $respEliminar = $objUsuario->Noeliminar();
             if($respEliminar['respuesta']){
                 $response = true;
             }
