@@ -298,4 +298,17 @@ class Menurol extends db{
         $objRol = null;
         return $data;
     }
+
+    public function dameDatosMenues(){
+        $data = [];
+        $data['idmr'] = $this->getIdmr();
+        $objMenu = $this->getObjMenu();
+        $datos = $objMenu->dameDatos();
+        $data['idmenu'] = $datos;
+        $objMenu = null;
+        $objRol = $this->getObjRol();
+        $data['idrol'] = $objRol->getIdrol();
+        $objRol = null;
+        return $data;
+    }
 }
