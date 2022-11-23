@@ -4,6 +4,7 @@
 require_once('../../config.php');
 $objComItem = new CompraitemController();
 $lista = $objComItem->listarTodo();
+//var_dump ($lista);
 ?>
 <!DOCTYPE html>
 <html lang="en">
