@@ -8,13 +8,10 @@ if($data != null){
     //FUNCION PARA COMPRAR 
     $cantTotal = $objCompraitem->stockTotal();
     $cantidad = $objCompraitem->buscarKey('cicantidad');
-    if($cantTotal > $cantidad){
-        $rta = $objCompraitem->modificar();
-        if(!$rta){
-            $mensaje = "La accion no pudo concretarse";
-        } 
+    $rta = $objCompraitem->modificar();
+    if(!$rta){
+        $mensaje = "La accion no pudo concretarse";
     }
-    
 }
 $retorno['respuesta'] = $rta;
 if(isset($mensaje)){

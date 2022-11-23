@@ -18,7 +18,7 @@ $lista = $objComItem->listarTodo();
     <link rel="stylesheet" href="../../Vendor/demo/demo.css">
     <script src="../../Vendor/jquery.min.js"></script>
     <script src="../../Vendor/jquery.easyui.min.js"></script>
-    <link rel="stylesheet" href="../../../Public/cssPuro/paracuadros.css">
+    <!-- <link rel="stylesheet" href="../../Public/cssPuro/paracuadros.css"> -->
     <title>CARRITO DE COMPRA</title>
 </head>
 <body>
@@ -56,8 +56,8 @@ $lista = $objComItem->listarTodo();
         <input readonly name="idcompra" id="idcompra" class="easyui-textbox" required="true" label="NUMERO DE PEDIDO" style="width:100%;">
     </div>
     <div style="margin-bottom:10px;">
-        <label for="cicantidad">  cantidad  </label>
-        <input class= textbox-text style="width: 514.333px; margin: 0px; padding-top: 0px; padding-bottom: 0px; height: 28px; line-height: 28px;" name="cicantidad" id="cicantidad" required="true" label="CANTIDAD">
+
+        <input name="cicantidad" id="cicantidad" required="true" label="CANTIDAD" style="width:100%;">
         <p>Sólo puede modificar la cantidad</p>
     </div>
         
@@ -108,12 +108,12 @@ $lista = $objComItem->listarTodo();
                 }
             })
         }
-        function destroyProducto(){
+        function destroyItem(){
             var row=$('#dg').datagrid('getSelected');
             if(row){
-                $.messager.confirm('confirm', 'Seguro desea eliminar el producto?', function(r){
+                $.messager.confirm('confirm', 'Seguro desea eliminar la compra?', function(r){
                     if(r){
-                        $.post('accion/destroy_producto.php?idproducto='+row.idproducto,{idproducto:row.id}, function(result){
+                        $.post('accion/destroy_compraitem.php?idcompraitem='+row.idcompraitem,{idcompraitem:row.id}, function(result){
                             //alert('Volvio servidor');
                             if(result.respuesta){
                                 $('#dg').datagrid('reload');

@@ -4,7 +4,7 @@ $objCompraitem = new CompraitemController();
 $lista = $objCompraitem->listarTodo();
 $arraydelacompraitem = [];
 foreach ($lista as $key => $objCompraitem) {
-   
+    /* $arraydelacompraitem = []; */
     $idcompraitem = $objCompraitem->getIdcompraitem();
     $producto = $objCompraitem->getObjProducto();
     $nombreproduct = $producto->getProNombre();
