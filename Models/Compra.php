@@ -292,4 +292,36 @@ class Compra extends db{
         $data['idusuario'] = $idusuario;
         return $data;
     }
+
+    public function ultimaCompraId(){
+        $sql = "SELECT MAX(idcompra) AS idcompra FROM compra";
+        $base = new db();
+        try {
+			if($base->Iniciar()){
+				if($base->Ejecutar($sql)){
+					if($row2 = $base->Registro()){
+						//var_dump($row2);
+						$this->setIdcompra($row2['idcompra']);
+						$respuesta['respuesta'] = true;
+					}
+				}else{
+					$this->setMensajeOp($base->getError());
+					$respuesta['respuesta'] = false;
+					$respuesta['errorInfo'] = 'Hubo un error en la consulta';
+					$respuesta['codigoError'] = 1;
+				}
+			}else{
+				$this->setMensajeOp($base->getError());
+				$respuesta['respuesta'] = false;
+				$respuesta['errorInfo'] = 'Hubo un error con la conexion a la db';
+				$respuesta['codigoError'] = 0;
+			}
+		} catch (\Throwable $th){
+			$respuesta['respuesta'] = false;
+			$respuesta['errorInfo'] = $th;
+			$respuesta['codigoError'] = 3;
+		}
+		$base = null;
+		return $respuesta;
+    }
 }

@@ -117,9 +117,33 @@ class CompraController extends MasterController{
         }else{
             $respuesta = false;
         }
-
         return $respuesta;
     }
+
+    public function crearCompraDevolverId($idusuario){
+        $objCompra = new Compra();
+        $objUsuario = new Usuario();
+        $arrBusUs = [];
+        $arrBusUs['idusuario'] = $idusuario;
+        $rsa = $objUsuario->buscar($arrBusUs);
+        $objCompra->cargar($objUsuario);
+        $rta = $objCompra->insertar();
+        if($rta['respuesta']){
+            //se pudo crear la compra
+            $rrrta = $objCompra->ultimaCompraId();
+            if($rrrta['respuesta']){
+                $bandera = true;
+                $quepaso = $objCompra->getIdcompra();
+            }else{
+                $quepaso = false;
+            }
+        }else{
+            $quepaso = false;
+        }
+        return $quepaso;
+          
+    }
+    
 
     /* public function modificacionChetita() {
         $rta = $this->buscarId();
