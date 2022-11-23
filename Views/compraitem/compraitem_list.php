@@ -1,8 +1,10 @@
+
+
 <?php
 require_once('../../config.php');
-$objConPro = new ProductoController();
-$lista = $objConPro->listarTodo();
-
+$objComItem = new CompraitemController();
+$lista = $objComItem->listarTodo();
+//var_dump ($lista);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,53 +19,46 @@ $lista = $objConPro->listarTodo();
     <script src="../../Vendor/jquery.min.js"></script>
     <script src="../../Vendor/jquery.easyui.min.js"></script>
     <link rel="stylesheet" href="../../../Public/cssPuro/paracuadros.css">
-    <title>PRODUCTOS</title>
+    <title>CARRITO DE COMPRA</title>
 </head>
 <body>
-    <table id="dg" title="Administrador de productos" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_producto.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
+    <table id="dg" title="Administrador del carrito" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_compraitem.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>
-                <th field="idproducto" width="30">Id producto</th>
+                <th field="idcompraitem" width="50">Id ítem</th>
+                <th field="idproducto" width="50">Id producto</th>
                 <th field="pronombre" width="50">Nombre producto</th>
-                <th field="sinopsis" width="50">Sinopsis</th>
-                <th field="procantstock" width="50">Stock</th>
-                <th field="autor" width="50">Autor</th>
-                <th field="precio" width="50">Precio</th>
-                <th field="isbn" width="50">ISBN</th>
-                <th field="categoria" width="50">Categoría</th>
+                <th field="idcompra" width="50">Id compra</th>
+                <th field="cicantidad" width="50">Cantidad comprada</th>
+                
+                
             </tr>
         </thead>
     </table>
     <div id="toolbar">
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newProducto()">Nuevo producto</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editProducto()">Editar producto</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyProducto()">Eliminar producto</a>  
+        
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCantidad()">Editar cantidad</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyItem()">Eliminar ítem</a>  
     </div>
     <div id="dlg" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
     <form id="fm" method="POST" novalidate style="margin:0,padding:20px 50px;">
     <h3>Producto información</h3>
     <div style="margin-bottom:10px;">
-        <input name="pronombre" id="pronombre" class="easyui-textbox" required="true" label="Nombre" style="width:100%;">
+        <input name="idcompraitem" id="idcompraitem" class="easyui-textbox" required="true" label="ID COMPRA ITEM" style="width:100%;">
     </div>
     <div style="margin-bottom:10px;">
-        <input name="sinopsis" id="sinopsis" class="easyui-textbox" required="true" label="Sinopsis" style="width:100%;">
+        <input name="idproducto" id="idproducto" class="easyui-textbox" required="true" label="ID PRODUCTO" style="width:100%;">
     </div>
     <div style="margin-bottom:10px;">
-        <input name="procantstock" id="procantstock" class="easyui-textbox" required="true" label="Stock" style="width:100%;">
+        <input name="pronombre" id="pronombre" class="easyui-textbox" required="true" label="Producto" style="width:100%;">
     </div>
     <div style="margin-bottom:10px;">
-        <input name="autor" id="autor" class="easyui-textbox" required="true" label="Autor" style="width:100%;">
+        <input name="idcompra" id="idcompra" class="easyui-textbox" required="true" label="NUMERO DE PEDIDO" style="width:100%;">
     </div>
     <div style="margin-bottom:10px;">
-        <input name="precio" id="precio" class="easyui-textbox" required="true" label="Precio" style="width:100%;">
+        <input name="cicantidad" id="cicantidad" class="easyui-textbox" required="true" label="Cantidad" style="width:100%;">
     </div>
-    <div style="margin-bottom:10px;">
-        <input name="isbn" id="isbn" class="easyui-textbox" required="true" label="ISBN" style="width:100%;">
-    </div>
-    <div style="margin-bottom:10px;">
-        <input name="categoria" id="categoria" class="easyui-textbox" required="true" label="Categoria" style="width:100%;">
-    </div>
-    
+        
         
     </form>
     <div id="dlg-buttons">
@@ -72,17 +67,21 @@ $lista = $objConPro->listarTodo();
     </div>
     <script>
         var url;
+        /*
         function newProducto(){
             $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo producto');
             $('#fm').form('clear');
             url='accion/insertar_producto.php';
         }
-        function editProducto(){
+        */
+        function editCantidad(){
+            //dg es la tabla y getselect es el que esta seleccionado
             var row = $('#dg').datagrid('getSelected');
             if(row){
-                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar producto');
+                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar cantidad');
+                //traerme el stock con el id de producto
                 $('#fm').form('load', row);
-                url='accion/edit_producto.php?idproducto='+row.idproducto;
+                url='accion/editarCantidad.php?idcompraitem='+row.idcompraitem;
             }
         }
         function guardarProducto(){
@@ -129,6 +128,5 @@ $lista = $objConPro->listarTodo();
     </script>
         
     </div>
-
 </body>
 </html>

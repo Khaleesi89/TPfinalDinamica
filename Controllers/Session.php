@@ -1,6 +1,6 @@
 <?php
 
-class Session {
+class Session extends MasterController {
 
     /**
      * Método constructor
@@ -74,7 +74,13 @@ public function __construct(){
         $busqueda = $objUsuario->listarTodo( $array );
         if( count($busqueda) > 0 ){
             $usuarioLogueado = $busqueda[0];
-            $this->setIdusuario( $usuarioLogueado->getIdusuario() );
+            var_dump( $usuarioLogueado );
+            $idusuario = $usuarioLogueado->getIdusuario();
+            $usnombre = $usuarioLogueado->getUsnombre();
+            $uspass = $usuarioLogueado->getUspass();
+            $this->setIdusuario( $idusuario );
+            $this->setUsnombre( $usnombre );
+            $this->setUspass( $uspass );
         }
         return $bandera;
     }
@@ -99,8 +105,9 @@ public function __construct(){
         $lista = $controlUsuario->buscarId();
 
         $str = '';
-        if( $lista['array']->getUsnombre == $usuario
-            && $lista['array']->getUspass == $pass ){
+        $usnombrelista = $lista['obj']->getUsnombre();
+        $uspasslista = $lista['obj']->getUspass();
+        if( $usnombrelista == $usuario && $uspasslista == $pass ){
             $validado = true;
         } else {
             $str = 'Credenciales incorrectas';
@@ -117,7 +124,7 @@ public function __construct(){
      */
     public function activa() {
         $bandera = false;
-        if( isset($_SESSION['usuNombre']) ){
+        if( isset($_SESSION['usnombre']) ){
             $bandera = true;
         }
         return $bandera;
@@ -132,5 +139,36 @@ public function __construct(){
         session_unset();
         session_destroy();
     }
+
+    // Get rol de usuario
+    public function getRol() {
+        $objUsuarioRol = new UsuarioRolController();
+        $rolUsuario = [];
+        $listaUsuarios = $objUsuarioRol->getUsuarios();
+        foreach( $listaUsuarios as $usuario ){
+            $id = $usuario->getIdusuario();
+            if( $id == $this->getIdusuario() ){
+                $rolUsuario = $objUsuarioRol->buscarRoles();
+            }
+        }
+        return $rolUsuario;
+    }
+    
+    public function isAdmin( $rol ){
+        $bandera = false;
+        if( $rol == 'Admin' && $rol == $this->getUsuRol() ){
+            $bandera = true;
+        }
+        return $bandera;
+    }
+    
+    // dame datos de idusuario, roles del usuario
+    public function dameDatos() {
+        $data = [];
+        $data['idusuario'] = $this->getIdusuario();
+        $data['rolesusuario'] = $this->getRol();
+        return $data;
+    }
+
     
 }

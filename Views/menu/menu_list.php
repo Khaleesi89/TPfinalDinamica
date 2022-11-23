@@ -1,10 +1,16 @@
 <?php
 require_once('../../config.php');
 //Hacer controlador de menu y traer todos los menues
-/* $objUsuCon = new UsuarioController();
+$objMenuCon = new MenuController();
+//$arrayBus['medeshabilitado'] = NULL;
+$arrayBus = [];
+$arrayMenu = $objMenuCon->listarTodo($arrayBus);
 $objUsuRolCon = new UsuarioRolController();
 $arrayRoles = $objUsuRolCon->getRoles();
-$lista = $objUsuCon->listarTodo(); */
+
+/* //prueba de menues por rol.. admin 
+$rta = $objMenuCon->obtenerMenuesPorRol(1);
+var_dump($rta); */
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,14 +44,12 @@ $lista = $objUsuCon->listarTodo(); */
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newMenu()">Nuevo Menú</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editMenu()">Editar Menú</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyMenu()">Deshabilitar Menú</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="undestroyMenu()">Habilitar Menú</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="newRol()">Ver Roles</a>
     </div>
     <div id="dlg" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
         <form id="fm" method="POST" novalidate style="margin:0,padding:20px 50px;">
             <h3>Menú Información</h3>
-            <!-- <div style="margin-bottom:10px;">
-        <input name="idusuario" id="idusuario" class="easyui-textbox" required="true" label="Id usuario" style="width:100%;">
-    </div> -->
             <div style="margin-bottom:10px;">
                 <input name="menombre" id="menombre" class="easyui-textbox" required="true" label="Nombre" style="width:100%;">
             </div>
@@ -53,9 +57,11 @@ $lista = $objUsuCon->listarTodo(); */
                 <input name="medescripcion" id="medescripcion" class="easyui-textbox" required="true" label="Descripcion" style="width:100%;">
             </div>
             <!-- Hacer combobox de menues -->
-            <!-- <div style="margin-bottom:10px;">
-                <input name="usmail" id="usmail" class="easyui-textbox" required="true" label="Email" style="width:100%;">
-            </div> -->
+            <div style="margin-bottom:10px">
+            <label for="idpadre">Menu Padre</label>
+                <select id="idpadre" name="idpadre" label="Menu padre" style="width:100%"></select>
+            </div>
+            
 
 
         </form>
@@ -73,7 +79,7 @@ $lista = $objUsuCon->listarTodo(); */
 
     ARMAR LA RESPUESTA DE LOS ROLES-->
                 <?php
-                $stringArr = "<script>let arrayF = [";
+                //$stringArr = "<script>let arrayF = [";
                 foreach ($arrayRoles as $key => $value) {
                     $texto = $value->dameDatos();
                     $id = $texto['idrol'];
@@ -83,11 +89,11 @@ $lista = $objUsuCon->listarTodo(); */
             <label for=\"$id\" class=\"textbox-label\">$rodescripcion:</label>
             <input id=rol$id type=\"checkbox\" name=\"rol$id\">
         </div>";
-                    $stringArr.="'rol$id',";
+                    //$stringArr.="'rol$id',";
                 }
-                $stringArr = substr($stringArr, 0, -1);
-                $stringArr .= '];</script>';
-                echo $stringArr;
+                //$stringArr = substr($stringArr, 0, -1);
+                //$stringArr .= '];</script>';
+                //echo $stringArr;
                 ?>
 
 
@@ -105,11 +111,37 @@ $lista = $objUsuCon->listarTodo(); */
                 var arralgo;
                 var arrkeys;
                 var algo;
+                var idpadre;
+                var idmenu;
+                var menombre;
 
                 function newMenu() {
                     $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo Menu');
                     $('#fm').form('clear');
+                    datos = fetch('accion/listar_menu.php', {
+                            method: "POST",
+                            body: JSON.stringify(datos),
+                            headers: {
+                                "Content-Type": "application/json"
+                            }
+                        }).then((e) => {
+                            return e.json();
+                        }).then(data => {
+                            cargarMenues(data);
+                        });
                     url = 'accion/insertar_menu.php';
+                }
+
+                /* <option value="ar">Arabic</option> */
+                function cargarMenues(datos){
+                    console.log(datos);
+                    idpadre = `<option value="0" name="idpadre" selected>Sin padre</option>`;
+                    for (key in datos){
+                        idmenu = datos[key].idmenu;
+                        menombre = datos[key].menombre;
+                        idpadre += `<option name="idpadre" value="${idmenu}">${menombre}</option>`;
+                    }
+                    document.getElementById('idpadre').innerHTML = idpadre;
                 }
 
                 function cargarDatos(datos){
@@ -131,7 +163,7 @@ $lista = $objUsuCon->listarTodo(); */
                         $('#dlg1').dialog('open').dialog('center').dialog('setTitle', 'Roles');
                         $('#fm1').form('clear');
                         $('#fm1').form('load', 'accion/roles_menu?idmenu=' + row.idmenu);
-                        datos = fetch('accion/roles_menu?idmenuo=' + row.idmenu, {
+                        datos = fetch('accion/roles_menu?idmenu=' + row.idmenu, {
                             method: "POST",
                             body: JSON.stringify(datos),
                             headers: {
@@ -173,6 +205,17 @@ $lista = $objUsuCon->listarTodo(); */
                     if (row) {
                         $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar Menu');
                         $('#fm').form('load', row);
+                        datos = fetch('accion/listar_menu.php', {
+                            method: "POST",
+                            body: JSON.stringify(datos),
+                            headers: {
+                                "Content-Type": "application/json"
+                            }
+                        }).then((e) => {
+                            return e.json();
+                        }).then(data => {
+                            cargarMenues(data);
+                        });
                         url = 'accion/edit_menu.php?idmenu=' + row.idmenu;
                     }
                 }
@@ -207,7 +250,30 @@ $lista = $objUsuCon->listarTodo(); */
                                 $.post('accion/destroy_menu.php?idmenu=' + row.idmenu, {
                                     idusuario: row.id
                                 }, function(result) {
-                                    alert('Volvio servidor');
+                                    //alert('Volvio servidor');
+                                    if (result.respuesta) {
+                                        $('#dg').datagrid('reload');
+                                    } else {
+                                        $.messager.show({
+                                            title: 'Error',
+                                            msg: result.errorMsg
+                                        });
+                                    }
+                                }, 'json');
+                            }
+                        })
+                    }
+                }
+
+                function undestroyMenu() {
+                    var row = $('#dg').datagrid('getSelected');
+                    if (row) {
+                        $.messager.confirm('confirm', 'Seguro desea habilitar el menu?', function(r) {
+                            if (r) {
+                                $.post('accion/undestroy_menu.php?idmenu=' + row.idmenu, {
+                                    idusuario: row.id
+                                }, function(result) {
+                                    //alert('Volvio servidor');
                                     if (result.respuesta) {
                                         $('#dg').datagrid('reload');
                                     } else {

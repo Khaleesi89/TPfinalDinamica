@@ -4,7 +4,7 @@ class Compra extends db{
 	//Atributos
 	private $idcompra;
 	private $cofecha;
-	private $objUsuario;
+	private $objUsuario; // se delega el id del usuario
 	private $mensajeOp;
 	static $mensajeStatic;
 

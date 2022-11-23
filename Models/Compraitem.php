@@ -242,6 +242,8 @@ class Compraitem extends db{
     }
 
 	public static function listar($arrayBusqueda){
+		//var_dump($arrayBusqueda);
+		//die();
         //seteo de respuesta
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
@@ -249,8 +251,8 @@ class Compraitem extends db{
         $arregloCompraitem = null;
         $base = new db();
         //seteo de busqueda//ARREGLAR EL CONDICION
-        $stringBusqueda = Compraestado::SBS($arrayBusqueda);
-        $sql = "SELECT * FROM compraestado";
+        $stringBusqueda = Compraitem::SBS($arrayBusqueda);
+        $sql = "SELECT * FROM compraitem";
         if($stringBusqueda != ''){
             $sql.= ' WHERE ';
             $sql.= $stringBusqueda;
@@ -260,6 +262,7 @@ class Compraitem extends db{
                 if($base->Ejecutar($sql)){
                     $arregloCompraitem = array();
                     while($row2 = $base->Registro()){
+						
                         $objCompraitem = new Compraitem();
 						$objCompraitem->setIdcompraitem($row2['idcompraitem']);
 						//generar objeto producto
@@ -267,6 +270,8 @@ class Compraitem extends db{
 						$arrayBus = [];
 						$arrayBus['idproducto'] = $row2['idproducto'];
 						$objProducto->buscar($arrayBus);
+						
+						
 						$objCompraitem->setObjProducto($objProducto);
 						$objProducto = null;
 						//generar objeto compra
@@ -274,11 +279,13 @@ class Compraitem extends db{
 						$arrayBus = [];
 						$arrayBus['idcompra'] = $row2['idcompra'];
 						$objCompra->buscar($arrayBus);
+		
 						$objCompraitem->setObjCompra($objCompra);
 						$objCompra = null;
 						$objCompraitem->setCicantidad($row2['cicantidad']);
 
                         array_push($arregloCompraitem, $objCompraitem);
+						
                     }
                     $respuesta['respuesta'] = true;
                 }else{

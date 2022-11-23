@@ -3,7 +3,7 @@
     require_once('../../Models/conector/db.php');
     require('../../Vendor/autoload.php');
 
-    session_start();
+    /* session_start();
     $conn = new db();
     
     if( !isset($_SESSION) ){
@@ -23,7 +23,25 @@
                 $user = $results;
             }
         }
-    }
+    } */
+
+    $session = new Session();
+    $menues = [];
+    /* $respuesta = $session->activa(); */
+    /* if( $respuesta ){
+        echo( 'logueado' );
+        $objMenuRol = new MenuRolController();
+        $objMenu = new Menu();
+        $menues = $objMenuRol->buscarRolesMenu( $objMenu );
+    } else {
+        echo( 'no logueado' );
+        $objMenuRol = new MenuRolController();
+        $objMenu = new Menu();
+        $objMenu->cargar( 'Home', 'Views/home/newIndex.php', 0 );
+        $menues = $objMenuRol->buscarRolesMenu( $objMenu );
+        var_dump($menues);
+    } */
+
     
 ?>
 
@@ -57,11 +75,35 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <!-- Swiper -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+    
 </head>
 
 <body>
     <!-- Header -->
     <header class="header">
+
+        <!-- <div class="menues">
+            <a href="../home/newIndex.php" class="navbar-brand text-white">Home</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle='collapse' aria-expanded="false" aria-label="Toggle">
+                <span class="navbar-toggle-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse">
+                <ul class='navbar-nav me-auto mb-2 m-2 mb-sm-0'>
+                    <li> <a href="../home/newIndex.php" role="button" class='px-2 mx-1 btn btn-lg btn-outline-light'>Home:)</a> </li>
+
+                    <?php
+                    /* foreach( $menues as $menu ){
+                    ?>
+                        <option value="<?php echo $menu[0] ?>"></option>
+                    <?php
+                    } */
+                    ?>
+
+                </ul>
+            </div>
+        </div> -->
+
         <div class="header-1">
             <a href="#" class="logo"><i class="fas fa-book"></i> Yonny</a>
             <form action="" class="search-form" method="">
@@ -82,6 +124,7 @@
                 <a href="#ingresos">Ingresos</a>
                 <a href="#reviews">Reviews</a>
                 <a href="#contacto">Contacto</a>
+
             </nav>
         </div>
     </header>
@@ -110,7 +153,11 @@
             </div>
             <input type="submit" value="Sign in" class="btn">
             <p>Te olvidaste la contraseña pa? <a href="#">Clickea aca ;)</a> </p>
-            <p>No tenes una cuenta? <a href="#">Create una papu</a> </p>
+<<<<<<< HEAD
+            <p>No tenes una cuenta? <a href="../logs/signup.php">Create una papu</a> </p>
+=======
+            <p>No tenes una cuenta? <a href="../registrarUsuario/registro.php">Create una papu</a> </p>
+>>>>>>> 6152a9549dc67077b7d791fc12f42f4e5ff427c1
         </form>
     </div>
 

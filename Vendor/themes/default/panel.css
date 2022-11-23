@@ -143,7 +143,7 @@
 .panel-footer {
   border: 1px solid #95B8E7;
   overflow: hidden;
-  background: #F4F4F4;
+  background: rgb(145, 252, 145);
   color: #000000;
 }
 .panel-footer-noborder {

@@ -1,5 +1,5 @@
 <?php
-require_once('../config.php');
+//require_once('../config.php');
 class Menurol extends db{
     use Condicion;
     //Atributos
@@ -292,6 +292,19 @@ class Menurol extends db{
         $data['idmr'] = $this->getIdmr();
         $objMenu = $this->getObjMenu();
         $data['idmenu'] = $objMenu->getIdmenu();
+        $objMenu = null;
+        $objRol = $this->getObjRol();
+        $data['idrol'] = $objRol->getIdrol();
+        $objRol = null;
+        return $data;
+    }
+
+    public function dameDatosMenues(){
+        $data = [];
+        $data['idmr'] = $this->getIdmr();
+        $objMenu = $this->getObjMenu();
+        $datos = $objMenu->dameDatos();
+        $data['idmenu'] = $datos;
         $objMenu = null;
         $objRol = $this->getObjRol();
         $data['idrol'] = $objRol->getIdrol();
