@@ -25,11 +25,11 @@ $lista = $objComItem->listarTodo();
     <table id="dg" title="Administrador del carrito" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_compraitem.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>
-                <th field="idcompraitem" width="50">Id ítem</th>
+                <th field="idcompraitem" width="25">Id ítem</th>
                 <th field="idproducto" width="50">Id producto</th>
                 <th field="pronombre" width="50">Nombre producto</th>
                 <th field="idcompra" width="50">Id compra</th>
-                <th field="cicantidad" width="50">Cantidad comprada</th>
+                <th field="cicantidad" width="60">Cantidad comprada</th>
                 
                 
             </tr>
@@ -56,8 +56,8 @@ $lista = $objComItem->listarTodo();
         <input readonly name="idcompra" id="idcompra" class="easyui-textbox" required="true" label="NUMERO DE PEDIDO" style="width:100%;">
     </div>
     <div style="margin-bottom:10px;">
-
-        <input name="cicantidad" id="cicantidad" required="true" label="CANTIDAD" style="width:100%;">
+        <label for="cicantidad">  Cantidad  </label>
+        <input class= textbox-text style="width: 514.333px; margin: 0px; padding-top: 0px; padding-bottom: 0px; height: 28px; line-height: 28px;" name="cicantidad" id="cicantidad" required="true" label="CANTIDAD">
         <p>Sólo puede modificar la cantidad</p>
     </div>
         

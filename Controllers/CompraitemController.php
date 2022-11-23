@@ -23,9 +23,15 @@ class CompraitemController extends MasterController {
         if($rta['respuesta']){
             //puedo modificar con los valores
             $valores = $this->busqueda();
-            $objProducto = $rta['obj'];
-            $objProducto->cargar($valores['sinopsis'], $valores['pronombre'], $valores['procantstock'], $valores['autor'], $valores['precio'], $valores['isbn'], $valores['categoria']);
-            $rsta = $objProducto->modificar();
+            $objCompraItem = $rta['obj'];
+            $idproducto['idproducto'] = $valores['idproducto'];
+            $idcompra['idcompra'] = $valores['idcompra'];
+            $objProducto = new Producto();
+            $objProducto->buscar($idproducto);
+            $objCompra = new Compra();
+            $objCompra->buscar($idcompra);
+            $objCompraItem->cargar($objProducto, $objCompra, $valores['cicantidad']);
+            $rsta = $objCompraItem->modificar();
             if($rsta['respuesta']){
                 //todo gut
                 $response = true;
@@ -88,9 +94,15 @@ class CompraitemController extends MasterController {
     }
 
         public function stockTotal(){
-            $objetitoProd = $this->getObjProducto();
-            $cicantidad = $objetitoProd->getProCantStock();
-            return $cicantidad;
+            $idProducto['idproducto'] = $this->buscarKey('idproducto');
+            $objetoProducto = new Producto();
+            $busquedaProducto = $objetoProducto->buscar($idProducto);
+            if($busquedaProducto){
+                $cantStock = $objetoProducto->getProCantStock();
+            }
+           /*  $objetoProducto = $this->getObjProducto();
+            $cicantidad = $objetitoProd->getProCantStock(); */
+            return $cantStock;
 
         }
 
