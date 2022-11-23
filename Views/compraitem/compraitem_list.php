@@ -56,8 +56,8 @@ $lista = $objComItem->listarTodo();
         <input readonly name="idcompra" id="idcompra" class="easyui-textbox" required="true" label="NUMERO DE PEDIDO" style="width:100%;">
     </div>
     <div style="margin-bottom:10px;">
-
-        <input name="cicantidad" id="cicantidad" required="true" label="CANTIDAD" style="width:100%;">
+        <label for="cicantidad">  cantidad  </label>
+        <input class= textbox-text style="width: 514.333px; margin: 0px; padding-top: 0px; padding-bottom: 0px; height: 28px; line-height: 28px;" name="cicantidad" id="cicantidad" required="true" label="CANTIDAD">
         <p>Sólo puede modificar la cantidad</p>
     </div>
         
