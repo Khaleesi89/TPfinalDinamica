@@ -14,6 +14,8 @@ class CompraitemController extends MasterController {
         return $array;
     }
 
+
+    //ACA EN MODIFICAR SETEAMOS LA CANTIDAD QUE QUEDA EN STOCK (DENTRO DE PRODUCTO, NO EN COMPRAITEM)
     public function modificar(){
         $rta = $this->buscarId();
         //var_dump($rta);
@@ -85,4 +87,16 @@ class CompraitemController extends MasterController {
         return $response;
     }
 
+        public function stockTotal(){
+            $objetitoProd = $this->getObjProducto();
+            $cicantidad = $objetitoProd->getProCantStock();
+            return $cicantidad;
+
+        }
+
+        /*
+        public function actualizarCantidad(){
+            $cantidadTraida = $this->getCicantidad();
+
+        }*/
 }
