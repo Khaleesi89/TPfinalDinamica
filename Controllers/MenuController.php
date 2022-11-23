@@ -132,6 +132,66 @@ class MenuController extends MasterController {
     public function obtenerMenuesPorRol($idrol){
         $arrayBu['idrol'] = $idrol;
         $arrayMenues = Menurol::listar($arrayBu);
+        $arrayRepasado = [];
+        foreach ($arrayMenues['array'] as $key => $value) {
+            $objMenurol = $value;
+            $datos = $objMenurol->dameDatosMenues();
+            array_push($arrayRepasado, $datos);
+        }
+        //return $arrayRepasado;
+
+        $arrayRta = [];
+        $arrayRta['Home'] = [];
+        $arrayPadres = [];
+        $arrayHijos = [];
+        foreach ($arrayRepasado as $key => $value) {
+            $datosMenu = $value['idmenu'];
+            $idpadre = $datosMenu['idpadre'];
+            if($idpadre != 0){
+                $nombreMenu = $datosMenu['menombre'];
+                if(!isset($arrayHijos[$idpadre])){
+                    $arrayHijos[$idpadre] = [];
+                    array_push($arrayHijos[$idpadre], $nombreMenu);
+                }else{
+                    array_push($arrayHijos[$idpadre], $nombreMenu);
+                }
+                
+            }
+        }
+        //return $arrayHijos;
+        foreach ($arrayRepasado as $key => $value) {
+            $datosMenu = $value['idmenu'];
+            $idpadre = $datosMenu['idpadre'];
+            $idmenu = $datosMenu['idmenu'];
+            if($idpadre == 0){
+                $nombreMenu = $datosMenu['menombre'];
+                array_push($arrayPadres, $nombreMenu);
+                if(array_key_exists($idmenu, $arrayHijos)){
+                    $hijos = $arrayHijos[$idmenu];
+                    if(!isset($arrayPadres[$nombreMenu])){
+                        $arrayPadres[$nombreMenu] = $hijos;
+                    }else{
+                        array_push($arrayPadres[$nombreMenu], $hijos);
+                    }
+                } else{
+                    $arr = [];
+                    $arrayPadres[$nombreMenu] = $arr;
+                    //array_push($arrayPadres[$nombreMenu], $arr);
+                }         
+            }
+        }
+
+    return $arrayPadres;
+        foreach ($arrayPadres as $key => $value) {
+            array_push($arrayRta['Home'], $value);
+        }
+
+        return $arrayRta;
+
+
+
+
+        //return $arrayMenues;
         //var_dump($arrayMenues['array']);
         //convertir y traer todos los menues
         if(array_key_exists('array', $arrayMenues)){
@@ -142,14 +202,43 @@ class MenuController extends MasterController {
                 $PadreObj = $objMenu->getObjPadre();
                 if($PadreObj == NULL || $PadreObj->getIdmenu() == 0){
                     $nombreMenu = $objMenu->getMenombre();
+                    $arr = [];
+                    $arr[$nombreMenu] = [];
                     //var_dump($objMenu);
-                    array_push($arrayRta['Home'], $nombreMenu);
+                    array_push($arrayRta['Home'], $arr);
                 }    
             }
             //var_dump($arrayRta);
+            //return $arrayRta;
+            //hasta aca funca
+
+            foreach ($arrayRta['Home'] as $key => $value) {
+                $arrPadrito = $value;
+                foreach ($arrPadrito as $llave => $valor) {
+                    $nombrePadre = $valor;
+                    foreach ($arrayMenues['array'] as $key => $value) {
+                        $objMenu = $value->getObjMenu();
+                        $objPadre = $objMenu->getObjpadre();
+                        try {
+                            $nombrePapa = $objPadre->getMenombre();
+                        } catch (\Throwable $th) {
+                            $nombrePapa = 0;
+                        }
+                        if($nombrePapa != 0){
+                            if($nombrePadre == $nombrePapa){
+                                $nombreMenu = $objMenu->getMenombre();
+                                array_push($arrayRta['Home'][$nombrePadre], $nombreMenu);
+                            }
+                        }
+                        
+                    }
+                }
+                
+            }
+
 
             //obtener el ordenamiento de los que tienen padre 
-            foreach ($arrayMenues['array'] as $key => $value) {
+            /* foreach ($arrayMenues['array'] as $key => $value) {
                 $objMenu = $value->getObjMenu();
                 $idPadre = $objMenu->getIdpadre();
                 //var_dump($idPadre);
@@ -157,14 +246,15 @@ class MenuController extends MasterController {
                     $objPadre = $objMenu->getObjPadre();
                     $nombrePadre = $objPadre->getMenombre();
                     $nombreMenu = $objMenu->getMenombre();
-                    if(array_key_exists($nombrePadre, $arrayRta['Home']) && $nombrePadre != 'Home'){
+                    if(array_key_exists($nombrePadre, $arrayRta['Home']) /*&&  $nombrePadre != 'Home' ){
+                        array_push($arrayRta['Home']["$nombrePadre"], $nombreMenu);
                         if(!array_key_exists($nombreMenu, $arrayRta['Home'][$nombrePadre])){
                             array_push($arrayRta['Home'][$nombrePadre], $nombreMenu);
                         }
                     }
                 }
                 
-            }
+            } */
 
             /* foreach ($arrayMenues['array'] as $key => $value) {
                 $objMenu = $value->getObjMenu();
@@ -193,7 +283,7 @@ class MenuController extends MasterController {
                    
                     
         }else{
-            $arrayRta = [];
+            $arrayRta = ['nada'];
         }
         return $arrayRta;
     }

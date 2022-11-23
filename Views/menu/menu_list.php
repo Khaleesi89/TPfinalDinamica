@@ -8,8 +8,8 @@ $arrayMenu = $objMenuCon->listarTodo($arrayBus);
 $objUsuRolCon = new UsuarioRolController();
 $arrayRoles = $objUsuRolCon->getRoles();
 
-//prueba de menues por rol.. admin 
-/* $rta = $objMenuCon->obtenerMenuesPorRol(1);
+/* //prueba de menues por rol.. admin 
+$rta = $objMenuCon->obtenerMenuesPorRol(1);
 var_dump($rta); */
 ?>
 <!DOCTYPE html>
