@@ -107,6 +107,20 @@ class CompraController extends MasterController{
         return $response;
     }
 
+    public function buscarCompraConIdusuario($idusuario){
+        $arrBus = [];
+        $arrBus['idusuario'] = $idusuario;
+        $objCompra = new Compra();
+        $rta = $objCompra->buscar($arrBus);
+        if($rta['respuesta']){
+            $respuesta = $objCompra->getIdcompra();
+        }else{
+            $respuesta = false;
+        }
+
+        return $respuesta;
+    }
+
     /* public function modificacionChetita() {
         $rta = $this->buscarId();
         $rol = $rta['array'];

@@ -112,6 +112,24 @@ class CompraestadoController extends MasterController {
         return $response;
     }
 
+    public function obtenerCompraActivaPorId($idcompra){
+        $arrBus = [];
+        $arrBus['idcompra'] = $idcompra;
+        $arrBus['idcompraestadotipo'] = 1;
+        $arrBus['cefechafin'] = NULL;
+        $objCompraEstado = new Compraestado();
+        $rta = $objCompraEstado->buscar($arrBus);
+        $respuesta = false;
+        if($rta['respuesta']){
+            //salio bien la query
+            if($objCompraEstado->getIdcompraestado() != NULL){
+                //hay una compra activa
+                $respuesta = $objCompraEstado->getIdcompraestado();
+            }
+        }
+        return $respuesta;
+    }
+
 
 
 
