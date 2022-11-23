@@ -1,20 +1,26 @@
 <?php
 require_once('../../../config.php');
-$objCompraitem = new CompraitemController();
-$data = $objCompraitem->buscarKey('idcompraitem');
+$objCompraitemCon = new CompraitemController();
+$data = $objCompraitemCon->buscarKey('idcompraitem');
 $respuesta = false;
-if($data != null){
+if ($data != null) {
     //FUNCION EN CONTROLADOR PAR AQUE TRAIGA LA CANTIDAD DE PRODUCTO
     //FUNCION PARA COMPRAR 
-    $cantTotal = $objCompraitem->stockTotal();
-    $cantidad = $objCompraitem->buscarKey('cicantidad');
-    $rta = $objCompraitem->modificar();
-    if(!$rta){
-        $mensaje = "La accion no pudo concretarse";
+    $cantTotal = $objCompraitemCon->stockTotal();
+    $cantidad = $objCompraitemCon->buscarKey('cicantidad');
+    if ($cantTotal >= $cantidad) {
+        $rta = $objCompraitemCon->modificar();
+        if (!$rta) {
+            $mensaje = "La accion no pudo concretarse";
+        }
+    } else {
+        $mensaje = 'No hay en stock esa cantidad';
+        $rta = false;
     }
 }
+
 $retorno['respuesta'] = $rta;
-if(isset($mensaje)){
+if (isset($mensaje)) {
     $retorno['errorMsg'] = $mensaje;
 }
 echo json_encode($retorno);
