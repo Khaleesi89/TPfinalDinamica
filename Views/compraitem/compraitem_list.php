@@ -18,7 +18,7 @@ $lista = $objComItem->listarTodo();
     <link rel="stylesheet" href="../../Vendor/demo/demo.css">
     <script src="../../Vendor/jquery.min.js"></script>
     <script src="../../Vendor/jquery.easyui.min.js"></script>
-    <link rel="stylesheet" href="../../../Public/cssPuro/paracuadros.css">
+    <!-- <link rel="stylesheet" href="../../Public/cssPuro/paracuadros.css"> -->
     <title>CARRITO DE COMPRA</title>
 </head>
 <body>
@@ -105,12 +105,12 @@ $lista = $objComItem->listarTodo();
                 }
             })
         }
-        function destroyProducto(){
+        function destroyItem(){
             var row=$('#dg').datagrid('getSelected');
             if(row){
-                $.messager.confirm('confirm', 'Seguro desea eliminar el producto?', function(r){
+                $.messager.confirm('confirm', 'Seguro desea eliminar la compra?', function(r){
                     if(r){
-                        $.post('accion/destroy_producto.php?idproducto='+row.idproducto,{idproducto:row.id}, function(result){
+                        $.post('accion/destroy_compraitem.php?idcompraitem='+row.idcompraitem,{idcompraitem:row.id}, function(result){
                             //alert('Volvio servidor');
                             if(result.respuesta){
                                 $('#dg').datagrid('reload');

@@ -2,8 +2,9 @@
 require_once('../../../config.php');
 $objCompraitem = new CompraitemController();
 $lista = $objCompraitem->listarTodo();
+$arraydelacompraitem = [];
 foreach ($lista as $key => $objCompraitem) {
-    $arraydelacompraitem = [];
+    /* $arraydelacompraitem = []; */
     $idcompraitem = $objCompraitem->getIdcompraitem();
     $producto = $objCompraitem->getObjProducto();
     $nombreproduct = $producto->getProNombre();

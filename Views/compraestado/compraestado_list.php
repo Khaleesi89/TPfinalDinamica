@@ -16,7 +16,6 @@ $lista = $objConCompraestado->listarTodo();
     <link rel="stylesheet" href="../../Vendor/demo/demo.css">
     <script src="../../Vendor/jquery.min.js"></script>
     <script src="../../Vendor/jquery.easyui.min.js"></script>
-    <link rel="stylesheet" href="style.css">
     <title>Prueba isiUI</title>
 </head>
 

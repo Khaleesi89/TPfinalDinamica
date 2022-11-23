@@ -69,4 +69,20 @@ class CompraitemController extends MasterController {
             return $arrayBusqueda;
     }
 
+    public function eliminar(){
+        $rta = $this->buscarId();
+        $response = false;
+        if($rta['respuesta']){
+            $objCompraItem = $rta['obj'];
+            $respEliminar = $objCompraItem->eliminar();
+            if($respEliminar['respuesta']){
+                $response = true;
+            }
+        }else{
+            //no encontro el obj
+            $response = false;
+        }
+        return $response;
+    }
+
 }
