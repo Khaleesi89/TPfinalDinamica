@@ -4,6 +4,7 @@
 require_once('../../config.php');
 $objComItem = new CompraitemController();
 $lista = $objComItem->listarTodo();
+//var_dump ($lista);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +22,7 @@ $lista = $objComItem->listarTodo();
     <title>CARRITO DE COMPRA</title>
 </head>
 <body>
-    <table id="dg" title="Administrador del carrito" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_producto.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
+    <table id="dg" title="Administrador del carrito" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_compraitem.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>
                 <th field="idcompraitem" width="50">Id ítem</th>
@@ -41,21 +42,23 @@ $lista = $objComItem->listarTodo();
     </div>
     <div id="dlg" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
     <form id="fm" method="POST" novalidate style="margin:0,padding:20px 50px;">
-    <h3>Producto información</h3>
+    <h3>Pedido información</h3>
     <div style="margin-bottom:10px;">
-        <input name="idcompraitem" id="idcompraitem" class="easyui-textbox" required="true" label="ID COMPRA ITEM" style="width:100%;">
+        <input readonly  name="idcompraitem" id="idcompraitem" class="easyui-textbox" required="true" label="ITEM" style="width:100%;">
     </div>
     <div style="margin-bottom:10px;">
-        <input name="idproducto" id="idproducto" class="easyui-textbox" required="true" label="ID PRODUCTO" style="width:100%;">
+        <input readonly  name="idproducto" id="idproducto" class="easyui-textbox" required="true" label="ID PRODUCTO" style="width:100%;">
     </div>
     <div style="margin-bottom:10px;">
-        <input name="pronombre" id="pronombre" class="easyui-textbox" required="true" label="Producto" style="width:100%;">
+        <input  readonly name="pronombre" id="pronombre" class="easyui-textbox" required="true" label="PRODUCTO" style="width:100%;">
     </div>
     <div style="margin-bottom:10px;">
-        <input name="idcompra" id="idcompra" class="easyui-textbox" required="true" label="NUMERO DE PEDIDO" style="width:100%;">
+        <input readonly name="idcompra" id="idcompra" class="easyui-textbox" required="true" label="NUMERO DE PEDIDO" style="width:100%;">
     </div>
     <div style="margin-bottom:10px;">
-        <input name="cicantidad" id="cicantidad" class="easyui-textbox" required="true" label="Cantidad" style="width:100%;">
+        <label for="cicantidad">  cantidad  </label>
+        <input class= textbox-text style="width: 514.333px; margin: 0px; padding-top: 0px; padding-bottom: 0px; height: 28px; line-height: 28px;" name="cicantidad" id="cicantidad" required="true" label="CANTIDAD">
+        <p>Sólo puede modificar la cantidad</p>
     </div>
         
         
@@ -78,6 +81,8 @@ $lista = $objComItem->listarTodo();
             var row = $('#dg').datagrid('getSelected');
             if(row){
                 $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar cantidad');
+                //traerme el stock con el id de producto (desp del = pongo el valor que me venga de la funcion d ecantidad)
+                document.getElementById('cicantidad').max =
                 $('#fm').form('load', row);
                 url='accion/editarCantidad.php?idcompraitem='+row.idcompraitem;
             }
@@ -121,6 +126,18 @@ $lista = $objComItem->listarTodo();
                         }, 'json');
                     }
                 })
+            }
+        }
+
+
+        function StockSuficiente(){
+            //dg es la tabla y getselect es el que esta seleccionado
+            var row = $('#dg').datagrid('getSelected');
+            if(row){
+                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar cantidad');
+                //traerme el stock con el id de producto
+                $('#fm').form('load', row);
+                url='accion/editarCantidad.php?idcompraitem='+row.idcompraitem;
             }
         }
     </script>

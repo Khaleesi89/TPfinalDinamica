@@ -2,6 +2,7 @@
 require_once('../../config.php');
 $objConPro = new ProductoController();
 $lista = $objConPro->listarTodo();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +25,7 @@ $lista = $objConPro->listarTodo();
     <table id="dg" title="Administrador de productos" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_producto.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>
-                <th field="idproducto" width="50">Id</th>
+                <th field="idproducto" width="30">Id producto</th>
                 <th field="pronombre" width="50">Nombre producto</th>
                 <th field="sinopsis" width="50">Sinopsis</th>
                 <th field="procantstock" width="50">Stock</th>

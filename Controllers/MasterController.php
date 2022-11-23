@@ -6,9 +6,9 @@ class MasterController {
     use Data;
 
     // Traigo datos de get/post
-    public function getDatos() {
+    public function getDatos(){
         $datos = $this->data();
-        return $datos;    
+        return $datos;
     }
 
     //Funcion para buscar la key

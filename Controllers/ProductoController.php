@@ -27,7 +27,7 @@ class ProductoController extends MasterController{
 
     public function listarTodo(){
         //$arrayBusqueda = $this->busqueda();
-        $arrayBusqueda['prdeshabilitado'] = NULL;
+        $arrayBusqueda = [];
         $arrayTotal = Producto::listar($arrayBusqueda);
         if(array_key_exists('array', $arrayTotal)){
             $array = $arrayTotal['array'];
@@ -58,16 +58,16 @@ class ProductoController extends MasterController{
 
     public function insertar(){
         $data = $this->busqueda();
-        $objProducto = new Producto();
-        $objProducto->setIdProducto($data['idproducto']);
-        $objProducto->setProNombre($data['pronombre']);
-        $objProducto->setSinopsis($data['sinopsis']);
-        $objProducto->setProCantStock($data['procantstock']);
-        $objProducto->setAutor($data['autor']);
-        $objProducto->setPrecio($data['precio']);
-        $objProducto->setIsbn($data['isbn']);
-        $objProducto->setCategoria($data['categoria']);
-        $rta = $objProducto->insertar();
+        $objCompra = new Producto();
+        $objCompra->setProNombre($data['pronombre']);
+        $objCompra->setSinopsis($data['sinopsis']);
+        $objCompra->setProCantStock($data['procantstock']);
+        $objCompra->setAutor($data['autor']);
+        $objCompra->setPrecio($data['precio']);
+        $objCompra->setIsbn($data['isbn']);
+        $objCompra->setCategoria($data['categoria']);
+        
+        $rta = $objCompra->insertar();
         return $rta;
     }
 
