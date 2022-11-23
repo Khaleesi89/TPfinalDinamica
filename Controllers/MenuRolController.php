@@ -3,7 +3,7 @@
 class MenuRolController extends MasterController {
     use Errores;
 
-    public function listarTodo( $arrayBusqueda ){
+    /* public function listarTodo( $arrayBusqueda ){
         $rta = Menurol::listar( $arrayBusqueda );
         if( $rta['respuesta'] == true ){
             $data['array'] = $rta['array'];
@@ -11,6 +11,13 @@ class MenuRolController extends MasterController {
             $data['error'] = $this->manejarError( $rta );
         }
         return $data;
+    } */
+
+    public function listarTodo() {
+        $arrayBusqueda = [];
+        $arrayTotal = Menurol::listar( $arrayBusqueda );
+        $array = $arrayTotal['array'];
+        return $array;
     }
 
     public function buscarId() {
@@ -90,18 +97,23 @@ class MenuRolController extends MasterController {
      * @param object
      * @return array
      */
-    public function buscarRolesMenu( $objMenu ){
-        $lista = $this->listarTodo( null );
+    /* public function buscarRolesMenu( $objMenu ){
+        $arr = [];
+        $lista = $this->listarTodo( $arr );
         $roles = [];
         if( array_key_exists('array', $lista) ){
             foreach( $lista as $menuRol ){
-                if( $menuRol->getObjMenu()->getIdmr() == $objMenu->getIdmr() ){
+                $obj = $menuRol->getObjMenu();
+                $idmr = $obj->getIdmr();
+                if( $idmr == $objMenu->getIdmr() ){
                     $rolDescripcion = $menuRol->getObjRol()->getRodescripcion();
                     array_push( $roles, $rolDescripcion );
                 }
             }
         }
         return $roles;
-    }
+    } */
+
+    
 
 }

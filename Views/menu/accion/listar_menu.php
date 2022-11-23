@@ -1,7 +1,8 @@
 <?php
 require_once('../../../config.php');
 $objMenuCon = new MenuController();
-$lista = $objMenuCon->listarTodo();
+$arr = [];
+$lista = $objMenuCon->listarTodo($arr);
 $arreglo_salid = array();
 foreach ($lista as $key => $value) {
     $nuevoElemen = $value->dameDatos();

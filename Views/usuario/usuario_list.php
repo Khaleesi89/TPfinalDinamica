@@ -3,7 +3,8 @@ require_once('../../config.php');
 $objUsuCon = new UsuarioController();
 $objUsuRolCon = new UsuarioRolController();
 $arrayRoles = $objUsuRolCon->getRoles();
-$lista = $objUsuCon->listarTodo();
+$arr = [];
+$lista = $objUsuCon->listarTodo($arr);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,6 +37,7 @@ $lista = $objUsuCon->listarTodo();
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUsuario()">Nuevo Usuario</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUsuario()">Editar Usuario</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUsuario()">Deshabilitar Usuario</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="undestroyUsuario()">Habilitar Usuario</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="newRol()">Ver Roles</a>
     </div>
     <div id="dlg" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
@@ -202,6 +204,29 @@ $lista = $objUsuCon->listarTodo();
                         $.messager.confirm('confirm', 'Seguro desea eliminar el usuario?', function(r) {
                             if (r) {
                                 $.post('accion/destroy_usuario.php?idusuario=' + row.idusuario, {
+                                    idusuario: row.id
+                                }, function(result) {
+                                    alert('Volvio servidor');
+                                    if (result.respuesta) {
+                                        $('#dg').datagrid('reload');
+                                    } else {
+                                        $.messager.show({
+                                            title: 'Error',
+                                            msg: result.errorMsg
+                                        });
+                                    }
+                                }, 'json');
+                            }
+                        })
+                    }
+                }
+
+                function undestroyUsuario() {
+                    var row = $('#dg').datagrid('getSelected');
+                    if (row) {
+                        $.messager.confirm('confirm', 'Seguro desea habilitar el usuario?', function(r) {
+                            if (r) {
+                                $.post('accion/undestroy_usuario.php?idusuario=' + row.idusuario, {
                                     idusuario: row.id
                                 }, function(result) {
                                     alert('Volvio servidor');

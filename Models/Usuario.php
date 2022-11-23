@@ -222,6 +222,42 @@ class Usuario extends db{
         return $respuesta;
     }
 
+    //Usar el buscar antes del eliminar
+    public function Noeliminar(){
+        //seteo de respuesta
+        $respuesta['respuesta'] = false;
+        $respuesta['errorInfo'] = '';
+        $respuesta['codigoError'] = null;
+        $base = new db();
+        //obtener fecha actual
+        //$fecha = getdate();
+        //$fechaPosta = $fecha['mday'].':'.$fecha['mon'].':'.$fecha['year'];
+        $sql = "UPDATE usuario SET usdeshabilitado = NULL WHERE idusuario = {$this->getIdusuario()}";
+        try {
+            if($base->Iniciar()){
+                if($base->Ejecutar($sql)){
+                    $respuesta['respuesta'] = true;
+                }else{
+                    $this->setMensajeOp($base->getError());
+                    $respuesta['respuesta'] = false;
+                    $respuesta['errorInfo'] = 'Hubo un error con la consulta';
+                    $respuesta['codigoError'] = 1;
+                }
+            }else{
+                $this->setMensajeOp($base->getError());
+                $respuesta['respuesta'] = false;
+                $respuesta['errorInfo'] = 'Hubo un error con la conexión de la base de datos';
+                $respuesta['codigoError'] = 0;
+            }
+        } catch (\Throwable $th) {
+            $respuesta['respuesta'] = false;
+            $respuesta['errorInfo'] = $th;
+            $respuesta['codigoError'] = 3;
+        }
+        $base = null;
+        return $respuesta;
+    }
+
     /*Se pasara un array asociativo que contenga
     $arrayBusqueda['idusuario'] = valor/null,
     $arrayBusqueda['usnombre'] = valor/null,

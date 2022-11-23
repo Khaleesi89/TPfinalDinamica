@@ -65,6 +65,16 @@ class Menu extends db{
         Menu::$mensajeStatic = $mensajeStatic;
     }
 
+    public function getIdpadre(){
+        $objPadre = $this->getObjPadre();
+        try {
+            $idPadre = $objPadre->getIdmenu();
+        } catch (\Throwable $th) {
+            $idPadre = 0;
+        }
+        return $idPadre;
+    }
+
     public function cargar($menombre, $medescripcion, $objPadre){
         //$this->setIdmenu($idmenu);
         $this->setMenombre($menombre);
@@ -222,6 +232,42 @@ class Menu extends db{
         $respuesta['codigoError'] = null;
         //obtener fecha
         $sql = "UPDATE menu SET medeshabilitado = CURRENT_TIMESTAMP WHERE idmenu = {$this->getIdmenu()}";
+        
+        $base = new db();
+        try {
+            if($base->Iniciar()){
+                if($base->Ejecutar($sql)){
+                    $respuesta['respuesta'] = true;
+                }else{
+                    $this->setMensajeOp($base->getError());
+                    $respuesta['respuesta'] = false;
+                    $respuesta['errorInfo'] = 'Hubo un error con la consulta';
+                    $respuesta['codigoError'] = 1;
+                }
+            }else{
+                $this->setMensajeOp($base->getError());
+                $respuesta['respuesta'] = false;
+                $respuesta['errorInfo'] = 'Hubo un error con la conexión de la base de datos';
+                $respuesta['codigoError'] = 0;
+            }
+        } catch (\Throwable $th) {
+            $respuesta['respuesta'] = false;
+            $respuesta['errorInfo'] = $th;
+            $respuesta['codigoError'] = 3;
+        }
+        $base = null;
+        return $respuesta;
+    }
+
+    //Usar el buscar antes del eliminar
+    //Eliminado logico
+    public function Noeliminar(){
+        //seteo de respuesta
+        $respuesta['respuesta'] = false;
+        $respuesta['errorInfo'] = '';
+        $respuesta['codigoError'] = null;
+        //obtener fecha
+        $sql = "UPDATE menu SET medeshabilitado = NULL WHERE idmenu = {$this->getIdmenu()}";
         
         $base = new db();
         try {

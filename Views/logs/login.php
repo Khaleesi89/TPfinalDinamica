@@ -1,14 +1,12 @@
 <?php
     require_once('../templates/header.php');
-    require_once('../../Models/conector/db.php');
-    require_once('../../Controllers/ProfesorController.php');
 
-    // session_start();    
-    if( isset($_SESSION['user_id']) ){
-        header('Location: ../home/index.php');
-    }
+    // session_start();
+    /* if( $session->activa() ){
+        header( 'Location: ../home/newIndex.php' );
+    } */
 
-    $conn = new db();
+    /* $conn = new db();
     $profesor = new ProfesorController();
     $data = $profesor->getDatos();
 
@@ -29,7 +27,7 @@
             $message = 'Intente nuevamente, las credenciales no coinciden';
         }
         
-    }
+    } */
 ?>
 
 <div class="container">
@@ -40,16 +38,16 @@
             <p class="border border-2 border-danger p-2 mb-2 rounded-pill d-flex justify-content-center"><?php echo $message ?></p>
             <?php endif; ?>
 
-            <form action="login.php" method="post">
+            <form action="../accion/accionLogin.php" method="post">
                 <div class="mb-3">
                     <label for="usuario" class="form-label">Usuario</label>
-                    <input type="text" name="usuario" id="usuario" class="form-control border border-primary">
+                    <input type="text" name="usnombre" id="usnombre" class="form-control border border-primary">
                 </div>
                 <div class="mb-3">
                     <label for="contrasenia" class="form-label">Contraseña</label>
-                    <input type="password" name="contrasenia" id="contrasenia" class="form-control border border-primary">
+                    <input type="password" name="uspass" id="uspass" class="form-control border border-primary">
                 </div>
-                <p class="small"><a class="text-primary" href="../logs/forget-pass.php">Olvidaste tu contraseña?</a></p>
+                <p class="small"><a class="text-primary" href="forget-pass.php">Olvidaste tu contraseña?</a></p>
                 <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                     <button class="btn btn-primary btn-lg" type="submit">Iniciar sesión</button>
                 </div>

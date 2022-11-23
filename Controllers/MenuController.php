@@ -2,9 +2,14 @@
 class MenuController extends MasterController {
     use Errores;
 
-    public function listarTodo(){
-        $arrayBus['medeshabilitado'] = NULL;
-        $arrayTotal = Menu::listar($arrayBus);
+    public function listarTodo($arralgo = NULL){
+        if($arralgo == NULL){
+            $arrBu = [];
+        }else{
+            $arrBu = $arralgo;
+        }
+        //$arrayBus['medeshabilitado'] = NULL;
+        $arrayTotal = Menu::listar($arrBu);
         if(array_key_exists('array', $arrayTotal)){
             $array = $arrayTotal['array'];
         }else{
@@ -102,9 +107,94 @@ class MenuController extends MasterController {
         return $response;
     }
 
+    public function Noeliminar(){
+        $rta = $this->buscarId();
+        $response = false;
+        if($rta['respuesta']){
+            $objMenu = $rta['obj'];
+            $respEliminar = $objMenu->Noeliminar();
+            if($respEliminar['respuesta']){
+                $response = true;
+            }
+        }else{
+            //no encontro el obj
+            $response = false;
+        }
+        return $response;
+    }
+
     public function getRoles(){
         $arrayBus = [];
         $listaRoles = Rol::listar($arrayBus);
         return $listaRoles['array'];
+    }
+
+    public function obtenerMenuesPorRol($idrol){
+        $arrayBu['idrol'] = $idrol;
+        $arrayMenues = Menurol::listar($arrayBu);
+        //var_dump($arrayMenues['array']);
+        //convertir y traer todos los menues
+        if(array_key_exists('array', $arrayMenues)){
+            $arrayRta = [];
+            $arrayRta['Home'] = [];
+            foreach ($arrayMenues['array'] as $key => $value) {
+                $objMenu = $value->getObjMenu();
+                $PadreObj = $objMenu->getObjPadre();
+                if($PadreObj == NULL || $PadreObj->getIdmenu() == 0){
+                    $nombreMenu = $objMenu->getMenombre();
+                    //var_dump($objMenu);
+                    array_push($arrayRta['Home'], $nombreMenu);
+                }    
+            }
+            //var_dump($arrayRta);
+
+            //obtener el ordenamiento de los que tienen padre 
+            foreach ($arrayMenues['array'] as $key => $value) {
+                $objMenu = $value->getObjMenu();
+                $idPadre = $objMenu->getIdpadre();
+                //var_dump($idPadre);
+                if($idPadre != 0){
+                    $objPadre = $objMenu->getObjPadre();
+                    $nombrePadre = $objPadre->getMenombre();
+                    $nombreMenu = $objMenu->getMenombre();
+                    if(array_key_exists($nombrePadre, $arrayRta['Home']) && $nombrePadre != 'Home'){
+                        if(!array_key_exists($nombreMenu, $arrayRta['Home'][$nombrePadre])){
+                            array_push($arrayRta['Home'][$nombrePadre], $nombreMenu);
+                        }
+                    }
+                }
+                
+            }
+
+            /* foreach ($arrayMenues['array'] as $key => $value) {
+                $objMenu = $value->getObjMenu();
+                $PadreObj = $objMenu->getObjPadre();
+                /* var_dump($PadreObj);
+                echo ($PadreObj != '');
+                if($PadreObj != null){ */
+                    //var_dump($PadreObj);
+                    //if($PadreObj != null || $PadreObj->getIdmenu() != 0){
+                        /* try {
+                            $idPadre = $PadreObj->getIdmenu();
+                            $nombrePadre = $PadreObj->getMenombre();
+                        } catch (\Throwable $th) {
+                            $idPadre = 0;
+                            $nombrePadre = 'Home';
+                        }
+                        //$idpadre['idmenu'] = $idPadre;
+                        $nombremenu = $objMenu->getMenombre();
+                        if(array_key_exists($nombrePadre, $arrayRta)){
+                            $arr = [];
+                            $arr[$nombremenu] = true;
+                            array_push($arrayRta[$nombrePadre], $arr);
+                        } */ 
+                    //}
+                //}
+                   
+                    
+        }else{
+            $arrayRta = [];
+        }
+        return $arrayRta;
     }
 }

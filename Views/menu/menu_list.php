@@ -2,10 +2,15 @@
 require_once('../../config.php');
 //Hacer controlador de menu y traer todos los menues
 $objMenuCon = new MenuController();
-$arrayMenu = $objMenuCon->listarTodo();
+//$arrayBus['medeshabilitado'] = NULL;
+$arrayBus = [];
+$arrayMenu = $objMenuCon->listarTodo($arrayBus);
 $objUsuRolCon = new UsuarioRolController();
 $arrayRoles = $objUsuRolCon->getRoles();
 
+//prueba de menues por rol.. admin 
+/* $rta = $objMenuCon->obtenerMenuesPorRol(1);
+var_dump($rta); */
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,6 +44,7 @@ $arrayRoles = $objUsuRolCon->getRoles();
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newMenu()">Nuevo Menú</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editMenu()">Editar Menú</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyMenu()">Deshabilitar Menú</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="undestroyMenu()">Habilitar Menú</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="newRol()">Ver Roles</a>
     </div>
     <div id="dlg" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
@@ -244,7 +250,30 @@ $arrayRoles = $objUsuRolCon->getRoles();
                                 $.post('accion/destroy_menu.php?idmenu=' + row.idmenu, {
                                     idusuario: row.id
                                 }, function(result) {
-                                    alert('Volvio servidor');
+                                    //alert('Volvio servidor');
+                                    if (result.respuesta) {
+                                        $('#dg').datagrid('reload');
+                                    } else {
+                                        $.messager.show({
+                                            title: 'Error',
+                                            msg: result.errorMsg
+                                        });
+                                    }
+                                }, 'json');
+                            }
+                        })
+                    }
+                }
+
+                function undestroyMenu() {
+                    var row = $('#dg').datagrid('getSelected');
+                    if (row) {
+                        $.messager.confirm('confirm', 'Seguro desea habilitar el menu?', function(r) {
+                            if (r) {
+                                $.post('accion/undestroy_menu.php?idmenu=' + row.idmenu, {
+                                    idusuario: row.id
+                                }, function(result) {
+                                    //alert('Volvio servidor');
                                     if (result.respuesta) {
                                         $('#dg').datagrid('reload');
                                     } else {
