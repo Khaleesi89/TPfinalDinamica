@@ -235,52 +235,6 @@ class MenuController extends MasterController {
                 }
                 
             }
-
-
-            //obtener el ordenamiento de los que tienen padre 
-            /* foreach ($arrayMenues['array'] as $key => $value) {
-                $objMenu = $value->getObjMenu();
-                $idPadre = $objMenu->getIdpadre();
-                //var_dump($idPadre);
-                if($idPadre != 0){
-                    $objPadre = $objMenu->getObjPadre();
-                    $nombrePadre = $objPadre->getMenombre();
-                    $nombreMenu = $objMenu->getMenombre();
-                    if(array_key_exists($nombrePadre, $arrayRta['Home']) /*&&  $nombrePadre != 'Home' ){
-                        array_push($arrayRta['Home']["$nombrePadre"], $nombreMenu);
-                        if(!array_key_exists($nombreMenu, $arrayRta['Home'][$nombrePadre])){
-                            array_push($arrayRta['Home'][$nombrePadre], $nombreMenu);
-                        }
-                    }
-                }
-                
-            } */
-
-            /* foreach ($arrayMenues['array'] as $key => $value) {
-                $objMenu = $value->getObjMenu();
-                $PadreObj = $objMenu->getObjPadre();
-                /* var_dump($PadreObj);
-                echo ($PadreObj != '');
-                if($PadreObj != null){ */
-                    //var_dump($PadreObj);
-                    //if($PadreObj != null || $PadreObj->getIdmenu() != 0){
-                        /* try {
-                            $idPadre = $PadreObj->getIdmenu();
-                            $nombrePadre = $PadreObj->getMenombre();
-                        } catch (\Throwable $th) {
-                            $idPadre = 0;
-                            $nombrePadre = 'Home';
-                        }
-                        //$idpadre['idmenu'] = $idPadre;
-                        $nombremenu = $objMenu->getMenombre();
-                        if(array_key_exists($nombrePadre, $arrayRta)){
-                            $arr = [];
-                            $arr[$nombremenu] = true;
-                            array_push($arrayRta[$nombrePadre], $arr);
-                        } */ 
-                    //}
-                //}
-                   
                     
         }else{
             $arrayRta = ['nada'];
