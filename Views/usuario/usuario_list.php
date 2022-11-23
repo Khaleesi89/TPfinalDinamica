@@ -41,7 +41,7 @@ $lista = $objUsuCon->listarTodo($arr);
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="newRol()">Ver Roles</a>
     </div>
     <div id="dlg" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
-        <form id="fm" method="POST" novalidate style="margin:0,padding:20px 50px;">
+        <form id="fm" method="POST" novalidate style="margin:0;padding:20px 50px;">
             <h3>Usuario Información</h3>
             <!-- <div style="margin-bottom:10px;">
         <input name="idusuario" id="idusuario" class="easyui-textbox" required="true" label="Id usuario" style="width:100%;">
@@ -64,7 +64,7 @@ $lista = $objUsuCon->listarTodo($arr);
         </div>
         <!--MODAL FORMULARIO DE ROLES-->
         <div id="dlg1" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg1-buttons'">
-            <form id="fm1" method="POST" novalidate style="margin:0,padding:20px 50px;" enctype="multipart/form-data">
+            <form id="fm1" method="POST" novalidate style="margin:0;padding:20px 50px;" enctype="multipart/form-data">
                 <h3>Información de Roles</h3>
                 <!-- <div style="margin-bottom:10px;">
         <input name="idusuario" id="idusuario" class="easyui-textbox" required="true" label="Id usuario" style="width:100%;">

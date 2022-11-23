@@ -1,0 +1,15 @@
+#toolbar a{
+    color: black;
+}
+
+.panel-header, .panel-body{
+    border-color: #27ae60;
+}
+
+.panel-header{
+    background-color: #27ae60;
+}
+.panel-title{
+    color: #000;
+}
+
