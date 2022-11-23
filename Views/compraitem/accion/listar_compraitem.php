@@ -2,22 +2,20 @@
 require_once('../../../config.php');
 $objCompraitem = new CompraitemController();
 $lista = $objCompraitem->listarTodo();
-
-$arreglo_salid = array();
 foreach ($lista as $key => $objCompraitem) {
     $arraydelacompraitem = [];
     $idcompraitem = $objCompraitem->getIdcompraitem();
-    
     $producto = $objCompraitem->getObjProducto();
     $nombreproduct = $producto->getProNombre();
-    $cantidadTotal = $producto->getProCantStock();
-    $compra = $objCompraitem->getIdcompra();
+    $idproducto = $producto->getIdProducto();
+    $compra = $objCompraitem->getObjCompra();
+    $idcompra = $compra->getIdcompra();
     $cantidadComprada = $objCompraitem->getCicantidad();
     $nuevoElemen = [
                             'idcompraitem' =>$idcompraitem,
+                            'idproducto' =>$idproducto,
                             'pronombre' =>$nombreproduct,
-                            'procantstock' =>$cantidadTotal,
-                            'idcompra' =>$compra,
+                            'idcompra' =>$idcompra,
                             'cicantidad' =>$cantidadComprada,
     ];
     

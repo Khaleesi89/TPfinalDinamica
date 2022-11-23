@@ -22,7 +22,7 @@ $lista = $objComItem->listarTodo();
     <title>CARRITO DE COMPRA</title>
 </head>
 <body>
-    <table id="dg" title="Administrador del carrito" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_producto.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
+    <table id="dg" title="Administrador del carrito" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_compraitem.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>
                 <th field="idcompraitem" width="50">Id ítem</th>
@@ -79,6 +79,7 @@ $lista = $objComItem->listarTodo();
             var row = $('#dg').datagrid('getSelected');
             if(row){
                 $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar cantidad');
+                //traerme el stock con el id de producto
                 $('#fm').form('load', row);
                 url='accion/editarCantidad.php?idcompraitem='+row.idcompraitem;
             }
