@@ -242,6 +242,8 @@ class Compraitem extends db{
     }
 
 	public static function listar($arrayBusqueda){
+		var_dump($arrayBusqueda);
+		die();
         //seteo de respuesta
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
@@ -260,6 +262,8 @@ class Compraitem extends db{
                 if($base->Ejecutar($sql)){
                     $arregloCompraitem = array();
                     while($row2 = $base->Registro()){
+						var_dump($row2);
+						die();
                         $objCompraitem = new Compraitem();
 						$objCompraitem->setIdcompraitem($row2['idcompraitem']);
 						//generar objeto producto
