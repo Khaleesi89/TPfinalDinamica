@@ -25,7 +25,7 @@
         }
     } */
 
-    $session = new Session();
+    $objSession = new Session();
     $menues = [];
     /* $respuesta = $session->activa(); */
     /* if( $respuesta ){

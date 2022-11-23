@@ -107,4 +107,17 @@ class ProductoController extends MasterController{
         }
         return $response;
     }
+
+    public function obtenerStockPorId($idproducto){
+        $arrBus = [];
+        $arrBus['idproducto'];
+        $objProducto = new Producto();
+        $rta = $objProducto->buscar($arrBus);
+        if($rta['respuesta']){
+            $respuesta = $objProducto->getProCantStock();
+        }else{
+            $respuesta = false;
+        }
+        return $respuesta;
+    }
 }
