@@ -111,4 +111,19 @@ class CompraestadoController extends MasterController {
         }
         return $response;
     }
+
+
+
+
+
+    //HACER FUNCION PARA RESTAR LA CANTIDAD DE PRODUCTOS.
+
+
+
+    //COMPROBAR LA CANTIDAD
+
+
+
+
+    
 }
