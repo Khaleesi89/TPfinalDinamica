@@ -18,8 +18,8 @@ class Compra extends db{
 
 	//Metodo cargar
 	public function cargar($objUsuario){
-		//$this->idcompra = $idcompra;
-		//$this->cofecha = $cofecha;
+		// $this->idcompra = $idcompra;
+		// $this->cofecha = $cofecha;
 		$this->objUsuario = $objUsuario;
         
 	}

@@ -1,7 +1,9 @@
 <?php
 require_once('../../config.php');
+require_once('../templates/header.php');
 $objConPro = new ProductoController();
 $lista = $objConPro->listarTodo();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,19 +18,24 @@ $lista = $objConPro->listarTodo();
     <script src="../../Vendor/jquery.min.js"></script>
     <script src="../../Vendor/jquery.easyui.min.js"></script>
     <title>Prueba isiUI</title>
+    <style>
+        .panel{
+            margin: 30px auto;
+        }
+    </style>
 </head>
 <body>
-    <table id="dg" title="Administrador de pruductus" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_producto.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
+    <table id="dg" title="Administrador de productos" class="easyui-datagrid" style="width:1000px;height:600px;" url="accion/listar_producto.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>
-                <th field="idproducto" width="50">Id</th>
+                <th field="idproducto" width="30">Id producto</th>
                 <th field="pronombre" width="50">Nombre producto</th>
-                <th field="sinopsis" width="50">Sinopsis</th>
-                <th field="procantstock" width="50">Stock</th>
-                <th field="autor" width="50">Autor</th>
-                <th field="precio" width="50">Precio</th>
-                <th field="isbn" width="50">ISBN</th>
-                <th field="categoria" width="50">Categoria</th>
+                <th field="sinopsis" width="70">Sinopsis</th>
+                <th field="procantstock" width="20">Stock</th>
+                <th field="autor" width="35">Autor</th>
+                <th field="precio" width="20">Precio</th>
+                <th field="isbn" width="30">ISBN</th>
+                <th field="categoria" width="30">Categoria</th>
             </tr>
         </thead>
     </table>
@@ -38,7 +45,7 @@ $lista = $objConPro->listarTodo();
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyProducto()">Destroy producto</a>  
     </div>
     <div id="dlg" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
-    <form id="fm" method="POST" novalidate style="margin:0,padding:20px 50px;">
+    <form id="fm" method="POST" novalidate style="margin:0;padding:20px 50px;">
     <h3>Producto informacion</h3>
     <div style="margin-bottom:10px;">
         <input name="pronombre" id="pronombre" class="easyui-textbox" required="true" label="Nombre" style="width:100%;">
@@ -127,5 +134,6 @@ $lista = $objConPro->listarTodo();
     </script>
         
     </div>
+    <?php require_once('../templates/footer.php'); ?>
 </body>
 </html>

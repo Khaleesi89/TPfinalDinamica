@@ -318,7 +318,7 @@ class Producto extends db
                         $objProducto->setPrecio($row2['precio']);
                         $objProducto->setIsbn($row2['isbn']) ;
                         $objProducto->setCategoria($row2['categoria']) ;
-                        
+                        $objProducto->setPrdeshabilitado($row2['prdeshabilitado']) ;
                         
                         array_push($arregloProducto, $objProducto);
                     }
