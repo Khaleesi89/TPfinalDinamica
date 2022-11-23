@@ -1,7 +1,3 @@
-NO USARLO PORQUE STA AL PEDO
-
-
-
 <?php
 
 class CompraestadoController extends MasterController {
