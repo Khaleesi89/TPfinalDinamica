@@ -4,6 +4,10 @@ $objCompraitem = new CompraitemController();
 $data = $objCompraitem->buscarKey('idcompraitem');
 $respuesta = false;
 if($data != null){
+    //FUNCION EN CONTROLADOR PAR AQUE TRAIGA LA CANTIDAD DE PRODUCTO
+    //FUNCION PARA COMPRAR 
+    $cantTotal = $objCompraitem->stockTotal();
+    $cantidad = $objCompraitem->buscarKey('cicantidad');
     $rta = $objCompraitem->modificar();
     if(!$rta){
         $mensaje = "La accion no pudo concretarse";

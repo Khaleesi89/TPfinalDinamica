@@ -42,21 +42,23 @@ $lista = $objComItem->listarTodo();
     </div>
     <div id="dlg" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
     <form id="fm" method="POST" novalidate style="margin:0,padding:20px 50px;">
-    <h3>Producto información</h3>
+    <h3>Pedido información</h3>
     <div style="margin-bottom:10px;">
-        <input name="idcompraitem" id="idcompraitem" class="easyui-textbox" required="true" label="ID COMPRA ITEM" style="width:100%;">
+        <input readonly  name="idcompraitem" id="idcompraitem" class="easyui-textbox" required="true" label="ITEM" style="width:100%;">
     </div>
     <div style="margin-bottom:10px;">
-        <input name="idproducto" id="idproducto" class="easyui-textbox" required="true" label="ID PRODUCTO" style="width:100%;">
+        <input readonly  name="idproducto" id="idproducto" class="easyui-textbox" required="true" label="ID PRODUCTO" style="width:100%;">
     </div>
     <div style="margin-bottom:10px;">
-        <input name="pronombre" id="pronombre" class="easyui-textbox" required="true" label="Producto" style="width:100%;">
+        <input  readonly name="pronombre" id="pronombre" class="easyui-textbox" required="true" label="PRODUCTO" style="width:100%;">
     </div>
     <div style="margin-bottom:10px;">
-        <input name="idcompra" id="idcompra" class="easyui-textbox" required="true" label="NUMERO DE PEDIDO" style="width:100%;">
+        <input readonly name="idcompra" id="idcompra" class="easyui-textbox" required="true" label="NUMERO DE PEDIDO" style="width:100%;">
     </div>
     <div style="margin-bottom:10px;">
-        <input name="cicantidad" id="cicantidad" class="easyui-textbox" required="true" label="Cantidad" style="width:100%;">
+
+        <input name="cicantidad" id="cicantidad" required="true" label="CANTIDAD" style="width:100%;">
+        <p>Sólo puede modificar la cantidad</p>
     </div>
         
         
@@ -79,7 +81,8 @@ $lista = $objComItem->listarTodo();
             var row = $('#dg').datagrid('getSelected');
             if(row){
                 $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar cantidad');
-                //traerme el stock con el id de producto
+                //traerme el stock con el id de producto (desp del = pongo el valor que me venga de la funcion d ecantidad)
+                document.getElementById('cicantidad').max =
                 $('#fm').form('load', row);
                 url='accion/editarCantidad.php?idcompraitem='+row.idcompraitem;
             }
@@ -123,6 +126,18 @@ $lista = $objComItem->listarTodo();
                         }, 'json');
                     }
                 })
+            }
+        }
+
+
+        function StockSuficiente(){
+            //dg es la tabla y getselect es el que esta seleccionado
+            var row = $('#dg').datagrid('getSelected');
+            if(row){
+                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar cantidad');
+                //traerme el stock con el id de producto
+                $('#fm').form('load', row);
+                url='accion/editarCantidad.php?idcompraitem='+row.idcompraitem;
             }
         }
     </script>
