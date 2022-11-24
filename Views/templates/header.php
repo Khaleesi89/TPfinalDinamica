@@ -27,6 +27,11 @@
 
     $objSession = new Session();
     $menues = [];
+
+    $bandera = $objSession->activa();
+    if( $bandera ){
+        //echo( 'logueao papa' );
+    }
     /* $respuesta = $session->activa(); */
     /* if( $respuesta ){
         echo( 'logueado' );
@@ -105,17 +110,24 @@
         </div> -->
 
         <div class="header-1">
-            <a href="#" class="logo"><i class="fas fa-book"></i> Yonny</a>
+            <a href="../home/newIndex.php" class="logo"><i class="fas fa-book"></i> Yonny</a>
             <form action="" class="search-form" method="">
                 <input type="search" name="" placeholder="Buscar..." id="search-box">
                 <label for="search-box" class="fas fa-search"></label>
             </form>
 
-            <div class="icons">
-                <div id="search-btn" class="fas fa-search"></div>
-                <a href="#" class="fas fa-shopping-cart"></a>
-                <div id="login-btn" class="fas fa-user"></div>
-            </div>
+            <?php if( $bandera ){ ?>
+                <div class="icons">
+                    <p class="fas fa-user"><?php echo( $objSession->getUsnombre() ) ?></p>
+                    <a href="#" class="fas fa-shopping-cart"></a>
+                </div>
+            <?php } else { ?>
+                <div class="icons">
+                    <div id="search-btn" class="fas fa-search"></div>
+                    <a href="#" class="fas fa-shopping-cart"></a>
+                    <div id="login-btn" class="fas fa-user"></div>
+                </div>
+            <?php } ?>
         </div>
 
         <div class="header-2">
@@ -153,11 +165,7 @@
             </div>
             <input type="submit" value="Sign in" class="btn">
             <p>Te olvidaste la contraseña pa? <a href="#">Clickea aca ;)</a> </p>
-<<<<<<< HEAD
             <p>No tenes una cuenta? <a href="../logs/signup.php">Create una papu</a> </p>
-=======
-            <p>No tenes una cuenta? <a href="../registrarUsuario/registro.php">Create una papu</a> </p>
->>>>>>> 6152a9549dc67077b7d791fc12f42f4e5ff427c1
         </form>
     </div>
 

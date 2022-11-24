@@ -27,6 +27,19 @@ class UsuarioRolController extends MasterController {
         return $data;
     }
 
+    public function busqueda(){
+        $arrayBusqueda = [];
+        $idusuario = $this->buscarKey( 'idur' );
+        $usnombre = $this->buscarKey( 'usnombre' );
+        $rol = $this->buscarKey( 'rol' );
+        $arrayBusqueda = [
+            'idusuario' => $idusuario,
+            'usnombre' => $usnombre,
+            'uspass' => $rol
+        ];
+        return $arrayBusqueda;
+    }
+
     public function buscarRoles(){
         $idusuario = $this->buscarKey('idusuario');
         //var_dump($idusuario);
@@ -59,8 +72,10 @@ class UsuarioRolController extends MasterController {
         return $data;
     }
 
-    public function insertar( $data ){
+    public function insertar() {
         $newUsuarioRol = new Usuariorol();
+        $data = $this->busqueda();
+
         $newUsuarioRol->setIdur( $data['idur'] );
         $newUsuarioRol->setObjUsuario( $data['objUsuario'] );
         $newUsuarioRol->setObjRol( $data['objRol'] );
@@ -108,7 +123,12 @@ class UsuarioRolController extends MasterController {
     public function getRoles(){
         $arrayBus = [];
         $listaRoles = Rol::listar($arrayBus);
-        return $listaRoles['array'];
+        if( isset($listaRoles['array']) ){
+            $lista = $listaRoles['array'];
+        } else {
+            $lista = $listaRoles['respuesta']; 
+        }
+        return $lista;
     }
 
     public function getUsuarios(){
@@ -141,8 +161,6 @@ class UsuarioRolController extends MasterController {
         }
     }
 
-    
-
     public function baja( $param ){
         $bandera = false;
         if( $param->getIdur !== null ){
@@ -152,4 +170,5 @@ class UsuarioRolController extends MasterController {
         }
         return $bandera;
     }
+
 }
