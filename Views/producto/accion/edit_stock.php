@@ -19,12 +19,8 @@ if($cantStock != false){
         if($rta != false ){
             //se encontro idcompra
             if($rta != NULL){
-                //revisar si la compra esta activa
-                $objCompraEstadoCon = new CompraestadoController();
-                $rsta = $objCompraEstadoCon->obtenerCompraActivaPorId($idcompra);
-                if($rsta != false){
-                    $idcompraActiva = $rsta;
-                }
+                $idcompraActiva = $rta;
+                
             }else{
                 //crear una compra y usar el id
                 $resp = $objCompraCon->crearCompraDevolverId($idusuario);
@@ -38,6 +34,13 @@ if($cantStock != false){
                     $idcompraActiva = $resp;
                 }
         }
+        $objCompraEstadoCon = new CompraestadoController();
+        $rsta = $objCompraEstadoCon->obtenerCompraActivaPorId($idcompraActiva);
+        if($rsta == false){
+            //crear compra iniciada y obtener id 
+            $rt = $objCompraEstadoCon->insertarCompraEstadoNueva($idcompraActiva);
+        }
+
         //cargar una tupla en compraitem con idcompra y idproducto
         $validoCarrito = $objCompraItemCon->cargarVentaDeProducto($idcompraActiva, $idproducto, $cicantidad);
         if($validoCarrito){
