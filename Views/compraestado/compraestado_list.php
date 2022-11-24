@@ -2,6 +2,7 @@
 require_once('../../config.php');
 $objConCompraestado = new CompraestadoController();
 $lista = $objConCompraestado->listarTodo();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,12 +21,14 @@ $lista = $objConCompraestado->listarTodo();
 </head>
 
 <body>
-    <table id="dg" title="Administrador de compras estado" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_compraestado.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
+    <table id="dg" title="Administrador de compras estado" class="easyui-datagrid" style="width:900px;height:600px" url="accion/listar_compraestado.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>
                 <th field="idcompraestado" width="50">Id compra estado</th>
-                <th field="idcompra" width="50">Id compra</th>
-                <th field="idcompraestadotipo" width="50">Id compra estado tipo</th>
+                <th field="idcompra" width="30">Id compra</th>
+                <th field="idcompraestadotipo" width="20">Id compra estado tipo</th>
+                <th field="cetdescripcion" width="50">C.E.T detalle</th>
+                <th field="cetdetalle" width="50">C.E.T descripción</th>
                 <th field="cefechaini" width="50">Ce fecha ini</th>
                 <th field="cefechafin" width="50">Ce fecha fin</th>
             </tr>
@@ -115,7 +118,6 @@ $lista = $objConCompraestado->listarTodo();
                 })
             }
         }
-
     </script>
 
     </div>

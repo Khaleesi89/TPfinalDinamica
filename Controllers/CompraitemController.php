@@ -103,7 +103,6 @@ class CompraitemController extends MasterController {
            /*  $objetoProducto = $this->getObjProducto();
             $cicantidad = $objetitoProd->getProCantStock(); */
             return $cantStock;
-
         }
 
         /*

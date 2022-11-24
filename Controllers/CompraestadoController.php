@@ -1,9 +1,5 @@
-NO USARLO PORQUE STA AL PEDO
-
-
-
 <?php
-
+//NO USARLO PORQUE STA AL PEDO
 class CompraestadoController extends MasterController {
     use Errores;
 
