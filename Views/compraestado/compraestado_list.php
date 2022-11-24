@@ -1,5 +1,13 @@
 <?php
 require_once('../../config.php');
+//obtener rol 
+$rol = $objSession->getUsuRol();
+if($rol == 'Cliente'){
+    //obtener compras del cliente pa filtrar por ese id 
+    $arrBusCo['idusuario'] = $objSession->getIdusuario();
+    $objCompraCon = new CompraController();
+    $comprasDelCliente = $objCompraCon->obtenerVentasPorIdUsuario($arrBusCo); 
+}
 $objConCompraestado = new CompraestadoController();
 $lista = $objConCompraestado->listarTodo();
 
