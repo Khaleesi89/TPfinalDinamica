@@ -103,7 +103,28 @@ class CompraitemController extends MasterController {
            /*  $objetoProducto = $this->getObjProducto();
             $cicantidad = $objetitoProd->getProCantStock(); */
             return $cantStock;
+
+    }
+
+    public function cargarVentaDeProducto($idcompra, $idproducto, $cicantidad){
+        $objCompraItem = new CompraItem();
+        //obtener producto
+        $objProducto = new Producto();
+        $arrPr['idproducto'] = $idproducto;
+        $objProducto->buscar($arrPr);
+        //obtener compra
+        $objCompra = new Compra();
+        $arrCr['idcompra'] = $idcompra;
+        $objCompra->buscar($arrCr);
+        $objCompraItem->cargar($objProducto, $objCompra, $cicantidad);
+        $rt = $objCompraItem->insertar();
+        if($rt['respuesta']){
+            $response = true;
+        }else{
+            $response = false;
         }
+        return $response;
+    }
 
         /*
         public function actualizarCantidad(){

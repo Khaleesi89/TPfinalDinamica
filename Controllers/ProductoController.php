@@ -110,7 +110,7 @@ class ProductoController extends MasterController{
 
     public function obtenerStockPorId($idproducto){
         $arrBus = [];
-        $arrBus['idproducto'];
+        $arrBus['idproducto'] = $idproducto;
         $objProducto = new Producto();
         $rta = $objProducto->buscar($arrBus);
         if($rta['respuesta']){
