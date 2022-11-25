@@ -1,5 +1,6 @@
 <?php
-require_once('../../config.php');
+/* require_once('../../config.php'); */
+require_once('../templates/header2.php');
 $objConPro = new ProductoController();
 $lista = $objConPro->listarTodo();
 

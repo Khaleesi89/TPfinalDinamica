@@ -60,7 +60,7 @@ class UsuarioRolController extends MasterController {
             $data['error'] = $this->warning( 'No se ha encontrado dicho registro' );
         } else {
             // Se encontró
-            $array['id'] = $idBusqueda;
+            $array['idur'] = $idBusqueda;
             $usuarioRol = new Usuariorol();
             $rta = $usuarioRol->buscar( $array );
             if( $rta['respuesta'] == false ){
@@ -68,6 +68,18 @@ class UsuarioRolController extends MasterController {
             } else {
                 $data['array'] = $usuarioRol;
             }
+        }
+        return $data;
+    }
+
+    public function buscarIdUsuario() {
+        $idBusqueda = $this->buscarKey( 'idusuario' );
+        if( $idBusqueda == false ){
+            // Error
+            $data['error'] = $this->warning( 'No se ha encontrado dicho registro' );
+        } else {
+            // Se encontró
+            $data = $idBusqueda;
         }
         return $data;
     }

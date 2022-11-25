@@ -5,13 +5,13 @@ $name = $objSession->buscarKey( 'usnombre' );
 $pass = $objSession->buscarKey( 'uspass' );
 /* $passHash = password_hash( $pass, PASSWORD_BCRYPT ); */
 
-$objSession->iniciar( $name, $passHash );
+$objSession->iniciar( $name, $pass );
 
 $resp = $objSession->validar();
 if( $resp ){
     ?>
     <script>
-        location.href = 'http://localhost/TPfinalDinamica/Views/home/newIndex.php';
+        location.href = 'http://virtualhostg/TPfinalDinamica/Views/producto/producto_list.php';
     </script>
     <?php
 } else {

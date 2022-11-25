@@ -3,28 +3,6 @@
     require_once('../../Models/conector/db.php');
     require('../../Vendor/autoload.php');
 
-    /* session_start();
-    $conn = new db();
-    
-    if( !isset($_SESSION) ){
-        session_start();
-        if( isset($_SESSION['user_id']) ){
-            var_dump($_SESSION['user_id']);
-            $records = $conn->prepare( 'SELECT usuario, contraseña, mailInstitucional, materias FROM Profesor WHERE usuario = :usuario' );
-            $records->bindParam( ':usuario', $_SESSION['user_id'] );
-            $records->execute();
-            $results = $records->fetch( PDO::FETCH_ASSOC );
-            $mat = $conn->prepare( 'SELECT :materias FROM Profesor WHERE usuario = :usuario' );
-            $mat->bindParam( ':materias', $_SESSION['user_materias'] );
-            $mat->execute();
-            //var_dump($results);
-            $user = null;
-            if( count($results) > 0 ){
-                $user = $results;
-            }
-        }
-    } */
-
     $objSession = new Session();
     $menues = $objSession->rolesUsuario();
 
@@ -33,24 +11,8 @@
         //echo( 'logueao papa' );
         //var_dump( $menues );
     }
-    /* $respuesta = $session->activa(); */
-    /* if( $respuesta ){
-        echo( 'logueado' );
-        $objMenuRol = new MenuRolController();
-        $objMenu = new Menu();
-        $menues = $objMenuRol->buscarRolesMenu( $objMenu );
-    } else {
-        echo( 'no logueado' );
-        $objMenuRol = new MenuRolController();
-        $objMenu = new Menu();
-        $objMenu->cargar( 'Home', 'Views/home/newIndex.php', 0 );
-        $menues = $objMenuRol->buscarRolesMenu( $objMenu );
-        var_dump($menues);
-    } */
 
-    
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -75,12 +37,14 @@
             aboutText: 'Producido por el grupo Copado',
         }
     </script>
-    <!-- CSS -->
     <link rel="stylesheet" href="../../Public/cssPuro/newStyle.css">
     <!-- Fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <!-- Swiper -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="../../Public/bootstrap-5.2.2-dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     
 </head>
 
@@ -118,9 +82,17 @@
             </form>
 
             <?php if( $bandera ){ ?>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <?php echo($objSession->getUsnombre()); ?>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#"><?php  ?></a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="../logs/logout.php">Log out</a></li>
+                    </ul>
+                </div>
                 <div class="icons">
-                    <div class="fas fa-user"></div>
-                    <p class="fas fa-user"><?php echo( $objSession->getUsnombre() ) ?></p>
                     <a href="#" class="fas fa-shopping-cart"></a>
                 </div>
             <?php } else { ?>
@@ -170,4 +142,3 @@
             <p>No tenes una cuenta? <a href="../logs/signup.php">Create una papu</a> </p>
         </form>
     </div>
-
