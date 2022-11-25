@@ -125,9 +125,9 @@
 
         <div class="header-2">
             <nav class="navbar">
-                <a href="#home">Home</a>
-                <a href="#ingresos">Ingresos</a>
-                <a href="#reviews">Reviews</a>
+                <a href="../home/newIndex.php#home">Home</a>
+                <a href="../producto/producto_list.php">Ingresos</a>
+                <a href="../home/newIndex.php#reviews">Reviews</a>
                 <a href="#contacto">Contacto</a>
 
             </nav>
@@ -137,7 +137,7 @@
     <!-- Nav pal responsive -->
     <nav class="bottom-navbar">
         <a href="#" class="fas fa-home"></a>
-        <a href="#ingresos" class="fas fa-tags"></a>
+        <a href="../producto/producto_list.php" class="fas fa-tags"></a>
         <a href="#reviews" class="fas fa-comments"></a>
         <a href="#contacto" class="fas fa-blogs"></a>
     </nav>
@@ -156,7 +156,7 @@
                 <input type="checkbox" name="" id="remember-me">
                 <label for="remember-me">Remember me</label>
             </div>
-            <input type="submit" value="Sign in" class="btn">
+            <button type="submit" class="btn btn-success">Sign in</button>
             <p>Te olvidaste la contraseña pa? <a href="#">Clickea aca ;)</a> </p>
             <p>No tenes una cuenta? <a href="../logs/signup.php">Create una papu</a> </p>
         </form>
