@@ -225,11 +225,10 @@ $lista = $objConPro->listarTodo();
                         })
                     }
                 }
-
-               
             </script>
 
         </div>
+        <?php require_once('../templates/footer.php') ?>
 </body>
 
 </html>
