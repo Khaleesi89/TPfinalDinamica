@@ -184,4 +184,18 @@ class UsuarioController extends MasterController {
         return $response;
     }
 
+    public function buscarObjUsuario(){
+        $arrayBu = $this->busqueda();
+        $objUsuario = new Usuario();
+        $rt = $objUsuario->buscar($arrayBu);
+        if($rt['respuesta']){
+            //lo encontro
+            $response = $objUsuario;
+        }else{
+            //no lo encontro
+            $response = false;
+        }
+        return $response;
+    }
+
 }

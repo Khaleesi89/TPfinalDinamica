@@ -151,14 +151,14 @@ class CompraestadoController extends MasterController {
         $arrBus['idcompra'] = $idcompra;
         $arrBus['idcompraestadotipo'] = 1;
         $arrBus['cefechafin'] = NULL;
-        $objCompraEstado = new Compraestado();
+        $objCompraEstado = new Compra();
         $rta = $objCompraEstado->buscar($arrBus);
         $respuesta = false;
         if($rta['respuesta']){
             //salio bien la query
-            if($objCompraEstado->getIdcompraestado() != NULL){
+            if($objCompraEstado->getIdcompra() != NULL){
                 //hay una compra activa
-                $respuesta = $objCompraEstado->getIdcompraestado();
+                $respuesta = $objCompraEstado->getIdcompra();
             }
         }
         return $respuesta;

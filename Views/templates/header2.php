@@ -17,9 +17,15 @@
     //var_dump( $menu );
 
     $bandera = $objSession->activa();
+    if($bandera != false){
+        //cargar menues 
+        
+    }
+
     //var_dump( $objSession->getUsRol() );
     if( $bandera ){
         $rol = $objMenuRol->listarTodo();
+
         for( $i = 0; $i < count($rol); $i++ ){
             $idrol = $rol[$i]->getObjRol()->getIdrol();
             $roldescripcion = $rol[$i]->getObjRol()->getRodescripcion();
@@ -30,6 +36,14 @@
         $menu = $objMenu->obtenerMenuesPorRol( $idrolguardado );
         //echo( 'logueao papa' );
         //var_dump( $menues );
+    }
+
+
+    //
+    
+    if($bandera = $objSession->activa()){
+        $rolUsuario = $objSession->getUsRol();
+        $arrBusRo['rodescripcion'] = $rolUsuario;
     }
 
 ?>
@@ -65,6 +79,12 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="../../Public/bootstrap-5.2.2-dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="../../Vendor/themes/default/easyui.css">
+    <link rel="stylesheet" href="../../Vendor/themes/icon.css">
+    <link rel="stylesheet" href="../../Vendor/themes/color.css">
+    <link rel="stylesheet" href="../../Vendor/demo/demo.css">
+    <script src="../../Vendor/jquery.min.js"></script>
+    <script src="../../Vendor/jquery.easyui.min.js"></script>
     
 </head>
 

@@ -143,6 +143,23 @@ class UsuarioRolController extends MasterController {
         return $lista;
     }
 
+    public function getRolesConIdUsuario($idUsuario){
+        $arrBUsuario['idusuario'] = $idUsuario;
+        $rt = Usuariorol::listar($arrBUsuario);
+        if(array_key_exists('array', $rt)){
+            //encontro los roles
+            $roles = [];
+            foreach ($rt['array'] as $key => $value) {
+                $objUsuRol = $value->dameDatos();
+                array_push($roles, $objUsuRol);
+            }
+            $response = $roles;
+        }else{
+            $response = false;
+        }
+        return $response;
+    }
+
     public function getUsuarios(){
         $arrayBus = [];
         $arrayBus['usdeshabilitado'] = NULL;

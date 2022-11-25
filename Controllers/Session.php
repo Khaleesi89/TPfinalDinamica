@@ -50,7 +50,13 @@ public function __construct(){
     }
 
     public function getUsRol() {
-        return $_SESSION['usRol'];
+        if(isset($_SESSION['usRol'])){
+            $rol = $_SESSION['usRol'];
+        }else{
+            $rol = '';
+        }
+        
+        return $rol;
     }
 
     public function setUsRol( $usRol ){
@@ -64,8 +70,8 @@ public function __construct(){
      */
     public function iniciar( $usnombre, $uspass ){
         $bandera = false;
-        $objUsuario = new UsuarioController();
-        $objUsuarioRol = new UsuarioRolController();
+        $objUsuarioCon = new UsuarioController();
+        $objUsuarioRolCon = new UsuarioRolController();
 
         /* $usuariorolbusqueda = $objUsuarioRol->buscarId();
         $usuarioRol = $usuariorolbusqueda['array']->getObjRol();
@@ -76,10 +82,47 @@ public function __construct(){
             'uspass' => $uspass, 
             'usdeshabilitado' => null
         ];
-        $busqueda = $objUsuario->listarTodo( $array );
+        $objUsu = $objUsuarioCon->buscarObjUsuario();
+        if($objUsu->getIdusuario() != NULL){
+            //tengo sus datos
+            //obtener el rol
+            $idusuario = $objUsu->getIdusuario();
+            $rrt = $objUsuarioRolCon->getRolesConIdUsuario($idusuario);
+            if($rrt != false){
+                //ya obtuve los roles
+                $idrol = '';
+                if(in_array('Admin', $rrt)){
+                    //es admin
+                    $rolBus = 'Admin';
+                }else{
+                    if(in_array('Deposito', $rrt)){
+                        //es cliente
+                        $rolBus = 'Deposito';
+                    }elseif(in_array('Cliente', $rrt)){
+                        //es deposito
+                        $rolBus = 'Cliente';
+                    }
+                }
+                $objRolCon = new RolController();
+                $idrol = $objRolCon->buscarPorDesc($rolBus);
+                if($idrol != ''){
+                    $objMenuCon = new MenuController();
+                    $menues = $objMenuCon->obtenerMenuesPorRol($idrol);
+                    $bandera = $menues;
+                }else{
+                    //no posee rol
+                    $bandera = false;
+                }
+            }
+        }else{
+            //no existe usuario o credenciales
+            $bandera = false;
+        }
+
+        //$busqueda = $objUsuario->listarTodo( $array );
 
 
-        if( count($busqueda) > 0 ){
+        /* if( count($busqueda) > 0 ){
             $usuarioLogueado = $busqueda[0];
             $idusuario = $usuarioLogueado->getIdusuario();
             $usnombre = $usuarioLogueado->getUsnombre();
@@ -100,7 +143,7 @@ public function __construct(){
             $this->setUsnombre( $usnombre );
             $this->setUspass( $uspass );
             $this->setUsRol( $rol );
-        }
+        } */
         return $bandera;
     }
 
