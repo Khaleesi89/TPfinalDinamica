@@ -11,7 +11,7 @@ $resp = $objSession->validar();
 if( $resp ){
     ?>
     <script>
-        location.href = 'http://virtualhostg/TPfinalDinamica/Views/producto/producto_list.php';
+        location.href = 'http://localhost/TPfinalDinamica/Views/producto/producto_list.php';
     </script>
     <?php
 } else {

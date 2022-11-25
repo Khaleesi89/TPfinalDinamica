@@ -9,7 +9,7 @@ if( $respuesta['respuesta'] ){
     echo('Usuario creado piolon');
     ?>
     <script>
-        location.href = 'http://virtualhostg/TPfinalDinamica/Views/logs/login.php';
+        location.href = 'http://localhost/TPfinalDinamica/Views/logs/login.php';
     </script>
     <?php
 } else {
