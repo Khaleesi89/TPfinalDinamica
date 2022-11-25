@@ -1,5 +1,6 @@
 <?php
 require_once('../../config.php');
+require_once('../templates/header.php');
 $objConCompraestado = new CompraestadoController();
 $lista = $objConCompraestado->listarTodo();
 
@@ -121,6 +122,8 @@ $lista = $objConCompraestado->listarTodo();
     </script>
 
     </div>
+
+    <?php require_once('../templates/footer.php') ?>
 </body>
 
 </html>
