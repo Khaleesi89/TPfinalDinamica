@@ -72,8 +72,8 @@ class UsuarioRolController extends MasterController {
         return $data;
     }
 
-    public function buscarIdUsuario() {
-        $idBusqueda = $this->buscarKey( 'idusuario' );
+    public function buscarNombreUsuario() {
+        $idBusqueda = $this->buscarKey( 'usnombre' );
         if( $idBusqueda == false ){
             // Error
             $data['error'] = $this->warning( 'No se ha encontrado dicho registro' );

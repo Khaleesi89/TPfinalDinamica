@@ -50,11 +50,11 @@ public function __construct(){
     }
 
     public function getUsRol() {
-        return $_SESSION['usuRol'];
+        return $_SESSION['usRol'];
     }
 
-    public function setUsRol( $usuRol ){
-        $_SESSION['usuRol'] = $usuRol;
+    public function setUsRol( $usRol ){
+        $_SESSION['usRol'] = $usRol;
     }
 
     /**
@@ -81,18 +81,26 @@ public function __construct(){
 
         if( count($busqueda) > 0 ){
             $usuarioLogueado = $busqueda[0];
-            //var_dump( $usuarioLogueado );
             $idusuario = $usuarioLogueado->getIdusuario();
             $usnombre = $usuarioLogueado->getUsnombre();
             $uspass = $usuarioLogueado->getUspass();
 
-            $idus = $objUsuarioRol->buscarIdUsuario();
+            $nomus = $objUsuarioRol->buscarNombreUsuario();
+            if( $nomus != null ){
+                $listado = $objUsuarioRol->listarTodo( $nomus );
+                if( $usnombre == $nomus ){
+                    foreach( $listado['arrayHTML'] as $key => $value ){
+                        //var_dump($value['rol']);
+                        if( $value['nombre'] == $usnombre  ){
+                            $rol = $value['rol'];
+                        }
+                    }
+                }
+            }
             $this->setIdusuario( $idusuario );
             $this->setUsnombre( $usnombre );
             $this->setUspass( $uspass );
-            if( $idus == $this->getIdusuario() ){
-                $this->setUsRol( $usrol );
-            }
+            $this->setUsRol( $rol );
         }
         return $bandera;
     }

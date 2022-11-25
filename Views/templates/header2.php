@@ -5,8 +5,10 @@
 
     $objSession = new Session();
     $menues = $objSession->rolesUsuario();
+    var_dump($menues);
 
     $bandera = $objSession->activa();
+    //var_dump( $objSession->getUsRol() );
     if( $bandera ){
         //echo( 'logueao papa' );
         //var_dump( $menues );
