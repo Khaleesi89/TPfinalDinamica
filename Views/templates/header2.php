@@ -4,12 +4,30 @@
     require('../../Vendor/autoload.php');
 
     $objSession = new Session();
-    $menues = $objSession->rolesUsuario();
-    var_dump($menues);
+    $objMenu = new MenuController();
+    $objMenuRol = new MenuRolController();
+
+    
+    
+    /* $menues = $objSession->rolesUsuario();
+    var_dump($menues); */
+
+    
+   
+    //var_dump( $menu );
 
     $bandera = $objSession->activa();
     //var_dump( $objSession->getUsRol() );
     if( $bandera ){
+        $rol = $objMenuRol->listarTodo();
+        for( $i = 0; $i < count($rol); $i++ ){
+            $idrol = $rol[$i]->getObjRol()->getIdrol();
+            $roldescripcion = $rol[$i]->getObjRol()->getRodescripcion();
+            if( $roldescripcion == $objSession->getUsRol() ){
+                $idrolguardado = $idrol;
+            }
+        }
+        $menu = $objMenu->obtenerMenuesPorRol( $idrolguardado );
         //echo( 'logueao papa' );
         //var_dump( $menues );
     }
@@ -86,21 +104,20 @@
             <?php if( $bandera ){ ?>
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <?php echo($objSession->getUsnombre()); ?>
+                        <?php echo($objSession->getUsnombre()); echo( $objSession->getUsRol() ); ?>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#"><?php  ?></a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="#"><?php echo( $menu[0] ); ?></a></li>
                         <li><a class="dropdown-item" href="../logs/logout.php">Log out</a></li>
                     </ul>
                 </div>
                 <div class="icons">
-                    <a href="#" class="fas fa-shopping-cart"></a>
+                    <a href="../compraitem/compraitem_list.php" class="fas fa-shopping-cart"></a>
                 </div>
             <?php } else { ?>
                 <div class="icons">
                     <div id="search-btn" class="fas fa-search"></div>
-                    <a href="#" class="fas fa-shopping-cart"></a>
+                    <a href="" class="fas fa-shopping-cart"></a>
                     <div id="login-btn" class="fas fa-user"></div>
                 </div>
             <?php } ?>

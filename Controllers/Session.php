@@ -90,7 +90,6 @@ public function __construct(){
                 $listado = $objUsuarioRol->listarTodo( $nomus );
                 if( $usnombre == $nomus ){
                     foreach( $listado['arrayHTML'] as $key => $value ){
-                        //var_dump($value['rol']);
                         if( $value['nombre'] == $usnombre  ){
                             $rol = $value['rol'];
                         }
