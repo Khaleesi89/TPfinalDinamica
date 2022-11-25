@@ -2,7 +2,7 @@
 require_once('../../../config.php');
 $objCompraItemCon = new CompraitemController();
 $idproducto = $objCompraItemCon->buscarKey('idproducto');
-$cicantidad = $objCompraItemCon->buscarKey('cicantidad');
+$cicantidad = intVal($objCompraItemCon->buscarKey('cicantidad'));
 $objProCon = new ProductoController();
 $cantStock = $objProCon->obtenerStockPorId($idproducto);
 //Comprobar stock
@@ -20,10 +20,13 @@ if($cantStock != false){
             //se encontro idcompra
             if($rta != NULL){
                 //revisar si la compra esta activa
+                $idcompra = $rta;
                 $objCompraEstadoCon = new CompraestadoController();
                 $rsta = $objCompraEstadoCon->obtenerCompraActivaPorId($idcompra);
                 if($rsta != false){
                     $idcompraActiva = $rsta;
+                }else{
+                    $resp = $objCompraCon->crearCompraDevolverId($idusuario);
                 }
             }else{
                 //crear una compra y usar el id
