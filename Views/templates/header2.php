@@ -146,12 +146,12 @@
     yo dejo uno sencillito para ya tener una maqueta -->
     <div class="login-form-container">
         <div id="close-login-btn" class="fas fa-times"></div>
-        <form action="" method="">
+        <form action="../accion/accionLogin.php" method="POST">
             <h3>Login</h3>
             <span>Usuario</span>
-            <input type="text" name="usuario" class="box" placeholder="Ingrese su usuario" id="">
+            <input type="text" name="usnombre" class="box" placeholder="Ingrese su usuario" id="">
             <span>Contraseña</span>
-            <input type="password" name="contrasenia" class="box" placeholder="Ingrese su contraseña" id="">
+            <input type="password" name="uspass" class="box" placeholder="Ingrese su contraseña" id="">
             <div class="checkbox">
                 <input type="checkbox" name="" id="remember-me">
                 <label for="remember-me">Remember me</label>
