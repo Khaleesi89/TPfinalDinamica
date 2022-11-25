@@ -1,15 +1,9 @@
 <?php
 require_once('../../config.php');
-//obtener rol 
-$objSession = new Session();
-$rol = $objSession->getUsuRol();
-if($rol == 'Cliente'){
-    //obtener compras del cliente pa filtrar por ese id 
-    $arrBusCo['idusuario'] = $objSession->getIdusuario();
-    $objCompraCon = new CompraController();
-    $comprasDelCliente = $objCompraCon->obtenerVentasPorIdUsuario($arrBusCo); 
-}
 $objConCompraestado = new CompraestadoController();
+$objcompraestadotipo = new CompraestadotipoController();
+$tiposestado = $objcompraestadotipo->listarTodo();
+//$arraydeldescripcion = sacarDescripcion($tiposestado);
 $lista = $objConCompraestado->listarTodo();
 
 ?>
@@ -26,18 +20,17 @@ $lista = $objConCompraestado->listarTodo();
     <link rel="stylesheet" href="../../Vendor/demo/demo.css">
     <script src="../../Vendor/jquery.min.js"></script>
     <script src="../../Vendor/jquery.easyui.min.js"></script>
-    <title>Prueba isiUI</title>
+    <title>Compra estado</title>
 </head>
 
 <body>
-    <table id="dg" title="Administrador de compras estado" class="easyui-datagrid" style="width:900px;height:600px" url="accion/listar_compraestado.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
+    <table id="dg" title="Administrador de compras estado" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_compraestado.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>
-                <th field="idcompraestado" width="50">Id compra estado</th>
-                <th field="idcompra" width="30">Id compra</th>
-                <th field="idcompraestadotipo" width="20">Id compra estado tipo</th>
-                <th field="cetdescripcion" width="50">C.E.T detalle</th>
-                <th field="cetdetalle" width="50">C.E.T descripción</th>
+                <th field="idcompraestado" width="50">Id</th>
+                <th field="idcompra" width="50">n° pedido/compra</th>
+                <th field="idcompraestadotipo" width="50">Id compra estado tipo</th>
+                <th field="cetdescripcion" width="50">descripcion</th>
                 <th field="cefechaini" width="50">Ce fecha ini</th>
                 <th field="cefechafin" width="50">Ce fecha fin</th>
             </tr>
@@ -49,16 +42,26 @@ $lista = $objConCompraestado->listarTodo();
     </div>
     <div id="dlg" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
         <form id="fm" method="POST" novalidate style="margin:0;padding:20px 50px;">
-            <h3>Compra estado informacion</h3>
+            <h3>Compra estado información</h3>
             <div style="margin-bottom:10px;">
-                <input name="idcompraestado" id="idcompraestado" class="easyui-textbox" required="true" label="Id compra estado" style="width:100%;">
+                <input readonly name="idcompraestado" id="idcompraestado" class="easyui-textbox" required="true" label="Id compra estado" style="width:100%;">
             </div>
             <div style="margin-bottom:10px;">
-                <input name="idcompra" id="idcompra" class="easyui-textbox" required="true" label="Id compra" style="width:100%;">
+                <input readonly name="idcompra" id="idcompra" class="easyui-textbox" required="true" label="N° pedido/compra" style="width:100%;">
             </div>
-            <div style="margin-bottom:10px;">
-                <input name="idcompraestadotipo" id="idcompraestadotipo" class="easyui-textbox" required="true" label="Id compra estado tipo" style="width:100%;">
+            
+            
+            <div style="margin-bottom:10px">
+                <select class="easyui-combobox" name="cetdescripcion" label="cetdescripcion" style="width:100%">
+                        <?php 
+                        $cantidad = count($tiposestado);
+                        for ($i=0; $i < $cantidad ; $i++) { ?>
+                            
+                        <option name="cetdescripcion" value="<?php echo $tiposestado[$i]->getIdcompraestadotipo() ?>" > <?php echo $tiposestado[$i]->getCetdescripcion() ?> </option>
+                        <?php } ?>
+                </select>
             </div>
+            
         </form>
     </div>
     <div id="dlg-buttons">
@@ -113,7 +116,7 @@ $lista = $objConCompraestado->listarTodo();
                         $.post('accion/destroy_compraestado.php?idcompraestado=' + row.idcompraestado, {
                             compraestado: row.id
                         }, function(result) {
-                            alert('Volvio servidor');
+                            //alert('Volvio servidor');
                             if (result.respuesta) {
                                 $('#dg').datagrid('reload');
                             } else {
@@ -127,11 +130,10 @@ $lista = $objConCompraestado->listarTodo();
                 })
             }
         }
+
     </script>
 
     </div>
-
-    <?php require_once('../templates/footer.php') ?>
 </body>
 
 </html>
