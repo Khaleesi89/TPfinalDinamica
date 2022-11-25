@@ -1,5 +1,6 @@
 <?php
-require_once('../../config.php');
+
+require_once('../templates/header.php');
 $objConCompraestado = new CompraestadoController();
 $objcompraestadotipo = new CompraestadotipoController();
 $tiposestado = $objcompraestadotipo->listarTodo();
@@ -49,7 +50,12 @@ $lista = $objConCompraestado->listarTodo();
             <div style="margin-bottom:10px;">
                 <input readonly name="idcompra" id="idcompra" class="easyui-textbox" required="true" label="N° pedido/compra" style="width:100%;">
             </div>
-            
+            <div style="margin-bottom:10px;">
+                <input readonly name="cefechaini" id="cefechaini" class="easyui-textbox" required="true" label="N° pedido/compra" style="width:100%;">
+            </div>
+            <div style="margin-bottom:10px;">
+                <input readonly name="idcompraestadotipo" id="idcompraestadotipo" class="easyui-textbox" required="true" label="id compraestado" style="width:100%;">
+            </div>
             
             <div style="margin-bottom:10px">
                 <select class="easyui-combobox" name="cetdescripcion" label="cetdescripcion" style="width:100%">
@@ -57,7 +63,7 @@ $lista = $objConCompraestado->listarTodo();
                         $cantidad = count($tiposestado);
                         for ($i=0; $i < $cantidad ; $i++) { ?>
                             
-                        <option name="cetdescripcion" value="<?php echo $tiposestado[$i]->getIdcompraestadotipo() ?>" > <?php echo $tiposestado[$i]->getCetdescripcion() ?> </option>
+                        <option name="idcompraestadotipo" value="<?php echo $tiposestado[$i]->getIdcompraestadotipo() ?>" > <?php echo $tiposestado[$i]->getCetdescripcion() ?> </option>
                         <?php } ?>
                 </select>
             </div>
@@ -82,7 +88,7 @@ $lista = $objConCompraestado->listarTodo();
             if (row) {
                 $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar estado de compra');
                 $('#fm').form('load', row);
-                url = 'accion/edit_compraestado.php?idcompraestado=' + row.idcompraestado;
+                url = 'accion/edit_compraestado.php?idcompraestado='+row.idcompraestado;
             }
         }
 

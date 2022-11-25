@@ -10,12 +10,11 @@ class CompraestadoController extends MasterController {
         $idcompra = $this->buscarKey('idcompra');
         $idcompraestadotipo = $this->buscarKey('idcompraestadotipo');
         $cefechaini = $this->buscarKey('cefechaini');
-        $cefechafin = $this->buscarKey('cefechafin');
+        /* $cefechafin = $this->buscarKey('cefechafin'); */
         $arrayBusqueda = ['idcompraestado' => $idcompraestado,
                           'idcompra' => $idcompra,
                           'idcompraestadotipo' => $idcompraestadotipo,
                           'cefechaini' => $cefechaini,
-                          'cefechafin' => $cefechafin,
                           ];
         return $arrayBusqueda;
     }
@@ -93,13 +92,26 @@ class CompraestadoController extends MasterController {
 
     public function modificar(){
         $rta = $this->buscarId();
-        //var_dump($rta);
         $response = false;
         if($rta['respuesta']){
             //puedo modificar con los valores
             $valores = $this->busqueda();
+            
             $objCompraestado = $rta['obj'];
-            $objCompraestado->cargar($valores['sinopsis'], $valores['pronombre'], $valores['procantstock'], $valores['autor'], $valores['precio'], $valores['isbn'], $valores['categoria']);
+            /* $objCompraestado->cargar($valores['idcompraestado'], $valores['idcompra'], $valores['idcompraestadotipo'], $valores['cefechaini'], $valores['cefechafin']); */
+
+            $objCompra = new Compra();
+            $arridcompra = ['idcompra' => $valores['idcompra']];
+            $objCompra->buscar($arridcompra);
+            $objCompraestado->setObjCompra($objCompra);
+
+            $objCompraestadotipo = new Compraestadotipo();
+            $arridcompraestadotpo = ['idcompraestadotipo' => $valores['idcompraestadotipo']];
+            /* var_dump($arridcompraestadotpo);
+            die(); */
+            $objCompraestadotipo->buscar($arridcompraestadotpo);
+            $objCompraestado->setObjCompraestadotipo($objCompraestadotipo);
+
             $rsta = $objCompraestado->modificar();
             if($rsta['respuesta']){
                 //todo gut
@@ -111,6 +123,12 @@ class CompraestadoController extends MasterController {
         }
         return $response;
     }
+
+    public function modificarTuplaestado(){
+        $rta = $this->buscarId();
+
+    }
+
 
     public function eliminar(){
         $rta = $this->buscarId();

@@ -19,7 +19,7 @@ $lista = $objConCompraestadotipo->listarTodo();
     <title>Prueba isiUI</title>
 </head>
 <body>
-    <table id="dg" title="Administrador de pruductus" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_compraestadotipo.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
+    <table id="dg" title="Administrador de compra estado tipo" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_compraestadotipo.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>
                 <th field="idcompraestadotipo" width="50">Id</th>

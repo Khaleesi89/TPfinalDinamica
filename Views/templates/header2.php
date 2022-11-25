@@ -1,7 +1,7 @@
 <?php
     require_once('../../config.php');
-    require_once('../../Models/conector/db.php');
-    require('../../Vendor/autoload.php');
+    //require_once('../../Models/conector/db.php');
+    //require('../../Vendor/autoload.php');
 
     $objSession = new Session();
     $objMenu = new MenuController();

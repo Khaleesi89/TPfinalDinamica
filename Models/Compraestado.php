@@ -92,10 +92,10 @@ class Compraestado extends db{
 				if($base->Ejecutar($sql)){
 					if($row2 = $base->Registro()){
 						$this->setIdcompraestado($row2['idcompraestado']);
-						$id = $row2['idcompra'];
+						$ids = $row2['idcompra'];
 						$objCompra = new Compra();
-						$arrayDeBusqueda['idcompra'] = $id;
-						$objCompra->buscar($arrayDeBusqueda);
+						$arrayDe['idcompra'] = $ids;
+						$objCompra->buscar($arrayDe);
 						$this->setObjCompra($objCompra);
 						$id = $row2['idcompraestadotipo'];
 						$objCompraestadotipo = new Compraestadotipo();
