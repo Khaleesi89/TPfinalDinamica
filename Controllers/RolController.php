@@ -52,6 +52,14 @@ class RolController extends MasterController {
         }
     }
 
+    public function buscarPorDesc($rodescripcion){
+        $objRol = new Rol();
+        $arrBuRol['rodescripcion'] = $rodescripcion;
+        $objRol->buscar($arrBuRol);
+        $idrol = $objRol->getIdrol();
+        return $idrol;
+    }
+
     public function modificacionChetita() {
         $rta = $this->buscarId();
         $rol = $rta['array'];

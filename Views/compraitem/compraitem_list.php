@@ -1,5 +1,4 @@
 <?php
-require_once('../../config.php');
 require_once('../templates/header2.php');
 $objComItem = new CompraitemController();
 $lista = $objComItem->listarTodo();

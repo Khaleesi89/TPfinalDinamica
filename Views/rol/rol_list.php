@@ -1,11 +1,25 @@
 <?php
-require_once('../../config.php');
+require_once('../templates/header2.php');
 $objRolCon = new RolController();
-$lista = $objRolCon->listarTodo();
+try {
+    $rol = $objSession->getUsRol();
+    $rol = $objSession->getUsRol();
+if($rol != ''){
+    if($rol == 'Admin'){
+        $lista = $objRolCon->listarTodo();
+    }elseif($rol == 'Cliente' || $rol == 'Deposito'){
+        $lista = [];
+    }
+}
+} catch (\Throwable $th) {
+    $rol = '';
+    $lista = [];//  ['idproducto' => '', 'pronombre' => '', 'sinopsis'=>'', 'procantstock'=>'', 'autor'=>'', 'precio'=>'', 'isbn'=>'', 'categoria'=>''];
+}
+
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!-- <!DOCTYPE html>
+<html lang="en"> -->
+<!-- <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +30,7 @@ $lista = $objRolCon->listarTodo();
     <script src="../../Vendor/jquery.min.js"></script>
     <script src="../../Vendor/jquery.easyui.min.js"></script>
     <title>Prueba isiUI</title>
-</head>
+</head> -->
 <body>
     <table id="dg" title="Administrador de Roles" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_rol.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
@@ -27,9 +41,16 @@ $lista = $objRolCon->listarTodo();
         </thead>
     </table>
     <div id="toolbar">
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newRol()">Nuevo Rol</a>
+        <?php 
+            if($rol == 'Admin'){
+                echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" plain=\"true\" onclick=\"newRol()\">Nuevo Rol</a>
+                <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-edit\" plain=\"true\" onclick=\"editRol()\">Editar Rol</a>
+                <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"destroyRol()\">Deshabilitar Rol</a>";
+            }
+        ?>
+        <!-- <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newRol()">Nuevo Rol</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editRol()">Editar Rol</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyRol()">Deshabilitar Rol</a>  
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyRol()">Deshabilitar Rol</a>  --> 
     </div>
     <div id="dlg" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
     <form id="fm" method="POST" novalidate style="margin:0,padding:20px 50px;">

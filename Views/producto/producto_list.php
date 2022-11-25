@@ -2,13 +2,29 @@
 /* require_once('../../config.php'); */
 require_once('../templates/header2.php');
 $objConPro = new ProductoController();
-$lista = $objConPro->listarTodo();
+try {
+    $rol = $objSession->getUsRol();
+    $rol = $objSession->getUsRol();
+if($rol != ''){
+    if($rol == 'Admin' || $rol == 'Deposito'){
+        $lista = $objConPro->listarTodo();
+    }elseif($rol == 'Cliente'){
+        $arrBuPro['prdeshabilitado'] = NULL;
+        $lista = $objConPro->listarTodo($arrBuPro);
+    }
+}
+} catch (\Throwable $th) {
+    $rol = '';
+    $lista = [];//  ['idproducto' => '', 'pronombre' => '', 'sinopsis'=>'', 'procantstock'=>'', 'autor'=>'', 'precio'=>'', 'isbn'=>'', 'categoria'=>''];
+}
+
+
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
+<!-- <!DOCTYPE html>
+<html lang="en"> -->
 
-<head>
+<!-- <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +35,7 @@ $lista = $objConPro->listarTodo();
     <script src="../../Vendor/jquery.min.js"></script>
     <script src="../../Vendor/jquery.easyui.min.js"></script>
     <title>PRODUCTOS</title>
-</head>
+</head> -->
 
 <body>
     <table id="dg" title="Administrador de productos" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_producto.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
@@ -37,10 +53,19 @@ $lista = $objConPro->listarTodo();
         </thead>
     </table>
     <div id="toolbar">
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newProducto()">Nuevo producto</a>
+        <?php 
+            if($rol == 'Admin' || $rol == 'Deposito'){
+                echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" plain=\"true\" onclick=\"newProducto()\">Nuevo producto</a>
+                <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-edit\" plain=\"true\" onclick=\"editProducto()\">Editar producto</a>
+                <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"destroyProducto()\">Eliminar producto</a>";
+            }elseif($rol == 'Cliente'){
+                echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"comprar()\">Comprar</a>";
+            }
+        ?>
+        <!-- <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newProducto()">Nuevo producto</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editProducto()">Editar producto</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyProducto()">Eliminar producto</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="comprar()">Comprar</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="comprar()">Comprar</a> -->
     </div>
     <div id="dlg" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
         <form id="fm" method="POST" novalidate style="margin:0,padding:20px 50px;">
@@ -232,3 +257,6 @@ $lista = $objConPro->listarTodo();
 </body>
 
 </html>
+
+
+

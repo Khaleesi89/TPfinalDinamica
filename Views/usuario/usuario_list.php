@@ -1,15 +1,32 @@
 <?php
-require_once('../../config.php');
+require_once('../templates/header2.php');
 $objUsuCon = new UsuarioController();
 $objUsuRolCon = new UsuarioRolController();
 $arrayRoles = $objUsuRolCon->getRoles();
-$arr = [];
-$lista = $objUsuCon->listarTodo($arr);
-?>
-<!DOCTYPE html>
-<html lang="en">
+try {
+    $rol = $objSession->getUsRol();
+    $rol = $objSession->getUsRol();
+    if($rol != ''){
+        if($rol == 'Admin'){
+            $lista = $objConPro->listarTodo();
+        }elseif($rol == 'Cliente' || $rol == 'Deposito'){
+            $arrBuPro['usdeshabilitado'] = NULL;
+            $idusuario = $objSession->getIdusuario();
+            $arrBuPro['idusuario'] = $idusuario;
+            $lista = $objConPro->listarTodo($arrBuPro);
+        }
+    }else{
+        $lista = [];
+    }
+} catch (\Throwable $th) {
+    $lista = [];
+}
 
-<head>
+?>
+<!-- <!DOCTYPE html>
+<html lang="en"> -->
+
+<!-- <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +37,7 @@ $lista = $objUsuCon->listarTodo($arr);
     <script src="../../Vendor/jquery.min.js"></script>
     <script src="../../Vendor/jquery.easyui.min.js"></script>
     <title>Prueba isiUI</title>
-</head>
+</head> -->
 
 <body>
     <table id="dg" title="Administrador de Usuarios" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_usuario.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
@@ -34,11 +51,24 @@ $lista = $objUsuCon->listarTodo($arr);
         </thead>
     </table>
     <div id="toolbar">
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUsuario()">Nuevo Usuario</a>
+        <?php 
+            if($rol == 'Admin'){
+                echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" plain=\"true\" onclick=\"newUsuario()\">Nuevo Usuario</a>
+                <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-edit\" plain=\"true\" onclick=\"editUsuario()\">Editar Usuario</a>
+                <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"destroyUsuario()\">Deshabilitar Usuario</a>
+                <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"undestroyUsuario()\">Habilitar Usuario</a>
+                <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"newRol()\">Ver Roles</a>";
+            }elseif($rol == 'Deposito' || $rol == 'Cliente'){
+                echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-edit\" plain=\"true\" onclick=\"editUsuario()\">Editar Usuario</a>
+                <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"destroyUsuario()\">Deshabilitar Usuario</a>
+                <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"undestroyUsuario()\">Habilitar Usuario</a>";
+            }
+        ?>
+        <!-- <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUsuario()">Nuevo Usuario</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUsuario()">Editar Usuario</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUsuario()">Deshabilitar Usuario</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="undestroyUsuario()">Habilitar Usuario</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="newRol()">Ver Roles</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="newRol()">Ver Roles</a> -->
     </div>
     <div id="dlg" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
         <form id="fm" method="POST" novalidate style="margin:0;padding:20px 50px;">

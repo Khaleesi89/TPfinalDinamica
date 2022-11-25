@@ -19,7 +19,7 @@ $ROOT = $_SERVER['DOCUMENT_ROOT']."/$PROYECTO/";
 $INICIO = "Location:http://".$_SERVER['HTTP_HOST']."/$PROYECTO/Views/logs/login.php";
 
 // variable que define la pagina principal del proyecto (menu principal)
-$PRINCIPAL = "Location:http://".$_SERVER['HTTP_HOST']."/$PROYECTO/index.php";
+$PRINCIPAL = "Location:http://".$_SERVER['HTTP_HOST']."/$PROYECTO/Views/newindex.php";
 
 $GLOBALS['ROOT'] = $ROOT;
 

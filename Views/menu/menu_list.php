@@ -1,10 +1,23 @@
 <?php
-require_once('../../config.php');
-//Hacer controlador de menu y traer todos los menues
+require_once('../templates/header2.php');
 $objMenuCon = new MenuController();
+try {
+    $rol = $objSession->getUsRol();
+    $rol = $objSession->getUsRol();
+if($rol != ''){
+    if($rol == 'Admin'){
+        $lista = $objMenuCon->listarTodo();
+    }elseif($rol == 'Cliente' || $rol == 'Deposito'){
+        $lista = [];
+    }
+}
+} catch (\Throwable $th) {
+    $rol = '';
+    $lista = [];//  ['idproducto' => '', 'pronombre' => '', 'sinopsis'=>'', 'procantstock'=>'', 'autor'=>'', 'precio'=>'', 'isbn'=>'', 'categoria'=>''];
+}
+//Hacer controlador de menu y traer todos los menues
+
 //$arrayBus['medeshabilitado'] = NULL;
-$arrayBus = [];
-$arrayMenu = $objMenuCon->listarTodo($arrayBus);
 $objUsuRolCon = new UsuarioRolController();
 $arrayRoles = $objUsuRolCon->getRoles();
 
@@ -12,7 +25,7 @@ $arrayRoles = $objUsuRolCon->getRoles();
 $rta = $objMenuCon->obtenerMenuesPorRol(1);
 var_dump($rta); */
 ?>
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -27,7 +40,7 @@ var_dump($rta); */
     <script src="../../Vendor/jquery.easyui.min.js"></script>
     <title>ABM Menu</title>
 </head>
-
+ -->
 <body>
     <table id="dg" title="Administrador de Menúes" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_menu.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
