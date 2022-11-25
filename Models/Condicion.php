@@ -26,9 +26,9 @@ trait Condicion{
     }
 
     //Metodo static general
-    public static function SBS($arrayBusqueda){
+    public static function SBS( $arrayBusqueda ){
         $stringBusqueda = '';
-        if(count($arrayBusqueda) > 0){
+        if( is_countable($arrayBusqueda) > 0 ){
             if(!array_key_exists('sql', $arrayBusqueda)){
                 foreach ($arrayBusqueda as $key => $value) {
                     if(($value != null && $value != '') || $key == 'usdeshabilitado' || $key == 'prdeshabilitado' || $key == 'medeshabilitado' || $key == 'cefechafin'){

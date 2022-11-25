@@ -320,7 +320,11 @@ class Compraestado extends db{
         //obtencion de idcompraestadotipo
         $objCompraestadotipo = $this->getObjCompraestadotipo();
         $idcompraestadotipo = $objCompraestadotipo->getIdcompraestadotipo();
+        $cetDetalle = $objCompraestadotipo->getCetdetalle();
+        $cetDescripcion = $objCompraestadotipo->getCetdescripcion();
         $objCompraestadotipo = null;
+        $data['cetdetalle'] = $cetDetalle;
+        $data['cetdescripcion'] = $cetDescripcion;
         $data['idcompraestadotipo'] = $idcompraestadotipo;
         $data['cefechaini'] = $this->getCefechaini();
         $data['cefechafin'] = $this->getCefechafin();

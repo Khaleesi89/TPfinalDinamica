@@ -1,4 +1,5 @@
 <?php
+require_once('../templates/header.php');
 require_once('../../config.php');
 /* $objConPro = new ProductoController();
 $lista = $objConPro->listarTodo(); */
@@ -108,5 +109,6 @@ $lista = $objConPro->listarTodo(); */
     </script>
         
     </div>
+    <?php require_once('../templates/footer.php') ?>
 </body>
 </html>

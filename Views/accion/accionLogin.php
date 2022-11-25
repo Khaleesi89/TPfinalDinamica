@@ -1,17 +1,17 @@
 <?php
 require_once( '../templates/header.php');
 
-$name = $session->buscarKey( 'usnombre' );
-$pass = $session->buscarKey( 'uspass' );
-$passHash = password_hash( $pass, PASSWORD_BCRYPT );
+$name = $objSession->buscarKey( 'usnombre' );
+$pass = $objSession->buscarKey( 'uspass' );
+/* $passHash = password_hash( $pass, PASSWORD_BCRYPT ); */
 
-$session->iniciar( $name, $passHash );
+$objSession->iniciar( $name, $pass );
 
-$resp = $session->validar();
+$resp = $objSession->validar();
 if( $resp ){
     ?>
     <script>
-        location.href = 'http://localhost/TPfinalDinamica/Views/home/newIndex.php';
+        location.href = 'http://localhost/TPfinalDinamica/Views/producto/producto_list.php';
     </script>
     <?php
 } else {

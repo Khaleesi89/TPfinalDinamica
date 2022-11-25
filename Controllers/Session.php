@@ -49,12 +49,12 @@ public function __construct(){
         $_SESSION['uspass'] = $uspass;
     }
 
-    public function getUsuRol() {
-        return $_SESSION['usuRol'];
+    public function getUsRol() {
+        return $_SESSION['usRol'];
     }
 
-    public function setUsuRol( $usuRol ){
-        $_SESSION['usuRol'] = $usuRol;
+    public function setUsRol( $usRol ){
+        $_SESSION['usRol'] = $usRol;
     }
 
     /**
@@ -65,22 +65,41 @@ public function __construct(){
     public function iniciar( $usnombre, $uspass ){
         $bandera = false;
         $objUsuario = new UsuarioController();
+        $objUsuarioRol = new UsuarioRolController();
+
+        /* $usuariorolbusqueda = $objUsuarioRol->buscarId();
+        $usuarioRol = $usuariorolbusqueda['array']->getObjRol();
+        $usrol = $usuarioRol->getIdrol(); */
+
         $array = [
             'usnombre' => $usnombre, 
             'uspass' => $uspass, 
             'usdeshabilitado' => null
         ];
-
         $busqueda = $objUsuario->listarTodo( $array );
+
+
         if( count($busqueda) > 0 ){
             $usuarioLogueado = $busqueda[0];
-            var_dump( $usuarioLogueado );
             $idusuario = $usuarioLogueado->getIdusuario();
             $usnombre = $usuarioLogueado->getUsnombre();
             $uspass = $usuarioLogueado->getUspass();
+
+            $nomus = $objUsuarioRol->buscarNombreUsuario();
+            if( $nomus != null ){
+                $listado = $objUsuarioRol->listarTodo( $nomus );
+                if( $usnombre == $nomus ){
+                    foreach( $listado['arrayHTML'] as $key => $value ){
+                        if( $value['nombre'] == $usnombre  ){
+                            $rol = $value['rol'];
+                        }
+                    }
+                }
+            }
             $this->setIdusuario( $idusuario );
             $this->setUsnombre( $usnombre );
             $this->setUspass( $uspass );
+            $this->setUsRol( $rol );
         }
         return $bandera;
     }
@@ -103,6 +122,7 @@ public function __construct(){
 
         $controlUsuario = new UsuarioController();
         $lista = $controlUsuario->buscarId();
+        //var_dump( $lista );
 
         $str = '';
         $usnombrelista = $lista['obj']->getUsnombre();
@@ -156,7 +176,7 @@ public function __construct(){
     
     public function isAdmin( $rol ){
         $bandera = false;
-        if( $rol == 'Admin' && $rol == $this->getUsuRol() ){
+        if( $rol == 'Admin' && $rol == $this->getUsRol() ){
             $bandera = true;
         }
         return $bandera;
@@ -168,6 +188,54 @@ public function __construct(){
         $data['idusuario'] = $this->getIdusuario();
         $data['rolesusuario'] = $this->getRol();
         return $data;
+    }
+
+    public function rolesUsuario() {
+        $objUsuarioRolCon = new UsuarioRolController();
+        $rta = $objUsuarioRolCon->buscarRoles();
+        $arrayRoles = $objUsuarioRolCon->getRoles();
+        $rolesSimple = [];
+        foreach( $arrayRoles as $key => $value ){
+            $data = $value->dameDatos();
+            $rolesSimple[$data['idrol']] = false;
+        }
+        //var_dump($rolesSimple);
+        //convertir roles del usuario a texto
+        $rolesTexto = [];
+        //var_dump($rta);
+        if( count($rta) != 0 ){
+            foreach( $rta as $key => $value ){
+                $data = $value->dameDatos();
+                //$idRol = $data['idrol'];
+                //var_dump($idRol);
+                $rolesTexto[$data['idrol']] = true;
+            }
+        }
+        //var_dump($rolesTexto);
+        //var_dump($rolesSimple);
+        $string = "";
+        $arrayOtro = [];
+        if( count($rolesTexto) != 0 ){
+            foreach( $rolesSimple as $id => $idrolArray ){
+                $valor = 'false';
+                if( array_key_exists($id, $rolesTexto) ){
+                    $rolesSimple[$id] = true;
+                    $valor = 'true';
+                    
+                }
+                $arrayOtro["rol$id"] = $valor;
+                if( $string == '' ){
+                    $string.="[$id => $valor,";
+                } else {
+                    $string.= " $id => $valor,";
+                }
+                
+            }
+        }
+        $string = substr( $string, 0, -1 );
+        $string .= "] ";
+        $objNuevo = (object)array( 'data' => $arrayOtro );
+        return $objNuevo;
     }
 
     

@@ -2,11 +2,16 @@
 require_once( '../templates/header.php');
 
 $objUsuario = new UsuarioController();
-/* $data = $objUsuario->getDatos(); */
+$data = $objUsuario->getDatos();
 
 $respuesta = $objUsuario->insertar();
 if( $respuesta['respuesta'] ){
-    echo('gut');
+    echo('Usuario creado piolon');
+    ?>
+    <script>
+        location.href = 'http://localhost/TPfinalDinamica/Views/logs/login.php';
+    </script>
+    <?php
 } else {
-    echo('bad');
+    echo('Usuario creado pa la wea');
 }

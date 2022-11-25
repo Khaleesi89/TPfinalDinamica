@@ -241,4 +241,10 @@ class MenuController extends MasterController {
         }
         return $arrayRta;
     }
+
+    public function getLink( $paramMeNombre ){
+        $objMenu = new Menu();
+        $link = $objMenu->buscar( $paramMeNombre['menombre'] );
+        return $link;
+    }
 }

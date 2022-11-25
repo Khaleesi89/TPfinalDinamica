@@ -6,6 +6,6 @@ session_unset();
 
 session_destroy();
 
-header('Location: /tpExcel');
+header('Location: /TPfinalDinamica');
 
 ?>

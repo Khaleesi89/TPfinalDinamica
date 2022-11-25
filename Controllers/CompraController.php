@@ -1,5 +1,5 @@
 <?php
-
+//require_once('../config.php');
 class CompraController extends MasterController{
     use Errores;
 

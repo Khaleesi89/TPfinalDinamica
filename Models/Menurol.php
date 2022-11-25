@@ -264,13 +264,13 @@ class Menurol extends db{
                     }
                     $respuesta['respuesta'] = true;
                 }else{
-                    Usuario::setMensajeStatic($base->getError());
+                    Menurol::setMensajeStatic($base->getError());
                     $respuesta['respuesta'] = false;
                     $respuesta['errorInfo'] = 'Hubo un error con la consulta';
                     $respuesta['codigoError'] = 1;
                 }
             }else{
-                Usuario::setMensajeStatic($base->getError());
+                Menurol::setMensajeStatic($base->getError());
                 $respuesta['respuesta'] = false;
                 $respuesta['errorInfo'] = 'Hubo un error con la conexión de la base de datos';
                 $respuesta['codigoError'] = 0;

@@ -1,5 +1,5 @@
 <?php
-
+//NO USARLO PORQUE STA AL PEDO
 class CompraestadoController extends MasterController {
     use Errores;
 
@@ -49,6 +49,26 @@ class CompraestadoController extends MasterController {
             $respuesta['error'] = $rta;
         }
         return $respuesta;        
+    }
+
+    public function insertarCompraEstadoNueva($idcompra){
+        $objCompraEstado = new Compraestado();
+        //generar objeto de compraestadotipo
+        $arrBusCET['idcompraestadotipo'] = 1;
+        $objCompraEstadoTipo = new Compraestadotipo();
+        $objCompraEstadoTipo->buscar($arrBusCET);
+        //generar objeto de compra 
+        $arrBusC['idcompra'] = $idcompra;
+        $objCompra = new Compra();
+        $objCompra->buscar($arrBusC);
+        $objCompraEstado->cargar($objCompra, $objCompraEstadoTipo);
+        $rsta = $objCompraEstado->insertar();
+        if($rsta['respuesta']){
+            $response = true;
+        }else{
+            $response = false;
+        }
+        return $response;
     }
 
 

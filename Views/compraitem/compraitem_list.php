@@ -1,7 +1,6 @@
-
-
 <?php
 require_once('../../config.php');
+require_once('../templates/header2.php');
 $objComItem = new CompraitemController();
 $lista = $objComItem->listarTodo();
 //var_dump ($lista);
@@ -41,7 +40,7 @@ $lista = $objComItem->listarTodo();
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyItem()">Eliminar ítem</a>  
     </div>
     <div id="dlg" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
-    <form id="fm" method="POST" novalidate style="margin:0,padding:20px 50px;">
+    <form id="fm" method="POST" novalidate style="margin:0;padding:20px 50px;">
     <h3>Pedido información</h3>
     <div style="margin-bottom:10px;">
         <input readonly  name="idcompraitem" id="idcompraitem" class="easyui-textbox" required="true" label="ITEM" style="width:100%;">
@@ -143,5 +142,6 @@ $lista = $objComItem->listarTodo();
     </script>
         
     </div>
+    <?php require_once('../templates/footer.php') ?>
 </body>
 </html>

@@ -39,7 +39,7 @@ if(array_key_exists('array', $lista)){
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUsuarioRol()">Deshabilitar Usuario-Rol</a>  
     </div>
     <div id="dlg" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
-    <form id="fm" method="POST" novalidate style="margin:0,padding:20px 50px;">
+    <form id="fm" method="POST" novalidate style="margin:0; padding:20px 50px;">
     <h3>Usuario-Rol Información</h3>
     <!-- <div style="margin-bottom:10px;">
         <input name="idusuario" id="idusuario" class="easyui-textbox" required="true" label="Id usuario" style="width:100%;">
@@ -76,7 +76,7 @@ if(array_key_exists('array', $lista)){
                 url='accion/edit_usuario.php?idusuario='+row.idusuario;
             }
         } */
-        function guardarUsuario(){
+        function guardarUsuarioRol(){
             $('#fm').form('submit', {
                 url:url,
                 onSubmit:function(){
