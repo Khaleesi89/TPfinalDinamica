@@ -1,6 +1,7 @@
 <?php
 require_once('../../config.php');
 //obtener rol 
+$objSession = new Session();
 $rol = $objSession->getUsuRol();
 if($rol == 'Cliente'){
     //obtener compras del cliente pa filtrar por ese id 
