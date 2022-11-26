@@ -2,6 +2,9 @@
 
 require_once('../../../config.php');
 $objConCompraestado = new CompraestadoController();
+
+//buscarKey es para buscar en el post y en el get
+
 $data = $objConCompraestado->buscarId();
 //var_dump($data);
 /* if($data){

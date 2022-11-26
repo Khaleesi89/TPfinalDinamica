@@ -1,8 +1,11 @@
 <?php
-require_once('../../../config.php');
+//require_once('../../../config.php');
+require_once('../templates/header2.php');
 $objUsuarioRolCon = new UsuarioRolController();
 $array = [];
 $lista = $objUsuarioRolCon->listarTodo($array);
+var_dump($lista);
+die();
 if(array_key_exists('arrayHTML', $lista)){
     echo json_encode($lista['arrayHTML']);
 }else{

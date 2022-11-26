@@ -1,5 +1,7 @@
 <?php
-require_once('../../config.php');
+//require_once('../../config.php');
+require_once('../templates/header2.php');
+
 //CAMBIAR
 $objUsuarioRolCon = new UsuarioRolController();
 $arrayBusqueda = [];
@@ -10,21 +12,7 @@ if(array_key_exists('array', $lista)){
     //var_dump($lista['arrayHTML']); 
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../Vendor/themes/default/easyui.css">
-    <link rel="stylesheet" href="../../Vendor/themes/icon.css">
-    <link rel="stylesheet" href="../../Vendor/themes/color.css">
-    <link rel="stylesheet" href="../../Vendor/demo/demo.css">
-    <script src="../../Vendor/jquery.min.js"></script>
-    <script src="../../Vendor/jquery.easyui.min.js"></script>
-    <title>Prueba isiUI</title>
-</head>
-<body>
+
     <table id="dg" title="Administrador de Usuarios" class="easyui-datagrid" style="width:700px;height:600px" url="accion/usuariorol_listar.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>

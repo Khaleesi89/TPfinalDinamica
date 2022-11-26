@@ -1,6 +1,6 @@
 <?php
 
-require_once('../templates/header.php');
+require_once('../templates/header2.php');
 $objConCompraestado = new CompraestadoController();
 $objcompraestadotipo = new CompraestadotipoController();
 $tiposestado = $objcompraestadotipo->listarTodo();
@@ -8,23 +8,7 @@ $tiposestado = $objcompraestadotipo->listarTodo();
 $lista = $objConCompraestado->listarTodo();
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../Vendor/themes/default/easyui.css">
-    <link rel="stylesheet" href="../../Vendor/themes/icon.css">
-    <link rel="stylesheet" href="../../Vendor/themes/color.css">
-    <link rel="stylesheet" href="../../Vendor/demo/demo.css">
-    <script src="../../Vendor/jquery.min.js"></script>
-    <script src="../../Vendor/jquery.easyui.min.js"></script>
-    <title>Compra estado</title>
-</head>
-
-<body>
     <table id="dg" title="Administrador de compras estado" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_compraestado.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>

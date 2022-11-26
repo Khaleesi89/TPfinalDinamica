@@ -200,4 +200,16 @@ class UsuarioRolController extends MasterController {
         return $bandera;
     }
 
+    public function dameDatos(){
+        $objUsuarioRol = new Usuariorol();
+        $data = [];
+        $data['idur'] = $objUsuarioRol->getIdur();
+        $objUsuario = $objUsuarioRol->getObjUsuario();
+        $data['idusuario'] = $objUsuario->getIdusuario();
+        $objUsuario = null;
+        $objRol = $objUsuarioRol->getObjRol();
+        $data['idrol'] = $objRol->getIdrol();
+        $objRol = null;
+        return $data;
+    }
 }

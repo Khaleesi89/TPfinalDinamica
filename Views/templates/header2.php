@@ -145,10 +145,10 @@
 
         <div class="header-2">
             <nav class="navbar">
-                <a href="../home/newIndex.php#home">Home</a>
-                <a href="../producto/producto_list.php">Ingresos</a>
-                <a href="../home/newIndex.php#reviews">Reviews</a>
-                <a href="#contacto">Contacto</a>
+                <a href="../home/newIndex.php#home"></a>
+                <a href="../producto/producto_list.php"></a>
+                <a href="../home/newIndex.php#reviews"></a>
+                <a href="#contacto"></a>
 
             </nav>
         </div>

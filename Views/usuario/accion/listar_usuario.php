@@ -8,12 +8,13 @@ try {
     $rol = $objSession->getUsRol();
     if($rol != ''){
         if($rol == 'Admin'){
-            $lista = $objConPro->listarTodo();
+            $array = [];
+            $lista = $objUsuRolCon->listarTodo($array);
         }elseif($rol == 'Cliente' || $rol == 'Deposito'){
             $arrBuPro['usdeshabilitado'] = NULL;
             $idusuario = $objSession->getIdusuario();
             $arrBuPro['idusuario'] = $idusuario;
-            $lista = $objConPro->listarTodo($arrBuPro);
+            $lista = $objUsuRolCon->listarTodo($arrBuPro);
         }
     }else{
         $lista = [];

@@ -25,14 +25,24 @@ class ProductoController extends MasterController{
         return $arrayBusqueda;
     }
 
-    public function listarTodo(){
+    public function listarTodo($array){
         //$arrayBusqueda = $this->busqueda();
-        $arrayBusqueda = [];
-        $arrayTotal = Producto::listar($arrayBusqueda);
-        if(array_key_exists('array', $arrayTotal)){
-            $array = $arrayTotal['array'];
+        if(empty($array)){
+            $arrayBusqueda = [];
+            $arrayTotal = Producto::listar($arrayBusqueda);
+            if(array_key_exists('array', $arrayTotal)){
+                $array = $arrayTotal['array'];
+            }else{
+                $array = [];
+            }
         }else{
-            $array = [];
+            $arrayTotal = Producto::listar($array);
+            if(array_key_exists('array', $arrayTotal)){
+                $array = $arrayTotal['array'];
+            }else{
+                $array = [];
+            }
+
         }
         
         //var_dump($array);

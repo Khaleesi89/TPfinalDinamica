@@ -31,7 +31,7 @@ if($rol != ''){
     <script src="../../Vendor/jquery.easyui.min.js"></script>
     <title>Prueba isiUI</title>
 </head> -->
-<body>
+
     <table id="dg" title="Administrador de Roles" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_rol.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>
