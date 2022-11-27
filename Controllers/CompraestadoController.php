@@ -169,7 +169,7 @@ class CompraestadoController extends MasterController {
     public function setearfecha(){
         $rta = $this->buscarId();
         $sepudo = [];
-        $hoy = getdate();
+        $hoy = date("Y-m-d H:i:s");
         if(!is_null($rta['obj'])){
             $objetoCompraestado = $rta['obj'];
             $objetoCompraestado->setCefechafin($hoy);
@@ -184,11 +184,13 @@ class CompraestadoController extends MasterController {
     }
 
     //para modificar la fecha
-    public function modificarFechafin(){
-        
-        
-    
+    public function modificarFechafin($fecha){
+        $compraestado = new Compraestado();
+        $rtaS = $compraestado->modificarFechafin($fecha);
+        return $rtaS;
     }
+    
+    
 
 
     //HACER FUNCION PARA RESTAR LA CANTIDAD DE PRODUCTOS.

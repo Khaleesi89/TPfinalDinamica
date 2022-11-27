@@ -2,8 +2,26 @@
 
 require_once('../../../config.php');
 $objConCompraestado = new CompraestadoController();
+$arraybusquedaaaa = $objConCompraestado->buscarId();
+$fechafin = date("Y-m-d H:i:s");
+if(!is_null($arraybusquedaaaa['obj'])){
+    $objConCompraestado = $arraybusquedaaaa['obj'];
+    $rta = $objConCompraestado->modificarFechafin($fechafin);
+    if($rta['respuesta']){
+        echo "se realizo";
+    }else{
+        echo "no se realizo";
+    }
+}else{
+    echo "no existe objeto";
+}
 
-$arraydevuelto = $objConCompraestado->setearfecha();
+
+
+
+
+//$arraydevuelto = $objConCompraestado->setearfecha();
+//->modificarFechafin();
 //$objConCompraestado->setearfecha($objcompraestado);
 echo "<pre>";
 var_dump($arraydevuelto);
