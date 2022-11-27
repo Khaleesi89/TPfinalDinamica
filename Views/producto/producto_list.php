@@ -14,10 +14,9 @@ if($rol != ''){
         $arrBuPro['prdeshabilitado'] = NULL;
         $lista = $objConPro->listarTodo($arrBuPro);
     }
-}
 } catch (\Throwable $th) {
     $rol = '';
-    $lista = [];//  ['idproducto' => '', 'pronombre' => '', 'sinopsis'=>'', 'procantstock'=>'', 'autor'=>'', 'precio'=>'', 'isbn'=>'', 'categoria'=>''];
+    $lista = []; //  ['idproducto' => '', 'pronombre' => '', 'sinopsis'=>'', 'procantstock'=>'', 'autor'=>'', 'precio'=>'', 'isbn'=>'', 'categoria'=>''];
 }
 
 
@@ -55,14 +54,14 @@ if($rol != ''){
         </thead>
     </table>
     <div id="toolbar">
-        <?php 
-            if($rol == 'Admin' || $rol == 'Deposito'){
-                echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" plain=\"true\" onclick=\"newProducto()\">Nuevo producto</a>
+        <?php
+        if ($rol == 'Admin' || $rol == 'Deposito') {
+            echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" plain=\"true\" onclick=\"newProducto()\">Nuevo producto</a>
                 <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-edit\" plain=\"true\" onclick=\"editProducto()\">Editar producto</a>
                 <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"destroyProducto()\">Eliminar producto</a>";
-            }elseif($rol == 'Cliente'){
-                echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"comprar()\">Comprar</a>";
-            }
+        } elseif ($rol == 'Cliente') {
+            echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"comprar()\">Comprar</a>";
+        }
         ?>
         <!-- <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newProducto()">Nuevo producto</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editProducto()">Editar producto</a>
@@ -144,6 +143,42 @@ if($rol != ''){
                 <a href="javascript:void(0)" class="easyui-button c6" iconCls="icon-ok" onclick="guardarCompra()" style="width:90px">Aceptar</a>
                 <a href="javascript:void(0)" class="easyui-button" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
             </div>
+
+            <table id="tt" style="width:500px;height:400px" title="DataGrid - CardView" singleSelect="true" fitColumns="true" remoteSort="false" url="datagrid8_getdata.php" pagination="true" sortOrder="desc" sortName="itemid">
+                <thead>
+                    <tr>
+                        <th field="itemid" width="80" sortable="true">Item ID</th>
+                        <th field="listprice" width="80" sortable="true">List Price</th>
+                        <th field="unitcost" width="80" sortable="true">Unit Cost</th>
+                        <th field="attr1" width="150" sortable="true">Attribute</th>
+                        <th field="status" width="60" sortable="true">Status</th>
+                    </tr>
+                </thead>
+            </table>
+            <script>
+                $('#tt').datagrid({
+                    view: cardview
+                });
+                var cardview = $.extend({}, $.fn.datagrid.defaults.view, {
+                    renderRow: function(target, fields, frozen, rowIndex, rowData) {
+                        var cc = [];
+                        cc.push('<td colspan=' + fields.length + ' style="padding:10px 5px;border:0;">');
+                        if (!frozen) {
+                            var aa = rowData.itemid.split('-');
+                            var img = 'shirt' + aa[1] + '.gif';
+                            cc.push('<img src="images/' + img + '" style="width:150px;float:left">');
+                            cc.push('<div style="float:left;margin-left:20px;">');
+                            for (var i = 0; i < fields.length; i++) {
+                                var copts = $(target).datagrid('getColumnOption', fields[i]);
+                                cc.push('<p><span class="c-label">' + copts.title + ':</span> ' + rowData[fields[i]] + '</p>');
+                            }
+                            cc.push('</div>');
+                        }
+                        cc.push('</td>');
+                        return cc.join('');
+                    }
+                });
+            </script>
 
             <script>
                 var url;
@@ -259,6 +294,3 @@ if($rol != ''){
 </body>
 
 </html>
-
-
-
