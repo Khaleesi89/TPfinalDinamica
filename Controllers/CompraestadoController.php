@@ -41,6 +41,7 @@ class CompraestadoController extends MasterController {
         $arrayBusqueda['idcompraestado'] = $this->buscarKey('idcompraestado');
         $objCompraestado = new Compraestado();
         $rta = $objCompraestado->buscar($arrayBusqueda);
+        //var_dump($objCompraestado);
         if($rta['respuesta']){
             $respuesta['respuesta'] = true;
             $respuesta['obj'] = $objCompraestado;
@@ -164,13 +165,30 @@ class CompraestadoController extends MasterController {
         return $respuesta;
     }
 
-    public function pasarNuevoCodigo($numeroestadonuevo){
-        $controler = new Compraestadotipo();
-        $controler->setIdcompraestadotipo($numeroestadonuevo);
+    //ponemos la fecha de hoy para el cambio de estado
+    public function setearfecha(){
+        $rta = $this->buscarId();
+        $sepudo = [];
+        $hoy = getdate();
+        if(!is_null($rta['obj'])){
+            $objetoCompraestado = $rta['obj'];
+            $objetoCompraestado->setCefechafin($hoy);
+            $sepudo['respuesta'] = true;
+            $sepudo['objmodif'] = $objetoCompraestado;
+        }else{
+            $sepudo['respuesta'] = false;
+            
+        }
+        return $sepudo;
         
     }
 
-
+    //para modificar la fecha
+    public function modificarFechafin(){
+        
+        
+    
+    }
 
 
     //HACER FUNCION PARA RESTAR LA CANTIDAD DE PRODUCTOS.
