@@ -1,51 +1,30 @@
 <?php
     require_once('../../config.php');
-    //require_once('../../Models/conector/db.php');
-    //require('../../Vendor/autoload.php');
 
     $objSession = new Session();
     $objMenu = new MenuController();
     $objMenuRol = new MenuRolController();
 
-    
-    
-    /* $menues = $objSession->rolesUsuario();
-    var_dump($menues); */
-
-    
-   
-    //var_dump( $menu );
-
     $bandera = $objSession->activa();
-    if($bandera != false){
-        //cargar menues 
-        
-    }
-
-    //var_dump( $objSession->getUsRol() );
     if( $bandera ){
         $rol = $objMenuRol->listarTodo();
+        //var_dump($rol);
 
         for( $i = 0; $i < count($rol); $i++ ){
             $idrol = $rol[$i]->getObjRol()->getIdrol();
             $roldescripcion = $rol[$i]->getObjRol()->getRodescripcion();
             if( $roldescripcion == $objSession->getUsRol() ){
-                $idrolguardado = $idrol;
+                $rolDescripcionGuardado = $roldescripcion;
+                $rolIdGuardado = $idrol;
             }
         }
-        $menu = $objMenu->obtenerMenuesPorRol( $idrolguardado );
-        //echo( 'logueao papa' );
-        //var_dump( $menues );
+        $menu = $objMenu->obtenerMenuesPorRol( $rolIdGuardado );
     }
-
-
-    //
     
     if($bandera = $objSession->activa()){
         $rolUsuario = $objSession->getUsRol();
         $arrBusRo['rodescripcion'] = $rolUsuario;
     }
-
 ?>
 
 <!DOCTYPE html>
@@ -82,7 +61,6 @@
     <link rel="stylesheet" href="../../Vendor/themes/default/easyui.css">
     <link rel="stylesheet" href="../../Vendor/themes/icon.css">
     <link rel="stylesheet" href="../../Vendor/themes/color.css">
-    <link rel="stylesheet" href="../../Vendor/demo/demo.css">
     <script src="../../Vendor/jquery.min.js"></script>
     <script src="../../Vendor/jquery.easyui.min.js"></script>
     
@@ -90,58 +68,53 @@
 
 <body>
     <!-- Header -->
-    <header class="header">
+    <header class="header start-0 top-0 end-0">
+        <nav class="navbar navbar-expand-lg bg-success">
+            <div class="container-fluid">
 
-        <!-- <div class="menues">
-            <a href="../home/newIndex.php" class="navbar-brand text-white">Home</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle='collapse' aria-expanded="false" aria-label="Toggle">
-                <span class="navbar-toggle-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse">
-                <ul class='navbar-nav me-auto mb-2 m-2 mb-sm-0'>
-                    <li> <a href="../home/newIndex.php" role="button" class='px-2 mx-1 btn btn-lg btn-outline-light'>Home:)</a> </li>
-
-                    <?php
-                    /* foreach( $menues as $menu ){
-                    ?>
-                        <option value="<?php echo $menu[0] ?>"></option>
-                    <?php
-                    } */
-                    ?>
-
-                </ul>
-            </div>
-        </div> -->
-
-        <div class="header-1">
-            <a href="../home/newIndex.php" class="logo"><i class="fas fa-book"></i> Yonny</a>
-            <form action="" class="search-form" method="">
-                <input type="search" name="" placeholder="Buscar..." id="search-box">
-                <label for="search-box" class="fas fa-search"></label>
-            </form>
-
-            <?php if( $bandera ){ ?>
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <?php echo($objSession->getUsnombre()); echo( $objSession->getUsRol() ); ?>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#"><?php echo( $menu[0] ); ?></a></li>
-                        <li><a class="dropdown-item" href="../logs/logout.php">Log out</a></li>
+                <a class="navbar-brand"><i class="fas fa-book"></i> Yonny </a>
+                <a class="navbar-brand" href="../home/newIndex.php">Inicio</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <!-- <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Implementación</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="../pages/ver.php">Ver</a></li>
+                                <?php if( $bandera ): ?>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="../pages/cargar.php">Cargar</a></li>
+                                <?php endif; ?>
+                            </ul>
+                        </li> -->
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="https://github.com/MaximilianoHitter/tpExcel" target="_blank">GitHub</a>
+                        </li>
                     </ul>
                 </div>
-                <div class="icons">
-                    <a href="../compraitem/compraitem_list.php" class="fas fa-shopping-cart"></a>
-                </div>
-            <?php } else { ?>
-                <div class="icons">
-                    <div id="search-btn" class="fas fa-search"></div>
-                    <a href="" class="fas fa-shopping-cart"></a>
-                    <div id="login-btn" class="fas fa-user"></div>
-                </div>
-            <?php } ?>
-        </div>
+
+                <?php if( $bandera ): ?>
+                    <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
+                        <li class="nav-item dropdown user">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="btn btn-outline-danger me-2" type="button"><?php echo($objSession->getUsnombre()); ?></button>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="../logs/logout.php">Salir</a></li>
+                            </ul>
+                        </li>
+                    </div>
+                <?php else: ?>
+                    <!-- Login y Registro (Se muestra si la persona no está logueada) -->
+                    <form class="container-fluid d-flex justify-content-end">
+                        <a href="../logs/login.php"><button class="btn btn-outline-light me-2" type="button">Login</button></a>
+                        <a href="../logs/signup.php"><button class="btn btn-outline-danger me-2" type="button">Registro</button></a>
+                    </form>
+                <?php endif; ?>
+            </div>
+        </nav>
 
        <!--  <div class="header-2">
             <nav class="navbar">
@@ -153,62 +126,38 @@
             </nav>
         </div> -->
         <?php 
-        if($rol == 'Admin'){
-            echo "<div class=\"header-2\">
-            <nav class=\"navbar\">
-                <a href=\"../producto/producto_list.php\">Productos</a>
-                <a href=\"../compraitem/compraitem_list.php\">Carrito</a>
-                <a href=\"../compraestado/compraestado_list.php\">Estado de compra</a>
-                <a href=\"../usuario/usuario_list.php\">Usuario</a>
-                <a href=\"../menu/menu_list.php\">Menu</a>
-                <a href=\"../rol/rol_list.php\">Rol</a>
-            </nav>
-        </div>";
-        }elseif($rol == 'Deposito'){
-            echo "<div class=\"header-deposito\">
-            <nav class=\"navbar\">
-                <a href=\"../producto/producto_list.php\">Productos</a>
-                <a href=\"../compraestado/compraestado_list.php\">Estado de compra</a>
-                <a href=\"../usuario/usuario_list.php\">Usuario</a>
-            </nav>
-        </div>";
-        }elseif($rol == 'Cliente'){
-            echo "<div class=\"header-cliente\">
-            <nav class=\"navbar\">
-                <a href=\"../producto/producto_list.php\">Productos</a>
-                <a href=\"../compraitem/compraitem_list.php\">Carrito</a>
-                <a href=\"../compraestado/compraestado_list.php\">Estado de compra</a>
-                <a href=\"../usuario/usuario_list.php\">Usuario</a>
-            </nav>
-        </div>";
+        if( $bandera ){
+            if($rolDescripcionGuardado == 'Admin'){
+                echo "<div class=\"header-2 px-4\">
+                <nav class=\"navbar\">
+                    <a href=\"../producto/producto_list.php\">Productos</a>
+                    <a href=\"../compraitem/compraitem_list.php\">Carrito</a>
+                    <a href=\"../compraestado/compraestado_list.php\">Estado de compra</a>
+                    <a href=\"../usuario/usuario_list.php\">Usuario</a>
+                    <a href=\"../menu/menu_list.php\">Menu</a>
+                    <a href=\"../rol/rol_list.php\">Rol</a>
+                </nav>
+            </div>";
+            }elseif($rolDescripcionGuardado == 'Deposito'){
+                echo "<div class=\"header-deposito\">
+                <nav class=\"navbar\">
+                    <a href=\"../producto/producto_list.php\">Productos</a>
+                    <a href=\"../compraestado/compraestado_list.php\">Estado de compra</a>
+                    <a href=\"../usuario/usuario_list.php\">Usuario</a>
+                </nav>
+            </div>";
+            }elseif($rolDescripcionGuardado == 'Cliente'){
+                echo "<div class=\"header-cliente\">
+                <nav class=\"navbar\">
+                    <a href=\"../producto/producto_list.php\">Productos</a>
+                    <a href=\"../compraitem/compraitem_list.php\">Carrito</a>
+                    <a href=\"../compraestado/compraestado_list.php\">Estado de compra</a>
+                    <a href=\"../usuario/usuario_list.php\">Usuario</a>
+                </nav>
+            </div>";
+            }
         }
         ?>
     </header>
 
-    <!-- Nav pal responsive -->
-    <nav class="bottom-navbar">
-        <a href="#" class="fas fa-home"></a>
-        <a href="../producto/producto_list.php" class="fas fa-tags"></a>
-        <a href="#reviews" class="fas fa-comments"></a>
-        <a href="#contacto" class="fas fa-blogs"></a>
-    </nav>
-
-    <!-- Login. Despues vemos si se deja aca o no
-    yo dejo uno sencillito para ya tener una maqueta -->
-    <div class="login-form-container">
-        <div id="close-login-btn" class="fas fa-times"></div>
-        <form action="../accion/accionLogin.php" method="POST">
-            <h3>Login</h3>
-            <span>Usuario</span>
-            <input type="text" name="usnombre" class="box" placeholder="Ingrese su usuario" id="">
-            <span>Contraseña</span>
-            <input type="password" name="uspass" class="box" placeholder="Ingrese su contraseña" id="">
-            <div class="checkbox">
-                <input type="checkbox" name="" id="remember-me">
-                <label for="remember-me">Remember me</label>
-            </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
-            <p>Te olvidaste la contraseña pa? <a href="#">Clickea aca ;)</a> </p>
-            <p>No tenes una cuenta? <a href="../logs/signup.php">Create una papu</a> </p>
-        </form>
-    </div>
+    <body>

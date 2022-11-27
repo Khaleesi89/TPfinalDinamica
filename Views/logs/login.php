@@ -30,7 +30,7 @@
     } */
 ?>
 
-<div class="container">
+<div class="container mt-5 mb-5">
     <div class="d-flex justify-content-center align-items-center m-3">
         <div class="col-md-6 p-5 shadow-sm border rounded-3">
 

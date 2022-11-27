@@ -9,6 +9,7 @@ $lista = $objConCompraestado->listarTodo();
 
 ?>
 
+<div class="container d-flex justify-content-center mt-5 mb-5">
     <table id="dg" title="Administrador de compras estado" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_compraestado.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>
@@ -42,13 +43,13 @@ $lista = $objConCompraestado->listarTodo();
             </div> -->
             
             <div style="margin-bottom:10px">
-                <select class="easyui-combobox" name="cetdescripcion" label="cetdescripcion" style="width:100%">
-                        <?php 
+                <select class="easyui-combobox" name="cetdescripcion" label="cetdescripcion" style="width:100%;">
+                    <?php 
                         $cantidad = count($tiposestado);
-                        for ($i=0; $i < $cantidad ; $i++) { ?>
-                            
+                        for ($i=0; $i < $cantidad ; $i++) { 
+                    ?>
                         <option name="idcompraestadotipo" value="<?php echo $tiposestado[$i]->getIdcompraestadotipo() ?>" > <?php echo $tiposestado[$i]->getIdcompraestadotipo(). " - " .$tiposestado[$i]->getCetdescripcion() ?> </option>
-                        <?php } ?>
+                    <?php } ?>
                 </select>
             </div>
             
@@ -123,7 +124,6 @@ $lista = $objConCompraestado->listarTodo();
 
     </script>
 
-    </div>
-</body>
+</div>
 
-</html>
+<?php require_once('../templates/footer.php') ?>

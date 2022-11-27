@@ -5,6 +5,7 @@ $objMenuROl = new MenuRolController();
 $lista = $objMenuROl->listarTodo();
 ?>
 
+<div class="container d-flex justify-content-center mt-5 mb-5">
     <table id="dg" title="Administrador de Roles y Menúes" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_menurol.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>
@@ -92,5 +93,6 @@ $lista = $objMenuROl->listarTodo();
     </script>
         
     </div>
-</body>
-</html>
+</div>
+
+<?php require_once('../templates/footer.php') ?>
