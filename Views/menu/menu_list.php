@@ -41,7 +41,7 @@ var_dump($rta); */
     <title>ABM Menu</title>
 </head>
  -->
-
+<div class="container d-flex justify-content-center mt-5 mb-5">
     <table id="dg" title="Administrador de Menúes" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_menu.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>
@@ -303,6 +303,7 @@ var_dump($rta); */
             </script>
 
         </div>
-</body>
+    </div>
+</div>
 
-</html>
+<?php require_once('../templates/footer.php') ?>

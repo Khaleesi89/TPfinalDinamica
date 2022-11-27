@@ -205,6 +205,8 @@ ALTER TABLE `producto`
 
 ALTER TABLE `producto`
   CHANGE `pronombre` `pronombre` varchar(50) NOT NULL;
+
+ALTER TABLE producto ADD COLUMN foto LONGBLOB AFTER categoria;
 -- --------------------------------------------------------
 
 --SE PUDO CREAR
