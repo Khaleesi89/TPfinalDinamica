@@ -143,7 +143,7 @@
             <?php } ?>
         </div>
 
-        <div class="header-2">
+       <!--  <div class="header-2">
             <nav class="navbar">
                 <a href="../home/newIndex.php#home">Home</a>
                 <a href="../producto/producto_list.php">Ingresos</a>
@@ -151,7 +151,38 @@
                 <a href="#contacto">Contacto</a>
 
             </nav>
-        </div>
+        </div> -->
+        <?php 
+        if($rol == 'Admin'){
+            echo "<div class=\"header-2\">
+            <nav class=\"navbar\">
+                <a href=\"../producto/producto_list.php\">Productos</a>
+                <a href=\"../compraitem/compraitem_list.php\">Carrito</a>
+                <a href=\"../compraestado/compraestado_list.php\">Estado de compra</a>
+                <a href=\"../usuario/usuario_list.php\">Usuario</a>
+                <a href=\"../menu/menu_list.php\">Menu</a>
+                <a href=\"../rol/rol_list.php\">Rol</a>
+            </nav>
+        </div>";
+        }elseif($rol == 'Deposito'){
+            echo "<div class=\"header-deposito\">
+            <nav class=\"navbar\">
+                <a href=\"../producto/producto_list.php\">Productos</a>
+                <a href=\"../compraestado/compraestado_list.php\">Estado de compra</a>
+                <a href=\"../usuario/usuario_list.php\">Usuario</a>
+            </nav>
+        </div>";
+        }elseif($rol == 'Cliente'){
+            echo "<div class=\"header-cliente\">
+            <nav class=\"navbar\">
+                <a href=\"../producto/producto_list.php\">Productos</a>
+                <a href=\"../compraitem/compraitem_list.php\">Carrito</a>
+                <a href=\"../compraestado/compraestado_list.php\">Estado de compra</a>
+                <a href=\"../usuario/usuario_list.php\">Usuario</a>
+            </nav>
+        </div>";
+        }
+        ?>
     </header>
 
     <!-- Nav pal responsive -->
