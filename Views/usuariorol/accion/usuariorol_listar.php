@@ -1,6 +1,5 @@
 <?php
-//require_once('../../../config.php');
-require_once('../templates/header2.php');
+require_once('../../../config.php');
 $objUsuarioRolCon = new UsuarioRolController();
 $array = [];
 $lista = $objUsuarioRolCon->listarTodo($array);

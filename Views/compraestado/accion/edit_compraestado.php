@@ -5,12 +5,30 @@ $objConCompraestado = new CompraestadoController();
 
 //buscarKey es para buscar en el post y en el get
 
-$data = $objConCompraestado->buscarId();
-//var_dump($data);
+$data = $objConCompraestado->buscarKey('idcompraestado');
+//aca obtengo el objeto sin el id compra estado
+$objetocompraestado = $objConCompraestado->busqueda();
+//aca busco el que me trae el post
+$nuevocodigo = $objConCompraestado->buscarKey('cetdescripcion');
+
+//ACA TIENE QUE UNIRSE AMBOS NUMEROS...VER SI ESA FUNCION pasarNuevoCodigo LO PUEDO HACER ANDAR
+
+
+
+
+
+
+
+//$objConCompraestado->pasarNuevoCodigo($nuevocodigo);
+var_dump($objConCompraestado);
+die();
+/* var_dump($objetocompraestado);
+echo"llega aca";
+die(); */
 /* if($data){
     $objConCompraestadotipo->modificar();
 } */
-$respuesta = false;
+$rta = false;
 if($data != null){
     $rta = $objConCompraestado->modificar();
     if(!$rta){

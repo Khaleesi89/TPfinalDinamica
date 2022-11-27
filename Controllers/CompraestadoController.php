@@ -164,7 +164,11 @@ class CompraestadoController extends MasterController {
         return $respuesta;
     }
 
-    
+    public function pasarNuevoCodigo($numeroestadonuevo){
+        $controler = new Compraestadotipo();
+        $controler->setIdcompraestadotipo($numeroestadonuevo);
+        
+    }
 
 
 

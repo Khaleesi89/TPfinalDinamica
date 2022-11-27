@@ -1,5 +1,5 @@
 <?php
-    require_once('../templates/header.php');
+    require_once('../templates/header2.php');
 
     // session_start();
     /* if( $session->activa() ){

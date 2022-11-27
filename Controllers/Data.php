@@ -2,14 +2,14 @@
 
 trait Data {
 
-    public function data() {
+    public function data(){
         $datos = [];
         if( isset($_GET) && count($_GET) >= 0 ){
             $datosGet = [];
             foreach ($_GET as $key => $value) {
                 if( $value != null || $value != '' ){
                     $datosGet["$key"] = $value;
-                } else {
+                }else{
                     $datosGet["$key"] = 'void';
                 }
             }
@@ -20,7 +20,7 @@ trait Data {
             foreach( $_POST as $key => $value ){
                 if( $value != null || $value != '' ){
                     $datosPost["$key"] = $value;
-                } else {
+                }else{
                     $datosPost["$key"] = 'void';
                 }
             }
