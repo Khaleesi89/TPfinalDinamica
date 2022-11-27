@@ -1,23 +1,10 @@
 <?php
-require_once('../../config.php');
+//require_once('../../config.php');
+require_once('../templates/header2.php');
 $objMenuROl = new MenuRolController();
-$lista = $objConPro->listarTodo();
+$lista = $objMenuROl->listarTodo();
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../Vendor/themes/default/easyui.css">
-    <link rel="stylesheet" href="../../Vendor/themes/icon.css">
-    <link rel="stylesheet" href="../../Vendor/themes/color.css">
-    <link rel="stylesheet" href="../../Vendor/demo/demo.css">
-    <script src="../../Vendor/jquery.min.js"></script>
-    <script src="../../Vendor/jquery.easyui.min.js"></script>
-    <title>Prueba isiUI</title>
-</head>
-<body>
+
     <table id="dg" title="Administrador de Roles y Menúes" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_menurol.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>

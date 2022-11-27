@@ -2,16 +2,17 @@
 /* require_once('../../config.php'); */
 require_once('../templates/header2.php');
 $objConPro = new ProductoController();
+$arrBuPro = [];
 try {
     $rol = $objSession->getUsRol();
     $rol = $objSession->getUsRol();
-    if ($rol != '') {
-        if ($rol == 'Admin' || $rol == 'Deposito') {
-            $lista = $objConPro->listarTodo();
-        } elseif ($rol == 'Cliente') {
-            $arrBuPro['prdeshabilitado'] = NULL;
-            $lista = $objConPro->listarTodo($arrBuPro);
-        }
+if($rol != ''){
+    if($rol == 'Admin' || $rol == 'Deposito'){
+
+        $lista = $objConPro->listarTodo($arrBuPro);
+    }elseif($rol == 'Cliente'){
+        $arrBuPro['prdeshabilitado'] = NULL;
+        $lista = $objConPro->listarTodo($arrBuPro);
     }
 } catch (\Throwable $th) {
     $rol = '';
@@ -37,7 +38,7 @@ try {
     <title>PRODUCTOS</title>
 </head> -->
 
-<body>
+
     <table id="dg" title="Administrador de productos" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_producto.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>

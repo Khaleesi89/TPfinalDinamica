@@ -62,7 +62,7 @@ class MenuRolController extends MasterController {
         $objRol = $this->buscarKey( 'objRol' );
 
         $menuRol->setObjMenu( $objMenu );
-        $menuRol->setUspass( $objRol );
+        $menuRol->setObjRol( $objRol );
 
         $respuesta = $menuRol->modificar();
         return $respuesta;

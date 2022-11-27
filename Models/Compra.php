@@ -251,7 +251,7 @@ class Compra extends db{
                         $arrayBus['idusuario'] = $idusuario;
                         $objUsuario->buscar($arrayBus);
                         $objCompra = new Compra();
-                        $objCompra->cargar($idcompra, $cofecha, $objUsuario);
+                        $objCompra->cargar($objUsuario);
                         $objUsuario = null;
                         array_push($arregloCompra, $objCompra);
                     }

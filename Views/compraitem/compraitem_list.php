@@ -4,22 +4,7 @@ $objComItem = new CompraitemController();
 $lista = $objComItem->listarTodo();
 //var_dump ($lista);
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="../../Vendor/themes/default/easyui.css">
-    <link rel="stylesheet" href="../../Vendor/themes/icon.css">
-    <link rel="stylesheet" href="../../Vendor/themes/color.css">
-    <link rel="stylesheet" href="../../Vendor/demo/demo.css">
-    <script src="../../Vendor/jquery.min.js"></script>
-    <script src="../../Vendor/jquery.easyui.min.js"></script> -->
-    <!-- <link rel="stylesheet" href="../../Public/cssPuro/paracuadros.css"> -->
-    <title>CARRITO DE COMPRA</title>
-</head>
-<body>
+
     <table id="dg" title="Administrador del carrito" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_compraitem.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>
@@ -42,7 +27,7 @@ $lista = $objComItem->listarTodo();
     <form id="fm" method="POST" novalidate style="margin:0;padding:20px 50px;">
     <h3>Pedido información</h3>
     <div style="margin-bottom:10px;">
-        <input readonly  name="idcompraitem" id="idcompraitem" class="easyui-textbox" required="true" label="ITEM" style="width:100%;">
+        <input readonly  name="idcompraitem" id="idcompraitem" class="easyui-textbox" required="true" label="N°ITEM" style="width:100%;">
     </div>
     <div style="margin-bottom:10px;">
         <input readonly  name="idproducto" id="idproducto" class="easyui-textbox" required="true" label="ID PRODUCTO" style="width:100%;">
@@ -51,11 +36,10 @@ $lista = $objComItem->listarTodo();
         <input  readonly name="pronombre" id="pronombre" class="easyui-textbox" required="true" label="PRODUCTO" style="width:100%;">
     </div>
     <div style="margin-bottom:10px;">
-        <input readonly name="idcompra" id="idcompra" class="easyui-textbox" required="true" label="NUMERO DE PEDIDO" style="width:100%;">
+        <input readonly name="idcompra" id="idcompra" class="easyui-textbox" required="true" label="N°COMPRA" style="width:100%;">
     </div>
     <div style="margin-bottom:10px;">
-        <label for="cicantidad">  Cantidad  </label>
-        <input class= textbox-text style="width: 514.333px; margin: 0px; padding-top: 0px; padding-bottom: 0px; height: 28px; line-height: 28px;" name="cicantidad" id="cicantidad" required="true" label="CANTIDAD">
+        <input class= "easyui-textbox" style="width:100%" name="cicantidad" id="cicantidad" required="true" label="CANTIDAD">
         <p>Sólo puede modificar la cantidad</p>
     </div>
         

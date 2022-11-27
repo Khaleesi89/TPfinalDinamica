@@ -3,6 +3,8 @@ require_once('../../../config.php');
 $objUsuarioRolCon = new UsuarioRolController();
 $array = [];
 $lista = $objUsuarioRolCon->listarTodo($array);
+var_dump($lista);
+die();
 if(array_key_exists('arrayHTML', $lista)){
     echo json_encode($lista['arrayHTML']);
 }else{

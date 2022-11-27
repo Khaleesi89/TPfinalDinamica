@@ -8,7 +8,8 @@ try {
     $rol = $objSession->getUsRol();
     if($rol != ''){
         if($rol == 'Admin'){
-            $lista = $objConPro->listarTodo();
+            $array = [];
+            $lista = $objConPro->listarTodo($array );
         }elseif($rol == 'Cliente' || $rol == 'Deposito'){
             $arrBuPro['usdeshabilitado'] = NULL;
             $idusuario = $objSession->getIdusuario();
@@ -39,7 +40,7 @@ try {
     <title>Prueba isiUI</title>
 </head> -->
 
-<body>
+
     <table id="dg" title="Administrador de Usuarios" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_usuario.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>

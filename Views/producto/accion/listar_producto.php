@@ -4,7 +4,8 @@ $objConPro = new ProductoController();
 $rol = $objSession->getUsRol();
 if($rol != ''){
     if($rol == 'Admin' || $rol == 'Deposito'){
-        $lista = $objConPro->listarTodo();
+        $array = [];
+        $lista = $objConPro->listarTodo($array);
     }elseif($rol == 'Cliente'){
         $arrBuPro['prdeshabilitado'] = NULL;
         $lista = $objConPro->listarTodo($arrBuPro);

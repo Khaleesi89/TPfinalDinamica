@@ -51,7 +51,7 @@ class CompraestadotipoController extends MasterController{
     }
 
     public function buscarIdDos(){
-        $rta = false;
+        $rta['respuesta'] = false;
         $idBusqueda = [];
         $idBusqueda['idcompraestadotipo'] = $this->buscarKey('idcompraestadotipo');
         $objCompraestadotipo = new Compraestadotipo();
