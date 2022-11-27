@@ -35,7 +35,7 @@ $lista = $objConCompraestado->listarTodo();
                 <input readonly name="idcompra" id="idcompra" class="easyui-textbox" required="true" label="N° pedido/compra" style="width:100%;">
             </div>
             <div style="margin-bottom:10px;">
-                <input readonly name="cefechaini" id="cefechaini" class="easyui-textbox" required="true" label="N° pedido/compra" style="width:100%;">
+                <input readonly name="cefechaini" id="cefechaini" class="easyui-textbox" required="true" label="fecha pedido/compra" style="width:100%;">
             </div>
             <!-- <div style="margin-bottom:10px;">
                 <input readonly name="idcompraestadotipo" id="idcompraestadotipo" class="easyui-textbox" required="true" label="id compraestado" style="width:100%;">
