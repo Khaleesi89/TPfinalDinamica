@@ -5,6 +5,7 @@ $objConCompraestadotipo = new CompraestadotipoController();
 $lista = $objConCompraestadotipo->listarTodo();
 ?>
 
+<div class="container d-flex justify-content-center mt-5 mb-5">
     <table id="dg" title="Administrador de compra estado tipo" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_compraestadotipo.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>
@@ -92,6 +93,6 @@ $lista = $objConCompraestadotipo->listarTodo();
     </script>
         
     </div>
-    <?php require_once('../templates/footer.php') ?>
-</body>
-</html>
+</div>
+
+<?php require_once('../templates/footer.php') ?>

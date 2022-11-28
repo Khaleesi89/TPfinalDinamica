@@ -32,18 +32,18 @@ try {
     <title>Prueba isiUI</title>
 </head> -->
 
-<table id="dg" title="Administrador de Roles" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_rol.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
-    <thead>
-        <tr>
-            <th field="idrol" width="50">Id</th>
-            <th field="rodescripcion" width="50">Descripción</th>
-        </tr>
-    </thead>
-</table>
-<div id="toolbar">
-    <?php
-    if ($rol == 'Admin') {
-        echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" plain=\"true\" onclick=\"newRol()\">Nuevo Rol</a>
+    <table id="dg" title="Administrador de Roles" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_rol.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
+        <thead>
+            <tr>
+                <th field="idrol" width="50">Id</th>
+                <th field="rodescripcion" width="50">Descripción</th>
+            </tr>
+        </thead>
+    </table>
+    <div id="toolbar">
+        <?php 
+            if($rol == 'Admin'){
+                echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" plain=\"true\" onclick=\"newRol()\">Nuevo Rol</a>
                 <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-edit\" plain=\"true\" onclick=\"editRol()\">Editar Rol</a>
                 <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"destroyRol()\">Deshabilitar Rol</a>";
     }
@@ -137,8 +137,7 @@ try {
             }
         }
     </script>
-
-</div>
+        
+    </div>
 </body>
-
 </html>

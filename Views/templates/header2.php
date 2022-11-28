@@ -8,7 +8,6 @@ $objMenuRol = new MenuRolController();
 $bandera = $objSession->activa();
 
 $urlActual = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-$
 
 $rol = '';
 if ($bandera) {
@@ -71,7 +70,6 @@ if ($bandera = $objSession->activa()) {
     <link rel="stylesheet" href="../../Vendor/themes/default/easyui.css">
     <link rel="stylesheet" href="../../Vendor/themes/icon.css">
     <link rel="stylesheet" href="../../Vendor/themes/color.css">
-    <link rel="stylesheet" href="../../Vendor/demo/demo.css">
     <script src="../../Vendor/jquery.min.js"></script>
     <script src="../../Vendor/jquery.easyui.min.js"></script>
 
@@ -99,17 +97,27 @@ if ($bandera = $objSession->activa()) {
                         <li><a class="dropdown-item" href="../logs/logout.php">Log out</a></li>
                     </ul>
                 </div>
-                <div class="icons">
-                    <a href="../compraitem/compraitem_list.php" class="fas fa-shopping-cart"></a>
-                </div>
-            <?php } else { ?>
-                <div class="icons">
-                    <div id="search-btn" class="fas fa-search"></div>
-                    <a href="" class="fas fa-shopping-cart"></a>
-                    <div id="login-btn" class="fas fa-user"></div>
-                </div>
-            <?php } ?>
-        </div>
+
+                <?php if( $bandera ): ?>
+                    <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
+                        <li class="nav-item dropdown user">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="btn btn-outline-danger me-2" type="button"><?php echo($objSession->getUsnombre()); ?></button>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="../logs/logout.php">Salir</a></li>
+                            </ul>
+                        </li>
+                    </div>
+                <?php else: ?>
+                    <!-- Login y Registro (Se muestra si la persona no está logueada) -->
+                    <form class="container-fluid d-flex justify-content-end">
+                        <a href="../logs/login.php"><button class="btn btn-outline-light me-2" type="button">Login</button></a>
+                        <a href="../logs/signup.php"><button class="btn btn-outline-danger me-2" type="button">Registro</button></a>
+                    </form>
+                <?php endif; ?>
+            </div>
+        </nav>
 
         <?php
         if ($objSession->getUsRol() == 'Admin') {
@@ -144,30 +152,4 @@ if ($bandera = $objSession->activa()) {
         ?>
     </header>
 
-    <!-- Nav pal responsive -->
-    <nav class="bottom-navbar">
-        <a href="#" class="fas fa-home"></a>
-        <a href="../producto/producto_list.php" class="fas fa-tags"></a>
-        <a href="#reviews" class="fas fa-comments"></a>
-        <a href="#contacto" class="fas fa-blogs"></a>
-    </nav>
-
-    <!-- Login. Despues vemos si se deja aca o no
-    yo dejo uno sencillito para ya tener una maqueta -->
-    <div class="login-form-container">
-        <div id="close-login-btn" class="fas fa-times"></div>
-        <form action="../accion/accionLogin.php" method="POST">
-            <h3>Login</h3>
-            <span>Usuario</span>
-            <input type="text" name="usnombre" class="box" placeholder="Ingrese su usuario" id="">
-            <span>Contraseña</span>
-            <input type="password" name="uspass" class="box" placeholder="Ingrese su contraseña" id="">
-            <div class="checkbox">
-                <input type="checkbox" name="" id="remember-me">
-                <label for="remember-me">Remember me</label>
-            </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
-            <p>Te olvidaste la contraseña pa? <a href="#">Clickea aca ;)</a> </p>
-            <p>No tenes una cuenta? <a href="../logs/signup.php">Create una papu</a> </p>
-        </form>
-    </div>
+    <body>

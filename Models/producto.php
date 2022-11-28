@@ -13,6 +13,7 @@ class Producto extends db
     private $precio;
     private $isbn;
     private $categoria;
+    private $foto;
     private $prdeshabilitado;
     private $mensajeOp;
 
@@ -26,47 +27,40 @@ class Producto extends db
         $this->precio = '';
         $this->isbn = '';
         $this->categoria = '';
+        $this->foto = '';
         $this->prdeshabilitado = NULL;
         $this->mensajeOp = '';
     }
 
-    public function getIdProducto()
-    {
+    public function getIdProducto() {
         return $this->idProducto;
     }
 
-    public function setIdProducto($idProducto)
-    {
+    public function setIdProducto( $idProducto ){
         $this->idProducto = $idProducto;
     }
 
-    public function getProNombre()
-    {
+    public function getProNombre() {
         return $this->proNombre;
     }
 
-    public function setProNombre($proNombre)
-    {
+    public function setProNombre( $proNombre ){
         $this->proNombre = $proNombre;
     }
 
-    public function getSinopsis()
-    {
+    public function getSinopsis() {
         return $this->sinopsis;
     }
 
-    public function setSinopsis($sinopsis)
-    {
+    public function setSinopsis( $sinopsis ){
         $this->sinopsis = $sinopsis;
     }
 
-    public function getProCantStock()
-    {
+    public function getProCantStock() {
         return $this->proCantStock;
     }
 
-    public function setProCantStock($proCantStock)
-    {
+    public function setProCantStock( $proCantStock ){
         $this->proCantStock = $proCantStock;
     }
 
@@ -74,55 +68,60 @@ class Producto extends db
         return $this->autor;
     }
 
-    public function setAutor($autor){
+    public function setAutor( $autor ){
         $this->autor = $autor;
     }
 
-    public function getPrecio(){
+    public function getPrecio() {
         return $this->precio;
     }
 
-    public function setPrecio($precio){
+    public function setPrecio( $precio ){
         $this->precio = $precio;
     }
 
-    public function getIsbn(){
+    public function getIsbn() {
         return $this->isbn;
     }
 
-    public function setIsbn($isbn){
+    public function setIsbn( $isbn ){
         $this->isbn = $isbn;
     }
 
-    public function getMensajeOp()
-    {
+    public function getMensajeOp() {
         return $this->mensajeOp;
     }
 
-    public function setMensajeOp($mensajeOp)
-    {
+    public function setMensajeOp( $mensajeOp ){
         $this->mensajeOp = $mensajeOp;
     }
 
-    public function getCategoria(){
+    public function getCategoria() {
         return $this->categoria;
     }
 
-    public function setCategoria($categoria){
+    public function setCategoria( $categoria ){
         $this->categoria = $categoria;
     }
 
-    public function getPrdeshabilitado(){
+    public function getFoto() {
+        return $this->foto;
+    }
+
+    public function setFoto( $foto ){
+        $this->foto = $foto;
+    }
+
+    public function getPrdeshabilitado() {
         return $this->prdeshabilitado;
     }
 
-    public function setPrdeshabilitado($prdeshabilitado){
+    public function setPrdeshabilitado( $prdeshabilitado ){
         $this->prdeshabilitado = $prdeshabilitado;
     }
 
     // Cargar
-    public function cargar($sinopsis, $proNombre, $proCantStock, $autor, $precio, $isbn, $categoria)
-    {
+    public function cargar( $sinopsis, $proNombre, $proCantStock, $autor, $precio, $isbn, $categoria, $foto ){
         //$this->setIdProducto($idProducto);
         $this->setSinopsis($sinopsis);
         $this->setProNombre($proNombre);
@@ -131,11 +130,11 @@ class Producto extends db
         $this->setPrecio($precio);
         $this->setIsbn($isbn);
         $this->setCategoria($categoria);
+        $this->setFoto($foto);
     }
 
     //En el busqueda agregar de buscar siempre con deleted en null
-    public function buscar($arrayBusqueda)
-    {
+    public function buscar( $arrayBusqueda ){
         $stringBusqueda = $this->SB($arrayBusqueda);
         //seteo de respuesta
         $respuesta['respuesta'] = false;
@@ -160,6 +159,7 @@ class Producto extends db
                         $this->setPrecio($row2['precio']);
                         $this->setIsbn($row2['isbn']);
                         $this->setCategoria($row2['categoria']);
+                        $this->setFoto($row2['foto']);
                         $this->setPrdeshabilitado($row2['prdeshabilitado']);
                         $respuesta['respuesta'] = true;
                     }
@@ -184,13 +184,12 @@ class Producto extends db
         return $respuesta;
     }
 
-    public function insertar()
-    {
+    public function insertar() {
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
         $base = new db();
-        $sql = "INSERT INTO producto VALUES(DEFAULT, '{$this->getProNombre()}', '{$this->getSinopsis()}',{$this->getProCantStock()},'{$this->getAutor()}', {$this->getPrecio()},{$this->getIsbn()},'{$this->getCategoria()}', DEFAULT)";
+        $sql = "INSERT INTO producto VALUES(DEFAULT, '{$this->getProNombre()}', '{$this->getSinopsis()}',{$this->getProCantStock()},'{$this->getAutor()}', {$this->getPrecio()},{$this->getIsbn()},'{$this->getCategoria()}','{$this->getFoto()}', DEFAULT)";
         try {
             if ($base->Iniciar()) {
                 if ($base->Ejecutar($sql)) {
@@ -219,14 +218,13 @@ class Producto extends db
     //Antes de usar el modificar se debe utilizar el buscar.
     //En el controlador fijarse si no hay un usuario con el mismo nombre
     //En el controlador fijarse si hay un id de rol 
-    public function modificar()
-    {
+    public function modificar() {
         //seteo de respuesta
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
         $base = new db();
-        $sql = "UPDATE producto SET pronombre = '{$this->getProNombre()}', sinopsis = '{$this->getSinopsis()}', procantstock = {$this->getProCantStock()}, autor = '{$this->getAutor()}', precio = {$this->getPrecio()}, isbn = {$this->getIsbn()}, categoria = '{$this->getCategoria()}' WHERE idproducto = {$this->getIdProducto()}";
+        $sql = "UPDATE producto SET pronombre = '{$this->getProNombre()}', sinopsis = '{$this->getSinopsis()}', procantstock = {$this->getProCantStock()}, autor = '{$this->getAutor()}', precio = {$this->getPrecio()}, isbn = {$this->getIsbn()}, categoria = '{$this->getCategoria()}', foto = '{$this->getFoto()}' WHERE idproducto = {$this->getIdProducto()}";
         try {
             if ($base->Iniciar()) {
                 if ($base->Ejecutar($sql)) {
@@ -253,8 +251,7 @@ class Producto extends db
     }
 
     //Usar el buscar antes del eliminar
-    public function eliminar()
-    {
+    public function eliminar() {
         //seteo de respuesta
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
@@ -289,8 +286,7 @@ class Producto extends db
         return $respuesta;
     }
 
-    public static function listar($arrayBusqueda)
-    {
+    public static function listar( $arrayBusqueda ){
         //seteo de respuesta
         $respuesta['respuesta'] = false;
         $respuesta['errorInfo'] = '';
@@ -318,6 +314,7 @@ class Producto extends db
                         $objProducto->setPrecio($row2['precio']);
                         $objProducto->setIsbn($row2['isbn']) ;
                         $objProducto->setCategoria($row2['categoria']) ;
+                        $objProducto->setFoto($row2['foto']);
                         $objProducto->setPrdeshabilitado($row2['prdeshabilitado']) ;
                         
                         array_push($arregloProducto, $objProducto);
@@ -347,8 +344,7 @@ class Producto extends db
         return $respuesta;
     }
 
-    public function dameDatos()
-    {
+    public function dameDatos() {
         $data = [];
         $data['idproducto'] = $this->getIdProducto();
         $data['pronombre'] = $this->getProNombre();
@@ -358,6 +354,7 @@ class Producto extends db
         $data['precio'] = $this->getPrecio();
         $data['isbn'] = $this->getIsbn();
         $data['categoria'] = $this->getCategoria();
+        $data['foto'] = $this->getFoto();
         return $data;
     }
 

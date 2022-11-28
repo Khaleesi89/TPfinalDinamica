@@ -2,33 +2,34 @@
 
 require_once('../../../config.php');
 $objConCompraestado = new CompraestadoController();
-
-//buscarKey es para buscar en el post y en el get
-
-$data = $objConCompraestado->buscarKey('idcompraestado');
-//aca obtengo el objeto sin el id compra estado
-$objetocompraestado = $objConCompraestado->busqueda();
-//aca busco el que me trae el post
-$nuevocodigo = $objConCompraestado->buscarKey('cetdescripcion');
-
-//ACA TIENE QUE UNIRSE AMBOS NUMEROS...VER SI ESA FUNCION pasarNuevoCodigo LO PUEDO HACER ANDAR
-
-
-
-
-
+$arraybusquedaaaa = $objConCompraestado->buscarId();
+$fechafin = date("Y-m-d H:i:s");
+if(!is_null($arraybusquedaaaa['obj'])){
+    $objConCompraestado = $arraybusquedaaaa['obj'];
+    $rta = $objConCompraestado->modificarFechafin($fechafin);
+    if($rta['respuesta']){
+        echo "se realizo";
+    }else{
+        echo "no se realizo";
+    }
+}else{
+    echo "no existe objeto";
+}
 
 
-//$objConCompraestado->pasarNuevoCodigo($nuevocodigo);
-var_dump($objConCompraestado);
+
+
+
+//$arraydevuelto = $objConCompraestado->setearfecha();
+//->modificarFechafin();
+//$objConCompraestado->setearfecha($objcompraestado);
+echo "<pre>";
+var_dump($arraydevuelto);
+echo "</pre>";
 die();
-/* var_dump($objetocompraestado);
-echo"llega aca";
-die(); */
-/* if($data){
-    $objConCompraestadotipo->modificar();
-} */
-$rta = false;
+//$nuevoCodigo = $objCompraestado->buscarKey('cetdescripcion');
+
+/* $rta = false;
 if($data != null){
     $rta = $objConCompraestado->modificar();
     if(!$rta){
@@ -40,7 +41,7 @@ if(isset($mensaje)){
     $retorno['errorMsg'] = $mensaje;
 }
 echo json_encode($retorno);
-
+ */
 
 
 

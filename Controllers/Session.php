@@ -135,20 +135,20 @@ public function __construct(){
         } else {
             //no existe usuario o credenciales
             $bandera = false;
-        }
+        } */
 
-        //$busqueda = $objUsuario->listarTodo( $array );
+        $busqueda = $objUsuarioCon->listarTodo( $array );
 
 
-        /* if( count($busqueda) > 0 ){
+        if( count($busqueda) > 0 ){
             $usuarioLogueado = $busqueda[0];
             $idusuario = $usuarioLogueado->getIdusuario();
             $usnombre = $usuarioLogueado->getUsnombre();
             $uspass = $usuarioLogueado->getUspass();
 
-            $nomus = $objUsuarioRol->buscarNombreUsuario();
+            $nomus = $objUsuarioRolCon->buscarNombreUsuario();
             if( $nomus != null ){
-                $listado = $objUsuarioRol->listarTodo( $nomus );
+                $listado = $objUsuarioRolCon->listarTodo( $nomus );
                 if( $usnombre == $nomus ){
                     foreach( $listado['arrayHTML'] as $key => $value ){
                         if( $value['nombre'] == $usnombre  ){
@@ -161,7 +161,7 @@ public function __construct(){
             $this->setUsnombre( $usnombre );
             $this->setUspass( $uspass );
             $this->setUsRol( $rol );
-        } */
+        }
         return $bandera;
     }
 
