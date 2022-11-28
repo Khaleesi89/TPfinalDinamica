@@ -36,6 +36,11 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 <!-- JS -->
 <script src="../../Public/jsPuro/script.js"></script>
+<!-- JQuery -->
+<script src="../../Vendor/jquery.min.js"></script>
+<script src="../../Vendor/jquery.easyui.min.js"></script>
+<!-- Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

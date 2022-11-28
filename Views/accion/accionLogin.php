@@ -1,5 +1,5 @@
 <?php
-require_once( '../templates/header.php');
+require_once( '../templates/header2.php');
 
 $name = $objSession->buscarKey( 'usnombre' );
 $pass = $objSession->buscarKey( 'uspass' );

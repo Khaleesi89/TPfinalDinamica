@@ -46,6 +46,14 @@ section {
     padding: 5rem 9%;
 }
 
+li {
+    list-style: none;
+}
+
+.navbar a {
+    text-decoration: none;
+}
+
 .btn {
     margin-top: 1rem;
     display: inline-block;
