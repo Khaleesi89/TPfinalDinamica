@@ -2,7 +2,8 @@
 require_once('../templates/header2.php');
 $objComItem = new CompraitemController();
 $lista = $objComItem->listarTodo();
-//var_dump ($lista);
+
+
 ?>
 
     <table id="dg" title="Administrador del carrito" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_compraitem.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
@@ -19,7 +20,6 @@ $lista = $objComItem->listarTodo();
         </thead>
     </table>
     <div id="toolbar">
-        
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCantidad()">Editar cantidad</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyItem()">Eliminar ítem</a>  
     </div>

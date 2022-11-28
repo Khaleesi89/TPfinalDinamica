@@ -1,6 +1,7 @@
 <?php
 require_once('../../../config.php');
 $objConPro = new ProductoController();
+$objSession = new Session();
 $rol = $objSession->getUsRol();
 if($rol != ''){
     if($rol == 'Admin' || $rol == 'Deposito'){

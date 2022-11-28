@@ -1,18 +1,20 @@
 <?php
 
-class Session extends MasterController {
+class Session extends MasterController
+{
 
     /**
      * Método constructor
      * Si no está iniciada una sesión, comienza una nueva
      */
-    public function __construct() {
-        if( !isset($_SESSION) ){
+    public function __construct()
+    {
+        if (!isset($_SESSION)) {
             session_start();
         }
     }
 
-/*// LA PROFE MALAPI LA TIENE ASI
+    /*// LA PROFE MALAPI LA TIENE ASI
 
 public function __construct(){
     if (!session_start()) {
@@ -27,39 +29,47 @@ public function __construct(){
      * Getters & Setters
      * Obtiene y setea los índices de la variable $_SESSION
      */
-    public function getIdusuario() {
+    public function getIdusuario()
+    {
         return $_SESSION['idusuario'];
     }
-    public function setIdusuario( $idusuario ){
+    public function setIdusuario($idusuario)
+    {
         $_SESSION['idusuario'] = $idusuario;
     }
 
-    public function getUsnombre() {
+    public function getUsnombre()
+    {
         return $_SESSION['usnombre'];
     }
-    public function setUsnombre( $usnombre ){
+    public function setUsnombre($usnombre)
+    {
         $_SESSION['usnombre'] = $usnombre;
     }
 
-    public function getUspass() {
+    public function getUspass()
+    {
         return $_SESSION['uspass'];
     }
 
-    public function setUspass( $uspass ){
+    public function setUspass($uspass)
+    {
         $_SESSION['uspass'] = $uspass;
     }
 
-    public function getUsRol() {
-        if(isset($_SESSION['usRol'])){
+    public function getUsRol()
+    {
+        if (isset($_SESSION['usRol'])) {
             $rol = $_SESSION['usRol'];
-        }else{
+        } else {
             $rol = '';
         }
-        
+
         return $rol;
     }
 
-    public function setUsRol( $usRol ){
+    public function setUsRol($usRol)
+    {
         $_SESSION['usRol'] = $usRol;
     }
 
@@ -68,53 +78,61 @@ public function __construct(){
      * @param $usuNombre
      * @param $usuPass
      */
-    public function iniciar( $usnombre, $uspass ){
+    public function iniciar($usnombre, $uspass)
+    {
         $bandera = false;
         $objUsuarioCon = new UsuarioController();
         $objUsuarioRolCon = new UsuarioRolController();
+        $this->setUsnombre($usnombre);
+        $this->setUspass($uspass);
 
         /* $usuariorolbusqueda = $objUsuarioRol->buscarId();
         $usuarioRol = $usuariorolbusqueda['array']->getObjRol();
         $usrol = $usuarioRol->getIdrol(); */
 
         $array = [
-            'usnombre' => $usnombre, 
-            'uspass' => $uspass, 
+            'usnombre' => $usnombre,
+            'uspass' => $uspass,
             'usdeshabilitado' => null
         ];
         $objUsu = $objUsuarioCon->buscarObjUsuario();
-        if($objUsu->getIdusuario() != NULL){
+        if ($objUsu->getIdusuario() != NULL) {
             //tengo sus datos
             //obtener el rol
             $idusuario = $objUsu->getIdusuario();
             $rrt = $objUsuarioRolCon->getRolesConIdUsuario($idusuario);
-            if($rrt != false){
+            $idrol = $rrt[0]['idrol'];
+            if ($rrt != false) {
+                $this->setIdusuario($rrt[0]['idusuario']);
                 //ya obtuve los roles
-                $idrol = '';
-                if(in_array('Admin', $rrt)){
+                // $idrol = '';
+                if ($idrol == '1') {
                     //es admin
                     $rolBus = 'Admin';
-                }else{
-                    if(in_array('Deposito', $rrt)){
+                    $this->setUsRol($rolBus);             
+                } else {
+                    if ($idrol == '2') {
                         //es cliente
-                        $rolBus = 'Deposito';
-                    }elseif(in_array('Cliente', $rrt)){
+                        $rolBus = 'Cliente'; 
+                        $this->setUsRol($rolBus);
+                    } elseif ($idrol == '3') {
                         //es deposito
-                        $rolBus = 'Cliente';
+                        $rolBus = 'Deposito';
+                        $this->setUsRol($rolBus);
                     }
                 }
                 $objRolCon = new RolController();
                 $idrol = $objRolCon->buscarPorDesc($rolBus);
-                if($idrol != ''){
+                if ($idrol != '') {
                     $objMenuCon = new MenuController();
                     $menues = $objMenuCon->obtenerMenuesPorRol($idrol);
                     $bandera = $menues;
-                }else{
+                } else {
                     //no posee rol
                     $bandera = false;
                 }
             }
-        }else{
+        } else {
             //no existe usuario o credenciales
             $bandera = false;
         }
@@ -151,33 +169,29 @@ public function __construct(){
      * Método que valida si la sesión actual tiene usuario y pass válidos.
      * @return boolean
      */
-    public function validar(){
-        $validado = false;
+    public function validar()
+    {
+        $validado['rta'] = false;
         $usuario = $this->getUsnombre();
         $pass = $this->getUspass();
 
-        $filtroNombre = ['usnombre' => $usuario];
-        $filtroPass = ['uspass' => $pass];
-        /* $query = [
-            'usnombre' => $usuario,
-            'uspass' => $pass
-        ]; */
+        // $filtroNombre = ['usnombre' => $usuario];
+        // $filtroPass = ['uspass' => $pass];
 
         $controlUsuario = new UsuarioController();
         $lista = $controlUsuario->buscarId();
-        //var_dump( $lista );
 
-        $str = '';
         $usnombrelista = $lista['obj']->getUsnombre();
         $uspasslista = $lista['obj']->getUspass();
-        if( $usnombrelista == $usuario && $uspasslista == $pass ){
-            $validado = true;
+
+        if (trim($usnombrelista) == $usuario && $uspasslista == $pass) {
+            $validado['rta'] = true;
         } else {
-            $str = 'Credenciales incorrectas';
+            $validado['error'] = 'Credenciales incorrectas';
         }
         return $validado;
-
     }
+
 
     /**
      * Método que verifica si la sesión esta activa o no
@@ -185,9 +199,10 @@ public function __construct(){
      * @param void
      * @return boolean
      */
-    public function activa() {
+    public function activa()
+    {
         $bandera = false;
-        if( isset($_SESSION['usnombre']) ){
+        if (isset($_SESSION['usnombre'])) {
             $bandera = true;
         }
         return $bandera;
@@ -198,47 +213,52 @@ public function __construct(){
      * @param void
      * @return void
      */
-    public function cerrar() {
+    public function cerrar()
+    {
         session_unset();
         session_destroy();
     }
 
     // Get rol de usuario
-    public function getRol() {
+    public function getRol()
+    {
         $objUsuarioRol = new UsuarioRolController();
         $rolUsuario = [];
         $listaUsuarios = $objUsuarioRol->getUsuarios();
-        foreach( $listaUsuarios as $usuario ){
+        foreach ($listaUsuarios as $usuario) {
             $id = $usuario->getIdusuario();
-            if( $id == $this->getIdusuario() ){
+            if ($id == $this->getIdusuario()) {
                 $rolUsuario = $objUsuarioRol->buscarRoles();
             }
         }
         return $rolUsuario;
     }
-    
-    public function isAdmin( $rol ){
+
+    public function isAdmin($rol)
+    {
         $bandera = false;
-        if( $rol == 'Admin' && $rol == $this->getUsRol() ){
+        if ($rol == 'Admin' && $rol == $this->getUsRol()) {
             $bandera = true;
         }
         return $bandera;
     }
-    
+
     // dame datos de idusuario, roles del usuario
-    public function dameDatos() {
+    public function dameDatos()
+    {
         $data = [];
         $data['idusuario'] = $this->getIdusuario();
         $data['rolesusuario'] = $this->getRol();
         return $data;
     }
 
-    public function rolesUsuario() {
+    public function rolesUsuario()
+    {
         $objUsuarioRolCon = new UsuarioRolController();
         $rta = $objUsuarioRolCon->buscarRoles();
         $arrayRoles = $objUsuarioRolCon->getRoles();
         $rolesSimple = [];
-        foreach( $arrayRoles as $key => $value ){
+        foreach ($arrayRoles as $key => $value) {
             $data = $value->dameDatos();
             $rolesSimple[$data['idrol']] = false;
         }
@@ -246,8 +266,8 @@ public function __construct(){
         //convertir roles del usuario a texto
         $rolesTexto = [];
         //var_dump($rta);
-        if( count($rta) != 0 ){
-            foreach( $rta as $key => $value ){
+        if (count($rta) != 0) {
+            foreach ($rta as $key => $value) {
                 $data = $value->dameDatos();
                 //$idRol = $data['idrol'];
                 //var_dump($idRol);
@@ -258,28 +278,24 @@ public function __construct(){
         //var_dump($rolesSimple);
         $string = "";
         $arrayOtro = [];
-        if( count($rolesTexto) != 0 ){
-            foreach( $rolesSimple as $id => $idrolArray ){
+        if (count($rolesTexto) != 0) {
+            foreach ($rolesSimple as $id => $idrolArray) {
                 $valor = 'false';
-                if( array_key_exists($id, $rolesTexto) ){
+                if (array_key_exists($id, $rolesTexto)) {
                     $rolesSimple[$id] = true;
                     $valor = 'true';
-                    
                 }
                 $arrayOtro["rol$id"] = $valor;
-                if( $string == '' ){
-                    $string.="[$id => $valor,";
+                if ($string == '') {
+                    $string .= "[$id => $valor,";
                 } else {
-                    $string.= " $id => $valor,";
+                    $string .= " $id => $valor,";
                 }
-                
             }
         }
-        $string = substr( $string, 0, -1 );
+        $string = substr($string, 0, -1);
         $string .= "] ";
-        $objNuevo = (object)array( 'data' => $arrayOtro );
+        $objNuevo = (object)array('data' => $arrayOtro);
         return $objNuevo;
     }
-
-    
 }

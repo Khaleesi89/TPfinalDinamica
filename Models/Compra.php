@@ -1,112 +1,126 @@
 <?php
-class Compra extends db{	 
-	use Condicion;
-	//Atributos
-	private $idcompra;
-	private $cofecha;
-	private $objUsuario; // se delega el id del usuario
-	private $mensajeOp;
-	static $mensajeStatic;
+class Compra extends db
+{
+    use Condicion;
+    //Atributos
+    private $idcompra;
+    private $cofecha;
+    private $objUsuario; // se delega el id del usuario
+    private $mensajeOp;
+    static $mensajeStatic;
 
-	//Constructor
-	public function __construct(){
-		$this->idcompra = '';
-		$this->cofecha = '';
-		$this->objUsuario = NULL;
-		$this->mensajeOp = '';
-	}
+    //Constructor
+    public function __construct()
+    {
+        $this->idcompra = '';
+        $this->cofecha = '';
+        $this->objUsuario = NULL;
+        $this->mensajeOp = '';
+    }
 
-	//Metodo cargar
-	public function cargar($objUsuario){
-		// $this->idcompra = $idcompra;
-		// $this->cofecha = $cofecha;
-		$this->objUsuario = $objUsuario;
-        
-	}
+    //Metodo cargar
+    public function cargar($objUsuario)
+    {
+        // $this->idcompra = $idcompra;
+        // $this->cofecha = $cofecha;
+        $this->objUsuario = $objUsuario;
+    }
 
-	//Getters y setters
-	public function getIdcompra(){
-		return $this->idcompra;
-	}
-	public function setIdcompra($idcompra){
-		$this->idcompra = $idcompra;
-	}
-	public function getCofecha(){
-		return $this->cofecha;
-	}
-	public function setCofecha($cofecha){
-		$this->cofecha = $cofecha;
-	}
-	public function getObjUsuario(){
-		return $this->objUsuario;
-	}
-	public function setObjUsuario($objUsuario){
-		$this->objUsuario = $objUsuario;
-	}
-	public function getMensajeOp(){
-		return $this->mensajeOp;
-	}
-	public function setMensajeOp($mensajeOp){
-		$this->mensajeOp = $mensajeOp;
-	}
-	public static function getMensajeStatic(){
-		return Compra::$mensajeStatic;
-	}
-	public static function setMensajeStatic($mensajeStatic){
-		Compra::$mensajeStatic = $mensajeStatic;
-	}
+    //Getters y setters
+    public function getIdcompra()
+    {
+        return $this->idcompra;
+    }
+    public function setIdcompra($idcompra)
+    {
+        $this->idcompra = $idcompra;
+    }
+    public function getCofecha()
+    {
+        return $this->cofecha;
+    }
+    public function setCofecha($cofecha)
+    {
+        $this->cofecha = $cofecha;
+    }
+    public function getObjUsuario()
+    {
+        return $this->objUsuario;
+    }
+    public function setObjUsuario($objUsuario)
+    {
+        $this->objUsuario = $objUsuario;
+    }
+    public function getMensajeOp()
+    {
+        return $this->mensajeOp;
+    }
+    public function setMensajeOp($mensajeOp)
+    {
+        $this->mensajeOp = $mensajeOp;
+    }
+    public static function getMensajeStatic()
+    {
+        return Compra::$mensajeStatic;
+    }
+    public static function setMensajeStatic($mensajeStatic)
+    {
+        Compra::$mensajeStatic = $mensajeStatic;
+    }
 
-	public function buscar($arrayBusqueda){
-        
-		//Seteo del array de busqueda, se deberan pasar como claves los campos de la db y como argumentos los parametros a buscar
-		$stringBusqueda = $this->SB($arrayBusqueda);
-		//Seteo de respuesta
-		$respuesta['respuesta'] = false;
-		$respuesta['errorInfo'] = '';
-		$respuesta['codigoError'] = null;
-		//Sql
-		$sql = "SELECT * FROM compra";
-		if($stringBusqueda != ''){
-			$sql.= " WHERE $stringBusqueda";
-		}
-		$base = new db();
-		try {
-			if($base->Iniciar()){
-				if($base->Ejecutar($sql)){
-					if($row2 = $base->Registro()){
-						//var_dump($row2);
-						$this->setIdcompra($row2['idcompra']);
-						$this->setCofecha($row2['cofecha']);
-						$id = $row2['idusuario'];
-						$objUsuario = new Usuario();
-						$arrayB['idusuario'] = $id;
-						$objUsuario->buscar($arrayB);
+    public function buscar($arrayBusqueda)
+    {
+
+        //Seteo del array de busqueda, se deberan pasar como claves los campos de la db y como argumentos los parametros a buscar
+        $stringBusqueda = $this->SB($arrayBusqueda);
+        //Seteo de respuesta
+        $respuesta['respuesta'] = false;
+        $respuesta['errorInfo'] = '';
+        $respuesta['codigoError'] = null;
+        //Sql
+        $sql = "SELECT * FROM compra";
+        if ($stringBusqueda != '') {
+            $sql .= " WHERE $stringBusqueda";
+        }
+        $base = new db();
+
+        try {
+            if ($base->Iniciar()) {
+                if ($base->Ejecutar($sql)) {
+                    if ($row2 = $base->Registro()) {
+                        //var_dump($row2);
+                        $this->setIdcompra($row2['idcompra']);
+                        $this->setCofecha($row2['cofecha']);
+                        $id = $row2['idusuario'];
+                        $objUsuario = new Usuario();
+                        $arrayB['idusuario'] = $id;
+                        $objUsuario->buscar($arrayB);
                         //var_dump($objUsuario);
                         //print_r($objUsuario);
                         //die();
-						$this->setObjUsuario($objUsuario);
-						$respuesta['respuesta'] = true;
-					}
-				}else{
-					$this->setMensajeOp($base->getError());
-					$respuesta['respuesta'] = false;
-					$respuesta['errorInfo'] = 'Hubo un error en la consulta';
-					$respuesta['codigoError'] = 1;
-				}
-			}else{
-				$this->setMensajeOp($base->getError());
-				$respuesta['respuesta'] = false;
-				$respuesta['errorInfo'] = 'Hubo un error con la conexion a la db';
-				$respuesta['codigoError'] = 0;
-			}
-		} catch (\Throwable $th){
-			$respuesta['respuesta'] = false;
-			$respuesta['errorInfo'] = $th;
-			$respuesta['codigoError'] = 3;
-		}
-		$base = null;
-		return $respuesta;
-	}
+                        $this->setObjUsuario($objUsuario);
+                        $respuesta['respuesta'] = true;
+                    }
+                } else {
+                    $this->setMensajeOp($base->getError());
+                    $respuesta['respuesta'] = false;
+                    $respuesta['errorInfo'] = 'Hubo un error en la consulta';
+                    $respuesta['codigoError'] = 1;
+                }
+            } else {
+                $this->setMensajeOp($base->getError());
+                $respuesta['respuesta'] = false;
+                $respuesta['errorInfo'] = 'Hubo un error con la conexion a la db';
+                $respuesta['codigoError'] = 0;
+            }
+        } catch (\Throwable $th) {
+            $respuesta['respuesta'] = false;
+            $respuesta['errorInfo'] = $th;
+            $respuesta['codigoError'] = 3;
+        }
+        $base = null;
+        return $respuesta;
+    }
 
     public function insertar()
     {
@@ -293,35 +307,36 @@ class Compra extends db{
         return $data;
     }
 
-    public function ultimaCompraId(){
+    public function ultimaCompraId()
+    {
         $sql = "SELECT MAX(idcompra) AS idcompra FROM compra";
         $base = new db();
         try {
-			if($base->Iniciar()){
-				if($base->Ejecutar($sql)){
-					if($row2 = $base->Registro()){
-						//var_dump($row2);
-						$this->setIdcompra($row2['idcompra']);
-						$respuesta['respuesta'] = true;
-					}
-				}else{
-					$this->setMensajeOp($base->getError());
-					$respuesta['respuesta'] = false;
-					$respuesta['errorInfo'] = 'Hubo un error en la consulta';
-					$respuesta['codigoError'] = 1;
-				}
-			}else{
-				$this->setMensajeOp($base->getError());
-				$respuesta['respuesta'] = false;
-				$respuesta['errorInfo'] = 'Hubo un error con la conexion a la db';
-				$respuesta['codigoError'] = 0;
-			}
-		} catch (\Throwable $th){
-			$respuesta['respuesta'] = false;
-			$respuesta['errorInfo'] = $th;
-			$respuesta['codigoError'] = 3;
-		}
-		$base = null;
-		return $respuesta;
+            if ($base->Iniciar()) {
+                if ($base->Ejecutar($sql)) {
+                    if ($row2 = $base->Registro()) {
+                        //var_dump($row2);
+                        $this->setIdcompra($row2['idcompra']);
+                        $respuesta['respuesta'] = true;
+                    }
+                } else {
+                    $this->setMensajeOp($base->getError());
+                    $respuesta['respuesta'] = false;
+                    $respuesta['errorInfo'] = 'Hubo un error en la consulta';
+                    $respuesta['codigoError'] = 1;
+                }
+            } else {
+                $this->setMensajeOp($base->getError());
+                $respuesta['respuesta'] = false;
+                $respuesta['errorInfo'] = 'Hubo un error con la conexion a la db';
+                $respuesta['codigoError'] = 0;
+            }
+        } catch (\Throwable $th) {
+            $respuesta['respuesta'] = false;
+            $respuesta['errorInfo'] = $th;
+            $respuesta['codigoError'] = 3;
+        }
+        $base = null;
+        return $respuesta;
     }
 }

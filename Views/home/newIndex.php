@@ -1,6 +1,6 @@
 <?php
     require_once('../templates/header2.php');
-    require_once('../../Models/conector/db.php');
+    // require_once('../../Models/conector/db.php');
 ?>
     
     
