@@ -13,6 +13,7 @@ class CompraitemController extends MasterController {
         }
         return $array;
     }
+    
 
 
     //ACA EN MODIFICAR SETEAMOS LA CANTIDAD QUE QUEDA EN STOCK (DENTRO DE PRODUCTO, NO EN COMPRAITEM)

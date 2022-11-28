@@ -1,55 +1,44 @@
 <?php
-    require_once('../../config.php');
-    //require_once('../../Models/conector/db.php');
-    //require('../../Vendor/autoload.php');
+require_once('../../config.php');
 
-    $objSession = new Session();
-    $objMenu = new MenuController();
-    $objMenuRol = new MenuRolController();
+$objSession = new Session();
+$objMenu = new MenuController();
+$objMenuRol = new MenuRolController();
 
+$bandera = $objSession->activa();
+
+$urlActual = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+$
+
+$rol = '';
+if ($bandera) {
     
-    
-    /* $menues = $objSession->rolesUsuario();
-    var_dump($menues); */
+    $rol = $objMenuRol->listarTodo();
 
-    
-   
-    //var_dump( $menu );
-
-    $bandera = $objSession->activa();
-    if($bandera != false){
-        //cargar menues 
-        
-    }
-
-    //var_dump( $objSession->getUsRol() );
-    if( $bandera ){
-        $rol = $objMenuRol->listarTodo();
-
-        for( $i = 0; $i < count($rol); $i++ ){
-            $idrol = $rol[$i]->getObjRol()->getIdrol();
-            $roldescripcion = $rol[$i]->getObjRol()->getRodescripcion();
-            if( $roldescripcion == $objSession->getUsRol() ){
-                $idrolguardado = $idrol;
-            }
+    for ($i = 0; $i < count($rol); $i++) {
+        $idrol = $rol[$i]->getObjRol()->getIdrol();
+        $roldescripcion = $rol[$i]->getObjRol()->getRodescripcion();
+        if ($roldescripcion == $objSession->getUsRol()) {
+            $idrolguardado = $idrol;
         }
-        $menu = $objMenu->obtenerMenuesPorRol( $idrolguardado );
-        //echo( 'logueao papa' );
-        //var_dump( $menues );
     }
+    $menu = $objMenu->obtenerMenuesPorRol($idrolguardado);
+}
 
+if ($bandera) {
+    $rolUsuario = $objSession->getUsRol();
+}
 
-    //
-    
-    if($bandera = $objSession->activa()){
-        $rolUsuario = $objSession->getUsRol();
-        $arrBusRo['rodescripcion'] = $rolUsuario;
-    }
+if ($bandera = $objSession->activa()) {
+    $rolUsuario = $objSession->getUsRol();
+    $arrBusRo['rodescripcion'] = $rolUsuario;
+}
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -85,34 +74,12 @@
     <link rel="stylesheet" href="../../Vendor/demo/demo.css">
     <script src="../../Vendor/jquery.min.js"></script>
     <script src="../../Vendor/jquery.easyui.min.js"></script>
-    
+
 </head>
 
 <body>
     <!-- Header -->
     <header class="header">
-
-        <!-- <div class="menues">
-            <a href="../home/newIndex.php" class="navbar-brand text-white">Home</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle='collapse' aria-expanded="false" aria-label="Toggle">
-                <span class="navbar-toggle-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse">
-                <ul class='navbar-nav me-auto mb-2 m-2 mb-sm-0'>
-                    <li> <a href="../home/newIndex.php" role="button" class='px-2 mx-1 btn btn-lg btn-outline-light'>Home:)</a> </li>
-
-                    <?php
-                    /* foreach( $menues as $menu ){
-                    ?>
-                        <option value="<?php echo $menu[0] ?>"></option>
-                    <?php
-                    } */
-                    ?>
-
-                </ul>
-            </div>
-        </div> -->
 
         <div class="header-1">
             <a href="../home/newIndex.php" class="logo"><i class="fas fa-book"></i> Yonny</a>
@@ -121,13 +88,14 @@
                 <label for="search-box" class="fas fa-search"></label>
             </form>
 
-            <?php if( $bandera ){ ?>
+            <?php if ($bandera) { ?>
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <?php echo($objSession->getUsnombre()); echo( $objSession->getUsRol() ); ?>
+                        <?php echo ($objSession->getUsnombre());
+                        echo ($objSession->getUsRol()); ?>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#"><?php echo( $menu[0] ); ?></a></li>
+                        <li><a class="dropdown-item" href="#"><?php echo ($menu[0]); ?></a></li>
                         <li><a class="dropdown-item" href="../logs/logout.php">Log out</a></li>
                     </ul>
                 </div>
@@ -143,17 +111,8 @@
             <?php } ?>
         </div>
 
-       <!--  <div class="header-2">
-            <nav class="navbar">
-                <a href="../home/newIndex.php#home"></a>
-                <a href="../producto/producto_list.php"></a>
-                <a href="../home/newIndex.php#reviews"></a>
-                <a href="#contacto"></a>
-
-            </nav>
-        </div> -->
-        <?php 
-        if($rol == 'Admin'){
+        <?php
+        if ($objSession->getUsRol() == 'Admin') {
             echo "<div class=\"header-2\">
             <nav class=\"navbar\">
                 <a href=\"../producto/producto_list.php\">Productos</a>
@@ -164,16 +123,16 @@
                 <a href=\"../rol/rol_list.php\">Rol</a>
             </nav>
         </div>";
-        }elseif($rol == 'Deposito'){
-            echo "<div class=\"header-deposito\">
+        } elseif ($objSession->getUsRol() == 'Deposito') {
+            echo "<div class=\"header-2\">
             <nav class=\"navbar\">
                 <a href=\"../producto/producto_list.php\">Productos</a>
                 <a href=\"../compraestado/compraestado_list.php\">Estado de compra</a>
                 <a href=\"../usuario/usuario_list.php\">Usuario</a>
             </nav>
         </div>";
-        }elseif($rol == 'Cliente'){
-            echo "<div class=\"header-cliente\">
+        } elseif ($objSession->getUsRol() == 'Cliente') {
+            echo "<div class=\"header-2\">
             <nav class=\"navbar\">
                 <a href=\"../producto/producto_list.php\">Productos</a>
                 <a href=\"../compraitem/compraitem_list.php\">Carrito</a>
