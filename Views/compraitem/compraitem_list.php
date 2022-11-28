@@ -2,7 +2,8 @@
 require_once('../templates/header2.php');
 $objComItem = new CompraitemController();
 $lista = $objComItem->listarTodo();
-//var_dump ($lista);
+
+
 ?>
 
 <div class="container d-flex justify-content-center mt-5 mb-5">
@@ -20,7 +21,6 @@ $lista = $objComItem->listarTodo();
         </thead>
     </table>
     <div id="toolbar">
-        
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCantidad()">Editar cantidad</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyItem()">Eliminar ítem</a>  
     </div>

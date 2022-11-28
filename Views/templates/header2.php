@@ -1,34 +1,43 @@
 <?php
-    require_once('../../config.php');
+require_once('../../config.php');
 
-    $objSession = new Session();
-    $objMenu = new MenuController();
-    $objMenuRol = new MenuRolController();
+$objSession = new Session();
+$objMenu = new MenuController();
+$objMenuRol = new MenuRolController();
 
-    $bandera = $objSession->activa();
-    if( $bandera ){
-        $rol = $objMenuRol->listarTodo();
-        //var_dump($rol);
+$bandera = $objSession->activa();
 
-        for( $i = 0; $i < count($rol); $i++ ){
-            $idrol = $rol[$i]->getObjRol()->getIdrol();
-            $roldescripcion = $rol[$i]->getObjRol()->getRodescripcion();
-            if( $roldescripcion == $objSession->getUsRol() ){
-                $rolDescripcionGuardado = $roldescripcion;
-                $rolIdGuardado = $idrol;
-            }
-        }
-        $menu = $objMenu->obtenerMenuesPorRol( $rolIdGuardado );
-    }
+$urlActual = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+
+$rol = '';
+if ($bandera) {
     
-    if($bandera = $objSession->activa()){
-        $rolUsuario = $objSession->getUsRol();
-        $arrBusRo['rodescripcion'] = $rolUsuario;
+    $rol = $objMenuRol->listarTodo();
+
+    for ($i = 0; $i < count($rol); $i++) {
+        $idrol = $rol[$i]->getObjRol()->getIdrol();
+        $roldescripcion = $rol[$i]->getObjRol()->getRodescripcion();
+        if ($roldescripcion == $objSession->getUsRol()) {
+            $idrolguardado = $idrol;
+        }
     }
+    $menu = $objMenu->obtenerMenuesPorRol($idrolguardado);
+}
+
+if ($bandera) {
+    $rolUsuario = $objSession->getUsRol();
+}
+
+if ($bandera = $objSession->activa()) {
+    $rolUsuario = $objSession->getUsRol();
+    $arrBusRo['rodescripcion'] = $rolUsuario;
+}
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -65,30 +74,24 @@
 
 <body>
     <!-- Header -->
-    <header class="header start-0 top-0 end-0">
-        <nav class="navbar navbar-expand-lg bg-success">
-            <div class="container-fluid">
+    <header class="header">
 
-                <a class="navbar-brand"><i class="fas fa-book"></i> Yonny </a>
-                <a class="navbar-brand" href="../home/newIndex.php">Inicio</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <!-- <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Implementación</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="../pages/ver.php">Ver</a></li>
-                                <?php if( $bandera ): ?>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="../pages/cargar.php">Cargar</a></li>
-                                <?php endif; ?>
-                            </ul>
-                        </li> -->
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="https://github.com/MaximilianoHitter/tpExcel" target="_blank">GitHub</a>
-                        </li>
+        <div class="header-1">
+            <a href="../home/newIndex.php" class="logo"><i class="fas fa-book"></i> Yonny</a>
+            <form action="" class="search-form" method="">
+                <input type="search" name="" placeholder="Buscar..." id="search-box">
+                <label for="search-box" class="fas fa-search"></label>
+            </form>
+
+            <?php if ($bandera) { ?>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <?php echo ($objSession->getUsnombre());
+                        echo ($objSession->getUsRol()); ?>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#"><?php echo ($menu[0]); ?></a></li>
+                        <li><a class="dropdown-item" href="../logs/logout.php">Log out</a></li>
                     </ul>
                 </div>
 
@@ -113,46 +116,35 @@
             </div>
         </nav>
 
-       <!--  <div class="header-2">
-            <nav class="navbar">
-                <a href="../home/newIndex.php#home"></a>
-                <a href="../producto/producto_list.php"></a>
-                <a href="../home/newIndex.php#reviews"></a>
-                <a href="#contacto"></a>
-
+        <?php
+        if ($objSession->getUsRol() == 'Admin') {
+            echo "<div class=\"header-2\">
+            <nav class=\"navbar\">
+                <a href=\"../producto/producto_list.php\">Productos</a>
+                <a href=\"../compraitem/compraitem_list.php\">Carrito</a>
+                <a href=\"../compraestado/compraestado_list.php\">Estado de compra</a>
+                <a href=\"../usuario/usuario_list.php\">Usuario</a>
+                <a href=\"../menu/menu_list.php\">Menu</a>
+                <a href=\"../rol/rol_list.php\">Rol</a>
             </nav>
-        </div> -->
-        <?php 
-        if( $bandera ){
-            if($rolDescripcionGuardado == 'Admin'){
-                echo "<div class=\"header-2 px-4\">
-                <nav class=\"navbar\">
-                    <a href=\"../producto/producto_list.php\">Productos</a>
-                    <a href=\"../compraitem/compraitem_list.php\">Carrito</a>
-                    <a href=\"../compraestado/compraestado_list.php\">Estado de compra</a>
-                    <a href=\"../usuario/usuario_list.php\">Usuario</a>
-                    <a href=\"../menu/menu_list.php\">Menu</a>
-                    <a href=\"../rol/rol_list.php\">Rol</a>
-                </nav>
-            </div>";
-            }elseif($rolDescripcionGuardado == 'Deposito'){
-                echo "<div class=\"header-deposito\">
-                <nav class=\"navbar\">
-                    <a href=\"../producto/producto_list.php\">Productos</a>
-                    <a href=\"../compraestado/compraestado_list.php\">Estado de compra</a>
-                    <a href=\"../usuario/usuario_list.php\">Usuario</a>
-                </nav>
-            </div>";
-            }elseif($rolDescripcionGuardado == 'Cliente'){
-                echo "<div class=\"header-cliente\">
-                <nav class=\"navbar\">
-                    <a href=\"../producto/producto_list.php\">Productos</a>
-                    <a href=\"../compraitem/compraitem_list.php\">Carrito</a>
-                    <a href=\"../compraestado/compraestado_list.php\">Estado de compra</a>
-                    <a href=\"../usuario/usuario_list.php\">Usuario</a>
-                </nav>
-            </div>";
-            }
+        </div>";
+        } elseif ($objSession->getUsRol() == 'Deposito') {
+            echo "<div class=\"header-2\">
+            <nav class=\"navbar\">
+                <a href=\"../producto/producto_list.php\">Productos</a>
+                <a href=\"../compraestado/compraestado_list.php\">Estado de compra</a>
+                <a href=\"../usuario/usuario_list.php\">Usuario</a>
+            </nav>
+        </div>";
+        } elseif ($objSession->getUsRol() == 'Cliente') {
+            echo "<div class=\"header-2\">
+            <nav class=\"navbar\">
+                <a href=\"../producto/producto_list.php\">Productos</a>
+                <a href=\"../compraitem/compraitem_list.php\">Carrito</a>
+                <a href=\"../compraestado/compraestado_list.php\">Estado de compra</a>
+                <a href=\"../usuario/usuario_list.php\">Usuario</a>
+            </nav>
+        </div>";
         }
         ?>
     </header>
