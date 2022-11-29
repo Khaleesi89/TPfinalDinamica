@@ -86,7 +86,7 @@ class Usuario extends db{
             $sql.= ' WHERE ';
             $sql.= $stringBusqueda;
         }
-
+        //var_dump($sql);
         $base = new db();
         try {
             if($base->Iniciar()){  

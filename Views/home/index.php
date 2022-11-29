@@ -1,150 +1,270 @@
 <?php
     require_once('../templates/header.php');
-    require_once('../../Models/conector/db.php');
 ?>
-
-<?php if( isset($_SESSION['user_id']) ): ?>
-    <div class="d-flex justify-content-center position-absolute m-2">
-        <div class="toast align-items-center text-bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="d-flex">
-                <div class="toast-body">
-                    Bienvenido/a <b><?php echo $_SESSION['user_id'] ?></b>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
-        window.onload = (e) => {
-            let myAlert = document.querySelector( '.toast' );
-            let bsAlert = new bootstrap.Toast( myAlert );
-            bsAlert.show();
-        }
-    </script>
-<?php endif; ?>
-
-<div class="container position-relative">
     
-    <h3 class="text-center mt-4">Excel</h3>
-    <p class="ms-4 me-4 mt-5">
-        Esta implementación de la librería <b><a href="https://github.com/PHPOffice/PhpSpreadsheet" target="_blank">"PHP Spreadsheet"</a></b> permite realizar las funciones CRUD (Create, Read, Update, Delete) de hojas de cálculo Excel. Cada una de estas funciones mencionadas tienen sus propias restricciones de uso dependiendo del usuario que vaya a utilizarlas. Un profesor solo podrá realizar un CRUD de las materias en las que se encuentre asignado en la base de datos, como también, un usuario sin registro (refiérase a un alumno) únicamente podrá leer las notas de las materias.
-    </p>
-
-    <p class="ms-4 mt-3">
-        <b>Leanguajes utilizados:</b>
-        <ul class="ms-4">
-            <li>PHP</li>
-            <li>JavaScript</li>
-            <li>HTML</li>
-            <li>CSS</li>
-            <li>MySQL</li>
-        </ul>
-    </p>
-
-    <p class="ms-4">
-        <b>Framework utilizado:</b>
-        <ul class="ms-4">
-            <li>Bootstrap</li>
-        </ul>
-    </p>
-
-    <p class="ms-4">
-        <b>Herramientas utilizadas:</b>
-        <ul class="ms-4">
-            <li>WAMP Server</li>
-            <li>MySQL</li>
-        </ul>
-    </p>
-
-    <p class="ms-4">
-        <b>Editor de código utilizado:</b>
-        <ul class="ms-4">
-            <li>Visual Studio Code</li>
-        </ul>
-    </p>
-
-</div>
-
-<section class="p-5">
-    <div class="container py-5">
-        <div class="row justify-content-between align-items-center">
-            <div class="col-md">
-                <a href="../pages/cargar.php"><img src="../../Public/img/learn-basics.png" class="img-fluid"></a>
+    
+    <!-- Home -->
+    <section class="home" id="home">
+        <div class="row">
+            <div class="content">
+                <h3>Al 75% de descuento</h3>
+                <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut ad enim debitis delectus a voluptates optio qui commodi, ratione totam.</p>
+                <a href="#" class="btn">Comprar ya</a>
             </div>
-            <div class="col-md p-5">
-                <h3>Aprendé lo básico</h3>
-                <p>Para comenzar a trabajar con la web, el profesor deberá registrarse y posteriormente realizar un logueo para acceder a las funcionalidades implementadas. De esta forma, podrá comenzar a cargar un excel con las notas de los alumnos, para que luego ellos mismos puedan accederlos.</p>
-                <p>Las demás funcionalidades, como las de modificar y borrar, solo podrán realizarse una vez que se haya realizado la carga de un archivo excel.</p>
-                <a href="../pages/cargar.php" class="btn btn-primary mt-3">Empezar ya!</a>
+
+            <div class="swiper books-slider">
+                <div class="swiper-wrapper">
+                    <a href="#" class="swiper-slide"><img src="../../Public/img/libro-1.png" alt=""></a>
+                    <a href="#" class="swiper-slide"><img src="../../Public/img/libro-2.png" alt=""></a>
+                    <a href="#" class="swiper-slide"><img src="../../Public/img/libro-3.png" alt=""></a>
+                    <a href="#" class="swiper-slide"><img src="../../Public/img/libro-4.png" alt=""></a>
+                    <a href="#" class="swiper-slide"><img src="../../Public/img/libro-5.png" alt=""></a>
+                    <a href="#" class="swiper-slide"><img src="../../Public/img/libro-6.png" alt=""></a>
+                </div>
+                <img src="../../Public/img/stand.png" class="stand" alt="">
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="bg-dark text-light p-5">
-    <div class="container py-5">
-        <div class="row align-items-center justify-content-between">
-            <div class="col-md p-5">
-                <h3>Instalación</h3>
-                <p>Debe tener en cuenta que para realizar la instalación de las librerías primero debe cumplir ciertos requisitos, como por ejemplo, poseer una versión de PHP mayor a la 7.3, tener un servidor local para poder ejecutar los scripts como WAMP o XAMPP, y por último, poseer Composer.</p>
-
-                <p>Las instalaciones mediante Composer son opcionales, ya que ambas librerías pueden ser instaladas de forma manual descargando un archivo comprimido, el cual incluye la librería.</p>
-                <a href="https://docs.google.com/document/d/1rcKLyzDvkGfA7sbx-9CDE6Ak9hxqHJ7GBvuDWftzWio/edit?usp=sharing" target="_blank" class="btn btn-primary mt-3"><i class="bi bi-chevron-right"></i>Leer más</a>
+    <!-- Iconcitos fachas -->
+    <section class="icons-container">
+        <div class="icons">
+            <i class="fas fa-plane"></i>
+            <div class="content">
+                <h3>Envíos gratis a todo el país</h3>
+                <p>En pedidos mayores a $4000</p>
             </div>
-            <div class="col-md">
-                <a href="#" class="btn mt-3">
-                    <img src="../../Public/img/installation-png.png" alt="instalacao" class="img-fluid">
+        </div>
+        <div class="icons">
+            <i class="fas fa-lock"></i>
+            <div class="content">
+                <h3>Pagos seguros</h3>
+                <p>Tarjetas de crédito, débito y mercado pago</p>
+            </div>
+        </div>
+        <div class="icons">
+            <i class="fas fa-redo-alt"></i>
+            <div class="content">
+                <h3>Reembolsos</h3>
+                <p>Luego de haber recibido el producto</p>
+            </div>
+        </div>
+        <div class="icons">
+            <i class="fas fa-headset"></i>
+            <div class="content">
+                <h3>Atención 24/7</h3>
+                <p>Consúltenos en cualquier momento</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="ingresos" id="ingresos">
+        <h1 class="heading"> <span>Nuevos Ingresos</span> </h1>
+        <div class="swiper ingresos-slider">
+            <div class="swiper-wrapper">
+                <a href="#" class="swiper-slide box">
+                    <div class="image">
+                        <img src="../../Public/img/libro-1.png" alt="">
+                    </div>
+                    <div class="content">
+                        <h3>El Señor de los Anillos - Las Dos Torres</h3>
+                        <div class="price">$3599</div>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="#" class="swiper-slide box">
+                    <div class="image">
+                        <img src="../../Public/img/libro-2.png" alt="">
+                    </div>
+                    <div class="content">
+                        <h3>Nuevo ingreso</h3>
+                        <div class="price">$2599</div>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="swiper-slide box">
+                    <div class="image">
+                        <img src="../../Public/img/libro-3.png" alt="">
+                    </div>
+                    <div class="content">
+                        <h3>Nuevo ingreso</h3>
+                        <div class="price">$2599</div>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="swiper-slide box">
+                    <div class="image">
+                        <img src="../../Public/img/libro-4.png" alt="">
+                    </div>
+                    <div class="content">
+                        <h3>Nuevo ingreso</h3>
+                        <div class="price">$2599</div>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="swiper-slide box">
+                    <div class="image">
+                        <img src="../../Public/img/libro-5.png" alt="">
+                    </div>
+                    <div class="content">
+                        <h3>Nuevo ingreso</h3>
+                        <div class="price">$2599</div>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" class="swiper-slide box">
+                    <div class="image">
+                        <img src="../../Public/img/libro-6.png" alt="">
+                    </div>
+                    <div class="content">
+                        <h3>Nuevo ingreso</h3>
+                        <div class="price">$2599</div>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
                 </a>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="p-5" id="questions">
-    <div class="container py-5">
-        <h3 class="text-center mb-4">Preguntas frecuentes</h3>
-        <div class="accordion accordion-flush" id="accordionFlushExample">
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="flush-headingOne">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                        ¿Quién puede ver los archivos subidos por los profesores?
-                    </button>
-                </h2>
-                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                        Cualquiera puede ver los archivos que sean subidos por los profesores, no es necesario estar logueado y/o registrado en la plataforma para poder realizar esta tarea.
+    <section class="oferta">
+        <div class="content">
+            <h3>Oferta del dia!</h3>
+            <h1>50% de descuento</h1>
+            <p>Conoce el caso de Sherlock Holmes y las travesías por la Universidad de la UNCO. Explora por el mundo de la programación autodidáctica y fatídica, los sinsabores de la falta de papel en los momentos menos indicados...</p>
+            <a href="#" class="btn">Compralo ya!</a>
+        </div>
+        <div class="image">
+            <img src="../../Public/img/oferta.jpg" alt="compralo wachin">
+        </div>
+    </section>
+
+    <section class="reviews" id="reviews">
+        <h1 class="heading"><span>Reviews de clientes</span></h1>
+        <div class="swiper reviews-slider">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide box">
+                    <img src="../../Public/img/pic-1.png" alt="">
+                    <h3>John Salchichon</h3>
+                    <p>La verda que aprendí a leer con el libro de Manuelita y desde ahí, no quiero volver a leer!</p>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
                     </div>
                 </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="flush-headingTwo">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                        ¿Quién puede cargar, borrar y eliminar excels?
-                    </button>
-                </h2>
-                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                        Sólo los profesores <code>registrados</code> y <code>logueados</code> en la plataforma tendrán acceso a estas funcionalidades. Cualquier persona que no cumpla con estas condiciones no podrá realizarlas, sólo tendrá permisos de lectura.
+                <div class="swiper-slide box">
+                    <img src="../../Public/img/pic-2.png" alt="">
+                    <h3>John Snow</h3>
+                    <p>Estuve aprendiendo sobre MVC y la verdad que no me funca mucho, pero me encanta la buena onda que le ponen todos para aprender...Hay equipo!!</p>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
                     </div>
                 </div>
-            </div>
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="flush-headingThree">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                        ¿Por qué son tan genios?
-                    </button>
-                </h2>
-                <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                        Nacimos así papá, aguante <big><b>BOCA</b></big>
+                <div class="swiper-slide box">
+                    <img src="../../Public/img/pic-3.png" alt="">
+                    <h3>Susana Horia</h3>
+                    <p>Un saludito para todos los que me están mirando por TV. Soy la niña reconrosa... MIRA DE QUIEN TE BURLASTE, BARNEY!!!</p>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <div class="swiper-slide box">
+                    <img src="../../Public/img/pic-4.png" alt="">
+                    <h3>Esteban Quito</h3>
+                    <p>Yo me casé con Flor De Vivero porque me inspiré en los libros de Jane Austen y hoy la odio como los libros de Kafka...</p>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <div class="swiper-slide box">
+                    <img src="../../Public/img/pic-6.png" alt="">
+                    <h3>Armando Paredes</h3>
+                    <p>Era tal su  descontento que trabajé con un albañil por 10 años y lo único que me salía bien era preparar el mate!</p>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+                <div class="swiper-slide box">
+                    <img src="../../Public/img/pic-5.png" alt="">
+                    <h3>Armando Bronca Segura</h3>
+                    <p>El otro día terminé peleando con el profesor, y siempre me pregunto, para que me invitan?? Si saben cómo me pongo!!</p>
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
+    <section class="newsletter">
+        <form action="" method="">
+            <h3>Suscríbete para obtener las últimas novedades</h3>
+            <input type="email" name="mail" id="mail" placeholder="Ingrese su email" class="box">
+            <input type="submit" value="Suscribirse" class="btn">
+        </form>
+    </section>
 
-
-<?php
+    <?php
     require_once('../templates/footer.php');
-?>
+    ?>
