@@ -38,10 +38,18 @@
     <link rel="stylesheet" href="../../Vendor/themes/color.css">
     <script src="../../Vendor/jquery.min.js"></script>
     <script src="../../Vendor/jquery.easyui.min.js"></script>
-    
+    <script>
+        $('document').ready(function(){
+            <?php if(isset($_GET['error'])){
+                echo "<script>console.log('invalido');</script>";
+            echo "<script>alert('Las credenciales son inválidas');</script>";
+        } ?>
+        })
+    </script>
 </head>
 
 <body>
+
     <!-- Header -->
     <header class="header">
         <div class="header-1">
@@ -49,12 +57,16 @@
                 <div class="icons">
                     <div id="search-btn" class="fas fa-search"></div>
                     <a href="#" class="fas fa-shopping-cart"></a>
+                    
                     <div id="login-btn" class="fas fa-user"><?php if(isset($_SESSION['usnombre'])){ echo $_SESSION['usnombre'];} ?></div>
                 </div>
         </div>
 
+        
+        
         <div class="header-2">
             <nav class="navbar">
+            
                 <a href="#home">Home</a>
                 <a href="#ingresos">Ingresos</a>
                 <a href="#reviews">Reviews</a>
@@ -63,7 +75,7 @@
             </nav>
         </div>
     </header>
-
+    
     <!-- Nav pal responsive -->
     <nav class="bottom-navbar">
         <a href="#" class="fas fa-home"></a>
@@ -76,7 +88,7 @@
     yo dejo uno sencillito para ya tener una maqueta -->
     <div class="login-form-container">
         <div id="close-login-btn" class="fas fa-times"></div>
-        <form action="../accion/accionLogin.php" method="POST">
+        <form action="../producto/producto_list.php" method="POST">
             <h3>Login</h3>
             <span>Usuario</span>
             <input type="text" name="usnombre" class="box" placeholder="Ingrese su usuario" id="">
@@ -91,4 +103,6 @@
             <p>No tenes una cuenta? <a href="../accionSingup.php">Create una papu</a> </p>
         </form>
     </div>
+
+    
 

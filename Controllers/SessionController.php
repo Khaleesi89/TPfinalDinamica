@@ -43,7 +43,7 @@ class SessionController extends MasterController{
         $usnombre = $this->buscarKey('usnombre');
         $uspass = $this->buscarKey('uspass');
         //echo "<script>console.log('$uspass');console.log('$usnombre');</script>";
-        if(($usnombre != false && $uspass != false)){
+        if(($usnombre != false && $uspass != false) || isset($_SESSION['usnombre'])){
             
             //a buscar
             //$_SESSION['uspass'] = $uspass;
@@ -70,7 +70,7 @@ class SessionController extends MasterController{
                 }
             }
         }else{
-            echo "<script>console.log('tumama');</script>";
+            
             $retorno = false;
         }
         return $retorno;
