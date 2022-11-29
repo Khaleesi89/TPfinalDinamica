@@ -1,5 +1,10 @@
 <?php
 require_once('../templates/header2.php');
+$variable = $objSession->obtenerRol();
+$rol = $variable[0]->getObjRol()->getIdRol();
+// var_dump($rol[0]->getObjRol()->getIdRol());
+
+
 /* $objConPro = new ProductoController();
 $arrBuPro = [];
 //var_dump($_SESSION);
@@ -43,11 +48,11 @@ $arrBuPro = [];
 
             <div id="toolbar" style="padding:4px">
                 <?php
-                if ($rol == 'Admin' || $rol == 'Deposito') {
+                if ($rol == '1' || $rol == '3') {
                     echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" plain=\"true\" onclick=\"newProducto()\">Nuevo producto</a>
                             <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-edit\" plain=\"true\" onclick=\"editProducto()\">Editar producto</a>
                             <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"destroyProducto()\">Eliminar producto</a>";
-                } elseif ($rol == 'Cliente') {
+                } elseif ($rol == '2') {
                     echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"comprar()\">Comprar</a>";
                 }
                 ?>

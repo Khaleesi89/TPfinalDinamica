@@ -16,6 +16,7 @@ if(!$objSession->validarCredenciales()){
     $url = $PRODUCTOS;
     echo "<script>console.log('si son validas');</script>";
 }
+
 header($url);
 /* if(!$objSession->existenCredenciales()){
     echo "<script>console.log('no vinieron por post');</script>";

@@ -14,9 +14,9 @@ if(!$objSession->existenCredenciales()){
 //validar si las credenciales estan correctas 
 if(!$objSession->validarCredenciales()){
     $credenciales = false;
-    echo "<script>alert('No se han encontrado dichas credenciales');</script>";
+    //echo "<script>alert('No se han encontrado dichas credenciales');</script>";
 }else{
-
+    echo "Se pudo rey!";
     echo "<script>alert('Si se pudo perri');</script>";
 }
 //puede seguir
@@ -85,7 +85,7 @@ $menu[0] = '';
                     <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
                         <li class="nav-item dropdown user">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <button class="btn btn-outline-danger me-2" type="button"><?php echo($objSession->getUsnombre()); ?> - <span><?php echo($objSession->getUsRol()); ?></span></button>
+                                <button class="btn btn-outline-danger me-2" type="button"><?php echo($objSession->getUsnombre()); ?> - <span><?php /* echo($objSession->getUsRol()); */ ?></span></button>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="../logs/logout.php">Salir</a></li>
