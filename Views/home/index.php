@@ -1,5 +1,9 @@
 <?php
     require_once('../templates/header.php');
+    $objProducto = new ProductoController();
+    $arr = [];
+    $listaProductos = $objProducto->listarTodo( $arr );
+    //var_dump( $listaProductos );
 ?>
     
     
@@ -14,12 +18,11 @@
 
             <div class="swiper books-slider">
                 <div class="swiper-wrapper">
-                    <a href="#" class="swiper-slide"><img src="../../Public/img/libro-1.png" alt=""></a>
-                    <a href="#" class="swiper-slide"><img src="../../Public/img/libro-2.png" alt=""></a>
-                    <a href="#" class="swiper-slide"><img src="../../Public/img/libro-3.png" alt=""></a>
-                    <a href="#" class="swiper-slide"><img src="../../Public/img/libro-4.png" alt=""></a>
-                    <a href="#" class="swiper-slide"><img src="../../Public/img/libro-5.png" alt=""></a>
-                    <a href="#" class="swiper-slide"><img src="../../Public/img/libro-6.png" alt=""></a>
+                    <?php foreach( $listaProductos as $producto ){
+                        $data = $producto->dameDatos();
+                        $foto = $data['foto'];
+                        echo "<a href=\"../producto/producto_list.php\" class=\"swiper-slide\">$foto</a>";
+                    } ?>
                 </div>
                 <img src="../../Public/img/stand.png" class="stand" alt="">
             </div>

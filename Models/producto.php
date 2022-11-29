@@ -17,8 +17,7 @@ class Producto extends db
     private $prdeshabilitado;
     private $mensajeOp;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->idProducto = '';
         $this->proNombre = '';
         $this->sinopsis = '';

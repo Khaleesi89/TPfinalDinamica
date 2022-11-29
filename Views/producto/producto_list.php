@@ -1,7 +1,7 @@
 <?php
 require_once('../templates/header2.php');
-/* $variable = $objSession->obtenerRol();
-$rol = $variable[0]->getObjRol()->getIdRol(); */
+$variable = $objSession->obtenerRol();
+$rol = $variable[0]->getObjRol()->getIdRol();
 // var_dump($rol[0]->getObjRol()->getIdRol());
 
 
@@ -41,18 +41,18 @@ $arrBuPro = [];
                         <th field="precio" width="5%">Precio</th>
                         <th field="isbn" width="5%">ISBN</th>
                         <th field="categoria" width="10%">Categoría</th>
-                        <th field="foto" width="500px">Portada</th>
+                        <th field="foto" width="50%">Portada</th>
                     </tr>
                 </thead>
             </table>
 
             <div id="toolbar" style="padding:4px">
                 <?php
-                if ($rol == '1' || $rol == '3') {
+                if ($rol == '1' || $rol == '3') { // Admin o Depósito
                     echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" plain=\"true\" onclick=\"newProducto()\">Nuevo producto</a>
                             <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-edit\" plain=\"true\" onclick=\"editProducto()\">Editar producto</a>
                             <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"destroyProducto()\">Eliminar producto</a>";
-                } elseif ($rol == '2') {
+                } elseif ($rol == '2') { // Cliente
                     echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"comprar()\">Comprar</a>";
                 }
                 ?>
@@ -83,7 +83,7 @@ $arrBuPro = [];
                         <input name="categoria" id="categoria" class="easyui-textbox" required="true" label="Categoria" style="width:100%;">
                     </div>
                     <div style="margin-bottom:10px;">
-                        <input class="easyui-filebox" class="foto" name="foto" id="foto" style="width:300px" data-options="
+                        <input class="easyui-filebox" class="foto" name="foto" id="foto" style="width:100%" data-options="
                             prompt:'Selecciona un archivo',
                             onChange: function(value){
                                 var f = $(this).next().find('input[type=file]')[0];
@@ -102,7 +102,6 @@ $arrBuPro = [];
                     <a href="javascript:void(0)" class="easyui-button" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
                 </div>
             </div>
-
 
         </div>
     </div>
@@ -179,14 +178,19 @@ $arrBuPro = [];
             </div>
 
         </form>
-        <div id="dlg1-buttons">
+        <div id="dlg-buttons">
             <a href="javascript:void(0)" class="easyui-button c6" iconCls="icon-ok" onclick="guardarCompra()" style="width:90px">Aceptar</a>
             <a href="javascript:void(0)" class="easyui-button" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
         </div>
-        <script>
-            var url;
-            var number = document.getElementById('cicantidad');
-            var cantStock;
+    </div>
+
+</div>
+
+        
+<script>
+    var url;
+    var number = document.getElementById('cicantidad');
+    var cantStock;
 
     function newProducto() {
         $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo producto');

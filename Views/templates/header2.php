@@ -70,7 +70,7 @@ $rol = 'Admin';
     <header class="header">
 
         <div class="header-1">
-            <a href="../home/newIndex.php" class="logo"><i class="fas fa-book"></i> Yonny</a>
+            <a href="../home/index.php" class="logo"><i class="fas fa-book"></i> Yonny</a>
             <?php //if ($credenciales) { ?>
                 <!-- <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
