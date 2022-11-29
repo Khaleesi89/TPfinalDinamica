@@ -57,13 +57,10 @@ $menu[0] = '';
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
     <!-- Bootstrap -->
     <link rel="stylesheet" href="../../Public/bootstrap-5.2.2-dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="../../Vendor/themes/default/easyui.css">
     <link rel="stylesheet" href="../../Vendor/themes/icon.css">
     <link rel="stylesheet" href="../../Vendor/themes/color.css">
-    <script src="../../Vendor/jquery.min.js"></script>
-    <script src="../../Vendor/jquery.easyui.min.js"></script>
-
+    
 </head>
 
 <body>
@@ -88,7 +85,7 @@ $menu[0] = '';
                     <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
                         <li class="nav-item dropdown user">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <button class="btn btn-outline-danger me-2" type="button"><?php echo $objSession->getUsnombre(); ?> - <span>Admin<?php //echo($objSession->getUsRol()); ?></span></button>
+                                <button class="btn btn-outline-danger me-2" type="button"><?php echo($objSession->getUsnombre()); ?> - <span><?php echo($objSession->getUsRol()); ?></span></button>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="../logs/logout.php">Salir</a></li>
