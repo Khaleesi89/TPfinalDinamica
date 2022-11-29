@@ -2,6 +2,7 @@
 require_once('../templates/header2.php');
 $variable = $objSession->obtenerRol();
 $rol = $variable[0]->getObjRol()->getIdRol();
+
 // var_dump($rol[0]->getObjRol()->getIdRol());
 
 
@@ -108,10 +109,8 @@ $arrBuPro = [];
     </div>
 </div>
 
-
-
 <!-- Formulario de compra -->
-<div id="dlg1" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg1-buttons'">
+<!-- <div id="dlg1" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg1-buttons'">
     <form id="fm1" method="POST" novalidate style="margin:0; padding:20px 50px;">
         <h3>Producto información</h3>
         <div style="margin-bottom:10px;">
@@ -141,8 +140,7 @@ $arrBuPro = [];
     <div id="dlg-buttons">
         <a href="javascript:void(0)" class="easyui-button c6" iconCls="icon-ok" onclick="guardarProducto()" style="width:90px">Aceptar</a>
         <a href="javascript:void(0)" class="easyui-button" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
-    </div>
-
+    </div> -->
     <!-- Formulario de compra -->
     <div id="dlg1" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg1-buttons'">
         <form id="fm1" method="POST" novalidate style="margin:0,padding:20px 50px;">
@@ -170,7 +168,7 @@ $arrBuPro = [];
             </div>
             <!-- Input de la cantidad a comprar -->
 
-        <!-- <div style="margin-bottom:20px">
+            <!-- <div style="margin-bottom:20px">
                     <input class="easyui-numberbox" min="0" max="5" name="cicantidad" required="true" id="cicantidad" style="width:100%;">
                 </div> -->
             <div style="margin-bottom:10px;margin-top:15px;">
@@ -183,120 +181,122 @@ $arrBuPro = [];
             <a href="javascript:void(0)" class="easyui-button c6" iconCls="icon-ok" onclick="guardarCompra()" style="width:90px">Aceptar</a>
             <a href="javascript:void(0)" class="easyui-button" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
         </div>
+        </div>
         <script>
+        
             var url;
             var number = document.getElementById('cicantidad');
             var cantStock;
 
-    function newProducto() {
-        $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo producto');
-        $('#fm').form('clear');
-        url = 'accion/insertar_producto.php';
-    }
+            function newProducto() {
+                $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Nuevo producto');
+                $('#fm').form('clear');
+                url = 'accion/insertar_producto.php';
+            }
 
-    function editProducto() {
-        var row = $('#dg').datagrid('getSelected');
-        if (row) {
-            $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar producto');
-            $('#fm').form('load', row);
-            url = 'accion/edit_producto.php?idproducto=' + row.idproducto;
-        }
-    }
-
-    function guardarProducto() {
-        $('#fm').form('submit', {
-            url: url,
-            onSubmit: function() {
-                return $(this).form('validate');
-            },
-            success: function(result) {
-                var result = eval('(' + result + ')');
-                //alert('Volvio servidor');
-                if (!result.respuesta) {
-                    $.messager.show({
-                        title: 'Error',
-                        msg: result.errorMsg
-                    });
-                } else {
-                    $('#dlg').dialog('close');
-                    $('#dg').datagrid('reload');
+            function editProducto() {
+                var row = $('#dg').datagrid('getSelected');
+                if (row) {
+                    $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar producto');
+                    $('#fm').form('load', row);
+                    url = 'accion/edit_producto.php?idproducto=' + row.idproducto;
                 }
             }
-        })
-    }
 
-    function comprar() {
-        var row = $('#dg').datagrid('getSelected');
-        if (row) {
-            $('#dlg1').dialog('open').dialog('center').dialog('setTitle', 'Comprar');
-            cantStock = row.procantstock;
-            //data-options
-            //label:'Cantidad a comprar:',labelPosition:'top', min:0
-            document.getElementById('cicantidad').max = cantStock;
-            /* $('#cicantidad').data-options({
-                "label": 'Cantidad a comprar:',
-                "labelPosition": 'left',
-                "max": cantStock, // substitute your own
-                "min": 0 // values (or variables) here
-            }); */
-            console.log(cantStock);
-            //document.getElementById('cicantidad').max = cantStock;
-            $('#fm1').form('load', row);
-            url = 'accion/edit_stock.php?idproducto=' + row.idproducto;
-        }
-    }
-
-    function guardarCompra() {
-        $('#fm1').form('submit', {
-            url: url,
-            onSubmit: function() {
-                return $(this).form('validate');
-            },
-            success: function(result) {
-                var result = eval('(' + result + ')');
-                //alert('Volvio servidor');
-                if (!result.respuesta) {
-                    $.messager.show({
-                        title: 'Error',
-                        msg: result.errorMsg
-                    });
-                } else {
-                    $('#dlg1').dialog('close');
-                    $('#dg').datagrid('reload');
-                }
-            }
-        })
-    }
-
-    function destroyProducto() {
-        var row = $('#dg').datagrid('getSelected');
-        if (row) {
-            $.messager.confirm('confirm', 'Seguro desea eliminar el producto?', function(r) {
-                if (r) {
-                    $.post('accion/destroy_producto.php?idproducto=' + row.idproducto, {
-                        idproducto: row.id
-                    }, function(result) {
+            function guardarProducto() {
+                $('#fm').form('submit', {
+                    url: url,
+                    onSubmit: function() {
+                        return $(this).form('validate');
+                    },
+                    success: function(result) {
+                        var result = eval('(' + result + ')');
                         //alert('Volvio servidor');
-                        if (result.respuesta) {
-                            $('#dg').datagrid('reload');
-                        } else {
+                        if (!result.respuesta) {
                             $.messager.show({
                                 title: 'Error',
                                 msg: result.errorMsg
                             });
+                        } else {
+                            $('#dlg').dialog('close');
+                            $('#dg').datagrid('reload');
                         }
-                    }, 'json');
+                    }
+                })
+            }
+
+            function comprar() {
+                var row = $('#dg').datagrid('getSelected');
+                if (row) {
+                    $('#dlg1').dialog('open').dialog('center').dialog('setTitle', 'Comprar');
+                    cantStock = row.procantstock;
+                    //data-options
+                    //label:'Cantidad a comprar:',labelPosition:'top', min:0
+                    document.getElementById('cicantidad').max = cantStock;
+                    /* $('#cicantidad').data-options({
+                        "label": 'Cantidad a comprar:',
+                        "labelPosition": 'left',
+                        "max": cantStock, // substitute your own
+                        "min": 0 // values (or variables) here
+                    }); */
+                    console.log(cantStock);
+                    //document.getElementById('cicantidad').max = cantStock;
+                    $('#fm1').form('load', row);
+                    url = 'accion/edit_stock.php?idproducto=' + row.idproducto;
                 }
-            })
-        }
-    }
-</script>
+            }
 
-<style type="text/css">
-    .producto {
-        background-color: #006d31;
-        color: white;
-    }
-</style>
+            function guardarCompra() {
+                $('#fm1').form('submit', {
+                    url: url,
+                    onSubmit: function() {
+                        return $(this).form('validate');
+                    },
+                    success: function(result) {
+                        var result = eval('(' + result + ')');
+                        //alert('Volvio servidor');
+                        if (!result.respuesta) {
+                            $.messager.show({
+                                title: 'Error',
+                                msg: result.errorMsg
+                            });
+                        } else {
+                            $('#dlg1').dialog('close');
+                            $('#dg').datagrid('reload');
+                        }
+                    }
+                })
+            }
 
-<?php require_once('../templates/footer.php') ?>
+            function destroyProducto() {
+                var row = $('#dg').datagrid('getSelected');
+                if (row) {
+                    $.messager.confirm('confirm', 'Seguro desea eliminar el producto?', function(r) {
+                        if (r) {
+                            $.post('accion/destroy_producto.php?idproducto=' + row.idproducto, {
+                                idproducto: row.id
+                            }, function(result) {
+                                //alert('Volvio servidor');
+                                if (result.respuesta) {
+                                    $('#dg').datagrid('reload');
+                                } else {
+                                    $.messager.show({
+                                        title: 'Error',
+                                        msg: result.errorMsg
+                                    });
+                                }
+                            }, 'json');
+                        }
+                    })
+                }
+            }
+        </script>
+
+        <style type="text/css">
+            .producto {
+                background-color: #006d31;
+                color: white;
+            }
+        </style>
+
+        <?php require_once('../templates/footer.php') ?>
