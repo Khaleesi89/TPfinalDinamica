@@ -48,8 +48,9 @@ class SessionController extends MasterController
     {
         $usnombre = $this->buscarKey('usnombre');
         $uspass = $this->buscarKey('uspass');
-        // echo "<script>console.log('$uspass');console.log('$usnombre');</script>";
-        if (($usnombre != false && $uspass != false)) {
+        //echo "<script>console.log('$uspass');console.log('$usnombre');</script>";
+        if(($usnombre != false && $uspass != false) || isset($_SESSION['usnombre'])){
+            
             //a buscar
             //$_SESSION['uspass'] = $uspass;
             $objUsuario = new Usuario();
@@ -74,8 +75,8 @@ class SessionController extends MasterController
                     $retorno = false;
                 }
             }
-        } else {
-            echo "<script>console.log('No encuentra algo');</script>";
+        }else{
+            
             $retorno = false;
         }
         return $retorno;
