@@ -12,7 +12,7 @@ $resp = $objSession->validar();
 if( $resp['rta'] ){
     ?>
     <script>
-        location.href = 'http://virtualhostg/TPfinalDinamica/Views/producto/producto_list.php';
+        location.href = 'http://Localhost/TPfinalDinamica/Views/producto/producto_list.php';
     </script>
     <?php
 } else {

@@ -1,7 +1,7 @@
 <?php
 require_once('../../config.php');
 
-$objSession = new Session();
+/* $objSession = new Session();
 $objMenu = new MenuController();
 $objMenuRol = new MenuRolController();
 
@@ -32,7 +32,7 @@ if ($bandera = $objSession->activa()) {
     $rolUsuario = $objSession->getUsRol();
     $arrBusRo['rodescripcion'] = $rolUsuario;
 }
-
+ */
 ?>
 
 <!DOCTYPE html>
@@ -86,41 +86,40 @@ if ($bandera = $objSession->activa()) {
                 <label for="search-box" class="fas fa-search"></label>
             </form>
 
-            <?php if ($bandera) { ?>
-                <div class="dropdown">
+            <?php /* if ($bandera) { */ ?>
+            <!-- <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <?php echo ($objSession->getUsnombre());
-                        echo ($objSession->getUsRol()); ?>
+                        <?php /* echo ($objSession->getUsnombre());
+                        echo ($objSession->getUsRol());  */ ?>
                     </button>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#"><?php echo ($menu[0]); ?></a></li>
                         <li><a class="dropdown-item" href="../logs/logout.php">Log out</a></li>
                     </ul>
-                </div>
+                </div> -->
 
-                <?php if( $bandera ): ?>
-                    <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
+            <?php /* }if( $bandera ): */ ?>
+            <!-- <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
                         <li class="nav-item dropdown user">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <button class="btn btn-outline-danger me-2" type="button"><?php echo($objSession->getUsnombre()); ?></button>
+                                <button class="btn btn-outline-danger me-2" type="button"><?php /* echo($objSession->getUsnombre()); */ ?></button>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="../logs/logout.php">Salir</a></li>
                             </ul>
                         </li>
-                    </div>
-                <?php else: ?>
-                    <!-- Login y Registro (Se muestra si la persona no está logueada) -->
-                    <form class="container-fluid d-flex justify-content-end">
+                    </div> -->
+            <?php /* else:  */ ?>
+            <!-- Login y Registro (Se muestra si la persona no está logueada) -->
+            <!-- <form class="container-fluid d-flex justify-content-end">
                         <a href="../logs/login.php"><button class="btn btn-outline-light me-2" type="button">Login</button></a>
                         <a href="../logs/signup.php"><button class="btn btn-outline-danger me-2" type="button">Registro</button></a>
                     </form>
-                <?php endif; ?>
-            </div>
-        </nav>
+                <?php /* endif; */ ?>
+            </div> -->
 
-        <?php
-        if ($objSession->getUsRol() == 'Admin') {
+            <?php
+            /* if ($objSession->getUsRol() == 'Admin') {
             echo "<div class=\"header-2\">
             <nav class=\"navbar\">
                 <a href=\"../producto/producto_list.php\">Productos</a>
@@ -148,8 +147,8 @@ if ($bandera = $objSession->activa()) {
                 <a href=\"../usuario/usuario_list.php\">Usuario</a>
             </nav>
         </div>";
-        }
-        ?>
+        } */
+            ?>
     </header>
 
     <body>

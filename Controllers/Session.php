@@ -96,7 +96,7 @@ public function __construct(){
             'usdeshabilitado' => null
         ];
         $objUsu = $objUsuarioCon->buscarObjUsuario();
-        if ($objUsu->getIdusuario() != NULL) {
+        /* if ($objUsu->getIdusuario() != NULL) {
             //tengo sus datos
             //obtener el rol
             $idusuario = $objUsu->getIdusuario();
@@ -135,8 +135,8 @@ public function __construct(){
         } else {
             //no existe usuario o credenciales
             $bandera = false;
-        } */
-
+        }
+ */
         $busqueda = $objUsuarioCon->listarTodo( $array );
 
 
@@ -184,7 +184,7 @@ public function __construct(){
         $usnombrelista = $lista['obj']->getUsnombre();
         $uspasslista = $lista['obj']->getUspass();
 
-        if (trim($usnombrelista) == $usuario && $uspasslista == $pass) {
+        if (trim($usnombrelista) == trim($usuario) && $uspasslista == $pass) {
             $validado['rta'] = true;
         } else {
             $validado['error'] = 'Credenciales incorrectas';

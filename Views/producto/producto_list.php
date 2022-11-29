@@ -1,6 +1,6 @@
 <?php
 require_once('../templates/header2.php');
-$objConPro = new ProductoController();
+/* $objConPro = new ProductoController();
 $arrBuPro = [];
 
 try {
@@ -18,7 +18,7 @@ try {
 } catch (\Throwable $th) {
     $rol = '';
     $lista = []; //  ['idproducto' => '', 'pronombre' => '', 'sinopsis'=>'', 'procantstock'=>'', 'autor'=>'', 'precio'=>'', 'isbn'=>'', 'categoria'=>''];
-}
+} */
 ?>
 
 <table id="dg" title="Productos" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_producto.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
@@ -37,13 +37,13 @@ try {
 </table>
 <div id="toolbar">
     <?php
-    if ($rol == 'Admin' || $rol == 'Deposito') {
+    /* if ($rol == 'Admin' || $rol == 'Deposito') {
         echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" plain=\"true\" onclick=\"newProducto()\">Nuevo producto</a>
                 <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-edit\" plain=\"true\" onclick=\"editProducto()\">Editar producto</a>
                 <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"destroyProducto()\">Eliminar producto</a>";
     } elseif ($rol == 'Cliente') {
         echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"comprar()\">Comprar</a>";
-    }
+    } */
     ?>
     <!-- <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newProducto()">Nuevo producto</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editProducto()">Editar producto</a>
@@ -116,9 +116,6 @@ try {
                 <label for="cicantidad" style="width:20%; display:inline;">Cantidad a comprar:</label>
                 <input type="number" name="cicantidad" id="cicantidad" class="easyui-number" label="Cantidad de compra:" required="true" style="width:60%;display:inline;" min="1">
             </div>
-
-
-
 
         </form>
         <div id="dlg1-buttons">
@@ -235,7 +232,8 @@ try {
         </script>
 
     </div>
-    </div>
-    <?php require_once('../templates/footer.php') ?>
-    </body>
-    </html>
+</div>
+<?php require_once('../templates/footer.php') ?>
+</body>
+
+</html>
