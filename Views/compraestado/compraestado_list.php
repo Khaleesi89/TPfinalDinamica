@@ -1,6 +1,7 @@
 <?php
 
-require_once('../templates/header2.php');
+//require_once('../templates/header2.php');
+require_once('../../config.php');
 $objConCompraestado = new CompraestadoController();
 $objcompraestadotipo = new CompraestadotipoController();
 $tiposestado = $objcompraestadotipo->listarTodo();
@@ -8,7 +9,21 @@ $tiposestado = $objcompraestadotipo->listarTodo();
 $lista = $objConCompraestado->listarTodo();
 
 ?>
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../Vendor/themes/default/easyui.css">
+    <link rel="stylesheet" href="../../Vendor/themes/icon.css">
+    <link rel="stylesheet" href="../../Vendor/themes/color.css">
+    <link rel="stylesheet" href="../../Vendor/demo/demo.css">
+    <script src="../../Vendor/jquery.min.js"></script>
+    <script src="../../Vendor/jquery.easyui.min.js"></script>
+    <title>PRODUCTOS</title>
+</head>
 <div class="container d-flex justify-content-center mt-5 mb-5">
     <table id="dg" title="Administrador de compras estado" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_compraestado.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
@@ -43,7 +58,7 @@ $lista = $objConCompraestado->listarTodo();
             </div> -->
             
             <div style="margin-bottom:10px">
-                <select class="easyui-combobox" name="cetdescripcion" label="cetdescripcion" style="width:100%;">
+                <select class="easyui-combobox" id ="idcompraestadotipo" name="idcompraestadotipo" label="idcompraestadotipo" style="width:100%;">
                     <?php 
                         $cantidad = count($tiposestado);
                         for ($i=0; $i < $cantidad ; $i++) { 
