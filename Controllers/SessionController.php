@@ -94,4 +94,34 @@ class SessionController extends MasterController {
         }
     }
 
+    public function setRolPrimo($rol, $id){
+        $_SESSION['rolPrimo'] = $rol;
+        $_SESSION['rolPrimoId'] = $id;    
+    }
+
+    public function getRolPrimo(){
+        return $_SESSION['rolPrimo'];    
+    }
+
+    public function getRolPrimoId(){
+        return $_SESSION['rolPrimoId'];    
+    }
+
+    public function obtenerMenues(){
+        $objMenuCon = new MenuController();
+        $menus = $objMenuCon->obtenerMenuesPorRol($this->getRolPrimoId());
+        return $menus;    
+    }
+
+    public function obtenerTodosMenues(){
+        $arrBuMe['medeshabilitado'] = NULL;
+        $menuesTotales = Menu::listar($arrBuMe);
+        $arrMen = [];
+        foreach ($menuesTotales['array'] as $key => $value) {
+            $arrMenu = $value->dameDatos();
+            array_push($arrMen, $arrMenu);
+        }
+        return $arrMen;    
+    }
+
 }
