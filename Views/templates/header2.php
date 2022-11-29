@@ -1,37 +1,28 @@
 <?php
 require_once('../../config.php');
+//nueva sesion 
+$credenciales = true;
+$objSession = new SessionController();
+//$usnombre = $objSession->buscarKey('usnombre');
+/* echo "<script>console.log('$usnombre');</script>";
+if(!$objSession->existenCredenciales()){
+    //mandarlo pa otro lado 
+    //aca no muestro nada
+    $credenciales = false;
+    echo "<script>alert('No se ha enviado nada por el formulario');</script>";
+} */
+//validar si las credenciales estan correctas 
+if(!$objSession->validarCredenciales()){
+    $credenciales = false;
+    echo "<script>alert('No se han encontrado dichas credenciales');</script>";
+}else{
 
-$objSession = new Session();
-$objMenu = new MenuController();
-$objMenuRol = new MenuRolController();
-
-$bandera = $objSession->activa();
-
-$urlActual = 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-
-$rol = '';
-if ($bandera) {
-    
-    $rol = $objMenuRol->listarTodo();
-
-    for ($i = 0; $i < count($rol); $i++) {
-        $idrol = $rol[$i]->getObjRol()->getIdrol();
-        $roldescripcion = $rol[$i]->getObjRol()->getRodescripcion();
-        if ($roldescripcion == $objSession->getUsRol()) {
-            $idrolguardado = $idrol;
-        }
-    }
-    $menu = $objMenu->obtenerMenuesPorRol($idrolguardado);
+    echo "<script>alert('Si se pudo perri');</script>";
 }
+//puede seguir
+//var_dump($objSession->obtenerRol());
+$menu[0] = '';
 
-if ($bandera) {
-    $rolUsuario = $objSession->getUsRol();
-}
-
-if ($bandera = $objSession->activa()) {
-    $rolUsuario = $objSession->getUsRol();
-    $arrBusRo['rodescripcion'] = $rolUsuario;
-}
 
 ?>
 
@@ -81,46 +72,87 @@ if ($bandera = $objSession->activa()) {
 
         <div class="header-1">
             <a href="../home/newIndex.php" class="logo"><i class="fas fa-book"></i> Yonny</a>
-            <form action="" class="search-form" method="">
-                <input type="search" name="" placeholder="Buscar..." id="search-box">
-                <label for="search-box" class="fas fa-search"></label>
-            </form>
-
-            <?php if ($bandera) { ?>
-                <div class="dropdown">
+            <?php //if ($credenciales) { ?>
+                <!-- <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <?php echo ($objSession->getUsnombre());
-                        echo ($objSession->getUsRol()); ?>
+                        <?php //echo ($objSession->getUsnombre());
+                        //echo ($objSession->getUsRol()); ?>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#"><?php echo ($menu[0]); ?></a></li>
+                        <li><a class="dropdown-item" href="#"><?php //echo ($menu[0]); ?></a></li>
                         <li><a class="dropdown-item" href="../logs/logout.php">Log out</a></li>
                     </ul>
-                </div>
+                </div> -->
 
-                <?php if( $bandera ): ?>
+                <?php //if( $credenciales ): ?>
                     <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
                         <li class="nav-item dropdown user">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <button class="btn btn-outline-danger me-2" type="button"><?php echo($objSession->getUsnombre()); ?></button>
+                                <button class="btn btn-outline-danger me-2" type="button"><?php echo $objSession->getUsnombre(); ?> - <span>Admin<?php //echo($objSession->getUsRol()); ?></span></button>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="../logs/logout.php">Salir</a></li>
                             </ul>
                         </li>
                     </div>
-                <?php else: ?>
+                <?php //else: ?>
                     <!-- Login y Registro (Se muestra si la persona no está logueada) -->
                     <form class="container-fluid d-flex justify-content-end">
                         <a href="../logs/login.php"><button class="btn btn-outline-light me-2" type="button">Login</button></a>
                         <a href="../logs/signup.php"><button class="btn btn-outline-danger me-2" type="button">Registro</button></a>
                     </form>
-                <?php endif; ?>
+                <?php// endif; ?>
             </div>
         </nav>
+    <!-- <header class="header">
+
+        <div class="header-1">
+            <div class="header-1">
+            <a href="../home/index.php" class="logo"><i class="fas fa-book"></i> Yonny</a>
+                <div class="icons">
+                    <div id="search-btn" class="fas fa-search"></div>
+                    <a href="#" class="fas fa-shopping-cart"></a>
+                    <div id="login-btn" class="fas fa-user"><?php //if($credenciales){
+                        //echo $objSession->getUsnombre();
+                    //} ?></div>
+                </div>
+        </div>
+
+            <?php //if ($credenciales) { ?>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <?php //if($credenciales){echo ($objSession->getUsnombre());}
+                        //echo ($objSession->getUsRol()); ?>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#"><?php //echo ($menu[0]); ?></a></li>
+                        <li><a class="dropdown-item" href="../logs/logout.php">Log out</a></li>
+                    </ul>
+                </div>
+                <?php // }?>
+                <?php //if( $credenciales ){ ?>
+                    <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
+                        <li class="nav-item dropdown user">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="btn btn-outline-danger me-2" type="button"><?php //if($credenciales){echo($objSession->getUsnombre());}  ?></button>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="../logs/logout.php">Salir</a></li>
+                            </ul>
+                        </li>
+                    </div>
+                <?php //}?>
+                    <!-- Login y Registro (Se muestra si la persona no está logueada) 
+                    <form class="container-fluid d-flex justify-content-end">
+                        <a href="../logs/login.php"><button class="btn btn-outline-light me-2" type="button">Login</button></a>
+                        <a href="../logs/signup.php"><button class="btn btn-outline-danger me-2" type="button">Registro</button></a>
+                    </form>
+                
+            </div>
+        </nav> -->
 
         <?php
-        if ($objSession->getUsRol() == 'Admin') {
+        /* if ($objSession->getUsRol() == 'Admin') {
             echo "<div class=\"header-2\">
             <nav class=\"navbar\">
                 <a href=\"../producto/producto_list.php\">Productos</a>
@@ -147,9 +179,10 @@ if ($bandera = $objSession->activa()) {
                 <a href=\"../compraestado/compraestado_list.php\">Estado de compra</a>
                 <a href=\"../usuario/usuario_list.php\">Usuario</a>
             </nav>
-        </div>";
-        }
+        </div>"; */
+        //}
         ?>
     </header>
 
     <body>
+        <?php //}?>

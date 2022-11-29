@@ -7,12 +7,7 @@ class Session extends MasterController
      * Método constructor
      * Si no está iniciada una sesión, comienza una nueva
      */
-    public function __construct()
-    {
-        if (!isset($_SESSION)) {
-            session_start();
-        }
-    }
+    
 
     /*// LA PROFE MALAPI LA TIENE ASI
 
@@ -96,7 +91,7 @@ public function __construct(){
             'usdeshabilitado' => null
         ];
         $objUsu = $objUsuarioCon->buscarObjUsuario();
-        if ($objUsu->getIdusuario() != NULL) {
+        /* if ($objUsu->getIdusuario() != NULL) {
             //tengo sus datos
             //obtener el rol
             $idusuario = $objUsu->getIdusuario();
@@ -127,7 +122,7 @@ public function __construct(){
                     $objMenuCon = new MenuController();
                     $menues = $objMenuCon->obtenerMenuesPorRol($idrol);
                     $bandera = $menues;
-                } else {
+                } else {|
                     //no posee rol
                     $bandera = false;
                 }

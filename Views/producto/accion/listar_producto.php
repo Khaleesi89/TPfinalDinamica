@@ -1,8 +1,9 @@
 <?php
 require_once('../../../config.php');
 $objConPro = new ProductoController();
-$objSession = new Session();
-$rol = $objSession->getUsRol();
+$objSession = new SessionController();
+//$rol = $objSession->getUsRol();
+$rol = 'Admin';
 if($rol != ''){
     if($rol == 'Admin' || $rol == 'Deposito'){
         $array = [];
