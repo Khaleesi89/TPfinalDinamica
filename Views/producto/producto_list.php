@@ -1,7 +1,7 @@
 <?php
 require_once('../templates/header2.php');
-$variable = $objSession->obtenerRol();
-$rol = $variable[0]->getObjRol()->getIdRol();
+/* $variable = $objSession->obtenerRol();
+$rol = $variable[0]->getObjRol()->getIdRol(); */
 // var_dump($rol[0]->getObjRol()->getIdRol());
 
 
@@ -145,7 +145,7 @@ $arrBuPro = [];
 
     <!-- Formulario de compra -->
     <div id="dlg1" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg1-buttons'">
-        <form id="fm1" method="POST" novalidate style="margin:0,padding:20px 50px;">
+        <form id="fm1" method="POST" novalidate style="margin:0; padding:20px 50px;">
             <h3>Producto información</h3>
             <div style="margin-bottom:10px;">
                 <input name="pronombre" id="pronombre" class="easyui-textbox" required="true" label="Nombre" style="width:100%;" readonly>

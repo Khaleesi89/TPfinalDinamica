@@ -35,6 +35,7 @@ $rol = 'Admin';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yonny ameo</title>
+    <link rel="icon" type="image/x-icon" href="../../Public/img/favicon.png">
     <script src="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js"></script>
     <script>
         var botmanWidget = {
@@ -93,13 +94,13 @@ $rol = 'Admin';
                             </ul>
                         </li>
                     </div>
-                <?php //else: ?>
+                <?php if( !$objSession->activa() ): ?>
                     <!-- Login y Registro (Se muestra si la persona no está logueada) -->
                     <form class="container-fluid d-flex justify-content-end">
                         <a href="../logs/login.php"><button class="btn btn-outline-light me-2" type="button">Login</button></a>
                         <a href="../logs/signup.php"><button class="btn btn-outline-danger me-2" type="button">Registro</button></a>
                     </form>
-                <?php// endif; ?>
+                <?php endif; ?>
             </div>
         </nav>
     <!-- <header class="header">
