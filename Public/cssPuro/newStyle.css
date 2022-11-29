@@ -46,6 +46,14 @@ section {
     padding: 5rem 9%;
 }
 
+li {
+    list-style: none;
+}
+
+.navbar a {
+    text-decoration: none;
+}
+
 .btn {
     margin-top: 1rem;
     display: inline-block;
@@ -484,6 +492,7 @@ section {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
     gap: 1.5rem;
+    padding: 15px 150px 15px 150px;
 }
 
 .footer .box-container .box h3 {
@@ -514,6 +523,7 @@ section {
 }
 
 .footer .share a {
+    text-decoration: none;
     height: 5rem;
     width: 5rem;
     line-height: 5rem;
@@ -540,7 +550,7 @@ section {
     text-align: center;
 }
 
-.registracion{
+.registracion {
     color: green;
     font-size: 18px;
     text-align: center;
@@ -548,26 +558,25 @@ section {
     margin: 50px;
 }
 
-.box1{
+.box1 {
     border-color: green;
     border-style: solid;
     border-width: 3px;
 }
 
-.yo{
+.yo {
     border-color: #219150;
     border-style: solid;
     border-width: 3px;
     width: 500px;
     margin: auto;
     background-color: white;
-
 }
 
-body{
+body {
     background-color: #219150;
 }
-footer{
+footer {
     background-color: white;
 }
 

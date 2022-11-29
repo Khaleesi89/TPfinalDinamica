@@ -1,4 +1,4 @@
 <?php
 
-header('Location: Views/home/NewIndex.php');
+header('Location: Views/home/index.php');
 exit;

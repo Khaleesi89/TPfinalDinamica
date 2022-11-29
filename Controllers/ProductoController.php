@@ -12,16 +12,21 @@ class ProductoController extends MasterController{
         $precio = $this->buscarKey('precio');
         $isbn = $this->buscarKey('isbn');
         $categoria = $this->buscarKey('categoria');
+
+        $foto = $this->getSlashesImg();
+
         $prdeshabilitado = $this->buscarKey('prdeshabilitado');
-        $arrayBusqueda = ['idproducto' => $idproducto,
-                          'pronombre' => $pronombre,
-                          'sinopsis' => $sinopsis,
-                          'procantstock' => $procantstock,
-                          'autor' => $autor,
-                          'precio' => $precio,
-                          'isbn' => $isbn,
-                          'categoria' => $categoria,
-                          'prdeshabilitado' => $prdeshabilitado];
+        $arrayBusqueda = [
+            'idproducto' => $idproducto,
+            'pronombre' => $pronombre,
+            'sinopsis' => $sinopsis,
+            'procantstock' => $procantstock,
+            'autor' => $autor,
+            'precio' => $precio,
+            'isbn' => $isbn,
+            'categoria' => $categoria,
+            'foto' => $foto,
+            'prdeshabilitado' => $prdeshabilitado];
         return $arrayBusqueda;
     }
 
@@ -69,13 +74,14 @@ class ProductoController extends MasterController{
     public function insertar(){
         $data = $this->busqueda();
         $objCompra = new Producto();
-        $objCompra->setProNombre($data['pronombre']);
-        $objCompra->setSinopsis($data['sinopsis']);
-        $objCompra->setProCantStock($data['procantstock']);
-        $objCompra->setAutor($data['autor']);
-        $objCompra->setPrecio($data['precio']);
-        $objCompra->setIsbn($data['isbn']);
-        $objCompra->setCategoria($data['categoria']);
+        $objCompra->setProNombre( $data['pronombre'] );
+        $objCompra->setSinopsis( $data['sinopsis'] );
+        $objCompra->setProCantStock( $data['procantstock'] );
+        $objCompra->setAutor( $data['autor'] );
+        $objCompra->setPrecio( $data['precio'] );
+        $objCompra->setIsbn( $data['isbn'] );
+        $objCompra->setCategoria( $data['categoria'] );
+        $objCompra->setFoto( $data['foto'] );
         
         $rta = $objCompra->insertar();
         return $rta;
@@ -89,7 +95,7 @@ class ProductoController extends MasterController{
             //puedo modificar con los valores
             $valores = $this->busqueda();
             $objProducto = $rta['obj'];
-            $objProducto->cargar($valores['sinopsis'], $valores['pronombre'], $valores['procantstock'], $valores['autor'], $valores['precio'], $valores['isbn'], $valores['categoria']);
+            $objProducto->cargar($valores['sinopsis'], $valores['pronombre'], $valores['procantstock'], $valores['autor'], $valores['precio'], $valores['isbn'], $valores['categoria'], $valores['foto']);
             $rsta = $objProducto->modificar();
             if($rsta['respuesta']){
                 //todo gut

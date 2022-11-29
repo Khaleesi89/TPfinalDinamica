@@ -3,9 +3,9 @@ require_once('../templates/header2.php');
 $objUsuCon = new UsuarioController();
 $objUsuRolCon = new UsuarioRolController();
 $arrayRoles = $objUsuRolCon->getRoles();
+$rol = 'Admin';
 try {
-    $rol = $objSession->getUsRol();
-    $rol = $objSession->getUsRol();
+    //$rol = $objSession->getUsRol();
     if($rol != ''){
         if($rol == 'Admin'){
             $array = [];

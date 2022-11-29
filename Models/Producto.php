@@ -17,8 +17,7 @@ class Producto extends db
     private $prdeshabilitado;
     private $mensajeOp;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->idProducto = '';
         $this->proNombre = '';
         $this->sinopsis = '';
@@ -354,7 +353,11 @@ class Producto extends db
         $data['precio'] = $this->getPrecio();
         $data['isbn'] = $this->getIsbn();
         $data['categoria'] = $this->getCategoria();
-        $data['foto'] = $this->getFoto();
+
+        $imagen = $this->getFoto();
+        $foto1 = base64_encode( stripslashes(addslashes($imagen)) );
+        $foto = '<img height="500px" src="data:image/jpeg;base64,'.$foto1.' "/>';
+        $data['foto'] = $foto;
         return $data;
     }
 
