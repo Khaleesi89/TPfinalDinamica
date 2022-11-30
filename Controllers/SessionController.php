@@ -30,6 +30,9 @@ class SessionController extends MasterController {
         return $sevalido;
     }
 
+    /** Identifica si la sesion esta activa
+     * @return bool
+     */
     public function activa() {
         $bandera = false;
         if( isset($_SESSION['usnombre']) ){
@@ -38,6 +41,10 @@ class SessionController extends MasterController {
         return $bandera;
     }
 
+    /** Identificamos si las credenciales ingresadas concuerdan con algun usuario
+     * en la base de datos 
+    * @return bool
+    */
     public function validarCredenciales() {
         $usnombre = $this->buscarKey('usnombre');
         $uspass = $this->buscarKey('uspass');
@@ -75,6 +82,10 @@ class SessionController extends MasterController {
         return $retorno;
     }
 
+    /**
+     * Con el ID del usuario obtenemos su rol
+     * @return array
+     */
     public function obtenerRol() {
         $arrBusU['idusuario'] = $this->getIdusuario();
         $rta = Usuariorol::listar($arrBusU);

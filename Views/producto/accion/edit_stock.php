@@ -43,11 +43,19 @@ if ($cantStock != false) {
         }
 
         //cargar una tupla en compraitem con idcompra y idproducto
-        $validoCarrito = $objCompraItemCon->cargarVentaDeProducto($idcompraActiva, $idproducto, $cicantidad);
-        if ($validoCarrito) {
+        $carrito = $objCompraItemCon->unirMismoProducto($idcompraActiva, $idproducto, $cicantidad);
+
+        // $validoCarrito = $objCompraItemCon->cargarVentaDeProducto($idcompraActiva, $idproducto, $cicantidad);
+        if ($carrito['respuesta']) {
             $respuesta = true;
         } else {
-            $respuesta = false;
+            $validoCarrito = $objCompraItemCon->cargarVentaDeProducto($idcompraActiva, $idproducto, $cicantidad);
+            if($validoCarrito){
+                $respuesta = true;
+            }else{
+                $respuesta = false;
+            }
+            
         }
     } else {
         $mensaje = "El stock de compra ingresado es superior al de depósito";

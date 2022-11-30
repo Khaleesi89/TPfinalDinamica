@@ -221,17 +221,17 @@ class CompraestadoController extends MasterController {
     }
     
 
-    con idcompra hago compraitem traigo todos los q cumplan con $idcompra
-    hago un foreach...porq cada uno hacer q las cantidades coincidan del producto con la
-    cantidad
-    antes del forech hago una bandera $sivalidar = true;
-    en alguno que sea mayor bandera $sivalidar = false;
-    si todo dio true, cambio la cantidad del stock.
+    // con idcompra hago compraitem traigo todos los q cumplan con $idcompra
+    // hago un foreach...porq cada uno hacer q las cantidades coincidan del producto con la
+    // cantidad
+    // antes del forech hago una bandera $sivalidar = true;
+    // en alguno que sea mayor bandera $sivalidar = false;
+    // si todo dio true, cambio la cantidad del stock.
 
 
 
-    cancelada-> sicantidad tengo q sumar idcompra para listar compraitem. tengo ql objeto
-    de producto entonces agarro cicantidad y el stock total..y modificar
+    // cancelada-> sicantidad tengo q sumar idcompra para listar compraitem. tengo ql objeto
+    // de producto entonces agarro cicantidad y el stock total..y modificar
     }
     
 
