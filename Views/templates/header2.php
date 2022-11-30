@@ -35,6 +35,7 @@ $rol = 'Admin';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yonny ameo</title>
+    <link rel="icon" type="image/x-icon" href="../../Public/img/favicon.png">
     <script src="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js"></script>
     <script>
         var botmanWidget = {
@@ -66,12 +67,12 @@ $rol = 'Admin';
 
 <body>
     <!-- Header -->
-    <header class="header row">
-        <div class="header-1 col-sm-3">
-            <a href="../home/newIndex.php" class="logo"><i class="fas fa-book"></i> Yonny</a>
-            <?php //if ($credenciales) { 
-            ?>
-            <!-- <div class="dropdown">
+    <header class="header">
+
+        <div class="header-1">
+            <a href="../home/index.php" class="logo"><i class="fas fa-book"></i> Yonny</a>
+            <?php //if ($credenciales) { ?>
+                <!-- <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <?php //echo ($objSession->getUsnombre());
                         //echo ($objSession->getUsRol()); 
@@ -84,30 +85,27 @@ $rol = 'Admin';
                     </ul>
                 </div> -->
 
-            <?php //if( $credenciales ): 
-            ?>
-            <div class="collapse navbar-collapse d-flex justify-content-end col-sm-3" id="navbarSupportedContent">
-                <li class="nav-item dropdown user">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <button class="btn btn-outline-danger" type="button"><?php echo ($objSession->getUsnombre()); ?> - <span><?php echo "Admin"; //echo($objSession->getUsRol()); 
-                                                                                                                                        ?></span></button>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="../logs/logout.php">Salir</a></li>
-                    </ul>
-                </li>
+                <?php //if( $credenciales ): ?>
+                    <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
+                        <li class="nav-item dropdown user">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button class="btn btn-outline-danger me-2" type="button"><?php echo($objSession->getUsnombre()); ?> - <span><?php echo "Admin";//echo($objSession->getUsRol()); ?></span></button>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="../logs/logout.php">Salir</a></li>
+                            </ul>
+                        </li>
+                    </div>
+                <?php if( !$objSession->activa() ): ?>
+                    <!-- Login y Registro (Se muestra si la persona no está logueada) -->
+                    <form class="container-fluid d-flex justify-content-end">
+                        <a href="../logs/login.php"><button class="btn btn-outline-light me-2" type="button">Login</button></a>
+                        <a href="../logs/signup.php"><button class="btn btn-outline-danger me-2" type="button">Registro</button></a>
+                    </form>
+                <?php endif; ?>
             </div>
-            <?php //else: 
-            ?>
-            <!-- Login y Registro (Se muestra si la persona no está logueada) -->
-            <!-- <form class="container-fluid d-flex justify-content-end">
-                <a href="../logs/login.php"><button class="btn btn-outline-light me-2" type="button">Login</button></a>
-                <a href="../logs/signup.php"><button class="btn btn-outline-danger me-2" type="button">Registro</button></a>
-            </form> -->
-            <?php // endif; 
-            ?>
-        </div>
-        <!-- <header class="header">
+        </nav>
+    <!-- <header class="header">
 
         <div class="header-1">
             <div class="header-1">

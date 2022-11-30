@@ -1,7 +1,6 @@
 <?php
 
-class Session extends MasterController
-{
+class Session extends MasterController {
 
     /**
      * Método constructor
@@ -24,36 +23,28 @@ public function __construct(){
      * Getters & Setters
      * Obtiene y setea los índices de la variable $_SESSION
      */
-    public function getIdusuario()
-    {
+    public function getIdusuario() {
         return $_SESSION['idusuario'];
     }
-    public function setIdusuario($idusuario)
-    {
+    public function setIdusuario( $idusuario ){
         $_SESSION['idusuario'] = $idusuario;
     }
 
-    public function getUsnombre()
-    {
+    public function getUsnombre() {
         return $_SESSION['usnombre'];
     }
-    public function setUsnombre($usnombre)
-    {
+    public function setUsnombre( $usnombre ){
         $_SESSION['usnombre'] = $usnombre;
     }
 
-    public function getUspass()
-    {
+    public function getUspass() {
         return $_SESSION['uspass'];
     }
-
-    public function setUspass($uspass)
-    {
+    public function setUspass( $uspass ){
         $_SESSION['uspass'] = $uspass;
     }
 
-    public function getUsRol()
-    {
+    public function getUsRol() {
         if (isset($_SESSION['usRol'])) {
             $rol = $_SESSION['usRol'];
         } else {
@@ -62,9 +53,7 @@ public function __construct(){
 
         return $rol;
     }
-
-    public function setUsRol($usRol)
-    {
+    public function setUsRol( $usRol ){
         $_SESSION['usRol'] = $usRol;
     }
 
@@ -73,8 +62,7 @@ public function __construct(){
      * @param $usuNombre
      * @param $usuPass
      */
-    public function iniciar($usnombre, $uspass)
-    {
+    public function iniciar( $usnombre, $uspass ){
         $bandera = false;
         $objUsuarioCon = new UsuarioController();
         $objUsuarioRolCon = new UsuarioRolController();
@@ -164,8 +152,7 @@ public function __construct(){
      * Método que valida si la sesión actual tiene usuario y pass válidos.
      * @return boolean
      */
-    public function validar()
-    {
+    public function validar() {
         $validado['rta'] = false;
         $usuario = $this->getUsnombre();
         $pass = $this->getUspass();
@@ -194,8 +181,7 @@ public function __construct(){
      * @param void
      * @return boolean
      */
-    public function activa()
-    {
+    public function activa() {
         $bandera = false;
         if (isset($_SESSION['usnombre'])) {
             $bandera = true;
@@ -208,15 +194,13 @@ public function __construct(){
      * @param void
      * @return void
      */
-    public function cerrar()
-    {
+    public function cerrar() {
         session_unset();
         session_destroy();
     }
 
     // Get rol de usuario
-    public function getRol()
-    {
+    public function getRol() {
         $objUsuarioRol = new UsuarioRolController();
         $rolUsuario = [];
         $listaUsuarios = $objUsuarioRol->getUsuarios();
@@ -229,8 +213,7 @@ public function __construct(){
         return $rolUsuario;
     }
 
-    public function isAdmin($rol)
-    {
+    public function isAdmin( $rol ){
         $bandera = false;
         if ($rol == 'Admin' && $rol == $this->getUsRol()) {
             $bandera = true;
@@ -239,16 +222,14 @@ public function __construct(){
     }
 
     // dame datos de idusuario, roles del usuario
-    public function dameDatos()
-    {
+    public function dameDatos() {
         $data = [];
         $data['idusuario'] = $this->getIdusuario();
         $data['rolesusuario'] = $this->getRol();
         return $data;
     }
 
-    public function rolesUsuario()
-    {
+    public function rolesUsuario() {
         $objUsuarioRolCon = new UsuarioRolController();
         $rta = $objUsuarioRolCon->buscarRoles();
         $arrayRoles = $objUsuarioRolCon->getRoles();
@@ -293,4 +274,5 @@ public function __construct(){
         $objNuevo = (object)array('data' => $arrayOtro);
         return $objNuevo;
     }
+
 }

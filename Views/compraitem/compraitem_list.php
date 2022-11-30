@@ -3,7 +3,6 @@ require_once('../templates/header2.php');
 $objComItem = new CompraitemController();
 $lista = $objComItem->listarTodo();
 
-
 ?>
 
 <div class="container d-flex justify-content-center mt-5 mb-5">

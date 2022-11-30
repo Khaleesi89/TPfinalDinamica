@@ -26,7 +26,7 @@ $arrBuPro = [];
     $lista = []; //  ['idproducto' => '', 'pronombre' => '', 'sinopsis'=>'', 'procantstock'=>'', 'autor'=>'', 'precio'=>'', 'isbn'=>'', 'categoria'=>''];
 } */
 ?>
-
+<?php /*  var_dump($objSession->getIdusuario()); */?>
 <div class="container-fluid p-5 my-1 d-flex justify-content-center producto">
     <div class="row">
         <div class="col-sm-12">
@@ -42,18 +42,18 @@ $arrBuPro = [];
                         <th field="precio" width="5%">Precio</th>
                         <th field="isbn" width="5%">ISBN</th>
                         <th field="categoria" width="10%">Categoría</th>
-                        <th field="foto" width="500px">Portada</th>
+                        <th field="foto" width="50%">Portada</th>
                     </tr>
                 </thead>
             </table>
 
             <div id="toolbar" style="padding:4px">
                 <?php
-                if ($rol == '1' || $rol == '3') {
+                if ($rol == '1' || $rol == '3') { // Admin o Depósito
                     echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" plain=\"true\" onclick=\"newProducto()\">Nuevo producto</a>
                             <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-edit\" plain=\"true\" onclick=\"editProducto()\">Editar producto</a>
                             <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"destroyProducto()\">Eliminar producto</a>";
-                } elseif ($rol == '2') {
+                } elseif ($rol == '2') { // Cliente
                     echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"comprar()\">Comprar</a>";
                 }
                 ?>
@@ -84,7 +84,7 @@ $arrBuPro = [];
                         <input name="categoria" id="categoria" class="easyui-textbox" required="true" label="Categoria" style="width:100%;">
                     </div>
                     <div style="margin-bottom:10px;">
-                        <input class="easyui-filebox" class="foto" name="foto" id="foto" style="width:300px" data-options="
+                        <input class="easyui-filebox" class="foto" name="foto" id="foto" style="width:100%" data-options="
                             prompt:'Selecciona un archivo',
                             onChange: function(value){
                                 var f = $(this).next().find('input[type=file]')[0];
@@ -103,7 +103,6 @@ $arrBuPro = [];
                     <a href="javascript:void(0)" class="easyui-button" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
                 </div>
             </div>
-
 
         </div>
     </div>
@@ -143,7 +142,7 @@ $arrBuPro = [];
     </div> -->
     <!-- Formulario de compra -->
     <div id="dlg1" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg1-buttons'">
-        <form id="fm1" method="POST" novalidate style="margin:0,padding:20px 50px;">
+        <form id="fm1" method="POST" novalidate style="margin:0; padding:20px 50px;">
             <h3>Producto información</h3>
             <div style="margin-bottom:10px;">
                 <input name="pronombre" id="pronombre" class="easyui-textbox" required="true" label="Nombre" style="width:100%;" readonly>

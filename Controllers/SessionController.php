@@ -1,27 +1,22 @@
 <?php
-// require_once('../../config.php');
 
-class SessionController extends MasterController
-{
-    public function __construct()
-    {
+class SessionController extends MasterController {
+
+    public function __construct(){
         if (!isset($_SESSION)) {
             session_start();
         }
     }
 
-    public function getUsnombre()
-    {
+    public function getUsnombre() {
         return $_SESSION['usnombre'];
     }
 
-    public function getIdusuario()
-    {
+    public function getIdusuario() {
         return $_SESSION['idusuario'];
     }
 
-    public function existenCredenciales()
-    {
+    public function existenCredenciales() {
         $sevalido = false;
         $usnombre = $this->buscarKey('usnombre');
         $uspass = $this->buscarKey('uspass');
@@ -35,21 +30,26 @@ class SessionController extends MasterController
         return $sevalido;
     }
 
-    public function activa()
-    {
+    /** Identifica si la sesion esta activa
+     * @return bool
+     */
+    public function activa() {
         $bandera = false;
-        if (isset($_SESSION['usnombre'])) {
+        if( isset($_SESSION['usnombre']) ){
             $bandera = true;
         }
         return $bandera;
     }
 
-    public function validarCredenciales()
-    {
+    /** Identificamos si las credenciales ingresadas concuerdan con algun usuario
+     * en la base de datos 
+    * @return bool
+    */
+    public function validarCredenciales() {
         $usnombre = $this->buscarKey('usnombre');
         $uspass = $this->buscarKey('uspass');
         //echo "<script>console.log('$uspass');console.log('$usnombre');</script>";
-        if(($usnombre != false && $uspass != false) || isset($_SESSION['usnombre'])){
+        if( ($usnombre != false && $uspass != false) || isset($_SESSION['usnombre']) ){
             
             //a buscar
             //$_SESSION['uspass'] = $uspass;
@@ -75,18 +75,21 @@ class SessionController extends MasterController
                     $retorno = false;
                 }
             }
-        }else{
+        } else {
             
             $retorno = false;
         }
         return $retorno;
     }
 
-    public function obtenerRol()
-    {
+    /**
+     * Con el ID del usuario obtenemos su rol
+     * @return array
+     */
+    public function obtenerRol() {
         $arrBusU['idusuario'] = $this->getIdusuario();
         $rta = Usuariorol::listar($arrBusU);
-        if (array_key_exists('array', $rta)) {
+        if( array_key_exists('array', $rta) ){
             $roles = $rta['array'];
         } else {
             $roles = [];
@@ -94,12 +97,12 @@ class SessionController extends MasterController
         return $roles;
     }
 
-    public function listaRoles()
-    {
+    public function listaRoles() {
         $roles = $this->obtenerRol();
         $rolesString = [];
         $rolesId = [];
         foreach ($roles as $key => $value) {
         }
     }
+
 }
