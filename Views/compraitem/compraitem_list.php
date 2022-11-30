@@ -1,7 +1,17 @@
 <?php
 require_once('../templates/header2.php');
-$objComItem = new CompraitemController();
-$lista = $objComItem->listarTodo();
+$objCompraItem = new CompraitemController();
+/* $lista = $objCompraItem->listarTodo(); */
+
+/** Con el id de usuario buscamos la compra que esté iniciada
+ * Al id de compra se lo pasamos como parametro al array de busqueda de listarTodo de compraItem
+ */
+/* $objCompraController = new CompraController();
+
+$idUsuario = $objSession->getIdusuario();
+$idCompra =  $objCompraController->buscarCompraConIdusuario( $idUsuario );
+$arrayBusqueda = ['idcompra' => $idCompra];
+$lista = $objCompraItem->listarTodo( $arrayBusqueda ); */
 
 ?>
 

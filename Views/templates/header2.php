@@ -54,9 +54,9 @@ if ($rta == false) {
     if($bandera){
         //redireccionar como sabe el gonza
         ?>
-        <script>
+        <!-- <script>
             location.href = 'TPfinalDinamica/Views/home/index.php';
-        </script>
+        </script> -->
         <?php
     }
 ?>

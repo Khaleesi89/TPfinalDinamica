@@ -1,26 +1,33 @@
 <?php
 require_once('../../../config.php');
 
-$objCompraitem = new CompraitemController();
-$lista = $objCompraitem->listarTodo();
+$objSession = new SessionController();
+$objCompraItemController = new CompraitemController();
+$objCompraController = new CompraController();
+
+$idUsuario = $objSession->getIdusuario();
+$idCompra =  $objCompraController->buscarCompraConIdusuario( $idUsuario );
+$arrayBusqueda = ['idcompra' => $idCompra];
+$lista = $objCompraItemController->listarTodo( $arrayBusqueda );
+//$lista = $objCompraItemControler->listarTodo();
+
 $arraydelacompraitem = [];
-foreach ($lista as $key => $objCompraitem) {
+foreach( $lista as $key => $objCompraItem ){
     /* $arraydelacompraitem = []; */
-    $idcompraitem = $objCompraitem->getIdcompraitem();
-    $producto = $objCompraitem->getObjProducto();
+    $idcompraitem = $objCompraItem->getIdcompraitem();
+    $producto = $objCompraItem->getObjProducto();
     $nombreproduct = $producto->getProNombre();
     $idproducto = $producto->getIdProducto();
-    $compra = $objCompraitem->getObjCompra();
+    $compra = $objCompraItem->getObjCompra();
     $idcompra = $compra->getIdcompra();
-    $cantidadComprada = $objCompraitem->getCicantidad();
+    $cantidadComprada = $objCompraItem->getCicantidad();
     $nuevoElemen = [
-                            'idcompraitem' =>$idcompraitem,
-                            'idproducto' =>$idproducto,
-                            'pronombre' =>$nombreproduct,
-                            'idcompra' =>$idcompra,
-                            'cicantidad' =>$cantidadComprada,
+        'idcompraitem' =>$idcompraitem,
+        'idproducto' =>$idproducto,
+        'pronombre' =>$nombreproduct,
+        'idcompra' =>$idcompra,
+        'cicantidad' =>$cantidadComprada,
     ];
-    
     array_push($arraydelacompraitem, $nuevoElemen);
 }
 //var_dump($arreglo_salid);
