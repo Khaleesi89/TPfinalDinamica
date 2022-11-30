@@ -36,6 +36,22 @@ if( $rta == false ){
 
     $menuesTotales = $objSession->obtenerTodosMenues();
 
+    
+    $obtenerURL = explode('/', $_SERVER['REQUEST_URI']);
+    $obtenerURL = array_reverse($obtenerURL);
+    $var = 'ABM';
+    $urlActual = $var.$obtenerURL[1];
+    //var_dump($urlActual);
+    $bandera = true;
+    foreach ($menuesDelUsuario as $key => $value) {
+        if($value == $urlActual){
+            $bandera = false;
+        }
+    }
+    //var_dump($bandera);
+    if($bandera){
+        //redireccionar como sabe el gonza
+    }
 ?>
 
     <!DOCTYPE html>
