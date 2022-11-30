@@ -22,21 +22,23 @@ $lista = $objConCompraestado->listarTodo();
     <link rel="stylesheet" href="../../Vendor/demo/demo.css">
     <script src="../../Vendor/jquery.min.js"></script>
     <script src="../../Vendor/jquery.easyui.min.js"></script>
-    <title>PRODUCTOS</title>
+    <title>Compraestado</title>
 </head>
-<div class="container d-flex justify-content-center mt-5 mb-5">
-    <table id="dg" title="Administrador de compras estado" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_compraestado.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
-        <thead>
-            <tr>
-                <th field="idcompraestado" width="50">Id</th>
-                <th field="idcompra" width="50">n° pedido/compra</th>
-                <th field="idcompraestadotipo" width="50">Id compra estado tipo</th>
-                <th field="cetdescripcion" width="50">descripcion</th>
-                <th field="cefechaini" width="50">Ce fecha ini</th>
-                <th field="cefechafin" width="50">Ce fecha fin</th>
-            </tr>
-        </thead>
-    </table>
+
+<body>
+    <div class="container d-flex justify-content-center mt-5 mb-5">
+        <table id="dg" title="Administrador de compras estado" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_compraestado.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
+            <thead>
+                <tr>
+                    <th field="idcompraestado" width="50">Id</th>
+                    <th field="idcompra" width="50">n° pedido/compra</th>
+                    <th field="idcompraestadotipo" width="50">Id compra estado tipo</th>
+                    <th field="cetdescripcion" width="50">descripcion</th>
+                    <th field="cefechaini" width="50">Ce fecha ini</th>
+                    <th field="cefechafin" width="50">Ce fecha fin</th>
+                </tr>
+            </thead>
+        </table>
     <div id="toolbar">
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCompraEstado()">Editar estado de compra</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyCompraEstado()">Destroy estado de compra</a>
@@ -141,4 +143,4 @@ $lista = $objConCompraestado->listarTodo();
 
 </div>
 
-<?php require_once('../templates/footer.php') ?>
+<?php //require_once('../templates/footer.php') ?>

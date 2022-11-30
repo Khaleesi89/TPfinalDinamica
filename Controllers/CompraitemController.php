@@ -15,6 +15,7 @@ class CompraitemController extends MasterController {
     }
     
 
+   
 
     //ACA EN MODIFICAR SETEAMOS LA CANTIDAD QUE QUEDA EN STOCK (DENTRO DE PRODUCTO, NO EN COMPRAITEM)
     public function modificar(){

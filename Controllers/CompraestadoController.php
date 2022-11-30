@@ -202,8 +202,6 @@ class CompraestadoController extends MasterController {
         $array ['idcompra'] = $this->buscarKey('idcompra');
         $objCompra = new Compra();
         $objCompra->buscar($array);
-        //hacer un if para las diferentes respuestas
-        $puedo = $objCompra->cambiarStocksegunEstado();
         //tengo objeto compraestadotipo
         $arrayBusquedasT = [];
         $arrayBusquedasT ['idcompraestadotipo'] = $this->buscarKey('idcompraestadotipo');
@@ -211,6 +209,9 @@ class CompraestadoController extends MasterController {
         $objCompraestadotipo->buscar($arrayBusquedasT);
         //cargo el nuevo compraestado con el estadotipo nuevo
         $objCompraestado->cargar($objCompra, $objCompraestadotipo);
+         //hago la disminucion del stock en aceptada o enviada o lo agregamos cuando cancelan
+         $puedo = $objCompra->cambiarStocksegunEstado($objCompraestado);
+
         $rta = $objCompraestado->insertar();
         if($rta){
             $respuesta ['respuesta'] = true;
@@ -221,7 +222,7 @@ class CompraestadoController extends MasterController {
     }
     
 
-    con idcompra hago compraitem traigo todos los q cumplan con $idcompra
+    /* con idcompra hago compraitem traigo todos los q cumplan con $idcompra
     hago un foreach...porq cada uno hacer q las cantidades coincidan del producto con la
     cantidad
     antes del forech hago una bandera $sivalidar = true;
@@ -234,19 +235,12 @@ class CompraestadoController extends MasterController {
     de producto entonces agarro cicantidad y el stock total..y modificar
     }
     
+ */
 
+   
 
-    //HACER FUNCION PARA RESTAR LA CANTIDAD DE PRODUCTOS.
-
-    public function cambiarStocksegunEstado(){
-        $objCompra = $this->getObjCompra();
-        
-        $idcompra = $arrayconInfo['idcompra'];
-
-
-        
     
-    }
+   
 
 
     
