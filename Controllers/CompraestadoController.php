@@ -19,9 +19,9 @@ class CompraestadoController extends MasterController {
         return $arrayBusqueda;
     }
 
-    public function listarTodo(){
+    public function listarTodo($arrayBusqueda){
         //$arrayBusqueda = $this->busqueda();
-        $arrayBusqueda['cefechafin'] = NULL;
+        //$arrayBusqueda['cefechafin'] = NULL;
         $arrayTotal = Compraestado::listar($arrayBusqueda);
         if(array_key_exists('array', $arrayTotal)){
             $array = $arrayTotal['array'];

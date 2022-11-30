@@ -3,15 +3,15 @@ require_once('../templates/preheader.php');
 $objUsuarioController = new UsuarioController();
 $objUsuRolController = new UsuarioRolController();
 $arrayRoles = $objUsuRolController->getRoles();
-$rol = 'Admin';
+
 try {
-    //$rol = $objSession->getUsRol();
-    if ($rol != '') {
-        if ($rol == 'Admin') {
+    $rol = $objSession->getRolPrimo();
+    if($rol != ''){
+        if($rol == 'Admin'){
             $array = [];
-            $lista = $objUsuarioController->listarTodo($array);
-        } elseif ($rol == 'Cliente' || $rol == 'Deposito') {
-            $arrBuPro['usdeshabilitado'] = NULL;
+            $lista = $objUsuarioController->listarTodo($array );
+        }elseif($rol == 'Cliente' || $rol == 'Deposito'){
+            //$arrBuPro['usdeshabilitado'] = NULL;
             $idusuario = $objSession->getIdusuario();
             $arrBuPro['idusuario'] = $idusuario;
             $lista = $objUsuarioController->listarTodo($arrBuPro);
@@ -22,6 +22,7 @@ try {
 } catch (\Throwable $th) {
     $lista = [];
 }
+//var_dump($rol);
 
 ?>
 <!-- <!DOCTYPE html>
@@ -66,29 +67,37 @@ try {
                 } elseif ($rol == 'Deposito' || $rol == 'Cliente') {
                     echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-edit\" plain=\"true\" onclick=\"editUsuario()\">Editar Usuario</a>
                 <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"destroyUsuario()\">Deshabilitar Usuario</a>
-                <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"undestroyUsuario()\">Habilitar Usuario</a>";
-                }
-                ?>
+                <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"undestroyUsuario()\">Habilitar Usuario</a>
+                <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"newRolEs()\">Ver Roles</a>";
+            }
+        ?>
+        <!-- <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUsuario()">Nuevo Usuario</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUsuario()">Editar Usuario</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUsuario()">Deshabilitar Usuario</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="undestroyUsuario()">Habilitar Usuario</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="newRol()">Ver Roles</a> -->
+    </div>
+    <div id="dlg" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
+        <form id="fm" method="POST" novalidate style="margin:0;padding:20px 50px;">
+            <h3>Usuario Información</h3>
+            <!-- <div style="margin-bottom:10px;">
+        <input name="idusuario" id="idusuario" class="easyui-textbox" required="true" label="Id usuario" style="width:100%;">
+    </div> -->
+            <div style="margin-bottom:10px;">
+                <input name="usnombre" id="usnombre" class="easyui-textbox" required="true" label="Nombre" style="width:100%;">
+            </div>
+            <div style="margin-bottom:10px;">
+                <input name="uspass" id="uspass" class="easyui-textbox" required="true" label="Password" style="width:100%;">
+            </div>
+            <div style="margin-bottom:10px;">
+                <input name="usmail" id="usmail" class="easyui-textbox" required="true" label="Email" style="width:100%;">
             </div>
 
-            <div id="dlg" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
-                <form id="fm" method="POST" novalidate style="margin:0; padding:20px 50px;">
-                    <h3>Usuario Información</h3>
-                    <div style="margin-bottom:10px;">
-                        <input name="usnombre" id="usnombre" class="easyui-textbox" required="true" label="Nombre" style="width:100%;">
-                    </div>
-                    <div style="margin-bottom:10px;">
-                        <input name="uspass" id="uspass" class="easyui-textbox" required="true" label="Password" style="width:100%;">
-                    </div>
-                    <div style="margin-bottom:10px;">
-                        <input name="usmail" id="usmail" class="easyui-textbox" required="true" label="Email" style="width:100%;">
-                    </div>
-                </form>
-                <div id="dlg-buttons">
-                    <a href="javascript:void(0)" class="easyui-button c6" iconCls="icon-ok" onclick="guardarUsuario()" style="width:90px">Aceptar</a>
-                    <a href="javascript:void(0)" class="easyui-button" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
-                </div>
-            </div>
+
+        </form>
+        <div id="dlg-buttons">
+            <a href="javascript:void(0)" class="easyui-button c6" iconCls="icon-ok" onclick="guardarUsuario()" style="width:90px">Aceptar</a>
+            <a href="javascript:void(0)" class="easyui-button" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
         </div>
     </div>
 </div>
@@ -115,7 +124,12 @@ try {
         ?>
     </form>
     <div id="dlg1-buttons">
-        <a href="javascript:void(0)" class="easyui-button c6" iconCls="icon-ok" onclick="guardarRoles()" style="width:90px">Aceptar</a>
+        <?php 
+            if($rol == 'Admin'){
+                echo "<a href=\"javascript:void(0)\" class=\"easyui-button c6\" iconCls=\"icon-ok\" onclick=\"guardarRoles()\" style=\"width:90px\">Aceptar</a>";
+            }
+        ?>
+        
         <a href="javascript:void(0)" class="easyui-button" iconCls="icon-cancel" onclick="javascript:$('#dlg1').dialog('close')" style="width:90px">Cancelar</a>
     </div>
 </div>
@@ -144,6 +158,42 @@ try {
                 document.getElementById(algo).click();
             }
         }
+    }
+
+    function cargarDatosEs(datos) {
+        arralgo = Object.values(datos.data);
+        arrkeys = Object.keys(datos.data);
+        for (key in arrkeys) {
+            algo = arrkeys[key];
+            //console.log(arralgo[key]);
+            if (arralgo[key] == 'true') {
+                document.getElementById(algo).click();
+            }
+            document.getElementById(algo).disabled = true;
+        }
+    }
+
+    function newRolEs() {
+        var row = $('#dg').datagrid('getSelected');
+        if (row) {
+            urlr = row.idusuario;
+            $('#dlg1').dialog('open').dialog('center').dialog('setTitle', 'Roles');
+            $('#fm1').form('clear');
+            $('#fm1').form('load', 'accion/roles_usuario?idusuario=' + row.idusuario);
+            datos = fetch('accion/roles_usuario?idusuario=' + row.idusuario, {
+                method: "POST",
+                body: JSON.stringify(datos),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then((e) => {
+                return e.json();
+            }).then(data => {
+                cargarDatosEs(data);
+            });
+
+        }
+
     }
 
     function newRol() {

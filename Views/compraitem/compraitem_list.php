@@ -1,6 +1,51 @@
 <?php
 require_once('../templates/preheader.php');
-$objCompraItem = new CompraitemController();
+$objCompraItemCon = new CompraitemController();
+try {
+    $rol = $objSession->getRolPrimo();
+    $lista = [];
+    if($rol == 'Admin' || $rol == 'Deposito'){
+        $arrBuCI = [];
+        $list = $objCompraItemCon->listarTodo($arrBuCI);
+    }else{
+        //averiguar las compras del chabon
+        $idusuario = $objSession->getIdusuario();
+        if($idusuario != NULL){
+            //averiguar la compra que tenga activa
+            $objCompraCon = new CompraController();
+            $idcompra = $objCompraCon->buscarCompraConIdusuario($idusuario);
+            
+            if($idcompra != NULL){
+                //ver que la compra este iniciada 
+                $objCompraestadoCon = new CompraestadoController();
+                $return = $objCompraestadoCon->obtenerCompraActivaPorId($idcompra);
+                //var_dump($return);
+                if($return != false){
+                    $arrBuCI = [];
+                    $arrBuCI['idcompra'] = $return;
+                    $list = $objCompraItemCon->listarTodo($arrBuCI);
+                    //var_dump($list);
+                }else{
+                    $list = [];
+                }
+                
+            }else{
+                $list = [];
+            }
+        }
+        if(count($list) > 0){
+            foreach ($list as $key => $value) {
+                $objProd = $value->getObjProducto();
+                $objCompra = $value->getObjCompra();
+                $arrDat = ['idcompraitem' => $value->getIdcompraitem(), 'idproducto' => $objProd->getIdproducto(), 'pronombre' => $objProd->getPronombre(), 'idcompra' => $objCompra->getIdcompra(), 'cicantidad' => $value->getCicantidad()];
+                array_push($lista, $arrDat);
+            }
+        }
+    }
+} catch (\Throwable $th) {
+    $rol = '';
+    $lista = [];
+}
 /* $lista = $objCompraItem->listarTodo(); */
 
 /** Con el id de usuario buscamos la compra que esté iniciada

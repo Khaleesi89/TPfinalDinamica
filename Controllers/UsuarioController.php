@@ -12,7 +12,11 @@ class UsuarioController extends MasterController {
         }
         //$arrayBusqueda['usdeshabilitado'] = NULL;
         $arrayTotal = Usuario::listar($arr);
-        $array = $arrayTotal['array'];
+        if(array_key_exists('array', $arrayTotal)){
+            $array = $arrayTotal['array'];
+        }else{
+            $array = [];
+        }
         //var_dump($array);
         return $array;        
     }

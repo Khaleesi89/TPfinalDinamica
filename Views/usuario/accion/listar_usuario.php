@@ -13,7 +13,7 @@ try {
             $array = [];
             $lista = $objUsuarioController->listarTodo($array);
         }elseif($rol == 'Cliente' || $rol == 'Deposito'){
-            $arrBuPro['usdeshabilitado'] = NULL;
+            //$arrBuPro['usdeshabilitado'] = NULL;
             $idusuario = $objSession->getIdusuario();
             $arrBuPro['idusuario'] = $idusuario;
             $lista = $objUsuarioController->listarTodo($arrBuPro);
