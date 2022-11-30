@@ -356,7 +356,7 @@ class Producto extends db
 
         $imagen = $this->getFoto();
         $foto1 = base64_encode( stripslashes(addslashes($imagen)) );
-        $foto = '<img height="500px" src="data:image/jpeg;base64,'.$foto1.' "/>';
+        $foto = '<img height="200px" src="data:image/jpeg;base64,'.$foto1.' "/>';
         $data['foto'] = $foto;
         return $data;
     }
