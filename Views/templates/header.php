@@ -1,6 +1,10 @@
 <?php
     require_once('../../config.php');  
     //$objSession = new SessionController();  
+    $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    if($url != "http://virtualhostg/TPfinalDinamica/Views/home/index.php"){
+        header('Location: ../home/index.php');
+    }
 ?>
 
 
