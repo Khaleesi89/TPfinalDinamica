@@ -30,14 +30,21 @@ class SessionController extends MasterController {
         return $sevalido;
     }
 
+    /** Identifica si la sesion esta activa
+     * @return bool
+     */
     public function activa() {
         $bandera = false;
-        if( isset($_SESSION['usnombre']) ){
+        if( isset($_SESSION['usnombre']) && $_SESSION['usnombre'] != false ){
             $bandera = true;
         }
         return $bandera;
     }
 
+    /** Identificamos si las credenciales ingresadas concuerdan con algun usuario
+     * en la base de datos 
+    * @return bool
+    */
     public function validarCredenciales() {
         $usnombre = $this->buscarKey('usnombre');
         $uspass = $this->buscarKey('uspass');
@@ -75,6 +82,10 @@ class SessionController extends MasterController {
         return $retorno;
     }
 
+    /**
+     * Con el ID del usuario obtenemos su rol
+     * @return array
+     */
     public function obtenerRol() {
         $arrBusU['idusuario'] = $this->getIdusuario();
         $rta = Usuariorol::listar($arrBusU);
@@ -92,6 +103,46 @@ class SessionController extends MasterController {
         $rolesId = [];
         foreach ($roles as $key => $value) {
         }
+    }
+
+    /**
+     * Método que finaliza una sesión
+     * @param void
+     * @return void
+     */
+    public function cerrar() {
+        session_unset();
+        session_destroy();
+    }
+    
+    public function setRolPrimo($rol, $id){
+        $_SESSION['rolPrimo'] = $rol;
+        $_SESSION['rolPrimoId'] = $id;    
+    }
+
+    public function getRolPrimo(){
+        return $_SESSION['rolPrimo'];    
+    }
+
+    public function getRolPrimoId(){
+        return $_SESSION['rolPrimoId'];    
+    }
+
+    public function obtenerMenues(){
+        $objMenuCon = new MenuController();
+        $menus = $objMenuCon->obtenerMenuesPorRol($this->getRolPrimoId());
+        return $menus;    
+    }
+
+    public function obtenerTodosMenues(){
+        $arrBuMe['medeshabilitado'] = NULL;
+        $menuesTotales = Menu::listar($arrBuMe);
+        $arrMen = [];
+        foreach ($menuesTotales['array'] as $key => $value) {
+            $arrMenu = $value->dameDatos();
+            array_push($arrMen, $arrMenu);
+        }
+        return $arrMen;    
     }
 
 }

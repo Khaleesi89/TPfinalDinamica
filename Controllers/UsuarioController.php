@@ -198,4 +198,24 @@ class UsuarioController extends MasterController {
         return $response;
     }
 
+    public function buscarObjUsuario2() {
+        $usnombre = $this->buscarKey( 'usnombre' );
+        $uspass = $this->buscarKey( 'uspass' );
+        $arrayBu = [
+            'usnombre' => $usnombre,
+            'uspass' => $uspass
+        ];
+        $objUsuario = new Usuario();
+        $rta = $objUsuario->buscar( $arrayBu );
+        if( $rta['respuesta'] ){
+            // Lo encontro
+            $response['obj'] = $objUsuario;
+            $response['rta'] = true;
+        } else {
+            // No lo encontro
+            $response = false;
+        }
+        return $response;
+    }
+    
 }

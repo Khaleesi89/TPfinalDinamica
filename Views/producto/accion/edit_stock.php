@@ -1,9 +1,11 @@
 <?php
 require_once('../../../config.php');
 $objCompraItemCon = new CompraitemController();
+$objProCon = new ProductoController();
+$objSession = new SessionController();
+
 $idproducto = $objCompraItemCon->buscarKey('idproducto');
 $cicantidad = intVal($objCompraItemCon->buscarKey('cicantidad'));
-$objProCon = new ProductoController();
 $cantStock = $objProCon->obtenerStockPorId($idproducto);
 //Comprobar stock
 if ($cantStock != false) {
@@ -11,7 +13,7 @@ if ($cantStock != false) {
         $validStock = true;
         //buscar si hay una compra iniciada
         //$idusuario = $objSession->getIdusuario();
-        $idusuario = 1;
+        $idusuario = $objSession->getIdusuario();
         //obtener compra con idusuario
         $objCompraCon = new CompraController();
         $rta = $objCompraCon->buscarCompraConIdusuario($idusuario);
@@ -43,11 +45,19 @@ if ($cantStock != false) {
         }
 
         //cargar una tupla en compraitem con idcompra y idproducto
-        $validoCarrito = $objCompraItemCon->cargarVentaDeProducto($idcompraActiva, $idproducto, $cicantidad);
-        if ($validoCarrito) {
+        $carrito = $objCompraItemCon->unirMismoProducto($idcompraActiva, $idproducto, $cicantidad);
+
+        // $validoCarrito = $objCompraItemCon->cargarVentaDeProducto($idcompraActiva, $idproducto, $cicantidad);
+        if ($carrito['respuesta']) {
             $respuesta = true;
         } else {
-            $respuesta = false;
+            $validoCarrito = $objCompraItemCon->cargarVentaDeProducto($idcompraActiva, $idproducto, $cicantidad);
+            if($validoCarrito){
+                $respuesta = true;
+            }else{
+                $respuesta = false;
+            }
+            
         }
     } else {
         $mensaje = "El stock de compra ingresado es superior al de depósito";

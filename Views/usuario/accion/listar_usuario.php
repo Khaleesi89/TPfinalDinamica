@@ -1,20 +1,22 @@
 <?php
-require_once('../templates/header2.php');
-$objUsuCon = new UsuarioController();
-$objUsuRolCon = new UsuarioRolController();
-$arrayRoles = $objUsuRolCon->getRoles();
+/* require_once('../templates/header2.php'); */
+require_once( '../../../config.php' );
+$objUsuarioController = new UsuarioController();
+$objUsuarioRolController = new UsuarioRolController();
+$objSession = new SessionController();
+
+$arrayRoles = $objUsuarioRolController->getRoles();
 try {
-    $rol = $objSession->getUsRol();
-    $rol = $objSession->getUsRol();
+    $rol = $objSession->obtenerRol();
     if($rol != ''){
         if($rol == 'Admin'){
             $array = [];
-            $lista = $objUsuRolCon->listarTodo($array);
+            $lista = $objUsuarioRolController->listarTodo($array);
         }elseif($rol == 'Cliente' || $rol == 'Deposito'){
             $arrBuPro['usdeshabilitado'] = NULL;
             $idusuario = $objSession->getIdusuario();
             $arrBuPro['idusuario'] = $idusuario;
-            $lista = $objUsuRolCon->listarTodo($arrBuPro);
+            $lista = $objUsuarioRolController->listarTodo($arrBuPro);
         }
     }else{
         $lista = [];
