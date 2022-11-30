@@ -16,20 +16,22 @@ require_once('../templates/preheader.php');
 $objConPro = new ProductoController();
 $arrBuPro = [];
 //var_dump($_SESSION);
-try {
-    $rol = $objSession->getRolPrimo();
-    if ($rol != '') {
-        if ($rol == 'Admin' || $rol == 'Deposito') {
-
-            $lista = $objConPro->listarTodo($arrBuPro);
-        } elseif ($rol == 'Cliente') {
-            $arrBuPro['prdeshabilitado'] = NULL;
-            $lista = $objConPro->listarTodo($arrBuPro);
+if( $objSession->getUsnombre() != null ){
+    try {
+        $rol = $objSession->getRolPrimo();
+        if ($rol != '') {
+            if ($rol == 'Admin' || $rol == 'Deposito') {
+    
+                $lista = $objConPro->listarTodo($arrBuPro);
+            } elseif ($rol == 'Cliente') {
+                $arrBuPro['prdeshabilitado'] = NULL;
+                $lista = $objConPro->listarTodo($arrBuPro);
+            }
         }
+    } catch (\Throwable $th) {
+        $rol = '';
+        $lista = []; //  ['idproducto' => '', 'pronombre' => '', 'sinopsis'=>'', 'procantstock'=>'', 'autor'=>'', 'precio'=>'', 'isbn'=>'', 'categoria'=>''];
     }
-} catch (\Throwable $th) {
-    $rol = '';
-    $lista = []; //  ['idproducto' => '', 'pronombre' => '', 'sinopsis'=>'', 'procantstock'=>'', 'autor'=>'', 'precio'=>'', 'isbn'=>'', 'categoria'=>''];
 }
 ?>
 <?php /*  var_dump($objSession->getIdusuario()); */ ?>
@@ -55,12 +57,14 @@ try {
 
             <div id="toolbar" style="padding:4px">
                 <?php
-                if ($rta) {
-                    if ($rol == 'Admin' || $rol == 'Deposito') { // Admin o Depósito
+                /* var_dump( $rta );
+                die(); */
+                if( isset($rta)  ){
+                    if( $rol == 'Admin' || $rol == 'Deposito' ){ // Admin o Depósito
                         echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" plain=\"true\" onclick=\"newProducto()\">Nuevo producto</a>
                         <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-edit\" plain=\"true\" onclick=\"editProducto()\">Editar producto</a>
                         <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"destroyProducto()\">Eliminar producto</a>";
-                    } elseif ($rol == 'Cliente' || $rta == false) { // Cliente
+                    } elseif( $rol == 'Cliente' || $rta == false ){ // Cliente
                         echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"comprar()\">Comprar</a>";
                     }
                 } else {
@@ -108,7 +112,7 @@ try {
                             }">
                     </div>
                 </form>
-                
+
                 <div id="dlg-buttons">
                     <a href="javascript:void(0)" class="easyui-button c6" iconCls="icon-ok" onclick="guardarProducto()" style="width:90px">Aceptar</a>
                     <a href="javascript:void(0)" class="easyui-button" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
