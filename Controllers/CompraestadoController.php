@@ -238,7 +238,7 @@ class CompraestadoController extends MasterController {
 
     //HACER FUNCION PARA RESTAR LA CANTIDAD DE PRODUCTOS.
 
-    public function cambiarStocksegunEstado(){
+   /*  public function cambiarStocksegunEstado(){
         $objCompra = $this->getObjCompra();
         
         $idcompra = $arrayconInfo['idcompra'];
@@ -246,13 +246,4 @@ class CompraestadoController extends MasterController {
 
         
     
-    }
-
-
-    
-
-
-
-
-    
-}
+    } */

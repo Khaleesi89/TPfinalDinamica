@@ -1,13 +1,16 @@
 <?php
 require_once('../templates/header2.php');
-$rta = $objSession->validarCredenciales();
+// $rta = $objSession->validarCredenciales();
+
+if(session_status() != PHP_SESSION_NONE){
+    $rta = true;
+}
 
 if( $rta ){
     $variable = $objSession->obtenerRol();
     $rol = $variable[0]->getObjRol()->getIdRol();
 }
 // var_dump($rol[0]->getObjRol()->getIdRol());
-
 
 /* $objConPro = new ProductoController();
 $arrBuPro = [];

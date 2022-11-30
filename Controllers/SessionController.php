@@ -35,7 +35,7 @@ class SessionController extends MasterController {
      */
     public function activa() {
         $bandera = false;
-        if( isset($_SESSION['usnombre']) ){
+        if( isset($_SESSION['usnombre']) && $_SESSION['usnombre'] != false ){
             $bandera = true;
         }
         return $bandera;

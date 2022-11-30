@@ -1,7 +1,6 @@
 <?php
 
-//require_once('../templates/header2.php');
-require_once('../../config.php');
+require_once('../templates/header2.php');
 $objConCompraestado = new CompraestadoController();
 $objcompraestadotipo = new CompraestadotipoController();
 $tiposestado = $objcompraestadotipo->listarTodo();
@@ -9,10 +8,7 @@ $tiposestado = $objcompraestadotipo->listarTodo();
 $lista = $objConCompraestado->listarTodo();
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
+<!-- <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,9 +19,14 @@ $lista = $objConCompraestado->listarTodo();
     <script src="../../Vendor/jquery.min.js"></script>
     <script src="../../Vendor/jquery.easyui.min.js"></script>
     <title>PRODUCTOS</title>
-</head>
+</head> -->
+<style>
+    .textbox{
+        width: 300px;
+    }
+</style>
 <div class="container d-flex justify-content-center mt-5 mb-5">
-    <table id="dg" title="Administrador de compras estado" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_compraestado.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
+    <table id="dg" title="Administrador de compras estado" class="easyui-datagrid" style="width:1000px;height:600px" url="accion/listar_compraestado.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>
                 <th field="idcompraestado" width="50">Id</th>
@@ -45,29 +46,29 @@ $lista = $objConCompraestado->listarTodo();
         <form id="fm" method="POST" novalidate style="margin:0;padding:20px 50px;">
             <h3>Compra estado información</h3>
             <div style="margin-bottom:10px;">
-                <input readonly name="idcompraestado" id="idcompraestado" class="easyui-textbox" required="true" label="Id compra estado" style="width:100%;">
+                <input readonly name="idcompraestado" id="idcompraestado" class="easyui-textbox" required="true" label="Id compra estado" style="width:100px;">
             </div>
             <div style="margin-bottom:10px;">
-                <input readonly name="idcompra" id="idcompra" class="easyui-textbox" required="true" label="N° pedido/compra" style="width:100%;">
+                <input readonly name="idcompra" id="idcompra" class="easyui-textbox" required="true" label="N° pedido/compra" style="width:100px;">
             </div>
             <div style="margin-bottom:10px;">
-                <input readonly name="cefechaini" id="cefechaini" class="easyui-textbox" required="true" label="fecha pedido/compra" style="width:100%;">
+                <input readonly name="cefechaini" id="cefechaini" class="easyui-textbox" required="true" label="fecha pedido/compra" style="width:100px;">
             </div>
             <!-- <div style="margin-bottom:10px;">
                 <input readonly name="idcompraestadotipo" id="idcompraestadotipo" class="easyui-textbox" required="true" label="id compraestado" style="width:100%;">
             </div> -->
-            
+
             <div style="margin-bottom:10px">
-                <select class="easyui-combobox" id ="idcompraestadotipo" name="idcompraestadotipo" label="idcompraestadotipo" style="width:100%;">
-                    <?php 
-                        $cantidad = count($tiposestado);
-                        for ($i=0; $i < $cantidad ; $i++) { 
+                <select class="easyui-combobox" id="idcompraestadotipo" name="idcompraestadotipo" label="idcompraestadotipo" style="width:100px">
+                    <?php
+                    $cantidad = count($tiposestado);
+                    for ($i = 0; $i < $cantidad; $i++) {
                     ?>
-                        <option name="idcompraestadotipo" value="<?php echo $tiposestado[$i]->getIdcompraestadotipo() ?>" > <?php echo $tiposestado[$i]->getIdcompraestadotipo(). " - " .$tiposestado[$i]->getCetdescripcion() ?> </option>
+                        <option name="idcompraestadotipo" value="<?php echo $tiposestado[$i]->getIdcompraestadotipo() ?>"> <?php echo $tiposestado[$i]->getIdcompraestadotipo() . " - " . $tiposestado[$i]->getCetdescripcion() ?> </option>
                     <?php } ?>
                 </select>
             </div>
-            
+
         </form>
     </div>
     <div id="dlg-buttons">
@@ -88,7 +89,7 @@ $lista = $objConCompraestado->listarTodo();
             if (row) {
                 $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Editar estado de compra');
                 $('#fm').form('load', row);
-                url = 'accion/edit_compraestado.php?idcompraestado='+row.idcompraestado;
+                url = 'accion/edit_compraestado.php?idcompraestado=' + row.idcompraestado;
             }
         }
 
@@ -136,9 +137,7 @@ $lista = $objConCompraestado->listarTodo();
                 })
             }
         }
-
     </script>
 
 </div>
-
 <?php require_once('../templates/footer.php') ?>

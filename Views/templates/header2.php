@@ -1,13 +1,15 @@
 <?php
 //nueva sesion 
 require_once('../../config.php');
+
 $objSession = new SessionController();
 
 // Cambios de maxi
 // Cambios de Gonza, acá se valida cual header usar
 // Validar si las credenciales estan correctas 
 $rta = $objSession->activa();
-if( $rta == false ){
+
+if ($rta == false) {
     require_once('../templates/header.php');
     //header($PRINCIPAL."?error=log");
 } else {
@@ -45,7 +47,7 @@ if( $rta == false ){
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Yonny ameo</title>
+        <title>Yonny</title>
         <link rel="icon" type="image/x-icon" href="../../Public/img/favicon.png">
         <script src="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js"></script>
         <script>
@@ -89,7 +91,7 @@ if( $rta == false ){
                 <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
                     <li class="nav-item dropdown user">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <button class="btn btn-outline-danger me-2" type="button"><?php echo($objSession->getUsnombre()); ?> - <span><?php echo ($objSession->getRolPrimo()); ?></span></button>
+                            <button class="btn btn-outline-danger me-2" type="button"><?php echo ($objSession->getUsnombre()); ?> - <span><?php echo ($objSession->getRolPrimo()); ?></span></button>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="../logs/logout.php">Salir</a></li>
@@ -122,4 +124,4 @@ if( $rta == false ){
                 </nav>
             </div>
 
-<?php } ?>
+        <?php } ?>

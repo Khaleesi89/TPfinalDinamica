@@ -27,19 +27,19 @@ $lista = $objComItem->listarTodo();
     <form id="fm" method="POST" novalidate style="margin:0;padding:20px 50px;">
     <h3>Pedido información</h3>
     <div style="margin-bottom:10px;">
-        <input readonly  name="idcompraitem" id="idcompraitem" class="easyui-textbox" required="true" label="N°ITEM" style="width:100%;">
+        <input readonly  name="idcompraitem" id="idcompraitem" class="easyui-textbox" required="true" label="N°ITEM" style="width:200px;">
     </div>
     <div style="margin-bottom:10px;">
-        <input readonly  name="idproducto" id="idproducto" class="easyui-textbox" required="true" label="ID PRODUCTO" style="width:100%;">
+        <input readonly  name="idproducto" id="idproducto" class="easyui-textbox" required="true" label="ID PRODUCTO" style="width:200px;">
     </div>
     <div style="margin-bottom:10px;">
-        <input  readonly name="pronombre" id="pronombre" class="easyui-textbox" required="true" label="PRODUCTO" style="width:100%;">
+        <input  readonly name="pronombre" id="pronombre" class="easyui-textbox" required="true" label="PRODUCTO" style="width:200px;">
     </div>
     <div style="margin-bottom:10px;">
-        <input readonly name="idcompra" id="idcompra" class="easyui-textbox" required="true" label="N°COMPRA" style="width:100%;">
+        <input readonly name="idcompra" id="idcompra" class="easyui-textbox" required="true" label="N°COMPRA" style="width:200px;">
     </div>
     <div style="margin-bottom:10px;">
-        <input class= "easyui-textbox" style="width:100%" name="cicantidad" id="cicantidad" required="true" label="CANTIDAD">
+        <input class= "easyui-textbox" style="width:100px" name="cicantidad" id="cicantidad" required="true" label="CANTIDAD">
         <p>Sólo puede modificar la cantidad</p>
     </div>
         

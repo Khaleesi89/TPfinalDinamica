@@ -2,7 +2,11 @@
 //require_once( '../templates/header.php');
 require_once('../../config.php');
 
-$objSession = new SessionController();
+$objUsuarioCon = new UsuarioController;
+$gola = $objUsuarioCon->buscarObjUsuario2();
+
+
+/* $objSession = new SessionController();
 
 $usnombre = $objSession->buscarKey('usnombre');
 $uspass = $objSession->buscarKey('uspass');
@@ -14,6 +18,16 @@ if( $rta == false ){
 } else {
     $url = $PRODUCTOS;
     echo "<script>console.log('si son validas');</script>";
+} */
+
+if($gola['rta']){
+    $objSession = new SessionController();
+    $valido = $objSession->validarCredenciales();
+    if($valido){
+        $url = $PRODUCTOS;
+    }
+}else{
+    $url = $PRINCIPAL;
 }
 
 header($url);
@@ -41,4 +55,4 @@ header($url);
     //header("Location:$ROOT/Views/producto/producto_list.php");
 } */
 //header($url);
-//die();
+die();
