@@ -38,14 +38,14 @@ $arrBuPro = [];
                 <thead>
                     <tr>
                         <th field="idproducto" width="2%">Id</th>
-                        <th field="pronombre" width="15%">Nombre producto</th>
-                        <th field="sinopsis" width="15%">Sinopsis</th>
+                        <th field="pronombre" width="20%">Nombre producto</th>
+                        <th field="sinopsis" width="20%">Sinopsis</th>
                         <th field="procantstock" width="5%">Stock</th>
-                        <th field="autor" width="10%">Autor</th>
+                        <th field="autor" width="15%">Autor</th>
                         <th field="precio" width="5%">Precio</th>
                         <th field="isbn" width="5%">ISBN</th>
                         <th field="categoria" width="10%">Categoría</th>
-                        <th field="foto" width="50%">Portada</th>
+                        <th field="foto" width="20%">Portada</th>
                     </tr>
                 </thead>
             </table>
