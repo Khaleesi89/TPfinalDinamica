@@ -1,8 +1,11 @@
 <?php
 require_once('../templates/header2.php');
-$variable = $objSession->obtenerRol();
-$rol = $variable[0]->getObjRol()->getIdRol();
+$rta = $objSession->validarCredenciales();
 
+if( $rta ){
+    $variable = $objSession->obtenerRol();
+    $rol = $variable[0]->getObjRol()->getIdRol();
+}
 // var_dump($rol[0]->getObjRol()->getIdRol());
 
 
@@ -49,11 +52,15 @@ $arrBuPro = [];
 
             <div id="toolbar" style="padding:4px">
                 <?php
-                if ($rol == '1' || $rol == '3') { // Admin o Depósito
-                    echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" plain=\"true\" onclick=\"newProducto()\">Nuevo producto</a>
-                            <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-edit\" plain=\"true\" onclick=\"editProducto()\">Editar producto</a>
-                            <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"destroyProducto()\">Eliminar producto</a>";
-                } elseif ($rol == '2') { // Cliente
+                if( $rta ){
+                    if ($rol == '1' || $rol == '3') { // Admin o Depósito
+                        echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" plain=\"true\" onclick=\"newProducto()\">Nuevo producto</a>
+                        <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-edit\" plain=\"true\" onclick=\"editProducto()\">Editar producto</a>
+                        <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"destroyProducto()\">Eliminar producto</a>";
+                    } elseif ($rol == '2' || $rta == false ) { // Cliente
+                        echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"comprar()\">Comprar</a>";
+                    }
+                } else {
                     echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"comprar()\">Comprar</a>";
                 }
                 ?>

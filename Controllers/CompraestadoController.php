@@ -125,11 +125,6 @@ class CompraestadoController extends MasterController {
         return $response;
     }
 
-    public function modificarTuplaestado(){
-        $rta = $this->buscarId();
-
-    }
-
 
     public function eliminar(){
         $rta = $this->buscarId();
@@ -183,21 +178,78 @@ class CompraestadoController extends MasterController {
         
     }
 
-    //para modificar la fecha
-    public function modificarFechafin($fecha){
-        $compraestado = new Compraestado();
-        $rtaS = $compraestado->modificarFechafin($fecha);
-        return $rtaS;
+    //para modificar la fecha y modificarla en la base de datos
+    public function modificarFechafin(){
+        $arrayCompraestado = $this->buscarId();
+        $objCompraestado = $arrayCompraestado['obj'];
+        $fechafin = date("Y-m-d H:i:s");
+        $objCompraestado->setCefechafin($fechafin);
+        $rta = $objCompraestado->modificar();
+        if($rta['respuesta']){
+            $respuesta = true;
+        }else{
+            $respuesta  = false;
+        }
+        return $respuesta;
+        
+        
+    }
+
+    public function crearNuevoestadoElegido(){
+        $array = [];
+        $objCompraestado = new Compraestado();
+        //tengo objeto compra
+        $array ['idcompra'] = $this->buscarKey('idcompra');
+        $objCompra = new Compra();
+        $objCompra->buscar($array);
+        //hacer un if para las diferentes respuestas
+        $puedo = $objCompra->cambiarStocksegunEstado();
+        //tengo objeto compraestadotipo
+        $arrayBusquedasT = [];
+        $arrayBusquedasT ['idcompraestadotipo'] = $this->buscarKey('idcompraestadotipo');
+        $objCompraestadotipo = new Compraestadotipo();
+        $objCompraestadotipo->buscar($arrayBusquedasT);
+        //cargo el nuevo compraestado con el estadotipo nuevo
+        $objCompraestado->cargar($objCompra, $objCompraestadotipo);
+        $rta = $objCompraestado->insertar();
+        if($rta){
+            $respuesta ['respuesta'] = true;
+        }else{
+            $respuesta ['respuesta'] = false;
+        }
+        return $respuesta;
     }
     
+
+    // con idcompra hago compraitem traigo todos los q cumplan con $idcompra
+    // hago un foreach...porq cada uno hacer q las cantidades coincidan del producto con la
+    // cantidad
+    // antes del forech hago una bandera $sivalidar = true;
+    // en alguno que sea mayor bandera $sivalidar = false;
+    // si todo dio true, cambio la cantidad del stock.
+
+
+
+    // cancelada-> sicantidad tengo q sumar idcompra para listar compraitem. tengo ql objeto
+    // de producto entonces agarro cicantidad y el stock total..y modificar
+    }
     
 
 
     //HACER FUNCION PARA RESTAR LA CANTIDAD DE PRODUCTOS.
 
+    public function cambiarStocksegunEstado(){
+        $objCompra = $this->getObjCompra();
+        
+        $idcompra = $arrayconInfo['idcompra'];
 
 
-    //COMPROBAR LA CANTIDAD
+        
+    
+    }
+
+
+    
 
 
 

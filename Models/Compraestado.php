@@ -179,7 +179,7 @@ class Compraestado extends db{
 		$objCompraestadotipo = $this->getObjCompraestadotipo();
 		$idcompraestadotipo = $objCompraestadotipo->getIdcompraestadotipo();
 		//$objCompraestadotipo = null;
-        $sql = "UPDATE compraestado SET idcompra = $idcompra, idcompraestadotipo = $idcompraestadotipo, cefechaini = DEFAULT, cefechafin = DEFAULT WHERE idcompraestado = {$this->getIdcompraestado()}";
+        $sql = "UPDATE compraestado SET idcompra = $idcompra, idcompraestadotipo = $idcompraestadotipo, cefechaini = DEFAULT, cefechafin = CURRENT_TIMESTAMP WHERE idcompraestado = {$this->getIdcompraestado()}";
         $base = new db();
         try {
             if( $base->Iniciar() ){
@@ -331,39 +331,7 @@ class Compraestado extends db{
         return $data;
     }
 
-    public function modificarFechafin(){
-        //seteo de respuesta
-        $respuesta['respuesta'] = false;
-        $respuesta['errorInfo'] = '';
-        $respuesta['codigoError'] = null;
-        $fechafin = $this->getCefechafin();
-        
-        $sql = "UPDATE compraestado SET cefechafin =$fechafin WHERE idcompraestado = {$this->getIdcompraestado()}";
-        $base = new db();
-        try {
-            if( $base->Iniciar() ){
-                if( $base->Ejecutar($sql) ){
-                    $respuesta['respuesta'] = true;
-                } else {
-                    $this->setMensajeOp( $base->getError() );
-                    $respuesta['respuesta'] = false;
-                    $respuesta['errorInfo'] = 'Hubo un error con la consulta';
-                    $respuesta['codigoError'] = 1;
-                }
-            } else {
-                $this->setMensajeOp( $base->getError() );
-                $respuesta['respuesta'] = false;
-                $respuesta['errorInfo'] = 'Hubo un error con la conexión de la base de datos';
-                $respuesta['codigoError'] = 0;
-            }
-        } catch( \Throwable $th ){
-            $respuesta['respuesta'] = false;
-            $respuesta['errorInfo'] = $th;
-            $respuesta['codigoError'] = 3;
-        }
-        $base = null;
-        return $respuesta;
-}
+    
     
 
     
