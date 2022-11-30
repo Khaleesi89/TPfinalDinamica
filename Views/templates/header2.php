@@ -4,58 +4,37 @@ require_once('../../config.php');
 $objSession = new SessionController();
 
 // Cambios de maxi
-if (!$objSession->validarCredenciales()) {
-    $credenciales = false;
-    echo "<script>alert('No se han encontrado dichas credenciales');</script>";
-    header($PRINCIPAL . "?error=log");
-} else {
-
-    // echo "<script>alert('Si se pudo perri');</script>";
-}
-//puede seguir
-//var_dump($objSession->obtenerRol());
-$menu[0] = 'Usuarios';
-$roles = $objSession->obtenerRol();
-//var_dump($roles);
-$rolesArr = [];
-foreach ($roles as $key => $value) {
-    $rol = $value->getObjRol();
-    $idrol = $rol->getIdrol();
-    $rolStr = $rol->getRodescripcion();
-    $rolesArr[$idrol] = $rolStr;
-}
-//var_dump($rolesArr);
-foreach ($rolesArr as $key => $value) {
-    if (!isset($rolPrimo)) {
-        $rolPrimo = $value;
-        $rolPrimoId = $key;
-    }
-}
-$objSession->setRolPrimo($rolPrimo, $rolPrimoId);
-$menuesDelUsuario = $objSession->obtenerMenues();
-//var_dump($menuesDelUsuario);
-
-$menuesTotales = $objSession->obtenerTodosMenues();
-//var_dump($menuesTotales);
-
-
 // Cambios de Gonza, acá se valida cual header usar
 // Validar si las credenciales estan correctas 
-if ($objSession->activa() == false) {
+$rta = $objSession->activa();
+if( $rta == false ){
     require_once('../templates/header.php');
     //header($PRINCIPAL."?error=log");
 } else {
     $variable = $objSession->obtenerRol();
     $rol = $variable[0]->getObjRol()->getRodescripcion();
-    //$usnombre = $objSession->buscarKey('usnombre');
-    /* echo "<script>console.log('$usnombre');</script>";
-if(!$objSession->existenCredenciales()){
-    //mandarlo pa otro lado 
-    //aca no muestro nada
-    $credenciales = false;
-    echo "<script>alert('No se ha enviado nada por el formulario');</script>";
-} */
-    //validar si las credenciales estan correctas 
+    $menu[0] = 'Usuarios';
+    $roles = $objSession->obtenerRol();
+    //var_dump($roles);
+    $rolesArr = [];
+    foreach ($roles as $key => $value) {
+        $rol = $value->getObjRol();
+        $idrol = $rol->getIdrol();
+        $rolStr = $rol->getRodescripcion();
+        $rolesArr[$idrol] = $rolStr;
+    }
+    //var_dump($rolesArr);
+    foreach ($rolesArr as $key => $value) {
+        if (!isset($rolPrimo)) {
+            $rolPrimo = $value;
+            $rolPrimoId = $key;
+        }
+    }
+    $objSession->setRolPrimo($rolPrimo, $rolPrimoId);
+    $menuesDelUsuario = $objSession->obtenerMenues();
+    //var_dump($menuesDelUsuario);
+
+    $menuesTotales = $objSession->obtenerTodosMenues();
 
 ?>
 
@@ -110,20 +89,14 @@ if(!$objSession->existenCredenciales()){
                 <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarSupportedContent">
                     <li class="nav-item dropdown user">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <button class="btn btn-outline-danger me-2" type="button"><?php echo ($objSession->getUsnombre()); ?> - <span><?php echo ($objSession->getRolPrimo()); ?></span></button>
+                            <button class="btn btn-outline-danger me-2" type="button"><?php echo($objSession->getUsnombre()); ?> - <span><?php echo ($objSession->getRolPrimo()); ?></span></button>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="../logs/logout.php">Salir</a></li>
                         </ul>
                     </li>
                 </div>
-                <?php if (!$objSession->activa()) : ?>
-                    <!-- Login y Registro (Se muestra si la persona no está logueada) -->
-                    <form class="container-fluid d-flex justify-content-end">
-                        <a href="../logs/login.php"><button class="btn btn-outline-light me-2" type="button">Login</button></a>
-                        <a href="../logs/signup.php"><button class="btn btn-outline-danger me-2" type="button">Registro</button></a>
-                    </form>
-                <?php endif; ?>
+
             </div>
             </nav>
 
@@ -148,4 +121,5 @@ if(!$objSession->existenCredenciales()){
                     ?>
                 </nav>
             </div>
-        <?php } ?>
+
+<?php } ?>
