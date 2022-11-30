@@ -94,4 +94,14 @@ class SessionController extends MasterController {
         }
     }
 
+    /**
+     * Método que finaliza una sesión
+     * @param void
+     * @return void
+     */
+    public function cerrar() {
+        session_unset();
+        session_destroy();
+    }
+
 }

@@ -34,11 +34,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <!-- Swiper -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+    <!-- Bootstrap -->
+    <!-- <link rel="stylesheet" href="../../Public/bootstrap-5.2.2-dist/css/bootstrap.min.css"> -->
+
     <link rel="stylesheet" href="../../Vendor/themes/default/easyui.css">
     <link rel="stylesheet" href="../../Vendor/themes/icon.css">
     <link rel="stylesheet" href="../../Vendor/themes/color.css">
-    <script src="../../Vendor/jquery.min.js"></script>
-    <script src="../../Vendor/jquery.easyui.min.js"></script>
     <script>
         $('document').ready(function(){
             <?php if(isset($_GET['error'])){
@@ -85,25 +86,18 @@
         <a href="#contacto" class="fas fa-blogs"></a>
     </nav>
 
-    <!-- Login. Despues vemos si se deja aca o no
-    yo dejo uno sencillito para ya tener una maqueta -->
+
+    <!-- Formulario de login -->
     <div class="login-form-container">
         <div id="close-login-btn" class="fas fa-times"></div>
-        <form action="../producto/producto_list.php" method="POST">
+        <form action="../accion/accionLogin.php" method="POST">
             <h3>Login</h3>
             <span>Usuario</span>
             <input type="text" name="usnombre" class="box" placeholder="Ingrese su usuario" id="">
             <span>Contraseña</span>
             <input type="password" name="uspass" class="box" placeholder="Ingrese su contraseña" id="">
-            <div class="checkbox">
-                <input type="checkbox" name="" id="remember-me">
-                <label for="remember-me">Remember me</label>
-            </div>
             <input type="submit" value="Sign in" class="btn">
             <p>Te olvidaste la contraseña pa? <a href="#">Clickea aca ;)</a> </p>
-            <p>No tenes una cuenta? <a href="../accionSingup.php">Create una papu</a> </p>
+            <p>No tenes una cuenta? <a href="../logs/signup.php">Create una papu</a> </p>
         </form>
     </div>
-
-    
-

@@ -3,16 +3,15 @@
 require_once('../../config.php');
 
 $objSession = new SessionController();
+
 $usnombre = $objSession->buscarKey('usnombre');
-//$_POST['usnombre'] = $usnombre;
-//echo $usnombre;
 $uspass = $objSession->buscarKey('uspass');
-//$_POST['uspass'] = $uspass;
-//echo $uspass;
-if(!$objSession->validarCredenciales()){
+
+$rta = $objSession->validarCredenciales();
+if( $rta == false ){
     echo "<script>console.log('no son validas');</script>";
     $url = $PRINCIPAL;
-}else{
+} else {
     $url = $PRODUCTOS;
     echo "<script>console.log('si son validas');</script>";
 }
@@ -42,5 +41,4 @@ header($url);
     //header("Location:$ROOT/Views/producto/producto_list.php");
 } */
 //header($url);
-die();
-
+//die();
