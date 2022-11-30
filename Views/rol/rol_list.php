@@ -15,7 +15,7 @@ try {
             $lista = [];
         }
     }
-} catch (\Throwable $th) {
+} catch( \Throwable $th ){
     $rol = '';
     $lista = []; //  ['idproducto' => '', 'pronombre' => '', 'sinopsis'=>'', 'procantstock'=>'', 'autor'=>'', 'precio'=>'', 'isbn'=>'', 'categoria'=>''];
 }
@@ -25,7 +25,7 @@ try {
     <div class="row">
         <div class="col-sm-12">
 
-            <table id="dg" title="Administrador de Roles" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_rol.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
+            <table id="dg" title="Administrador de Roles" class="easyui-datagrid" style="width:1200px; height:700px" url="accion/listar_rol.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
                 <thead>
                     <tr>
                         <th field="idrol" width="50">Id</th>
@@ -33,33 +33,34 @@ try {
                     </tr>
                 </thead>
             </table>
-            <div id="toolbar">
+
+            <div id="toolbar" style="padding:4px">
                 <?php
                 if ($rol == 'Admin') {
                     echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-add\" plain=\"true\" onclick=\"newRol()\">Nuevo Rol</a>
-                <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-edit\" plain=\"true\" onclick=\"editRol()\">Editar Rol</a>
-                <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"destroyRol()\">Deshabilitar Rol</a>";
+                    <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-edit\" plain=\"true\" onclick=\"editRol()\">Editar Rol</a>
+                    <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"destroyRol()\">Deshabilitar Rol</a>";
                 }
                 ?>
             </div>
 
             <div id="dlg" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
-                <form id="fm" method="POST" novalidate style="margin:0;padding:20px 50px;">
+                <form id="fm" method="POST" novalidate style="margin:0; padding:20px 50px;">
                     <h3>Rol Información</h3>
-
                     <div style="margin-bottom:10px;">
                         <input name="rodescripcion" id="rodescripcion" class="easyui-textbox" required="true" label="Nombre" style="width:100%;">
                     </div>
-
-                    <div id="dlg-buttons">
-                        <a href="javascript:void(0)" class="easyui-button c6" iconCls="icon-ok" onclick="guardarRol()" style="width:90px">Aceptar</a>
-                        <a href="javascript:void(0)" class="easyui-button" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
-                    </div>
                 </form>
+                <div id="dlg-buttons">
+                    <a href="javascript:void(0)" class="easyui-button c6" iconCls="icon-ok" onclick="guardarRol()" style="width:90px">Aceptar</a>
+                    <a href="javascript:void(0)" class="easyui-button" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
+                </div>
             </div>
+
         </div>
     </div>
 </div>
+
 <script>
     var url;
 
@@ -122,6 +123,14 @@ try {
             })
         }
     }
+
 </script>
 
-</div>
+<style type="text/css">
+    .rol {
+        background-color: #006d31;
+        color: white;
+    }
+</style>
+
+<?php require_once( '../templates/footer.php' ) ?>

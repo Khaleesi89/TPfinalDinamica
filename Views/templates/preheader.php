@@ -6,9 +6,9 @@ $objSession = new SessionController();
 }else{
     $ban = false;
 } */
-if($objSession->getUsnombre() != false){
+if( $objSession->getUsnombre() != false ){
     require_once('header2.php');
-}else{
+} else {
     /* if(!$ban){
         $ERROR = 'log';
     } */
