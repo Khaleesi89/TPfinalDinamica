@@ -1,9 +1,9 @@
 <?php
-require_once('../templates/header2.php');
+require_once('../../../config.php');
+$objSession = new SessionController();
 $objMenuCon = new MenuController();
 try {
-    $rol = $objSession->getUsRol();
-    $rol = $objSession->getUsRol();
+    $rol = $objSession->getRolPrimo();
 if($rol != ''){
     if($rol == 'Admin'){
         $lista = $objMenuCon->listarTodo();

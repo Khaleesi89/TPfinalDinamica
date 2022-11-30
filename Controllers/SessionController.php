@@ -9,7 +9,12 @@ class SessionController extends MasterController {
     }
 
     public function getUsnombre() {
-        return $_SESSION['usnombre'];
+        if(array_key_exists('usnombre', $_SESSION)){
+            $usnombre = $_SESSION['usnombre'];
+        }else{
+            $usnombre = false;
+        }
+        return $usnombre;
     }
 
     public function getIdusuario() {

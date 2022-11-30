@@ -1,5 +1,5 @@
 <?php
-require_once('../templates/header2.php');
+require_once('../templates/preheader.php');
 $objUsuarioController = new UsuarioController();
 $objUsuRolController = new UsuarioRolController();
 $arrayRoles = $objUsuRolController->getRoles();
@@ -41,7 +41,7 @@ try {
 </head> -->
 
 <div class="container d-flex justify-content-center mt-5 mb-5">
-    <table id="dg" title="Administrador de Usuarios" class="easyui-datagrid" style="width:700px;height:600px" url="accion/listar_usuario.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
+    <table id="dg" title="Administrador de Usuarios" class="easyui-datagrid" style="width:1200px;height:700px" url="accion/listar_usuario.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
         <thead>
             <tr>
                 <th field="idusuario" width="50">Id</th>
@@ -235,9 +235,9 @@ try {
                         $.messager.confirm('confirm', 'Seguro desea eliminar el usuario?', function(r) {
                             if (r) {
                                 $.post('accion/destroy_usuario.php?idusuario=' + row.idusuario, {
-                                    idusuario: row.id
+                                    //idusuario: row.id
                                 }, function(result) {
-                                    alert('Volvio servidor');
+                                    //alert('Volvio servidor');
                                     if (result.respuesta) {
                                         $('#dg').datagrid('reload');
                                     } else {
@@ -258,9 +258,9 @@ try {
                         $.messager.confirm('confirm', 'Seguro desea habilitar el usuario?', function(r) {
                             if (r) {
                                 $.post('accion/undestroy_usuario.php?idusuario=' + row.idusuario, {
-                                    idusuario: row.id
+                                    //idusuario: row.id
                                 }, function(result) {
-                                    alert('Volvio servidor');
+                                    //alert('Volvio servidor');
                                     if (result.respuesta) {
                                         $('#dg').datagrid('reload');
                                     } else {

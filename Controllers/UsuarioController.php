@@ -47,7 +47,7 @@ class UsuarioController extends MasterController {
         $respuesta['obj'] = null;
         $respuesta['error'] = '';
         $arrayBusqueda = [];
-        $arrayBusqueda['usnombre'] = $this->buscarKey('usnombre');
+        $arrayBusqueda['idusuario'] = $this->buscarKey('idusuario');
         $objUsuario = new Usuario();
         $rta = $objUsuario->buscar($arrayBusqueda);
         if($rta['respuesta']){

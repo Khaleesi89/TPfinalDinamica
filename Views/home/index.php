@@ -1,5 +1,6 @@
 <?php
-    require_once('../templates/header2.php');
+    require_once('../../config.php');
+    require_once('../templates/preheader.php');
     $objProducto = new ProductoController();
     $arr = [];
     $listaProductos = $objProducto->listarTodo( $arr );

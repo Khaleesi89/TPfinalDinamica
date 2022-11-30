@@ -7,16 +7,16 @@ $objSession = new SessionController();
 
 $arrayRoles = $objUsuarioRolController->getRoles();
 try {
-    $rol = $objSession->obtenerRol();
+    $rol = $objSession->getRolPrimo();
     if($rol != ''){
         if($rol == 'Admin'){
             $array = [];
-            $lista = $objUsuarioRolController->listarTodo($array);
+            $lista = $objUsuarioController->listarTodo($array);
         }elseif($rol == 'Cliente' || $rol == 'Deposito'){
             $arrBuPro['usdeshabilitado'] = NULL;
             $idusuario = $objSession->getIdusuario();
             $arrBuPro['idusuario'] = $idusuario;
-            $lista = $objUsuarioRolController->listarTodo($arrBuPro);
+            $lista = $objUsuarioController->listarTodo($arrBuPro);
         }
     }else{
         $lista = [];
@@ -24,10 +24,14 @@ try {
 } catch (\Throwable $th) {
     $lista = [];
 }
+//var_dump($lista);
 $arreglo_salid = array();
-foreach ($lista as $key => $value) {
-    $nuevoElemen = $value->dameDatos();
-    array_push($arreglo_salid, $nuevoElemen);
+if(is_array($lista) && count($lista) > 0){
+    foreach ($lista as $key => $value) {
+        $nuevoElemen = $value->dameDatos();
+        array_push($arreglo_salid, $nuevoElemen);
+    }
 }
+
 //var_dump($arreglo_salid);
 echo json_encode($arreglo_salid);
