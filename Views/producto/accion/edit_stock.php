@@ -29,6 +29,7 @@ if ($cantStock != false) {
                     $idcompraActiva = $rsta;
                 } else {
                     $resp = $objCompraCon->crearCompraDevolverId($idusuario);
+                    $idcompraActiva = $resp;
                 }
             } else {
                 //crear una compra y usar el id

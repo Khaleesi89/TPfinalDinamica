@@ -14,15 +14,16 @@ require_once('../templates/preheader.php');
 // var_dump($rol[0]->getObjRol()->getIdRol());
 
 $objConPro = new ProductoController();
-$arrBuPro = [];
+
 //var_dump($_SESSION);
 if( $objSession->getUsnombre() != null ){
     try {
         $rol = $objSession->getRolPrimo();
         if ($rol != '') {
             if ($rol == 'Admin' || $rol == 'Deposito') {
-    
+                $arrBuPro = [];
                 $lista = $objConPro->listarTodo($arrBuPro);
+                //var_dump($lista);
             } elseif ($rol == 'Cliente') {
                 $arrBuPro['prdeshabilitado'] = NULL;
                 $lista = $objConPro->listarTodo($arrBuPro);
@@ -33,6 +34,7 @@ if( $objSession->getUsnombre() != null ){
         $lista = []; //  ['idproducto' => '', 'pronombre' => '', 'sinopsis'=>'', 'procantstock'=>'', 'autor'=>'', 'precio'=>'', 'isbn'=>'', 'categoria'=>''];
     }
 }
+//var_dump($lista);
 ?>
 <?php /*  var_dump($objSession->getIdusuario()); */ ?>
 <div class="container-fluid p-5 my-1 d-flex justify-content-center producto">
@@ -43,13 +45,14 @@ if( $objSession->getUsnombre() != null ){
                 <thead>
                     <tr>
                         <th field="idproducto" width="2%">Id</th>
-                        <th field="pronombre" width="20%">Nombre producto</th>
+                        <th field="pronombre" width="10%">Nombre producto</th>
                         <th field="sinopsis" width="20%">Sinopsis</th>
                         <th field="procantstock" width="5%">Stock</th>
-                        <th field="autor" width="15%">Autor</th>
+                        <th field="autor" width="10%">Autor</th>
                         <th field="precio" width="5%">Precio</th>
                         <th field="isbn" width="5%">ISBN</th>
                         <th field="categoria" width="10%">Categoría</th>
+                        <th field="prdeshabilitado" width="10%">Deshabilitado</th>
                         <th field="foto" width="20%">Portada</th>
                     </tr>
                 </thead>
@@ -68,7 +71,7 @@ if( $objSession->getUsnombre() != null ){
                         echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"comprar()\">Comprar</a>";
                     }
                 } else {
-                    echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"comprar()\">Comprar</a>";
+                    
                 }
                 ?>
             </div>
@@ -161,7 +164,7 @@ if( $objSession->getUsnombre() != null ){
     </form>
     <div id="dlg1-buttons">
         <a href="javascript:void(0)" class="easyui-button c6" iconCls="icon-ok" onclick="guardarCompra()" style="width:90px">Aceptar</a>
-        <a href="javascript:void(0)" class="easyui-button" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancelar</a>
+        <a href="javascript:void(0)" class="easyui-button" iconCls="icon-cancel" onclick="javascript:$('#dlg1').dialog('close')" style="width:90px">Cancelar</a>
     </div>
 </div>
 

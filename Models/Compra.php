@@ -251,6 +251,7 @@ class Compra extends db
             $sql .= ' WHERE ';
             $sql .= $stringBusqueda;
         }
+        //var_dump($sql);
         try {
             if ($base->Iniciar()) {
                 if ($base->Ejecutar($sql)) {
@@ -265,7 +266,9 @@ class Compra extends db
                         $arrayBus['idusuario'] = $idusuario;
                         $objUsuario->buscar($arrayBus);
                         $objCompra = new Compra();
-                        $objCompra->cargar($objUsuario);
+                        $objCompra->setObjUsuario($objUsuario);
+                        $objCompra->setIdcompra($idcompra);
+                        $objCompra->setCofecha($cofecha);
                         $objUsuario = null;
                         array_push($arregloCompra, $objCompra);
                     }
@@ -291,6 +294,7 @@ class Compra extends db
         if ($respuesta['respuesta']) {
             $respuesta['array'] = $arregloCompra;
         }
+        //var_dump($respuesta);
         return $respuesta;
     }
 

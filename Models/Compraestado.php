@@ -179,7 +179,7 @@ class Compraestado extends db{
 		$objCompraestadotipo = $this->getObjCompraestadotipo();
 		$idcompraestadotipo = $objCompraestadotipo->getIdcompraestadotipo();
 		//$objCompraestadotipo = null;
-        $sql = "UPDATE compraestado SET idcompra = $idcompra, idcompraestadotipo = $idcompraestadotipo, cefechaini = DEFAULT, cefechafin = CURRENT_TIMESTAMP WHERE idcompraestado = {$this->getIdcompraestado()}";
+        $sql = "UPDATE compraestado SET idcompra = $idcompra, idcompraestadotipo = $idcompraestadotipo, cefechaini = '{$this->getCefechaini()}', cefechafin = CURRENT_TIMESTAMP WHERE idcompraestado = {$this->getIdcompraestado()}";
         $base = new db();
         try {
             if( $base->Iniciar() ){
@@ -329,6 +329,10 @@ class Compraestado extends db{
         $data['cefechaini'] = $this->getCefechaini();
         $data['cefechafin'] = $this->getCefechafin();
         return $data;
+    }
+
+    public function cambiarEstado($idestado){
+        
     }
 
     

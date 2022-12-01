@@ -14,7 +14,6 @@ try {
             //averiguar la compra que tenga activa
             $objCompraCon = new CompraController();
             $idcompra = $objCompraCon->buscarCompraConIdusuario($idusuario);
-            
             if($idcompra != NULL){
                 //ver que la compra este iniciada 
                 $objCompraestadoCon = new CompraestadoController();

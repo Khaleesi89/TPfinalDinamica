@@ -150,4 +150,20 @@ class SessionController extends MasterController {
         return $arrMen;    
     }
 
+    public function validarURL(){
+        $obtenerURL = explode('/', $_SERVER['REQUEST_URI']);
+        $obtenerURL = array_reverse($obtenerURL);
+        $var = 'ABM';
+        $urlActual = $var.$obtenerURL[1];
+        //var_dump($urlActual);
+        $menuesDelUsuario = $this->obtenerMenues();
+        $bandera = true;
+        foreach ($menuesDelUsuario as $key => $value) {
+            if($value == $urlActual || $urlActual == 'ABMhome'){
+                $bandera = false;
+            }
+        }
+        return $bandera;
+    }
+
 }

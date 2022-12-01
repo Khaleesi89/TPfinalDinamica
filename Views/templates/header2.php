@@ -37,7 +37,7 @@ $rta = $objSession->activa();
     
 
     
-    $obtenerURL = explode('/', $_SERVER['REQUEST_URI']);
+    /* $obtenerURL = explode('/', $_SERVER['REQUEST_URI']);
     $obtenerURL = array_reverse($obtenerURL);
     $var = 'ABM';
     $urlActual = $var.$obtenerURL[1];
@@ -47,10 +47,10 @@ $rta = $objSession->activa();
         if($value == $urlActual || $urlActual == 'ABMhome'){
             $bandera = false;
         }
-    }
+    } */
     
     //var_dump($bandera);
-    if($bandera){
+    if($objSession->validarURL()){
         $_GET['error'] = 'permiso';
         header($PRINCIPAL."?error=permiso");
     }

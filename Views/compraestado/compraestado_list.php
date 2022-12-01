@@ -1,26 +1,57 @@
 <?php
 
-require_once('../templates/header2.php');
-//require_once('../../config.php');
-$objConCompraestado = new CompraestadoController();
-$objcompraestadotipo = new CompraestadotipoController();
-$tiposestado = $objcompraestadotipo->listarTodo();
-//$arraydeldescripcion = sacarDescripcion($tiposestado);
-$lista = $objConCompraestado->listarTodo();
+require_once('../templates/preheader.php');
+$objCompraEstadoTipoCon = new CompraestadotipoController();
+$compraEstadoTipoList = $objCompraEstadoTipoCon->listarTodo();
+
+$objCompraEstadoCon = new CompraestadoController();
+try {
+    $rol = $objSession->getRolPrimo();
+    if ($rol != '') {
+        if ($rol == 'Admin' || $rol == 'Deposito') {
+            $arrBu = [];
+            $list = $objCompraEstadoCon->listarTodo($arrBu);
+            //var_dump($lista);
+            $lista = [];
+            foreach ($list as $key => $value) {
+                $datos = $value->dameDatos();
+                array_push($lista, $datos);
+            }
+        } elseif ($rol == 'Cliente') {
+            $arrBuUs['idusuario'] = $objSession->getIdusuario();
+            $objCompraCon = new CompraController();
+            //var_dump($arrBuUs);
+            $listCompraDeCliente = $objCompraCon->listarTodo($arrBuUs);
+            //var_dump($listCompraDeCliente);
+            $arrList = [];
+            foreach ($listCompraDeCliente as $key => $value) {
+                $arrBuCEcliente['idcompra'] = $value->getIdcompra();
+                $arrBuCEcliente['cefechafin'] = NULL;
+                $lis = $objCompraEstadoCon->listarTodo($arrBuCEcliente);
+                array_push($arrList, $lis);
+            }
+            $lista = [];
+            foreach ($arrList as $key => $value) {
+                foreach ($value as $llave => $valor) {
+                    $datos = $valor->dameDatos();
+                    $arDatos = ['idcompraestado' => $datos['idcompraestado'], 'idcompra' => $datos['idcompra'], 'idcompraestadotipo' => $datos['idcompraestadotipo'], 'cetdescripcion' => $datos['cetdescripcion'], 'cefechaini' => $datos['cefechaini'], 'cefechafin' => $datos['cefechafin']];
+                    array_push($lista, $arDatos);
+                }
+            }
+            
+        }
+        
+
+        //var_dump($lista);
+    }
+} catch (\Throwable $th) {
+    $rol = '';
+    $lista = []; //  ['idproducto' => '', 'pronombre' => '', 'sinopsis'=>'', 'procantstock'=>'', 'autor'=>'', 'precio'=>'', 'isbn'=>'', 'categoria'=>''];
+}
+
+//var_dump($lista);
 
 ?>
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../Vendor/themes/default/easyui.css">
-    <link rel="stylesheet" href="../../Vendor/themes/icon.css">
-    <link rel="stylesheet" href="../../Vendor/themes/color.css">
-    <link rel="stylesheet" href="../../Vendor/demo/demo.css">
-    <script src="../../Vendor/jquery.min.js"></script>
-    <script src="../../Vendor/jquery.easyui.min.js"></script>
-    <title>PRODUCTOS</title>
-</head>
 <style>
     .textbox {
         width: 300px;
@@ -29,8 +60,7 @@ $lista = $objConCompraestado->listarTodo();
 <div class="container-fluid p-5 my-1 d-flex justify-content-center compraestado">
     <div class="row">
         <div class="col-sm-12">
-
-            <table id="dg" title="Administrador de compras estado" class="easyui-datagrid" style="width:1200px;height:700px" url="accion/listar_compraestado.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
+            <table id="dg" title="Administrador del estado de las compras" class="easyui-datagrid" style="width:1200px;height:700px" url="accion/listar_compraestado.php" toolbar="#toolbar" pagination="true" fitColumns="true" singleSelect="true">
                 <thead>
                     <tr>
                         <th field="idcompraestado" width="50">Id</th>
@@ -43,8 +73,14 @@ $lista = $objConCompraestado->listarTodo();
                 </thead>
             </table>
             <div id="toolbar">
-                <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCompraEstado()">Editar estado de compra</a>
-                <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyCompraEstado()">Destroy estado de compra</a>
+                <?php
+                if ($rol == 'Admin' || $rol == 'Deposito') {
+                    echo "<a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-edit\" plain=\"true\" onclick=\"editCompraEstado()\">Editar estado de compra</a>
+                        <a href=\"javascript:void(0)\" class=\"easyui-linkbutton\" iconCls=\"icon-remove\" plain=\"true\" onclick=\"destroyCompraEstado()\">Destroy estado de compra</a>";
+                }
+                ?>
+                <!-- <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editCompraEstado()">Editar estado de compra</a>
+                    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyCompraEstado()">Destroy estado de compra</a> -->
             </div>
             <div id="dlg" class="easyui-dialog" style="width:600px;" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
                 <form id="fm" method="POST" novalidate style="margin:0;padding:20px 50px;">
@@ -65,11 +101,18 @@ $lista = $objConCompraestado->listarTodo();
                     <div style="margin-bottom:10px">
                         <select class="easyui-combobox" id="idcompraestadotipo" name="idcompraestadotipo" label="idcompraestadotipo" style="width:100px">
                             <?php
-                            $cantidad = count($tiposestado);
+                            foreach ($compraEstadoTipoList as $key => $value) {
+                                $objCompraEstadoTipo = $value;
+                                $idcompraestadotipo = $objCompraEstadoTipo->getIdcompraestadotipo();
+                                $compraestadotipoDes = $objCompraEstadoTipo->getCetdescripcion();
+                                echo "<option name=\"idcompraestadotipo\" value=\"$idcompraestadotipo\">$idcompraestadotipo - $compraestadotipoDes </option>";
+                            }
+
+                            /*$cantidad = count($tiposestado);
                             for ($i = 0; $i < $cantidad; $i++) {
                             ?>
                                 <option name="idcompraestadotipo" value="<?php echo $tiposestado[$i]->getIdcompraestadotipo() ?>"> <?php echo $tiposestado[$i]->getIdcompraestadotipo() . " - " . $tiposestado[$i]->getCetdescripcion() ?> </option>
-                            <?php } ?>
+                            <?php }*/ ?>
                         </select>
                     </div>
 

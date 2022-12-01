@@ -16,14 +16,13 @@ class CompraController extends MasterController{
         return $arrayBusqueda;
     }
 
-    public function listarTodo(){
+    public function listarTodo($arr){
         //$arrayBusqueda = $this->busqueda();
-        $arrayBusqueda = [];
-        $arrayTotal = Compra::listar($arrayBusqueda);
-        if($arrayTotal['respuesta'] == false){
-            $array = [];
-        }else{
+        $arrayTotal = Compra::listar($arr);
+        if($arrayTotal['respuesta']){
             $array = $arrayTotal['array'];
+        }else{
+            $array = [];
         }
         
         //var_dump($array);
@@ -120,6 +119,11 @@ class CompraController extends MasterController{
         return $respuesta;
     }
 
+    public function buscarCompraIdusuario($idusuario){
+        $arrBus = [];
+        $arrBus['idusuario'] = $idusuario;
+    }
+
     public function crearCompraDevolverId($idusuario){
         $objCompra = new Compra();
         $objUsuario = new Usuario();
@@ -134,6 +138,12 @@ class CompraController extends MasterController{
             if($rrrta['respuesta']){
                 $bandera = true;
                 $quepaso = $objCompra->getIdcompra();
+                $objCompraestado = new Compraestado();
+                $objCompraestadoTipo = new Compraestadotipo();
+                $arrBuCET['idcompraestadotipo'] = 1;
+                $objCompraestadoTipo->buscar($arrBuCET);
+                $objCompraestado->cargar($objCompra, $objCompraestadoTipo);
+                $objCompraestado->insertar();
             }else{
                 $quepaso = false;
             }

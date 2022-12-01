@@ -278,6 +278,28 @@ class CompraestadoController extends MasterController {
         return $respuesta;    
     }
 
+    public function modificarEstado($idcompraestado, $idcompraestadotipo){
+        $objCompraEstado = new Compraestado();
+        $arrBusCompraEstado['idcompraestado'] = $idcompraestado;
+        $rta = $objCompraEstado->buscar($arrBusCompraEstado);
+        if($rta['respuesta']){
+            //cambio de estado
+            $objCompraestadotipo = new Compraestadotipo();
+            $arrB['idcompraestadotipo'] = $idcompraestadotipo;
+            $objCompraestadotipo->buscar($arrB);
+            $objCompraEstado->setObjCompraestadotipo($objCompraestadotipo);
+            $bandera = $objCompraEstado->modificar();
+            if($bandera['respuesta']){
+                $respuesta = true;
+            }else{
+                $respuesta = false;
+            }
+        }else{
+            $respuesta = false;
+        }
+        return $respuesta;
+    }
+
    
 
     

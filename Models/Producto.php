@@ -223,7 +223,7 @@ class Producto extends db
         $respuesta['errorInfo'] = '';
         $respuesta['codigoError'] = null;
         $base = new db();
-        $sql = "UPDATE producto SET pronombre = '{$this->getProNombre()}', sinopsis = '{$this->getSinopsis()}', procantstock = {$this->getProCantStock()}, autor = '{$this->getAutor()}', precio = {$this->getPrecio()}, isbn = {$this->getIsbn()}, categoria = '{$this->getCategoria()}', foto = '{$this->getFoto()}' WHERE idproducto = {$this->getIdProducto()}";
+        $sql = "UPDATE producto SET pronombre = '{$this->getProNombre()}', sinopsis = '{$this->getSinopsis()}', procantstock = {$this->getProCantStock()}, autor = '{$this->getAutor()}', precio = {$this->getPrecio()}, isbn = {$this->getIsbn()}, categoria = '{$this->getCategoria()}' WHERE idproducto = {$this->getIdProducto()}";
         try {
             if ($base->Iniciar()) {
                 if ($base->Ejecutar($sql)) {
