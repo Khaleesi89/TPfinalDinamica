@@ -1,6 +1,7 @@
 <?php
 
-require_once('../templates/header2.php');
+//require_once('../templates/header2.php');
+require_once('../../config.php');
 $objConCompraestado = new CompraestadoController();
 $objcompraestadotipo = new CompraestadotipoController();
 $tiposestado = $objcompraestadotipo->listarTodo();
@@ -8,7 +9,7 @@ $tiposestado = $objcompraestadotipo->listarTodo();
 $lista = $objConCompraestado->listarTodo();
 
 ?>
-<!-- <head>
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +20,7 @@ $lista = $objConCompraestado->listarTodo();
     <script src="../../Vendor/jquery.min.js"></script>
     <script src="../../Vendor/jquery.easyui.min.js"></script>
     <title>PRODUCTOS</title>
-</head> -->
+</head>
 <style>
     .textbox{
         width: 300px;
@@ -46,20 +47,20 @@ $lista = $objConCompraestado->listarTodo();
         <form id="fm" method="POST" novalidate style="margin:0;padding:20px 50px;">
             <h3>Compra estado información</h3>
             <div style="margin-bottom:10px;">
-                <input readonly name="idcompraestado" id="idcompraestado" class="easyui-textbox" required="true" label="Id compra estado" style="width:100px;">
+                <input readonly name="idcompraestado" id="idcompraestado" class="easyui-textbox" required="true" label="Id compra estado" style="width:100%;">
             </div>
             <div style="margin-bottom:10px;">
-                <input readonly name="idcompra" id="idcompra" class="easyui-textbox" required="true" label="N° pedido/compra" style="width:100px;">
+                <input readonly name="idcompra" id="idcompra" class="easyui-textbox" required="true" label="N° pedido/compra" style="width:100%;">
             </div>
             <div style="margin-bottom:10px;">
-                <input readonly name="cefechaini" id="cefechaini" class="easyui-textbox" required="true" label="fecha pedido/compra" style="width:100px;">
+                <input readonly name="cefechaini" id="cefechaini" class="easyui-textbox" required="true" label="fecha pedido/compra" style="width:100%;">
             </div>
             <!-- <div style="margin-bottom:10px;">
                 <input readonly name="idcompraestadotipo" id="idcompraestadotipo" class="easyui-textbox" required="true" label="id compraestado" style="width:100%;">
             </div> -->
 
             <div style="margin-bottom:10px">
-                <select class="easyui-combobox" id="idcompraestadotipo" name="idcompraestadotipo" label="idcompraestadotipo" style="width:100px">
+                <select class="easyui-combobox" id="idcompraestadotipo" name="idcompraestadotipo" label="idcompraestadotipo" style="width:100%">
                     <?php
                     $cantidad = count($tiposestado);
                     for ($i = 0; $i < $cantidad; $i++) {
@@ -140,4 +141,4 @@ $lista = $objConCompraestado->listarTodo();
     </script>
 
 </div>
-<?php require_once('../templates/footer.php') ?>
+<?php //require_once('../templates/footer.php') ?>

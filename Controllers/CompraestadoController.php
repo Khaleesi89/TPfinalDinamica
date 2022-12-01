@@ -209,33 +209,74 @@ class CompraestadoController extends MasterController {
         $objCompraestadotipo->buscar($arrayBusquedasT);
         //cargo el nuevo compraestado con el estadotipo nuevo
         $objCompraestado->cargar($objCompra, $objCompraestadotipo);
-         //hago la disminucion del stock en aceptada o enviada o lo agregamos cuando cancelan
-         $puedo = $objCompra->cambiarStocksegunEstado($objCompraestado);
-
         $rta = $objCompraestado->insertar();
         if($rta){
             $respuesta ['respuesta'] = true;
         }else{
             $respuesta ['respuesta'] = false;
         }
+        
         return $respuesta;
     }
     
 
-    // con idcompra hago compraitem traigo todos los q cumplan con $idcompra
-    // hago un foreach...porq cada uno hacer q las cantidades coincidan del producto con la
-    // cantidad
-    // antes del forech hago una bandera $sivalidar = true;
-    // en alguno que sea mayor bandera $sivalidar = false;
-    // si todo dio true, cambio la cantidad del stock.
-
-
-
-    // cancelada-> sicantidad tengo q sumar idcompra para listar compraitem. tengo ql objeto
-    // de producto entonces agarro cicantidad y el stock total..y modificar
+    //HACER FUNCION PARA RESTAR LA CANTIDAD DE PRODUCTOS.
+    //tengo que traer la compra, el compraitem y producto
+    public function cambiarStocksegunEstado($objCompraestado){
+        //buscar el valor de la key enviada cmo compraestadotipo
+        $data = $this->buscarKey('idcompraestadotipo');
+        //obtengo el obj compra que tiene el objeto
+        $objCompra = $objCompraestado->getObjCompra();
+        //obtengo el obj estadotipo que tiene sin el cambio
+        //$estadotipoObj = $objCompraestado->getObjCompraestadotipo();
+        //obtengo el id de la compra
+        $idCompra = $objCompra->getIdcompra();
+        //hacemos bandera
+        $respuesta = [];                
+        //creo un array para realizar la bsuqueda de eso en el parametro en compraitem
+        $array = [];
+        $array['idcompra'] = $idCompra;
+        //$objCompraitem = new Compraitem();
+        $arraycompraitem = Compraitem::listar($array);
+        if(array_key_exists('array', $arraycompraitem)){
+            $listaCompraitem = $arraycompraitem['array'];
+            foreach ($listaCompraitem as $key => $value) {
+                $objCompraitem = $value;
+                $cantidadComprada = $objCompraitem->getCicantidad();
+                $producto = $objCompraitem->getObjProducto();
+                $cantidadtotal = $producto->getProCantStock();
+                if($data == "2"){
+                    if($cantidadtotal > $cantidadComprada){
+                        $totalyn = $cantidadtotal - $cantidadComprada;
+                        $producto->setProCantStock($totalyn);
+                        $respuesta['respuesta'] = true;
+                        
+                    }else{
+                        $mensaje = "Tiene stock insuficiente";
+                        $respuesta['mensaje'] = $mensaje;
+                        $respuesta['respuesta'] = false;
+                        
+                    }
+                }elseif ($data == 4) {
+                    //hacer que vuelva a sumar el stock
+                    $totalito = $cantidadtotal + $cantidadComprada;
+                    $producto->setProCantStock($totalito);
+                    $respuesta['respuesta'] = true;
+                }elseif ($data == 3) {
+                        //se deja igual el stock pero se envia true para que siga el proceso
+                        $respuesta['respuesta'] = true;
+                }else{
+                    $mensaje = "Debe cambiar el estado tipo";
+                    $respuesta['mensaje'] = $mensaje;
+                    $respuesta['respuesta'] = false;
+                }    
+            } 
+        }else{
+            $respuesta['respuesta'] = false;
+            $respuesta['mensaje'] = "No existen items en su compra";  
+        }
+        return $respuesta;    
     }
-    
- */
 
    
 

@@ -341,31 +341,6 @@ class Compra extends db
     }
 
 
- //HACER FUNCION PARA RESTAR LA CANTIDAD DE PRODUCTOS.
-    //tengo que traer la compra, el compraitem y producto
-    public function cambiarStocksegunEstado($objCompraestado){
-        //obtengo el obj compra que tiene el objeto
-        $objCompra = $objCompraestado->getObjCompra();
-        //obtengo el obj estadotipo que tiene
-        $estadotipoObj = $objCompraestado->getObjCompraestadotipo();
-        //obtengo el id de la compra
-        $idCompra = $objCompra->getIdcompra();
-        
-        //obtengo el id de compraestadotipo
-        $idcompraestadotipo = $estadotipoObj->getIdcompraestadotipo();
-        //creo un array para realizar la bsuqueda de eso en el parametro en compraitem
-        $array = [];
-        $array['idcompra'] = $idCompra;
-        //$objCompraitem = new Compraitem();
-        $arraycompraitem = Compraitem::listar($array);
-        echo "<pre>";
-        var_dump($arraycompraitem);
-        echo "</pre>";
-        die();
-        
-
-        
-    
-    }
+ 
 
 }
