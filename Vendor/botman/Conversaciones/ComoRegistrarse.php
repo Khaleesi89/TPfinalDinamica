@@ -34,13 +34,13 @@ class ComoRegistrarse extends Conversation
                 //es valido xq el usuario respondio con los botones
                 if ($answer->getValue() == '1') {
                     //
-                    $this->say('Para realizar su registro, deberá tener un mail y su DNI. Le pediremos unos datos de tu tarjeta de DNI para comprobar su identidad. En su mail, recibirá un link para activar su cuenta. Si no realiza esa validación, su cuenta permanecerá inactiva y no podrá realizar comprar. Su link para registrarse es <a href= \'#\'> ESTE </a>');
+                    $this->say('Para realizar su registro, deberá tener un mail y su DNI. Le pediremos unos datos de tu tarjeta de DNI para comprobar su identidad. En su mail, recibirá un link para activar su cuenta. Si no realiza esa validación, su cuenta permanecerá inactiva y no podrá realizar comprar.');
                 } elseif ($answer->getValue() == '2') {
-                    $this->say('Si tiene problemas con su mail y no puede validar su cuenta, deberá realizar una nueva registración con un mail válido. La registración anterior caducará después de 30 días de creada pero no le impedirá realizar comprar. Si no recibió el mail de validación, haga click <a href= \'#\'> AQUI </a>');
+                    $this->say('Si tiene problemas con su mail y no puede validar su cuenta, deberá realizar una nueva registración con un mail válido. La registración anterior caducará después de 30 días de creada pero no le impedirá realizar comprar.');
                 } elseif ($answer->getValue() == '3') {
                     $this->say('Ud. verá el menú con el stock disponible y podrá realizar la compra cliqueando en "COMPRAR" y se guardará en el carrito de comprar y una vez que tenga su carrito de compra completo con sus compras, presione "FINALIZAR COMPRA" y lo dirigirá al sector de pagos para realizar el pago según el medio que utilice.');
                 } elseif ($answer->getValue() == '4') {
-                    $this->say('Lo dirigiremos a la división de ATENCIÓN AL CLIENTE sector PROBLEMAS TÉCNICOS para la solución de su problema, haga click <a href= \'#\'> AQUI </a>');
+                    $this->say('Ponganse en contacto con nosotros, mande un email a yonnylibros@gmail.com y lo ayudaremos.');
                 } 
             } else {
                 //el usuario no respondio a traves de los botones dados, si queremos leer ambas, solo sacamos la condicion

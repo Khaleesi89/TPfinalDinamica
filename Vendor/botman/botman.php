@@ -31,7 +31,7 @@ $botman->fallback(function ($bot) {
     $bot->reply('No comprendo \'' . $mensaje->getText() . '\', sea más específic@, por favor :)');
 });
 
-$botman->hears('(.*)compra(.*)|(.*)libro(.*)|(.*)adquirir(.*)|(.*)regalo(.*)|(.*)precio(.*)', function ($bot) {
+$botman->hears('(.*)compra(.*)|(.*)libro(.*)|(.*)adquirir(.*)|(.*)regalo(.*)|(.*)precio(.*)|(.*)contac(.*)|(.*)ubic(.*)', function ($bot) {
     $bot->typesAndWaits(2);
     $bot->startConversation(new ComoComprar());
 })->skipsConversation();

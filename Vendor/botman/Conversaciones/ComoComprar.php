@@ -24,7 +24,8 @@ class ComoComprar extends Conversation
                 Button::create('Cómo realizar una compra')->value('1'),
                 Button::create('Libros Disponibles')->value('2'),
                 Button::create('Desea realizar un regalo?')->value('3'),
-                
+                Button::create('Donde esta ubicada la libreria?')->value('4'),
+                Button::create('Información de contacto')->value('5'),
             ]);
         $this->ask($preguntas, function ($answer) {
             //pregunta a traves de los botones y el usuario responde
@@ -33,12 +34,16 @@ class ComoComprar extends Conversation
                 //es valido xq el usuario respondio con los botones
                 if ($answer->getValue() == '1') {
                     //
-                    $this->say('Para realizar un compra, primero debe Registrarse (para hacerlo <a href= \'#\'> AQUI </a> ) y una vez que esté logueado, podrá realizar su compra');
+                    $this->say('Para realizar un compra, primero debe registrarse, dirigase a la parte superior izquierda y presione sobre el icono de persona.');
                 } elseif ($answer->getValue() == '2') {
-                    $this->say('Consulte nuestros libros disponibles en compra inmediata <a href= \'#\'> AQUI </a>');
+                    $this->say('Para consultar nuestros libros disponibles vaya y haga click a "Productos".');
                 } elseif ($answer->getValue() == '3') {
-                    $this->say('Nuestro sistema de regalos es muy efectivo porque ud. con la compra de una gifcard, su agazajad@ puede elegir su libro de interés. Para saber más sobre este sistema, ingrese <a href= \'#\'> AQUI </a>');
-                } 
+                    $this->say('Elija el libro que quiera comprar, una vez finalizada la compra pongase en contacto con nosotros, dejenos los datos de contacto de la persona que reciba el regalo y este podra pasar a retirarlo en los horarios de atención.');
+                } elseif ($answer->getValue() == '4') {
+                    $this->say('Nuestra libreria está ubicada en la ciudad de Neuquén, en el Alto Comahue Shopping');
+                } elseif ($answer->getValue() == '5') {
+                    $this->say('Nuestro email: Yonnylibros@gmail.com. Nuestro número de telefono: 299546655.');
+                }
             } else {
                 //el usuario no respondio a traves de los botones dados, si queremos leer ambas, solo sacamos la condicion
                 $this->say('Seleccione una opción para seguir o si quiere salir ponga "chau"');

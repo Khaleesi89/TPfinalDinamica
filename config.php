@@ -23,6 +23,7 @@ $PRINCIPAL = "Location:http://".$_SERVER['HTTP_HOST']."/$PROYECTO/Views/home/ind
 
 //variable para ir a productos
 $PRODUCTOS = "Location:http://".$_SERVER['HTTP_HOST']."/$PROYECTO/Views/producto/producto_list.php";
+$PROD = "http://".$_SERVER['HTTP_HOST']."/$PROYECTO/Views/producto/producto_list.php";
 
 $GLOBALS['ROOT'] = $ROOT;
 

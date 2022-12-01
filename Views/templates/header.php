@@ -83,6 +83,7 @@
                 <a href="#ingresos">Ingresos</a>
                 <a href="#reviews">Reviews</a>
                 <a href="#contacto">Contacto</a>
+                <a href="<?php echo $PROD ?>">Productos</a>
 
             </nav>
         </div>
