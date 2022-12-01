@@ -1,6 +1,6 @@
 <?php
 
-require_once('../templates/header2.php');
+require_once('../templates/preheader.php');
 $objConCompraestadotipo = new CompraestadotipoController();
 $lista = $objConCompraestadotipo->listarTodo();
 ?>

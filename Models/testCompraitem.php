@@ -27,20 +27,31 @@ if($rta){
 }
 */
 //buscar FUNCA
+$busc['idcompra'] = 3;
+$rta = Compraitem::listar($busc);
+if(array_key_exists('array', $rta)){
+    //encontro algo 
+    var_dump($rta['array']);
+}else{
+    $array = [];
+}
+var_dump($rta);
 
+
+/* 
 $busc3 = [];
-$busc3['idcompraitem'] = 1;
-$buscado = $objCompraitem->buscar($busc3);
-/*
+$busc3['idcompraitem'] = 3;
+$buscado = $objCompraitem->buscar($busc3); */
+/* if($buscado['respuesta'])
 echo "<pre>";
 var_dump($objCompraitem);
-echo "</pre>";
-*/
+echo "</pre>"; */
+
 
 //modificar FUNCA
-$busc2 = [];
+/* $busc2 = [];
 $busc2['idcompraitem'] = 2;
-$comprBusc = $objCompraitem->buscar($busc2);
+$comprBusc = $objCompraitem->buscar($busc2); */
 //print_r($objCompra);
 //die();
 //$busc10['idproducto'] = 2;
@@ -62,9 +73,9 @@ if($chan['respuesta']){
 */
 
 //eliminar FUNCA
-$borra=$objCompraitem->eliminar();
+/* $borra=$objCompraitem->eliminar();
 if($borra){
     echo "pudiste nava";
 }else{
     echo "volate los sesos";
-}
+} */

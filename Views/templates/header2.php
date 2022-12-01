@@ -1,21 +1,18 @@
 <?php
 //nueva sesion 
 require_once('../../config.php');
+//require_once('preheader.php');
 
-$objSession = new SessionController();
+//$objSession = new SessionController();
 
 // Cambios de maxi
 // Cambios de Gonza, acá se valida cual header usar
 // Validar si las credenciales estan correctas 
 $rta = $objSession->activa();
 
-if ($rta == false) {
-    require_once('../templates/header.php');
-    //header($PRINCIPAL."?error=log");
-} else {
-    $variable = $objSession->obtenerRol();
+    /* $variable = $objSession->obtenerRol();
     $rol = $variable[0]->getObjRol()->getRodescripcion();
-    $menu[0] = 'Usuarios';
+    $menu[0] = 'Usuarios'; */
     $roles = $objSession->obtenerRol();
     //var_dump($roles);
     $rolesArr = [];
@@ -37,6 +34,7 @@ if ($rta == false) {
     //var_dump($menuesDelUsuario);
 
     $menuesTotales = $objSession->obtenerTodosMenues();
+    
 
     
     $obtenerURL = explode('/', $_SERVER['REQUEST_URI']);
@@ -46,18 +44,15 @@ if ($rta == false) {
     //var_dump($urlActual);
     $bandera = true;
     foreach ($menuesDelUsuario as $key => $value) {
-        if($value == $urlActual){
+        if($value == $urlActual || $urlActual == 'ABMhome'){
             $bandera = false;
         }
     }
+    
     //var_dump($bandera);
     if($bandera){
-        //redireccionar como sabe el gonza
-        ?>
-        <!-- <script>
-            location.href = 'TPfinalDinamica/Views/home/index.php';
-        </script> -->
-        <?php
+        $_GET['error'] = 'permiso';
+        header($PRINCIPAL."?error=permiso");
     }
 ?>
 
@@ -145,4 +140,4 @@ if ($rta == false) {
                 </nav>
             </div>
 
-        <?php } ?>
+        <?php //} ?>

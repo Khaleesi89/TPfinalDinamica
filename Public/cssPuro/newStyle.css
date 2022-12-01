@@ -512,6 +512,7 @@ li {
     font-size: 1.4rem;
     color: var(--light-color);
     padding: 1rem 0;
+    text-decoration: none;
 }
 
 .footer .box-container .box a i {

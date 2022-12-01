@@ -1,10 +1,23 @@
 <?php
     require_once('../../config.php');  
-    //$objSession = new SessionController();  
-    $url = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-    if($url != "http://virtualhostg/TPfinalDinamica/Views/home/index.php"){
-        header('Location: ../home/index.php');
+    //require_once('preheader.php');
+    $obtenerURL = explode('/', $_SERVER['REQUEST_URI']);
+    $obtenerURL = array_reverse($obtenerURL);
+    $var = 'producto';
+    $urlActual = $obtenerURL[1];
+    //var_dump($urlActual);
+    
+    $bandera = true;
+    if($urlActual == $var){
+        $bandera = false;
     }
+    if($urlActual == 'home'){
+        $bandera = false;
+    }
+    if($bandera){
+        header($PRINCIPAL."?error=permiso");
+    }
+    
 ?>
 
 
@@ -44,14 +57,7 @@
     <link rel="stylesheet" href="../../Vendor/themes/default/easyui.css">
     <link rel="stylesheet" href="../../Vendor/themes/icon.css">
     <link rel="stylesheet" href="../../Vendor/themes/color.css">
-    <script>
-        $('document').ready(function(){
-            <?php if(isset($_GET['error'])){
-                echo "<script>console.log('invalido');</script>";
-            echo "<script>alert('Las credenciales son inválidas');</script>";
-        } ?>
-        })
-    </script>
+    
 </head>
 
 <body>
@@ -64,7 +70,7 @@
                     <div id="search-btn" class="fas fa-search"></div>
                     <a href="#" class="fas fa-shopping-cart"></a>
                     
-                    <div id="login-btn" class="fas fa-user"><?php if(isset($_SESSION['usnombre'])){ echo $_SESSION['usnombre'];} ?></div>
+                    <div id="login-btn" class="fas fa-user"></div>
                 </div>
         </div>
 

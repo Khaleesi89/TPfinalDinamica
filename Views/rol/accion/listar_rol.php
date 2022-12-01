@@ -1,16 +1,17 @@
 <?php
-require_once('../templates/header2.php');
+require_once('../../../config.php');
+$objSession = new SessionController();
 $objRolCon = new RolController();
 try {
-    $rol = $objSession->getUsRol();
-    $rol = $objSession->getUsRol();
-if($rol != ''){
-    if($rol == 'Admin'){
-        $lista = $objRolCon->listarTodo();
-    }elseif($rol == 'Cliente' || $rol == 'Deposito'){
-        $lista = [];
+    $rol = $objSession->getRolPrimo();
+    
+    if($rol != ''){
+        if($rol == 'Admin'){
+            $lista = $objRolCon->listarTodo();
+        }elseif($rol == 'Cliente' || $rol == 'Deposito'){
+            $lista = [];
+        }
     }
-}
 } catch (\Throwable $th) {
     $rol = '';
     $lista = [];//  ['idproducto' => '', 'pronombre' => '', 'sinopsis'=>'', 'procantstock'=>'', 'autor'=>'', 'precio'=>'', 'isbn'=>'', 'categoria'=>''];

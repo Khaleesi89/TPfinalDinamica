@@ -6,7 +6,19 @@ class CompraitemController extends MasterController
 {
     use Errores;
 
-    public function listarTodo( $param ) {
+    public function listarTodo($arrBus){
+        $arrayTotal = Compraitem::listar($arrBus);
+        if(array_key_exists('array', $arrayTotal)){
+            $array = $arrayTotal['array'];
+        }else{
+            $array = [];
+        }
+        
+        //var_dump($array);
+        return $array;    
+    }
+
+    public function listarTodos( $param ) {
         if( $param = null ) {
             $arrayBus['idcompraitem'] = NULL;
             $arrayTotal = Compraitem::listar( $arrayBus );

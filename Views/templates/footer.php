@@ -31,6 +31,22 @@
     </div>
 </footer>
 
+<script>
+    window.onload = load();
+
+    function load() {
+        <?php if( isset($_GET['error']) ){
+            $error = $_GET['error'];
+            if( $error == 'log' ){
+                echo "alert('Las credenciales son inválidas');";
+            } elseif( $error == 'permiso' ){
+                echo "alert('No posee permiso para acceder aquella página');";
+            } else {
+                echo "alert('Error desconocido');";
+            }
+        } ?>
+    }
+</script>
 
 <!-- Swiper -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
