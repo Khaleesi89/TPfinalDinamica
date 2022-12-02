@@ -50,7 +50,7 @@ $rta = $objSession->activa();
     } */
     
     //var_dump($bandera);
-    if($objSession->validarURL()){
+    if($objSession->tienePermiso()){
         $_GET['error'] = 'permiso';
         header($PRINCIPAL."?error=permiso");
     }

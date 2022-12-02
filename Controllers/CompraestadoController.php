@@ -129,13 +129,13 @@ class CompraestadoController extends MasterController {
     public function eliminar(){
         $rta = $this->buscarId();
         $response = false;
-        if($rta['respuesta']){
+        if( $rta['respuesta'] ){
             $objProducto = $rta['obj'];
             $respEliminar = $objProducto->eliminar();
-            if($respEliminar['respuesta']){
+            if( $respEliminar['respuesta'] ){
                 $response = true;
             }
-        }else{
+        } else {
             //no encontro el obj
             $response = false;
         }

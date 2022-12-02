@@ -150,7 +150,7 @@ class SessionController extends MasterController {
         return $arrMen;    
     }
 
-    public function validarURL(){
+    public function tienePermiso(){
         $obtenerURL = explode('/', $_SERVER['REQUEST_URI']);
         $obtenerURL = array_reverse($obtenerURL);
         $var = 'ABM';
